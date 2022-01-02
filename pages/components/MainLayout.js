@@ -5,7 +5,9 @@ export default function MainLayout({ children }) {
   return (
     <>
       <NavBar></NavBar>
-      <main className={styles.main}>{children}</main>
+      <main className={styles.main}>
+        <div className="container"> {children}</div>
+      </main>
 
       <footer className={styles.footer}>
         <a
