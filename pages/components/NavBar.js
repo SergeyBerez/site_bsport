@@ -6,18 +6,25 @@ export default function NavBar(props) {
   const [gamburger, setGamburger] = useState('');
 
   useEffect(() => {
-    console.log(' useEffect');
+    console.log(' useEffect scroll');
     document.body.style.overflow = 'scroll';
     document.body.classList.remove('bg');
   }, []);
 
   const openMenu = () => {
     if (open === 'none') {
+      document.body.removeEventListener('click', function (e) {
+        console.log(e.target);
+      });
       document.body.style.overflow = 'scroll';
+
       document.body.classList.remove('bg');
       setOpen('');
       setGamburger('');
     } else {
+      document.body.addEventListener('click', function (e) {
+        console.log(e.currentTarget);
+      });
       document.body.classList.add('bg');
       document.body.style.overflow = 'hidden';
       setOpen('none');
@@ -88,7 +95,7 @@ export default function NavBar(props) {
           position: fixed;
           width: 100%;
           height: 70px;
-
+          background: #ececec;
           color: #fff;
           justify-content: center;
           align-items: center;
