@@ -1,25 +1,24 @@
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
-import { useAppContext } from '../context/firebaseContext';
 import MainLayout from './components/MainLayout';
-import Card from './components/Card';
-export default function Pants() {
+import { useAppContext } from '../context/firebaseContext';
+import { useRouter } from 'next/router';
+
+export default function Shorts() {
   const router = useRouter();
 
   const { loading, good, getGood } = useAppContext();
-
   useEffect(() => {
     getGood(router.pathname);
   }, []);
+
   return (
     <MainLayout>
-      <h3 className="title-product-block">штаны</h3>
+      <h3>шорты</h3>{' '}
       {loading ? (
         <h1>...loading</h1>
       ) : (
         good.map((good) => {
-          // return <p key={good.id}>{good.title}</p>;
-          return <Card key={good.id} title={good.title} price={good.price}></Card>;
+          return <p key={good.id}>{good.title}</p>;
         })
       )}
     </MainLayout>

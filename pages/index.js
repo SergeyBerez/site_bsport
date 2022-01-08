@@ -1,8 +1,16 @@
 import Head from 'next/head';
-
+import { useEffect } from 'react';
 import MainLayout from './components/MainLayout';
+import Slider from '../context/Slider';
 
-export default function index(props) {
+import { useAppContext } from '../context/firebaseContext';
+export default function Index(props) {
+  const { good, getGood } = useAppContext();
+  useEffect(() => {
+    console.log(' useEffect redner index', good);
+    // getGood('pants');
+  }, []);
+
   return (
     <MainLayout>
       <Head>
@@ -11,6 +19,7 @@ export default function index(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>home</h1>
+      <Slider></Slider>
     </MainLayout>
   );
 }

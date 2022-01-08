@@ -1,6 +1,12 @@
 .main {
   border: 1px solid red;
-  padding-top: 70px;
+  /* padding-top: 70px; */
 
-  height: 100vh;
+  min-height: 100vh;
+}
+.product-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
 }
