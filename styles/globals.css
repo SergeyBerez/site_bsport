@@ -1,13 +1,19 @@
 html,
 body {
+  overflow-y: scroll;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-.bg {
-  transition: 0.3s;
-  background: rgba(65, 63, 63, 0.507);
+.bg:not(.style-scope) {
+  z-index: 999;
+  background-color: rgba(65, 63, 63, 0.329);
+
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
 }
 a {
   color: inherit;
@@ -81,15 +87,6 @@ button {
   flex-grow: 1;
   text-align: center;
 }
-.productCard_block {
-  margin: 1%;
-  flex-grow: 1;
-  flex-basis: 16%;
-
-  border: 1px solid #000;
-  box-shadow: 0 5px 21px rgba(0, 0, 0, 0.08);
-  background-color: #fff;
-}
 
 .swiper-button-next,
 .swiper-button-prev,
@@ -101,10 +98,10 @@ button {
 }
 
 /* LEFT SIDE */
-.productCard_leftSide {
+/* .productCard_leftSide {
   width: 100%;
   min-height: 600px;
-}
+} */
 
 /* .productCard_brendBlock {
   width: 100%;
@@ -131,6 +128,10 @@ button {
 
 /*   RIGHT SIDE */
 .productCard_rightSide {
+  /* height: 100%;
+  justify-content: center;
+  align-items: center; */
+
   /* position: relative;
   padding-top: 34px;
   padding-left: 27px;
@@ -140,7 +141,6 @@ button {
 }
 
 .block_specification {
-  float: right;
   margin-top: 8px;
   cursor: pointer;
   color: #536dfe;
@@ -197,9 +197,6 @@ button {
   font-size: 24px;
 }
 
-.block_product {
-  width: 100%;
-}
 .block_product__advantagesProduct {
   /* width: 271px;
   height: 41px; */
@@ -215,17 +212,6 @@ button {
 
 .block_informationAboutDevice {
   width: 100%;
-}
-
-.block_descriptionInformation {
-  /* width: 304px;
-  height: 104px; */
-  max-width: 300px;
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 23px;
-  color: #263238;
 }
 
 /* .block_descriptionCharacteristic {
@@ -348,7 +334,7 @@ input[type='radio'] + label {
 }
 
 .block_goodColor {
-  margin-top: 29px;
+  margin-top: 10px;
   width: 100%;
 }
 .block_goodColor__allColors {
@@ -399,4 +385,30 @@ input[type='radio'] + label {
 }
 .button.button_addToCard:hover {
   background-color: #0d2660;
+}
+
+.lds-circle {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  background: rgb(37, 33, 33);
+  animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+@keyframes lds-circle {
+  0%,
+  100% {
+    animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
+  }
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(1800deg);
+    animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  100% {
+    transform: rotateY(3600deg);
+  }
 }
