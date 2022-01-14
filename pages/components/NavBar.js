@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import Image from 'next/image';
-//import Logo from '../../public/img/';
+import Logo from '../../public/img/logo.png';
 import { useState, useRef, useEffect, useDebugValue } from 'react';
 import { useRouter } from 'next/router';
 
@@ -13,7 +13,6 @@ export default function NavBar(props) {
   useEffect(() => {
     console.log(' useEffect scroll  redner NavBar');
 
-    document.body.style.overflow = 'scroll';
     // document.body.classList.remove('bg');
   }, []);
 
@@ -30,6 +29,7 @@ export default function NavBar(props) {
       setGamburger('');
     } else {
       // document.body.addEventListener('click', hide);
+      // document.body.style.top = '0px';
       // document.body.classList.add('bg');
       document.body.style.overflow = 'hidden';
       setOpen('none');
@@ -39,6 +39,7 @@ export default function NavBar(props) {
   return (
     <>
       <header className="header-nav" tabIndex="0">
+        {' '}
         <button
           onClick={(e) => {
             toggleMenu();
@@ -52,7 +53,7 @@ export default function NavBar(props) {
         <div className="header-title">меню</div>
         <div className="header-logo">
           {/* <img src="" alt="" /> */}
-          {/* <Image src={Logo}  alt="logo" ></Image> */}
+          <Image width={70} height={70} src={Logo} alt="logo"></Image>
         </div>
       </header>
 
@@ -126,10 +127,14 @@ export default function NavBar(props) {
           position: fixed;
           width: 100%;
           height: 70px;
-          background: #ececec;
+          background: white;
           z-index: 999;
-          justify-content: flex-start;
+          // justify-content: space-between;
           align-items: center;
+        }
+        .header-logo {
+          margin: 0 auto;
+          // border: 1px solid #000;
         }
         .header-nav ul {
           display: flex;
@@ -247,7 +252,7 @@ export default function NavBar(props) {
           top: 0;
           left: 0;
           height: calc(100% - 70px);
-          background: #ececec;
+          background: white;
           pointer-events: auto;
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           transform: translateX(-100%);

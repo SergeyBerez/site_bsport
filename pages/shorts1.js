@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import MainLayout from './components/MainLayout';
 import { useAppContext } from '../context/firebaseContext';
 import { useRouter } from 'next/router';
-
+import Cards from './components/Card';
 export default function Shorts() {
   const router = useRouter();
 
@@ -13,12 +13,19 @@ export default function Shorts() {
 
   return (
     <MainLayout>
-      <h3>шорты</h3>{' '}
+      <h3 className="title-product-block">шорты</h3>{' '}
       {loading ? (
         <h1>...loading</h1>
       ) : (
         good.map((good) => {
-          return <p key={good.id}>{good.title}</p>;
+          return (
+            <Cards
+              id={good.id}
+              key={good.id}
+              title={good.title}
+              price={good.price}
+              url={good.url}></Cards>
+          );
         })
       )}
     </MainLayout>

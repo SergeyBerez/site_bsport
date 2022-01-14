@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAppContext } from '../context/firebaseContext';
+import Cards from './components/Card';
 import MainLayout from '/pages/components/MainLayout';
 export default function Kostums() {
   const router = useRouter();
@@ -12,12 +13,19 @@ export default function Kostums() {
 
   return (
     <MainLayout>
-      <h3>костюмы</h3>
+      <h3 className="title-product-block">костюмы</h3>
       {loading ? (
         <h1>...loading</h1>
       ) : (
         good.map((good) => {
-          return <p key={good.id}>{good.title}</p>;
+          return (
+            <Cards
+              id={good.id}
+              key={good.id}
+              title={good.title}
+              price={good.price}
+              url={good.url}></Cards>
+          );
         })
       )}
     </MainLayout>
