@@ -12,12 +12,9 @@ const firebaseConfig = {
   projectId: 'b-sportwear-shop',
   storageBucket: 'b-sportwear-shop.appspot.com',
   messagingSenderId: '852156358107',
-  appId: '1:852156358107:web:7f728f95d0cd0079b25bfe',
-  measurementId: 'G-QHFSLLVTXE',
+  appId: '1:852156358107:web:f2496a4d4c44932bb25bfe',
+  measurementId: 'G-PR95NG6NW6',
 };
-// if (!firebase.apps.length) {
-
-// }
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 export default function FirebaseContext({ children }) {

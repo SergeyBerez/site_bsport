@@ -6,8 +6,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-.bg:not(.style-scope) {
-  z-index: 999;
+.bg {
+  /* z-index: 999; */
+  /* filter: blur(4px); */
   background-color: rgba(65, 63, 63, 0.329);
 
   position: fixed;
@@ -309,18 +310,6 @@ input[type='radio'] + label {
   float: right;
 }
 
-.block_price {
-  margin-top: 29px;
-  width: 100%;
-}
-.block_price__currency {
-  padding: 0;
-  margin: 0;
-  vertical-align: top;
-  color: #f1425d;
-  font-size: 26px;
-  font-weight: 600;
-}
 .block_price__shipping {
   padding: 0;
   margin: 0;

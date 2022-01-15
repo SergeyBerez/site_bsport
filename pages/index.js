@@ -3,11 +3,10 @@ import { useEffect } from 'react';
 import MainLayout from './components/MainLayout';
 import Slider from '../context/Slider';
 import New from './components/action';
-import { useAppContext } from '../context/firebaseContext';
-export default function Index(props) {
-  const { good, getGood } = useAppContext();
+// import { useAppContext } from '../context/firebaseContext';
+export default function Index() {
+  // const { good, getGood } = useAppContext();
   useEffect(() => {
-    console.log(' useEffect redner index', good);
     // getGood('pants');
   }, []);
 

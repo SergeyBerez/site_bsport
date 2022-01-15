@@ -1,10 +1,12 @@
 import React from 'react';
 
-export default function detail({ v }) {
+export default function detail({ v, onClick }) {
   console.log(v);
   return (
     <>
-      <button className="button25">{v}</button>
+      <button onClick={onClick} className="button25">
+        {v}
+      </button>
       <style jsx>{`
         button.button25 {
           position: relative;

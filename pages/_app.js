@@ -3,7 +3,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import '../styles/globals.css';
-//import '../styles/reset.css';
+import '../styles/reset.css';
 
 import Context from '../context/firebaseContext';
 

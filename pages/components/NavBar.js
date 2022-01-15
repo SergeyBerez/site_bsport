@@ -13,7 +13,7 @@ export default function NavBar(props) {
   useEffect(() => {
     console.log(' useEffect scroll  redner NavBar');
 
-    // document.body.classList.remove('bg');
+    document.body.classList.remove('bg');
   }, []);
 
   const toggleMenu = () => {
@@ -24,13 +24,13 @@ export default function NavBar(props) {
       // document.body.removeEventListener('click', hide);
       document.body.style.overflow = 'scroll';
 
-      // document.body.classList.remove('bg');
+      document.body.classList.remove('bg');
       setOpen('');
       setGamburger('');
     } else {
       // document.body.addEventListener('click', hide);
-      // document.body.style.top = '0px';
-      // document.body.classList.add('bg');
+      document.body.style.top = '0px';
+      document.body.classList.add('bg');
       document.body.style.overflow = 'hidden';
       setOpen('none');
       setGamburger('transform-button');
@@ -39,7 +39,10 @@ export default function NavBar(props) {
   return (
     <>
       <header className="header-nav" tabIndex="0">
-        {' '}
+        <div className="header-logo">
+          {' '}
+          <Image width={70} height={70} src={Logo} alt="logo"></Image>
+        </div>{' '}
         <button
           onClick={(e) => {
             toggleMenu();
@@ -49,33 +52,29 @@ export default function NavBar(props) {
           <span className={'icon-bar ' + gamburger}></span>
           <span className={'icon-bar ' + gamburger}></span>
           <span className={'icon-bar ' + gamburger}></span>
+          <span className="header-title">меню</span>
         </button>
-        <div className="header-title">меню</div>
-        <div className="header-logo">
-          {/* <img src="" alt="" /> */}
-          <Image width={70} height={70} src={Logo} alt="logo"></Image>
-        </div>
+        <nav className="nav-header">
+          <ul>
+            <li className={router.pathname == '/shorts' ? 'active' : ''}>
+              <Link href="/shorts">
+                <a>шорты</a>
+              </Link>
+            </li>
+            <li className={router.pathname == '/sport-kostums' ? 'active' : ''}>
+              <Link href="/sport-kostums">
+                <a>костюмы</a>
+              </Link>
+            </li>
+            <li className={router.pathname == '/pants' ? 'active' : ''}>
+              <Link href="/pants">
+                <a>брюки</a>
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </header>
 
-      <nav className="second-header">
-        <ul>
-          <li className={router.pathname == '/shorts' ? 'active' : ''}>
-            <Link href="/shorts">
-              <a>шорты</a>
-            </Link>
-          </li>
-          <li className={router.pathname == '/sport-kostums' ? 'active' : ''}>
-            <Link href="/sport-kostums">
-              <a>костюмы</a>
-            </Link>
-          </li>
-          <li className={router.pathname == '/pants' ? 'active' : ''}>
-            <Link href="/pants">
-              <a>брюки</a>
-            </Link>
-          </li>
-        </ul>
-      </nav>
       <nav className="nav-container-sidebar">
         <div className="nav-content" tabIndex="0" style={{ transform: open }}>
           <ul>
@@ -129,25 +128,29 @@ export default function NavBar(props) {
           height: 70px;
           background: white;
           z-index: 999;
-          // justify-content: space-between;
+          //justify-content: space-between;
           align-items: center;
         }
         .header-logo {
-          margin: 0 auto;
+          //margin: 0 auto;
           // border: 1px solid #000;
         }
-        .header-nav ul {
+        .nav-header {
+          flex-grow: 1;
+        }
+        .nav-header ul {
+          width: 100%;
           display: flex;
           justify-content: space-around;
           align-items: center;
         }
-        .header-nav li {
+        .nav-header li {
           padding: 10px 5px;
           display: block;
           text-transform: uppercase;
           transition: color 0.1s;
         }
-        .header-nav li a {
+        .nav-header li a {
           padding: 10px 5px;
           display: block;
 
@@ -157,13 +160,12 @@ export default function NavBar(props) {
         .active a {
           font-weight: bold;
         }
-        .header-nav li a:hover {
+        .nav-header li a:hover {
           opacity: 0.7;
         }
 
         .second-header {
-          width: 100%;
-          padding-top: 70px;
+          // width: 100%;
         }
         .second-header ul {
           display: flex;
@@ -211,12 +213,20 @@ export default function NavBar(props) {
           width: 30px;
           cursor: pointer;
           pointer-events: auto;
-          margin-left: 25px;
+          margin-left: 5px;
           touch-action: manipulation;
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         }
         .header-title {
-          margin-left: 20px;
+          margin-top: 2px;
+          font-size: 10px;
+          color: #323232;
+          font-family: 'LabGrotesque';
+          font-size: 10px;
+          line-height: 15px;
+          text-transform: uppercase;
+          font-weight: 400;
+          text-align: center;
         }
         .icon-bar {
           display: block;

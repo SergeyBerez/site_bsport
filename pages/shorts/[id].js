@@ -2,8 +2,8 @@ import CardDetail from '../components/CardDetail';
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
 import MainLayout from '../components/MainLayout';
-import { useRouter } from 'next/router';
-export default function ({ goods }) {
+
+export default function Shorts({ goods }) {
   const good = JSON.parse(goods);
   return (
     <MainLayout>

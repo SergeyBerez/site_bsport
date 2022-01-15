@@ -16,6 +16,7 @@ export default function Card({ id, title, description, price, url }) {
 
   const goToCardDetail = (e) => {
     e.stopPropagation();
+    console.log('ddd');
     router.push(`${router.pathname}/${id}`);
   };
 
@@ -27,27 +28,17 @@ export default function Card({ id, title, description, price, url }) {
   return (
     <>
       <div className={style.productCard_block}>
-        <p className="block_model">
-          <span className="block_model__text">Model: </span>
-          <span className="block_model__number">505795</span>
-        </p>
+        <div onClick={goToCardDetail} className={style.block_product}>
+          <Image src={image} width={250} height={300} alt="logo"></Image>
+          <h5 className={style['product-card__title']}>{title}</h5>
 
-        <div className={style.block_product}>
-          <h2 className="block_name block_name__mainName">{title}</h2>
-          <h2 className="block_name block_name__addName">Wireless Black</h2>
-
-          <p className="block_product__advantagesProduct">
-            Wireless headphones with integrated microphone
-          </p>
-
-          <div className={style.block_descriptionInformation}>
+          {/* <div className={style.block_descriptionInformation}>
             <span>{description}</span>
-          </div>
+          </div> */}
           {/* <img src={image}></img> */}
 
-          <Image src={image} width={300} height={300} alt="logo"></Image>
-          <div className="block_price">
-            <p className="block_price__currency">{price}</p>
+          <div className={style['block_price']}>
+            <p className={style['block_price__currency']}>{price}</p>
             <p className="block_price__shipping">Shipping and taxes extra</p>
           </div>
           {/* <div className="block_goodColor">
@@ -79,8 +70,6 @@ export default function Card({ id, title, description, price, url }) {
             подробно...
            
           </button> */}
-
-          <Detail onClick={goToCardDetail} v={'подробно...'}></Detail>
         </div>
       </div>
     </>

@@ -5,10 +5,9 @@ import { useRouter } from 'next/router';
 import MainLayout from '../components/MainLayout';
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
-// import { query } from 'firebase/firestore/lite';
-export default function ({ goods }) {
+
+export default function Pants({ goods }) {
   const good = JSON.parse(goods);
-  const router = useRouter();
 
   return (
     <MainLayout>

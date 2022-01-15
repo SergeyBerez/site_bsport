@@ -1,5 +1,6 @@
 {
   "name": "bsportwear",
+  "main": "function.js",
   "private": true,
   "scripts": {
     "dev": "next dev",
