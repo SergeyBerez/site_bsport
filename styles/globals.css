@@ -1,11 +1,12 @@
 html,
 body {
-  overflow-y: scroll;
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: euclid circular a, sans-serif;
+  /* font-family: -apple-system, euclid circular a, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, , sans-serif; */
 }
+
 .bg {
   /* z-index: 999; */
   /* filter: blur(4px); */

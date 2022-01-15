@@ -38,8 +38,8 @@ export default function Card({ id, title, description, price, url }) {
           {/* <img src={image}></img> */}
 
           <div className={style['block_price']}>
-            <p className={style['block_price__currency']}>{price}</p>
-            <p className="block_price__shipping">Shipping and taxes extra</p>
+            {price} грн
+            {/* <p className={style['block_price__currency']}></p> */}
           </div>
           {/* <div className="block_goodColor">
             <span className="text_specification">Choose your colors:</span>

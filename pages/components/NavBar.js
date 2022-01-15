@@ -1,5 +1,6 @@
 import Link from 'next/link';
-
+import user from '../../public/img/user2.svg';
+import cart from '../../public/img/cart.svg';
 import Image from 'next/image';
 import Logo from '../../public/img/logo.png';
 import { useState, useRef, useEffect, useDebugValue } from 'react';
@@ -38,24 +39,24 @@ export default function NavBar(props) {
   };
   return (
     <>
-      <header className="header-nav" tabIndex="0">
-        <div className="header-logo">
-          {' '}
-          <Image width={70} height={70} src={Logo} alt="logo"></Image>
-        </div>{' '}
-        <button
-          onClick={(e) => {
-            toggleMenu();
-          }}
-          className="button"
-          tabIndex="0">
+      <header className="header" tabIndex="0">
+        <button onClick={toggleMenu} className="button" tabIndex="0">
           <span className={'icon-bar ' + gamburger}></span>
           <span className={'icon-bar ' + gamburger}></span>
           <span className={'icon-bar ' + gamburger}></span>
           <span className="header-title">меню</span>
         </button>
+        <div className="header-logo">
+          {' '}
+          <Image width={70} height={70} src={Logo} alt="logo"></Image>
+        </div>{' '}
         <nav className="nav-header">
           <ul>
+            <li className={router.pathname == '/' ? 'active' : ''}>
+              <Link href="/">
+                <a>Главная</a>
+              </Link>
+            </li>
             <li className={router.pathname == '/shorts' ? 'active' : ''}>
               <Link href="/shorts">
                 <a>шорты</a>
@@ -73,6 +74,16 @@ export default function NavBar(props) {
             </li>
           </ul>
         </nav>
+        <div className="block-user-cart">
+          <div className="user-header">
+            {' '}
+            <Image width={30} height={30} src={user} alt="logo"></Image>
+          </div>
+          <div className="cart-header">
+            {' '}
+            <Image width={30} height={30} src={cart} alt="logo"></Image>
+          </div>
+        </div>
       </header>
 
       <nav className="nav-container-sidebar">
@@ -83,17 +94,19 @@ export default function NavBar(props) {
                 <a>Главная</a>
               </Link>
             </li>
-            <li className={router.pathname == '/sport-kostums' ? 'active' : ''}>
+            <li
+              className={router.pathname == '/sport-kostums' ? 'active' : ''}
+              onClick={toggleMenu}>
               <Link href="/sport-kostums">
                 <a>костюмы</a>
               </Link>
             </li>
-            <li className={router.pathname == '/pants' ? 'active' : ''}>
+            <li className={router.pathname == '/pants' ? 'active' : ''} onClick={toggleMenu}>
               <Link href="/pants">
                 <a> брюки</a>
               </Link>
             </li>
-            <li className={router.pathname == '/shorts' ? 'active' : ''}>
+            <li className={router.pathname == '/shorts' ? 'active' : ''} onClick={toggleMenu}>
               <Link href="/shorts">
                 <a>шорты</a>
               </Link>
@@ -116,30 +129,34 @@ export default function NavBar(props) {
   width: 100%;
   height: 20vh;
   background: #fdfdfd;
-  font-family: 'Encode Sans Condensed', sans-serif;
+  
   font-weight: 600;
   letter-spacing: 0.03em;
   color: #212121;
 } */
-        .header-nav {
+        .header {
+          font-weight: 600;
+          font-size: 0.875rem;
           display: flex;
           position: fixed;
           width: 100%;
           height: 70px;
-          background: white;
+          background: #fff;
           z-index: 999;
-          //justify-content: space-between;
+          justify-content: space-between;
           align-items: center;
+          box-shadow: 0 5px 4px -4px rgba(0, 0, 0, 0.2);
         }
         .header-logo {
           //margin: 0 auto;
           // border: 1px solid #000;
         }
         .nav-header {
-          flex-grow: 1;
+          // flex-grow: 1;
+          display: none;
         }
         .nav-header ul {
-          width: 100%;
+          // width: 100%;
           display: flex;
           justify-content: space-around;
           align-items: center;
@@ -164,28 +181,35 @@ export default function NavBar(props) {
           opacity: 0.7;
         }
 
-        .second-header {
-          // width: 100%;
-        }
-        .second-header ul {
+        // .second-header {
+
+        // }
+        // .second-header ul {
+        //   display: flex;
+        //   justify-content: space-around;
+        //   align-items: center;
+        // }
+        // .second-header li {
+        // }
+        // .second-header li a {
+        //   padding: 5px 2px;
+        //   display: block;
+
+        //   text-transform: uppercase;
+        //   transition: color 0.1s;
+        // }
+
+        // .second-header li a:hover {
+        //   opacity: 0.7;
+        // }
+        .block-user-cart {
           display: flex;
-          justify-content: space-around;
-          align-items: center;
         }
-        .second-header li {
+        .user-header,
+        .cart-header {
+          cursor: pointer;
+          margin-right: 20px;
         }
-        .second-header li a {
-          padding: 5px 2px;
-          display: block;
-
-          text-transform: uppercase;
-          transition: color 0.1s;
-        }
-
-        .second-header li a:hover {
-          opacity: 0.7;
-        }
-
         .nav-container-sidebar {
           position: fixed;
           z-index: 999;
@@ -213,9 +237,17 @@ export default function NavBar(props) {
           width: 30px;
           cursor: pointer;
           pointer-events: auto;
-          margin-left: 5px;
+          margin-left: 15px;
           touch-action: manipulation;
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        @media (min-width: 900px) {
+          .button {
+            display: none;
+          }
+          .nav-header {
+            display: flex;
+          }
         }
         .header-title {
           margin-top: 2px;
@@ -239,9 +271,6 @@ export default function NavBar(props) {
           margin-top: 5px;
         }
 
-        /* .nav-container-sidebar:focus-within .button {
-  pointer-events: none;
-} */
         .icon-bar.transform-button:nth-of-type(1) {
           transform: translate3d(0, 8px, 0) rotate(45deg);
         }
@@ -254,7 +283,7 @@ export default function NavBar(props) {
 
         .nav-content {
           margin-top: 70px;
-          padding: 20px;
+          padding: 20px 0;
           width: 90%;
           max-width: 300px;
           position: fixed;
@@ -276,9 +305,11 @@ export default function NavBar(props) {
           display: flex;
           flex-direction: column;
         }
-
+        .nav-content ul li {
+          border-bottom: 1px solid #b4abab;
+        }
         .nav-content li a {
-          padding: 10px 5px;
+          padding: 10px 10px;
           display: block;
           text-transform: uppercase;
           transition: color 0.1s;

@@ -9,13 +9,15 @@
 }
 .block_product:hover {
   cursor: pointer;
+  background-color: rgba(66, 65, 65, 0.123);
+  transition: 0.7s;
 }
 .productCard_block {
   display: flex;
   flex-direction: column;
   margin: 10px;
   box-shadow: 0 5px 21px rgba(0, 0, 0, 0.171);
-  background-color: rgb(243, 239, 239);
+  /* background-color: rgb(243, 239, 239); */
 }
 .product-card__title {
   padding-top: 2px;
@@ -55,14 +57,14 @@
     margin: 5px;
     flex-grow: 0;
     flex-basis: calc(100% / 2 - 10px);
-    min-width: 270px;
+    min-width: 180px;
   }
 }
 @media (min-width: 480px) {
   .productCard_block {
     margin: 5px;
     flex-grow: 0;
-    flex-basis: calc(100% / 2 - 10px);
+    flex-basis: calc(100% / 3 - 10px);
     min-width: 200px;
   }
 }

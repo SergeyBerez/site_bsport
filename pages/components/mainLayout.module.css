@@ -1,5 +1,4 @@
 .main {
-  border: 1px solid red;
   padding-top: 70px;
 
   min-height: 100vh;
@@ -10,8 +9,6 @@
   justify-content: center;
   flex-wrap: wrap;
   margin: 0 -10px;
-
-  border: 1px solid #000;
 }
 
 .footer {
