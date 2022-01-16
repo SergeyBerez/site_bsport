@@ -2,11 +2,19 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: euclid circular a, sans-serif;
-  /* font-family: -apple-system, euclid circular a, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, , sans-serif; */
-}
 
+  /* font-family: LabGrotesque, sans-serif; */
+
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-locale: 'ua';
+  font-family: -apple-system, euclid circular a, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, , sans-serif;
+}
+body,
+#__next {
+  font-family: euclid circular a, sans-serif;
+  min-height: 100%;
+}
 .bg {
   /* z-index: 999; */
   /* filter: blur(4px); */

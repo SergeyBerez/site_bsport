@@ -27,50 +27,12 @@ export default function Card({ id, title, description, price, url }) {
   }, [url]);
   return (
     <>
-      <div className={style.productCard_block}>
-        <div onClick={goToCardDetail} className={style.block_product}>
-          <Image src={image} width={250} height={300} alt="logo"></Image>
-          <h5 className={style['product-card__title']}>{title}</h5>
+      <div className={style.productCard_block} onClick={goToCardDetail}>
+        <Image src={image} width={250} height={300} alt="logo"></Image>
+        <h4 className={style['product-card__title']}>{title}</h4>
 
-          {/* <div className={style.block_descriptionInformation}>
-            <span>{description}</span>
-          </div> */}
-          {/* <img src={image}></img> */}
-
-          <div className={style['block_price']}>
-            {price} грн
-            {/* <p className={style['block_price__currency']}></p> */}
-          </div>
-          {/* <div className="block_goodColor">
-            <span className="text_specification">Choose your colors:</span>
-            <div className="block_goodColor__allColors">
-              <input
-                    type="radio"
-                    name="colorOfItem"
-                    className="radio_button"
-                    id="radioColor"
-                    checked
-                  />
-                  <label
-                    htmlFor="radioColor"
-                    className="block_goodColor__radio block_goodColor__black"></label>
-                  <input
-                    type="radio"
-                    name="colorOfItem"
-                    className="radio_button"
-                    id="radioColor2"
-                  />
-                  <label
-                    htmlFor="radioColor2"
-                    className="block_goodColor__radio block_goodColor__silver"></label>
-            </div>
-          </div> */}
-
-          {/* <button className={style.button_addToCard} onClick={goToCardDetail}>
-            подробно...
-           
-          </button> */}
-        </div>
+        <div className={style['block_price']}>{price} грн</div>
+        {/* <div onClick={goToCardDetail} className={style.block_product}></div> */}
       </div>
     </>
   );
