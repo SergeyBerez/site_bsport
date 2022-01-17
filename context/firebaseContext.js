@@ -20,7 +20,7 @@ const db = getFirestore(app);
 export default function FirebaseContext({ children }) {
   const [good, setGood] = useState([]);
   const [onegood, setOneGood] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const getGood = (params) => {
     return getGoods(db, params);
   };
@@ -60,7 +60,7 @@ export default function FirebaseContext({ children }) {
     }
   }
   useEffect(() => {
-    getGood('pants');
+    // getGood('pants');
   }, []);
 
   return (

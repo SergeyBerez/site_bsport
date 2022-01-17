@@ -2,7 +2,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-
+  color: #323232;
   /* font-family: LabGrotesque, sans-serif; */
 
   -webkit-font-smoothing: subpixel-antialiased;
@@ -409,4 +409,28 @@ input[type='radio'] + label {
   100% {
     transform: rotateY(3600deg);
   }
+}
+
+.productCard_block-katalog {
+  margin: 20px;
+
+  flex-basis: auto;
+  min-width: 250px;
+}
+.button-default-white {
+  background: 0 0;
+  border: 1px solid black;
+  display: inline-block;
+
+  padding: 16px 32px 14px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  transition: all 0.1s cubic-bezier(0.48, 0.26, 0.83, 0.67);
+  text-decoration: none !important;
+  box-sizing: content-box;
+}
+.button-default-white:hover {
+  background-color: black;
+  color: white;
 }

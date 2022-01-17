@@ -16,31 +16,21 @@ export default function Card({ id, title, description, price, url, titlePage, cs
 
   const goToCardDetail = (e) => {
     e.stopPropagation();
-
-    if (cssProps) {
-      console.log(' if  goToCardDetail' + router.pathname);
-      router.push(`${cssProps}`);
-    } else {
-      console.log(' else  goToCardDetail' + router.pathname);
-      router.push(`${router.pathname}/${id}`);
-    }
+    router.push(`${router.pathname}/${id}`);
   };
 
   useEffect(() => {
+    console.log('useEffect ' + router.pathname, id);
     if (url) {
       setImage(url);
-      console.log('useEffect   ' + cssProps + 'useEffect   ' + router.pathname);
     }
   }, [url]);
   return (
     <>
-      <div
-        onClick={goToCardDetail}
-        className={!cssProps ? style['productCard_block'] : style['productCard_block-katalog']}>
-        {titlePage ? <h5>{titlePage}</h5> : null}
+      <div onClick={goToCardDetail} className={style['productCard_block']}>
         <Image src={image} width={250} height={300} alt="logo"></Image>
-        {title ? <h4 className={style['product-card__title']}>{title}</h4> : null}
-        {price ? <div className={style['block_price']}>{price} грн</div> : null}
+        <h4 className={style['product-card__title']}>{title}</h4>
+        <div className={style['block_price']}>{price}грн</div>
         {/* <div onClick={goToCardDetail} className={style.block_product}></div> */}
       </div>
     </>

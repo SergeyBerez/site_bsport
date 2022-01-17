@@ -14,7 +14,7 @@ function Kostums() {
   useEffect(() => {
     getGood(router.pathname);
   }, []);
-
+  console.log('good', good);
   return (
     <MainLayout>
       <Head>
