@@ -5,6 +5,7 @@ import Slider from '../context/Slider';
 import New from './components/action';
 import Card from './components/Card';
 import Link from 'next/link';
+import Image from 'next/image';
 // import { useAppContext } from '../context/firebaseContext';
 export default function Index() {
   // const { good, getGood } = useAppContext();
@@ -25,29 +26,58 @@ export default function Index() {
       </Head>
       <MainLayout>
         <h1 className="title-product-block">Каталог</h1>
+        <div className="productCard_block-katalog">
+          {' '}
+          <h4 className="bottom-subtitle">
+            <Link href="pants">
+              <a className="button button-default-white">штаны</a>
+            </Link>
+          </h4>
+          <div>
+            <Image
+              alt={'pant'}
+              width={250}
+              height={300}
+              src={
+                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-09-18_22-23-35.jpg?alt=media&token=e4a1c5e3-bea8-4c37-8a11-b8cc96debb4a'
+              }></Image>
+          </div>
+        </div>
+        <div className="productCard_block-katalog">
+          {' '}
+          <h4 className="bottom-subtitle">
+            <Link href="sport-kostums">
+              <a className="button button-default-white">костюмы</a>
+            </Link>
+          </h4>
+          <div>
+            <Image
+              alt={'pant'}
+              width={250}
+              height={300}
+              src={
+                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-10-16_17-21-08.jpg?alt=media&token=26de566a-0cd3-4c1e-829a-9d7b324f4345'
+              }></Image>
+          </div>
+        </div>
+        <div className="productCard_block-katalog">
+          {' '}
+          <h4 className="bottom-subtitle">
+            <Link href="shorts">
+              <a className="button button-default-white">шорты</a>
+            </Link>
+          </h4>
+          <div>
+            <Image
+              alt={'pants'}
+              width={250}
+              height={300}
+              src={
+                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e'
+              }></Image>
+          </div>
+        </div>
 
-        <Card
-          key={'pants'}
-          description={'штаны'}
-          titlePage={'штаны'}
-          cssProps={'pants'}
-          url={
-            'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-09-18_22-23-35.jpg?alt=media&token=e4a1c5e3-bea8-4c37-8a11-b8cc96debb4a'
-          }></Card>
-        <Card
-          key={'sport-kostums'}
-          cssProps={'sport-kostums'}
-          titlePage={'костюмы'}
-          url={
-            'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-10-16_17-21-08.jpg?alt=media&token=26de566a-0cd3-4c1e-829a-9d7b324f4345'
-          }></Card>
-        <Card
-          key={'shorts'}
-          cssProps={'shorts'}
-          titlePage={'шорты'}
-          url={
-            'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e'
-          }></Card>
         <Slider></Slider>
       </MainLayout>
     </>
