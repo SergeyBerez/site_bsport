@@ -29,7 +29,7 @@ export default function Index() {
         <div className="productCard_block-katalog">
           {' '}
           <h4 className="bottom-subtitle">
-            <Link href="pants">
+            <Link href="/pants">
               <a className="button button-default-white">штаны</a>
             </Link>
           </h4>
@@ -46,7 +46,7 @@ export default function Index() {
         <div className="productCard_block-katalog">
           {' '}
           <h4 className="bottom-subtitle">
-            <Link href="sport-kostums">
+            <Link href="/sport-kostums">
               <a className="button button-default-white">костюмы</a>
             </Link>
           </h4>
@@ -63,7 +63,7 @@ export default function Index() {
         <div className="productCard_block-katalog">
           {' '}
           <h4 className="bottom-subtitle">
-            <Link href="shorts">
+            <Link href="/shorts">
               <a className="button button-default-white">шорты</a>
             </Link>
           </h4>
