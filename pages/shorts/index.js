@@ -3,7 +3,11 @@ import MainLayout from '../components/MainLayout';
 import { useAppContext } from '../../context/firebaseContext';
 import { useRouter } from 'next/router';
 import Card from '../components/Card';
+import Link from 'next/link';
 import Loader from '../components/loader';
+import Image from 'next/image';
+import arrowNext from '../../public/img/arrow-next.svg';
+
 import Head from 'next/head';
 export default function Shorts() {
   const router = useRouter();
@@ -26,6 +30,8 @@ export default function Shorts() {
       ) : (
         <>
           <h3 className="title-product-block">шорты</h3>
+          <div className="block-filter"></div>
+
           {good &&
             good.map((good) => {
               return (

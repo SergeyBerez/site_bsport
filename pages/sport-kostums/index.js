@@ -28,6 +28,8 @@ function Kostums() {
       ) : (
         <>
           <h3 className="title-product-block">Спортивные костюмы</h3>
+          <div className="block-filter"></div>
+
           {good &&
             good.map((good) => {
               return (

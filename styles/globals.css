@@ -417,12 +417,16 @@ input[type='radio'] + label {
   flex-basis: auto;
   min-width: 250px;
 }
+.bottom-subtitle {
+  text-align: center;
+  margin-bottom: 5px;
+}
 .button-default-white {
   background: 0 0;
   border: 1px solid black;
   display: inline-block;
-
-  padding: 16px 32px 14px;
+  width: 100%;
+  padding: 15px 0;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 1.4px;

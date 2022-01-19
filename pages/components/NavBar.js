@@ -5,11 +5,13 @@ import Image from 'next/image';
 import Logo from '../../public/img/logo.png';
 import { useState, useRef, useEffect, useDebugValue } from 'react';
 import { useRouter } from 'next/router';
-
+import arrowNext from '../../public/img/arrow-next.svg';
 export default function NavBar(props) {
   const router = useRouter();
   const [open, setOpen] = useState('');
   const [gamburger, setGamburger] = useState('');
+  let arr = router.pathname.split('/');
+  console.log(router.pathname || arr[1] == '/shorts' ? 'шорты' : null);
 
   useEffect(() => {
     console.log(' useEffect scroll  redner NavBar');
@@ -54,7 +56,7 @@ export default function NavBar(props) {
           <ul>
             <li className={router.pathname == '/' ? 'active' : ''}>
               <Link href="/">
-                <a>Главная</a>
+                <a>Главнаяbnnb</a>
               </Link>
             </li>
             <li className={router.pathname == '/shorts' ? 'active' : ''}>
@@ -124,6 +126,48 @@ export default function NavBar(props) {
           </ul>
         </div>
       </nav>
+
+      <div className="breadcrumbs">
+        <ul className="items">
+          <li className={router.pathname == '/' ? 'item category active' : 'item category'}>
+            <Link href="/">
+              <a title="Go to Home Page">категории</a>
+            </Link>
+          </li>
+          {router.pathname !== '/' ? (
+            <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
+          ) : null}
+          <li
+            className={
+              router.pathname == '/shorts'
+                ? 'item shorts active'
+                : router.pathname == '/pants'
+                ? 'item pants active'
+                : router.pathname == '/sport-kostums'
+                ? 'item sport-kostums active'
+                : 'item sport-kostums'
+            }>
+            <Link href={`/${arr[1]}`}>
+              <a title={`/${arr[1]}`}>
+                {' '}
+                {router.pathname == '/shorts' ? 'шорты' : null}
+                {router.pathname == '/pants' ? 'штаны' : null}
+                {router.pathname == '/sport-kostums' ? 'костюмы' : null}{' '}
+                {router.query.id && arr[1] == 'shorts' ? 'шорты' : null}
+                {router.query.id && arr[1] == 'pants' ? 'штаны' : null}
+                {router.query.id && arr[1] == 'sport-kostums' ? 'костюмы' : null}
+                {/* {router.query.id ==arr[1]? : null} */}
+              </a>
+            </Link>
+          </li>{' '}
+          {router.query.id ? (
+            <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
+          ) : null}{' '}
+          <li className={router.query.id ? 'active' : null}>
+            {router.query.id ? `model${router.query.id}` : null}{' '}
+          </li>{' '}
+        </ul>
+      </div>
       <style jsx>{`
         /* .header {
   width: 100%;
@@ -219,7 +263,7 @@ export default function NavBar(props) {
         }
 
         .nav-container-sidebar * {
-          visibility: visible;
+          // visibility: visible;
         }
 
         .button {
@@ -253,7 +297,7 @@ export default function NavBar(props) {
           margin-top: 2px;
           font-size: 10px;
           color: #323232;
-          font-family: 'LabGrotesque';
+
           font-size: 10px;
           line-height: 15px;
           text-transform: uppercase;
@@ -285,6 +329,7 @@ export default function NavBar(props) {
           margin-top: 70px;
           padding: 20px 0;
           width: 90%;
+          height: 100vh;
           max-width: 300px;
           position: fixed;
           z-index: 999;
@@ -341,6 +386,29 @@ export default function NavBar(props) {
           box-sizing: border-box;
           margin: 0;
           padding: 0;
+        }
+
+        .breadcrumbs {
+          padding-top: 80px;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          min-height: 30px;
+        }
+        .items {
+          display: flex;
+          align-items: center;
+          font-size: 11px;
+          letter-spacing: 0.7px;
+        }
+        .items > li {
+          margin-left: 5px;
+          margin-right: 5px;
+          text-transform: uppercase;
+        }
+
+        .active {
+          font-weight: 600;
         }
       `}</style>
     </>

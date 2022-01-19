@@ -62,12 +62,12 @@ export default function Index() {
         </div>
         <div className="productCard_block-katalog">
           {' '}
-          <h4 className="bottom-subtitle">
-            <Link href="/shorts">
-              <a className="button button-default-white">шорты</a>
-            </Link>
-          </h4>
           <div>
+            <h4 className="bottom-subtitle">
+              <Link href="/shorts">
+                <a className="button button-default-white">шорты</a>
+              </Link>
+            </h4>
             <Image
               alt={'pants'}
               width={250}
