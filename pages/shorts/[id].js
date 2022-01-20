@@ -1,7 +1,7 @@
-import CardDetail from '../components/CardDetail';
+import CardDetail from '../../components/CardDetail';
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
-import MainLayout from '../components/MainLayout';
+import MainLayout from '../../components/MainLayout';
 
 export default function Shorts({ goods }) {
   const good = JSON.parse(goods);

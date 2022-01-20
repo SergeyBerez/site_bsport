@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAppContext } from '../../context/firebaseContext';
-import MainLayout from '../components/MainLayout';
+import MainLayout from '../../components/MainLayout';
 import Head from 'next/head';
-import Card from '../components/Card';
-import Loader from '../components/loader';
+import Card from '../../components/Card';
+import { Spinner } from '../../components/Spinner';
 export default function Pants() {
   const router = useRouter();
 
@@ -23,7 +23,7 @@ export default function Pants() {
       </Head>
 
       {loading ? (
-        <Loader></Loader>
+        <Spinner></Spinner>
       ) : (
         <>
           <h3 className="title-product-block">штаны</h3>

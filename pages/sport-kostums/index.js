@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAppContext } from '../../context/firebaseContext';
-import { db } from '../../context/firebaseContext';
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
-import Card from '../components/Card';
-import MainLayout from '../components/MainLayout';
-import Loader from '../components/loader';
+
+import Card from '../../components/Card';
+import MainLayout from '../../components/MainLayout';
+import { Spinner } from '../../components/Spinner';
 import Head from 'next/head';
 function Kostums() {
   const router = useRouter();
@@ -24,7 +23,7 @@ function Kostums() {
       </Head>
 
       {loading ? (
-        <Loader></Loader>
+        <Spinner></Spinner>
       ) : (
         <>
           <h3 className="title-product-block">Спортивные костюмы</h3>

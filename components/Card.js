@@ -4,10 +4,10 @@ If you need full work version you can download it here  https://github.com/Black
 */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import style from './cardsStyle.module.css';
+import style from './cardStyle.module.css';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import Detail from '../components/detail';
+// import Detail from './ButtonDetail';
 export default function Card({ id, title, description, price, url, titlePage, cssProps }) {
   const router = useRouter();
   const [image, setImage] = useState(

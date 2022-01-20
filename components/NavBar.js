@@ -1,22 +1,21 @@
 import Link from 'next/link';
-import user from '../../public/img/user2.svg';
-import cart from '../../public/img/cart.svg';
 import Image from 'next/image';
-import Logo from '../../public/img/logo.png';
-import { useState, useRef, useEffect, useDebugValue } from 'react';
 import { useRouter } from 'next/router';
-import arrowNext from '../../public/img/arrow-next.svg';
+import { useState, useRef, useEffect, useDebugValue } from 'react';
+
+import user from '../public/img/user2.svg';
+import cart from '../public/img/cart.svg';
+import Logo from '../public/img/logo.png';
+import arrowNext from '../public/img/arrow-next.svg';
+
 export default function NavBar(props) {
   const router = useRouter();
   const [open, setOpen] = useState('');
   const [gamburger, setGamburger] = useState('');
   let arr = router.pathname.split('/');
-  console.log(router.pathname || arr[1] == '/shorts' ? 'шорты' : null);
 
   useEffect(() => {
-    console.log(' useEffect scroll  redner NavBar');
-
-    document.body.classList.remove('bg');
+    // document.body.classList.remove('bg');
   }, []);
 
   const toggleMenu = () => {
@@ -27,13 +26,13 @@ export default function NavBar(props) {
       // document.body.removeEventListener('click', hide);
       document.body.style.overflow = 'scroll';
 
-      document.body.classList.remove('bg');
+      // document.body.classList.remove('bg');
       setOpen('');
       setGamburger('');
     } else {
       // document.body.addEventListener('click', hide);
-      document.body.style.top = '0px';
-      document.body.classList.add('bg');
+
+      // document.body.classList.add('bg');
       document.body.style.overflow = 'hidden';
       setOpen('none');
       setGamburger('transform-button');
@@ -54,9 +53,14 @@ export default function NavBar(props) {
         </div>{' '}
         <nav className="nav-header">
           <ul>
-            <li className={router.pathname == '/' ? 'active' : ''}>
+            {/* <li className={router.pathname == '/' ? 'li active' : 'li'}>
               <Link href="/">
-                <a>Главнаяbnnb</a>
+                <a>катaлог</a>
+              </Link>
+            </li> */}
+            <li className={router.pathname == '/pants' ? 'active' : ''}>
+              <Link href="/pants">
+                <a>брюки</a>
               </Link>
             </li>
             <li className={router.pathname == '/shorts' ? 'active' : ''}>
@@ -69,9 +73,15 @@ export default function NavBar(props) {
                 <a>костюмы</a>
               </Link>
             </li>
-            <li className={router.pathname == '/pants' ? 'active' : ''}>
-              <Link href="/pants">
-                <a>брюки</a>
+
+            <li className={router.pathname == '/delivery' ? 'li active' : 'li'}>
+              <Link href="/delivery">
+                <a>доставка</a>
+              </Link>
+            </li>
+            <li className={router.pathname == '/about' ? 'li active' : 'li'}>
+              <Link href="/about">
+                <a>контакти</a>
               </Link>
             </li>
           </ul>
@@ -88,7 +98,7 @@ export default function NavBar(props) {
         </div>
       </header>
 
-      <nav className="nav-container-sidebar">
+      <div className="nav-container-sidebar">
         <div className="nav-content" tabIndex="0" style={{ transform: open }}>
           <ul>
             <li className={router.pathname == '/' ? 'active' : ''} onClick={toggleMenu}>
@@ -113,25 +123,34 @@ export default function NavBar(props) {
                 <a>шорты</a>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/contact">
                 <a>Contact</a>
               </Link>
+            </li> */}
+            <li className={router.pathname == '/delivery' ? 'active' : ''} onClick={toggleMenu}>
+              <Link href="/delivery">
+                <a>доставка</a>
+              </Link>
             </li>
-
+            <li onClick={toggleMenu}>
+              <Link href="/about">
+                <a className={router.pathname == '/about' ? 'active' : ''}>контакти</a>
+              </Link>
+            </li>
             <li className="small">
               <Link href="#0">Facebook</Link>
               <Link href="#0">Instagram</Link>
             </li>
           </ul>
         </div>
-      </nav>
+      </div>
 
       <div className="breadcrumbs">
         <ul className="items">
           <li className={router.pathname == '/' ? 'item category active' : 'item category'}>
             <Link href="/">
-              <a title="Go to Home Page">категории</a>
+              <a title="Go to Home Page">катaлог</a>
             </Link>
           </li>
           {router.pathname !== '/' ? (
@@ -145,14 +164,20 @@ export default function NavBar(props) {
                 ? 'item pants active'
                 : router.pathname == '/sport-kostums'
                 ? 'item sport-kostums active'
-                : 'item sport-kostums'
+                : router.pathname == '/delivery'
+                ? 'item delivery active'
+                : router.pathname == '/about'
+                ? 'item about active'
+                : ''
             }>
             <Link href={`/${arr[1]}`}>
               <a title={`/${arr[1]}`}>
                 {' '}
                 {router.pathname == '/shorts' ? 'шорты' : null}
                 {router.pathname == '/pants' ? 'штаны' : null}
-                {router.pathname == '/sport-kostums' ? 'костюмы' : null}{' '}
+                {router.pathname == '/sport-kostums' ? 'костюмы' : null}
+                {router.pathname == '/delivery' ? 'доставка' : null}
+                {router.pathname == '/about' ? 'контакти' : null}
                 {router.query.id && arr[1] == 'shorts' ? 'шорты' : null}
                 {router.query.id && arr[1] == 'pants' ? 'штаны' : null}
                 {router.query.id && arr[1] == 'sport-kostums' ? 'костюмы' : null}
@@ -168,6 +193,7 @@ export default function NavBar(props) {
           </li>{' '}
         </ul>
       </div>
+      <div className="ad_bg"></div>
       <style jsx>{`
         /* .header {
   width: 100%;
@@ -211,19 +237,24 @@ export default function NavBar(props) {
           text-transform: uppercase;
           transition: color 0.1s;
         }
+        .nav-header li:hover a {
+          border-bottom: 4px solid #323232;
+        }
+
         .nav-header li a {
           padding: 10px 5px;
           display: block;
-
+          border-bottom: 4px solid transparent;
+          transition: border linear 0.2s;
           text-transform: uppercase;
           transition: color 0.1s;
         }
-        .active a {
-          font-weight: bold;
+        .nav-header li.active a {
+          font-weight: 800;
         }
-        .nav-header li a:hover {
-          opacity: 0.7;
-        }
+        // .nav-header li a:hover {
+        //   opacity: 0.7;
+        // }
 
         // .second-header {
 
@@ -389,7 +420,8 @@ export default function NavBar(props) {
         }
 
         .breadcrumbs {
-          padding-top: 80px;
+          background-color: #f5f6f7;
+          padding-top: 70px;
           display: flex;
           align-items: center;
           width: 100%;
@@ -400,6 +432,7 @@ export default function NavBar(props) {
           align-items: center;
           font-size: 11px;
           letter-spacing: 0.7px;
+          min-height: 40px;
         }
         .items > li {
           margin-left: 5px;
@@ -408,8 +441,26 @@ export default function NavBar(props) {
         }
 
         .active {
-          font-weight: 600;
+          font-weight: 700;
         }
+        .active a {
+          font-weight: bold;
+          // border-bottom: 4px solid #323232;
+        }
+
+        // .ad_bg {
+        //   top: 0;
+        //   left: 0;
+        //   right: 0;
+        //   bottom: 0;
+        //   filter: blur(4px);
+        //   display: inline;
+        //   width: 100%;
+        //   height: 100%;
+        //   position: fixed;
+        //   cursor: pointer;
+        //   text-decoration: none;
+        // }
       `}</style>
     </>
   );

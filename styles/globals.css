@@ -15,15 +15,16 @@ body,
   font-family: euclid circular a, sans-serif;
   min-height: 100%;
 }
+
 .bg {
   /* z-index: 999; */
   /* filter: blur(4px); */
-  background-color: rgba(65, 63, 63, 0.329);
+  /* background-color: rgba(65, 63, 63, 0.329);
 
   position: fixed;
   left: 0px;
   right: 0px;
-  bottom: 0px;
+  bottom: 0px; */
 }
 a {
   color: inherit;

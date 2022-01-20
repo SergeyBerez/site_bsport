@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Loader() {
+const Spinner = () => {
   return (
     <>
       {' '}
@@ -100,4 +100,6 @@ export default function Loader() {
       `}</style>
     </>
   );
-}
+};
+
+export { Spinner };

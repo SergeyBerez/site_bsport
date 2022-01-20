@@ -1,9 +1,8 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
-import MainLayout from './components/MainLayout';
-import Slider from '../context/Slider';
-import New from './components/action';
-import Card from './components/Card';
+import MainLayout from '../components/MainLayout';
+import Slider from '../components/Slider';
+
 import Link from 'next/link';
 import Image from 'next/image';
 // import { useAppContext } from '../context/firebaseContext';
@@ -12,9 +11,7 @@ export default function Index() {
   useEffect(() => {
     // getGood('pants');
   }, []);
-  function hello() {
-    console.log('hello');
-  }
+
   return (
     <>
       {' '}

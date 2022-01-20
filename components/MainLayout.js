@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styles from './mainLayout.module.css';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import arrowNext from '../../public/img/arrow-next.svg';
+
 export default function MainLayout({ children }) {
   const router = useRouter();
   useEffect(() => {
@@ -13,7 +13,7 @@ export default function MainLayout({ children }) {
   return (
     <>
       <NavBar></NavBar>
-     
+
       <main className={styles.main}>
         <div className="container">
           <div className={styles['product-container']}>{children}</div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function action() {
+export default function Sale() {
   return (
     <>
       <input type="button" className="button4" value="new"></input>
