@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAppContext } from '../../context/firebaseContext';
 import MainLayout from '../../components/MainLayout';
-
 import Head from 'next/head';
 import Card from '../../components/Card';
 import { Spinner } from '../../components/Spinner';
@@ -114,6 +111,6 @@ export async function getStaticProps(context) {
   const goodList = querySnapshot.docs.map((doc) => doc.data());
 
   return {
-    props: { goodList: JSON.stringify(goodList) || null }, // will be passed to the page component as props
+    props: { goodList: JSON.stringify(goodList) || null }, // will be passed to
   };
 }
