@@ -13,18 +13,14 @@ export default function Pants({ goodList }) {
 
   const [loading, setLoading] = useState(true);
 
-  // const router = useRouter();
   const [goods, setGood] = useState(goodClient);
 
-  //const { loading, getGood } = useAppContext();
   useEffect(() => {
     setLoading(false);
-    // setGood(clientGoods);
-    // getGood(router.pathname);
   }, []);
   const handlerFilterGoods = (e) => {
     const value = e.target.value;
-    console.log(value);
+
     if (value === 'priceLow') {
       const copyGood = goods.slice();
       let sortGood = copyGood.sort((a, b) => {
@@ -41,7 +37,22 @@ export default function Pants({ goodList }) {
       console.log(sortGood);
       setGood(sortGood);
     }
-    // const good = [...good];
+    if (value === 'dataNew') {
+      const copyGood = goods.slice();
+      let sortGood = copyGood.sort((a, b) => {
+        return b.time.seconds - a.time.seconds;
+      });
+      console.log(sortGood);
+      setGood(sortGood);
+    }
+    if (value === 'dataOld') {
+      const copyGood = goods.slice();
+      let sortGood = copyGood.sort((a, b) => {
+        return a.time.seconds - b.time.seconds;
+      });
+      console.log(sortGood);
+      setGood(sortGood);
+    }
   };
   return (
     <MainLayout>
