@@ -30,7 +30,7 @@ export default function Card({ id, title, description, price, url, titlePage, cs
       <div onClick={goToCardDetail} className={style['productCard_block']}>
         <Image src={image} width={300} height={400} alt="logo"></Image>
         <h4 className={style['product-card__title']}>{title}</h4>
-        <div className={style['block_price']}>{price ? price + ' грн' : 'цiну уточнiть'}</div>
+        <div className={style['block_price']}>{price ? price + ' грн' : 'цiну уточнiть'} </div>
         {/* <div onClick={goToCardDetail} className={style.block_product}></div> */}
       </div>
     </>

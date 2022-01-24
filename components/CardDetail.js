@@ -40,10 +40,10 @@ export default function CardDetail({
               name="colorOfItem"
               className="radio_button"
               id="radioColor"
-              checked
+              defaultChecked
             />
             <label
-              htmlfor="radioColor"
+              htmlFor="radioColor"
               className={`block_goodColor__radio block_goodColor__${color}`}></label>
             <input type="radio" name="colorOfItem" className="radio_button" id="radioColor2" />
           </div>
