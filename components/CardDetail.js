@@ -72,7 +72,7 @@ export default function CardDetail({
         </div>
 
         <div className="block_price">
-          <p className="block_price__currency">{price ? { price } : 'цiну уточнiть'}</p>
+          <p className="block_price__currency">{price ? price : 'цiну уточнiть'}</p>
           <p className="block_price__shipping">Shipping and taxes extra</p>
 
           <button className="button button_addToCard">add to card</button>

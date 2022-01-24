@@ -4,16 +4,20 @@ import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
 
 import MainLayout from '../../components/MainLayout';
 export default function Kostum({ goods }) {
-  const good = JSON.parse(goods);
+  const { description, detaileDescription, id, title, price, url, urlArr, color } =
+    JSON.parse(goods);
 
   return (
     <MainLayout>
       <CardDetail
-        description={good.description}
-        key={good.id}
-        title={good.title}
-        price={good.price}
-        url={good.url}></CardDetail>
+        color={color}
+        detaileDescription={detaileDescription}
+        description={description}
+        key={id}
+        title={title}
+        price={price}
+        url={url}
+        urlArr={urlArr}></CardDetail>
     </MainLayout>
   );
 }
