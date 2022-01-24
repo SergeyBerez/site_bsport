@@ -20,7 +20,7 @@ export default function Card({ id, title, description, price, url, titlePage, cs
   };
 
   useEffect(() => {
-    console.log('useEffect ' + router.pathname, id);
+    // console.log('useEffect ' + router.pathname, id);
     if (url) {
       setImage(url);
     }
@@ -28,9 +28,9 @@ export default function Card({ id, title, description, price, url, titlePage, cs
   return (
     <>
       <div onClick={goToCardDetail} className={style['productCard_block']}>
-        <Image src={image} width={250} height={300} alt="logo"></Image>
+        <Image src={image} width={300} height={400} alt="logo"></Image>
         <h4 className={style['product-card__title']}>{title}</h4>
-        <div className={style['block_price']}>{price}грн</div>
+        <div className={style['block_price']}>{price ? price + ' грн' : 'цiну уточнiть'}</div>
         {/* <div onClick={goToCardDetail} className={style.block_product}></div> */}
       </div>
     </>

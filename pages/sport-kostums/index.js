@@ -26,7 +26,7 @@ function Kostums() {
         <Spinner></Spinner>
       ) : (
         <>
-          <h3 className="title-product-block">Спортивные костюмы</h3>
+          <h2 className="title-product-block">Спортивные костюмы</h2>
           <div className="block-filter"></div>
 
           {good &&

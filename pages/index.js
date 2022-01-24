@@ -7,6 +7,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 // import { useAppContext } from '../context/firebaseContext';
 export default function Index() {
+  const urlForSlider = [
+    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-09-18_22-23-35.jpg?alt=media&token=e4a1c5e3-bea8-4c37-8a11-b8cc96debb4a',
+    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-10-16_17-21-08.jpg?alt=media&token=26de566a-0cd3-4c1e-829a-9d7b324f4345',
+    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e',
+  ];
   // const { good, getGood } = useAppContext();
   useEffect(() => {
     // getGood('pants');
@@ -22,7 +27,7 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainLayout>
-        <h1 className="title-product-block">Каталог</h1>
+        <h1 className="title-product-block h1">Каталог</h1>
         <div className="productCard_block-katalog">
           {' '}
           <h4 className="bottom-subtitle">
@@ -30,11 +35,11 @@ export default function Index() {
               <a className="button button-default-white">штаны</a>
             </Link>
           </h4>
-          <div>
+          <div className="img">
             <Image
               alt={'pant'}
-              width={250}
-              height={300}
+              width={300}
+              height={400}
               src={
                 'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-09-18_22-23-35.jpg?alt=media&token=e4a1c5e3-bea8-4c37-8a11-b8cc96debb4a'
               }></Image>
@@ -43,15 +48,33 @@ export default function Index() {
         <div className="productCard_block-katalog">
           {' '}
           <h4 className="bottom-subtitle">
+            <Link href="/pants">
+              <a className="button button-default-white">худи</a>
+            </Link>
+          </h4>
+          <div className="img">
+            <Image
+              alt={'pant'}
+              width={300}
+              height={400}
+              src={
+                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-09-18_22-23-35.jpg?alt=media&token=e4a1c5e3-bea8-4c37-8a11-b8cc96debb4a'
+              }></Image>
+          </div>
+        </div>
+
+        <div className="productCard_block-katalog">
+          {' '}
+          <h4 className="bottom-subtitle">
             <Link href="/sport-kostums">
               <a className="button button-default-white">костюмы</a>
             </Link>
           </h4>
-          <div>
+          <div className="img">
             <Image
               alt={'pant'}
-              width={250}
-              height={300}
+              width={300}
+              height={400}
               src={
                 'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-10-16_17-21-08.jpg?alt=media&token=26de566a-0cd3-4c1e-829a-9d7b324f4345'
               }></Image>
@@ -59,23 +82,91 @@ export default function Index() {
         </div>
         <div className="productCard_block-katalog">
           {' '}
-          <div>
-            <h4 className="bottom-subtitle">
-              <Link href="/shorts">
-                <a className="button button-default-white">шорты</a>
-              </Link>
-            </h4>
+          <h4 className="bottom-subtitle">
+            <Link href="/shorts">
+              <a className="button button-default-white">футболки</a>
+            </Link>
+          </h4>
+          <div className="img">
             <Image
               alt={'pants'}
-              width={250}
-              height={300}
+              width={300}
+              height={400}
+              src={
+                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e'
+              }></Image>
+          </div>
+        </div>
+        <div className="productCard_block-katalog">
+          {' '}
+          <h4 className="bottom-subtitle">
+            <Link href="/shorts">
+              <a className="button button-default-white">шорты</a>
+            </Link>
+          </h4>
+          <div className="img">
+            <Image
+              alt={'pants'}
+              width={300}
+              height={400}
+              src={
+                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e'
+              }></Image>
+          </div>
+        </div>
+        <div className="productCard_block-katalog">
+          {' '}
+          <h4 className="bottom-subtitle">
+            <Link href="/shorts">
+              <a className="button button-default-white">худи флис</a>
+            </Link>
+          </h4>
+          <div className="img">
+            <Image
+              alt={'pants'}
+              width={300}
+              height={400}
+              src={
+                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e'
+              }></Image>
+          </div>
+        </div>
+        <div className="productCard_block-katalog">
+          {' '}
+          <h4 className="bottom-subtitle">
+            <Link href="/shorts">
+              <a className="button button-default-white">штаны флис</a>
+            </Link>
+          </h4>
+          <div className="img">
+            <Image
+              alt={'pants'}
+              width={300}
+              height={400}
+              src={
+                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e'
+              }></Image>
+          </div>
+        </div>
+        <div className="productCard_block-katalog">
+          {' '}
+          <h4 className="bottom-subtitle">
+            <Link href="/shorts">
+              <a className="button button-default-white">костюмы флис</a>
+            </Link>
+          </h4>
+          <div className="img">
+            <Image
+              alt={'pants'}
+              width={300}
+              height={400}
               src={
                 'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e'
               }></Image>
           </div>
         </div>
 
-        <Slider></Slider>
+        <Slider url={urlForSlider}></Slider>
       </MainLayout>
     </>
   );

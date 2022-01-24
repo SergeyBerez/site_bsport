@@ -1,19 +1,48 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAppContext } from '../../context/firebaseContext';
 import MainLayout from '../../components/MainLayout';
+
 import Head from 'next/head';
 import Card from '../../components/Card';
 import { Spinner } from '../../components/Spinner';
-export default function Pants() {
-  const router = useRouter();
+import { db } from '../../context/firebaseContext';
+import { collection, getDocs } from 'firebase/firestore/lite';
+export default function Pants({ goodList }) {
+  const goodClient = JSON.parse(goodList);
 
-  const { loading, good, getGood } = useAppContext();
+  const [loading, setLoading] = useState(true);
 
+  // const router = useRouter();
+  const [goods, setGood] = useState(goodClient);
+
+  //const { loading, getGood } = useAppContext();
   useEffect(() => {
-    getGood(router.pathname);
+    setLoading(false);
+    // setGood(clientGoods);
+    // getGood(router.pathname);
   }, []);
-
+  const handlerFilterGoods = (e) => {
+    const value = e.target.value;
+    console.log(value);
+    if (value === 'priceLow') {
+      const copyGood = goods.slice();
+      let sortGood = copyGood.sort((a, b) => {
+        return a.price - b.price;
+      });
+      console.log(sortGood);
+      setGood(sortGood);
+    }
+    if (value === 'priceHigh') {
+      const copyGood = goods.slice();
+      let sortGood = copyGood.sort((a, b) => {
+        return b.price - a.price;
+      });
+      console.log(sortGood);
+      setGood(sortGood);
+    }
+    // const good = [...good];
+  };
   return (
     <MainLayout>
       <Head>
@@ -26,21 +55,54 @@ export default function Pants() {
         <Spinner></Spinner>
       ) : (
         <>
-          <h3 className="title-product-block">штаны</h3>
-          {good &&
-            good.map((good) => {
-              return (
-                <Card
-                  description={good.description}
-                  id={good.id}
-                  key={good.id}
-                  title={good.title}
-                  price={good.price}
-                  url={good.url}></Card>
-              );
-            })}
+          <h2 className="title-product-block">штаны</h2>
+          <div className="toolbar toolbar-products">
+            <div className="toolbar-sorter sorter">
+              <label className="sorter-label" forhtml="sorter">
+                сортувати
+              </label>{' '}
+              <select
+                id="sorter"
+                data-role="sorter"
+                onChange={handlerFilterGoods}
+                className="sorter-options">
+                <option value="position" defaultValue="">
+                  не сортовано
+                </option>
+                <option value="nameHight">имя а-я</option>
+                <option value="nameLow">имя я-а</option>
+                <option value="priceHigh">цена више </option>
+                <option value="priceLow">цена ниже </option>
+                <option value="dataNew">по датi новi</option>
+                <option value="dataOld">по датi стaрi</option>
+              </select>
+            </div>
+          </div>
+          {goods.map((good) => {
+            return (
+              <Card
+                description={good.description}
+                id={good.id}
+                key={good.id}
+                title={good.title}
+                price={good.price}
+                url={good.url}></Card>
+            );
+          })}
         </>
       )}
     </MainLayout>
   );
+}
+
+export async function getStaticProps(context) {
+  const id = context.params;
+  console.log(context);
+  const docRef = collection(db, 'pants');
+  const querySnapshot = await getDocs(docRef);
+  const goodList = querySnapshot.docs.map((doc) => doc.data());
+
+  return {
+    props: { goodList: JSON.stringify(goodList) || null }, // will be passed to the page component as props
+  };
 }

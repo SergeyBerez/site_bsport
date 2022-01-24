@@ -4,11 +4,14 @@ import { db } from '../../context/firebaseContext';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
 
 export default function Pants({ goods }) {
-  const { description, id, title, price, url, urlArr } = JSON.parse(goods);
+  const { description, detaileDescription, id, title, price, url, urlArr, color } =
+    JSON.parse(goods);
 
   return (
     <MainLayout>
       <CardDetail
+        color={color}
+        detaileDescription={detaileDescription}
         description={description}
         key={id}
         title={title}

@@ -26,7 +26,7 @@ export default function Shorts() {
         <Spinner></Spinner>
       ) : (
         <>
-          <h3 className="title-product-block">шорты</h3>
+          <h2 className="title-product-block">шорты</h2>
           <div className="block-filter"></div>
 
           {good &&

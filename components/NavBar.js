@@ -147,51 +147,53 @@ export default function NavBar(props) {
       </div>
 
       <div className="breadcrumbs">
-        <ul className="items">
-          <li className={router.pathname == '/' ? 'item category active' : 'item category'}>
-            <Link href="/">
-              <a title="Go to Home Page">катaлог</a>
-            </Link>
-          </li>
-          {router.pathname !== '/' ? (
-            <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
-          ) : null}
-          <li
-            className={
-              router.pathname == '/shorts'
-                ? 'item shorts active'
-                : router.pathname == '/pants'
-                ? 'item pants active'
-                : router.pathname == '/sport-kostums'
-                ? 'item sport-kostums active'
-                : router.pathname == '/delivery'
-                ? 'item delivery active'
-                : router.pathname == '/about'
-                ? 'item about active'
-                : ''
-            }>
-            <Link href={`/${arr[1]}`}>
-              <a title={`/${arr[1]}`}>
-                {' '}
-                {router.pathname == '/shorts' ? 'шорты' : null}
-                {router.pathname == '/pants' ? 'штаны' : null}
-                {router.pathname == '/sport-kostums' ? 'костюмы' : null}
-                {router.pathname == '/delivery' ? 'доставка' : null}
-                {router.pathname == '/about' ? 'контакти' : null}
-                {router.query.id && arr[1] == 'shorts' ? 'шорты' : null}
-                {router.query.id && arr[1] == 'pants' ? 'штаны' : null}
-                {router.query.id && arr[1] == 'sport-kostums' ? 'костюмы' : null}
-                {/* {router.query.id ==arr[1]? : null} */}
-              </a>
-            </Link>
-          </li>{' '}
-          {router.query.id ? (
-            <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
-          ) : null}{' '}
-          <li className={router.query.id ? 'active' : null}>
-            {router.query.id ? `model${router.query.id}` : null}{' '}
-          </li>{' '}
-        </ul>
+        {router.pathname == '/' ? null : (
+          <ul className="items">
+            <li className={router.pathname == '/' ? 'item category active' : 'item category'}>
+              <Link href="/">
+                <a title="Go to Home Page">{router.pathname !== '/' ? 'катaлог' : null}</a>
+              </Link>
+            </li>
+            {router.pathname !== '/' ? (
+              <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
+            ) : null}
+            <li
+              className={
+                router.pathname == '/shorts'
+                  ? 'item shorts active'
+                  : router.pathname == '/pants'
+                  ? 'item pants active'
+                  : router.pathname == '/sport-kostums'
+                  ? 'item sport-kostums active'
+                  : router.pathname == '/delivery'
+                  ? 'item delivery active'
+                  : router.pathname == '/about'
+                  ? 'item about active'
+                  : ''
+              }>
+              <Link href={`/${arr[1]}`}>
+                <a title={`/${arr[1]}`}>
+                  {' '}
+                  {router.pathname == '/shorts' ? 'шорты' : null}
+                  {router.pathname == '/pants' ? 'штаны' : null}
+                  {router.pathname == '/sport-kostums' ? 'костюмы' : null}
+                  {router.pathname == '/delivery' ? 'доставка' : null}
+                  {router.pathname == '/about' ? 'контакти' : null}
+                  {router.query.id && arr[1] == 'shorts' ? 'шорты' : null}
+                  {router.query.id && arr[1] == 'pants' ? 'штаны' : null}
+                  {router.query.id && arr[1] == 'sport-kostums' ? 'костюмы' : null}
+                  {/* {router.query.id ==arr[1]? : null} */}
+                </a>
+              </Link>
+            </li>{' '}
+            {router.query.id ? (
+              <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
+            ) : null}{' '}
+            <li className={router.query.id ? 'active' : null}>
+              {router.query.id ? `model${router.query.id}` : null}{' '}
+            </li>{' '}
+          </ul>
+        )}
       </div>
       <div className="ad_bg"></div>
       <style jsx>{`

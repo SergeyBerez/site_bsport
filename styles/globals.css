@@ -59,11 +59,13 @@ li {
 /*COLORS*/
 /*********************************************/
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+.img {
+  /* max-width: 100%;
+  height: auto; */
+  max-width: 300px;
+  /* height: 400px; */
   margin: 0 auto;
+  display: block;
 }
 
 a:hover,
@@ -97,15 +99,41 @@ button {
   width: 100%;
   flex-grow: 1;
   text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  margin: 0px;
+  letter-spacing: -0.6px;
+  margin-bottom: 25px;
 }
-
+.title-product-block.h1 {
+  margin-top: 35px;
+}
+.slider-wrapper {
+  width: 100%;
+}
 .swiper-button-next,
-.swiper-button-prev,
-.swiper-pagination-bullet-active {
-  color: darkgoldenrod;
+.swiper-button-prev {
+  font-size: 0;
+  line-height: 0;
+  position: absolute;
+  padding: 0;
+
+  cursor: pointer;
+  color: white;
+  border: none;
+  outline: none;
+  background-color: #000;
+  opacity: 0.6;
+  border-radius: 0;
+  z-index: 99;
 }
 .swiper-pagination-bullet-active {
-  background: darkgoldenrod;
+  color: #000;
+}
+.swiper-pagination-bullet-active {
+  background: #000;
 }
 
 /* LEFT SIDE */
@@ -413,10 +441,15 @@ input[type='radio'] + label {
 }
 
 .productCard_block-katalog {
-  margin: 20px;
+  margin: 0px;
 
   flex-basis: auto;
   min-width: 250px;
+}
+@media (min-width: 360px) {
+  .productCard_block-katalog {
+    margin: 20px;
+  }
 }
 .bottom-subtitle {
   text-align: center;
@@ -438,4 +471,32 @@ input[type='radio'] + label {
 .button-default-white:hover {
   background-color: black;
   color: white;
+}
+.toolbar {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  text-align: left;
+}
+.sorter-label {
+  font-weight: 700;
+  text-transform: uppercase;
+
+  letter-spacing: 1.4px;
+}
+.sorter-options {
+  border-color: #ccc;
+
+  letter-spacing: 1.4px;
+  font-weight: 700;
+  margin: 0 5.5px 0 0;
+  text-transform: uppercase;
+}
+select {
+  background-color: #fff;
+  box-shadow: none;
+  height: 35px;
 }
