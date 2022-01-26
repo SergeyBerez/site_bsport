@@ -65,8 +65,12 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         </nav>
         <div className="block-user-cart">
           <div className="user-header">
-            {' '}
-            <Image width={30} height={30} src={user} alt="logo"></Image>
+            <Link href="/regist">
+              <a>
+                {' '}
+                <Image width={30} height={30} src={user} alt="logo"></Image>
+              </a>
+            </Link>
           </div>
           <div className="cart-header">
             {' '}
@@ -146,6 +150,8 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
                   ? 'item delivery active'
                   : router.pathname == '/about'
                   ? 'item about active'
+                  : router.pathname == '/regist'
+                  ? 'item about active'
                   : ''
               }>
               <Link href={`/${arr[1]}`}>
@@ -156,6 +162,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
                   {router.pathname == '/sport-kostums' ? 'костюми' : null}
                   {router.pathname == '/delivery' ? 'доставка' : null}
                   {router.pathname == '/about' ? 'контакти' : null}
+                  {router.pathname == '/regist' ? 'вхiд' : null}
                   {router.query.id && arr[1] == 'shorts' ? 'шорти' : null}
                   {router.query.id && arr[1] == 'pants' ? 'штани' : null}
                   {router.query.id && arr[1] == 'sport-kostums' ? 'костюми' : null}

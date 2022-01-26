@@ -3,7 +3,7 @@ import MainLayout from '../components/MainLayout';
 export default function regist() {
   return (
     <MainLayout>
-      <div
+      {/* <div
         className="block-content"
         aria-labelledby="block-customer-login-heading-btn"
         data-role="content"
@@ -40,7 +40,7 @@ export default function regist() {
               </div>
             </div>
             <div className="field password required">
-              <label for="pass" className="label">
+              <label htmlfor="pass" className="label">
                 <span>Пароль:</span>
               </label>{' '}
               <div className="control">
@@ -64,7 +64,7 @@ export default function regist() {
             </div>
           </fieldset>
         </form>
-      </div>
+      </div> */}
 
       {/* <style jsx ></style> */}
     </MainLayout>
