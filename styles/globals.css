@@ -500,3 +500,12 @@ select {
   box-shadow: none;
   height: 35px;
 }
+.ad_bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  background: rgba(128, 128, 128, 0.479);
+}

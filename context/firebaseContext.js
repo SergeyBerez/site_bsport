@@ -52,7 +52,7 @@ export default function FirebaseContext({ children }) {
       const goodList = querySnapshot.docs.map((doc) => doc.data());
       // console.log('get goods from Firestore', goodList);
       setGood(goodList);
-      console.log(goodList);
+      // console.log(goodList);
       setLoading(false);
       return goodList;
     } catch (error) {
@@ -60,7 +60,14 @@ export default function FirebaseContext({ children }) {
     }
   }
   useEffect(() => {
-    // getGood('pants');
+    Promise.all([getGoods(db, 'pants'), getGoods(db, 'shorts')]).then((values) => {
+      let arr = [];
+      values.forEach((element) => {
+        arr.push(...element);
+      });
+
+      setGood(arr);
+    });
   }, []);
 
   return (

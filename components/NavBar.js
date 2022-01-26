@@ -8,43 +8,20 @@ import cart from '../public/img/cart.svg';
 import Logo from '../public/img/logo.png';
 import arrowNext from '../public/img/arrow-next.svg';
 
-export default function NavBar(props) {
+export default function NavBar({ openSideMenu, transformGamburger, toggleMenu }) {
   const router = useRouter();
-  const [open, setOpen] = useState('');
-  const [gamburger, setGamburger] = useState('');
+
   let arr = router.pathname.split('/');
 
-  useEffect(() => {
-    // document.body.classList.remove('bg');
-  }, []);
+  useEffect(() => {}, []);
 
-  const toggleMenu = () => {
-    // function hide(e) {
-    //   console.log(e.target);
-    // }
-    if (open === 'none') {
-      // document.body.removeEventListener('click', hide);
-      document.body.style.overflow = 'scroll';
-
-      // document.body.classList.remove('bg');
-      setOpen('');
-      setGamburger('');
-    } else {
-      // document.body.addEventListener('click', hide);
-
-      // document.body.classList.add('bg');
-      document.body.style.overflow = 'hidden';
-      setOpen('none');
-      setGamburger('transform-button');
-    }
-  };
   return (
     <>
       <header className="header" tabIndex="0">
         <button onClick={toggleMenu} className="button" tabIndex="0">
-          <span className={'icon-bar ' + gamburger}></span>
-          <span className={'icon-bar ' + gamburger}></span>
-          <span className={'icon-bar ' + gamburger}></span>
+          <span className={'icon-bar ' + transformGamburger}></span>
+          <span className={'icon-bar ' + transformGamburger}></span>
+          <span className={'icon-bar ' + transformGamburger}></span>
           <span className="header-title">меню</span>
         </button>
         <div className="header-logo">
@@ -99,7 +76,7 @@ export default function NavBar(props) {
       </header>
 
       <div className="nav-container-sidebar">
-        <div className="nav-content" tabIndex="0" style={{ transform: open }}>
+        <div className="nav-content" tabIndex="0" style={{ transform: openSideMenu }}>
           <ul>
             <li className={router.pathname == '/' ? 'active' : ''} onClick={toggleMenu}>
               <Link href="/">
@@ -174,14 +151,14 @@ export default function NavBar(props) {
               <Link href={`/${arr[1]}`}>
                 <a title={`/${arr[1]}`}>
                   {' '}
-                  {router.pathname == '/shorts' ? 'шорты' : null}
-                  {router.pathname == '/pants' ? 'штаны' : null}
-                  {router.pathname == '/sport-kostums' ? 'костюмы' : null}
+                  {router.pathname == '/shorts' ? 'шорти' : null}
+                  {router.pathname == '/pants' ? 'штани' : null}
+                  {router.pathname == '/sport-kostums' ? 'костюми' : null}
                   {router.pathname == '/delivery' ? 'доставка' : null}
                   {router.pathname == '/about' ? 'контакти' : null}
-                  {router.query.id && arr[1] == 'shorts' ? 'шорты' : null}
-                  {router.query.id && arr[1] == 'pants' ? 'штаны' : null}
-                  {router.query.id && arr[1] == 'sport-kostums' ? 'костюмы' : null}
+                  {router.query.id && arr[1] == 'shorts' ? 'шорти' : null}
+                  {router.query.id && arr[1] == 'pants' ? 'штани' : null}
+                  {router.query.id && arr[1] == 'sport-kostums' ? 'костюми' : null}
                   {/* {router.query.id ==arr[1]? : null} */}
                 </a>
               </Link>
@@ -190,12 +167,12 @@ export default function NavBar(props) {
               <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
             ) : null}{' '}
             <li className={router.query.id ? 'active' : null}>
-              {router.query.id ? `model${router.query.id}` : null}{' '}
+              {router.query.id ? `детально` : null}{' '}
             </li>{' '}
           </ul>
         )}
       </div>
-      <div className="ad_bg"></div>
+
       <style jsx>{`
         /* .header {
   width: 100%;
@@ -206,6 +183,7 @@ export default function NavBar(props) {
   letter-spacing: 0.03em;
   color: #212121;
 } */
+
         .header {
           font-weight: 600;
           font-size: 0.875rem;

@@ -4,15 +4,44 @@ import Image from 'next/image';
 import styles from './mainLayout.module.css';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-
+import { useRef, useState } from 'react';
 export default function MainLayout({ children }) {
   const router = useRouter();
+  const [openSideMenu, setOpenSideMenu] = useState('');
+  const [gamburger, setGamburger] = useState('');
+  const divBackgroundEl = useRef(null);
+
+  const toggleMen = () => {
+    const className = divBackgroundEl.current.className;
+    if (className === 'ad_bg') {
+      divBackgroundEl.current.className = '';
+    } else {
+      divBackgroundEl.current.className = 'ad_bg';
+    }
+    if (openSideMenu === 'none') {
+      document.body.style.overflow = 'scroll';
+      setOpenSideMenu('');
+      setGamburger('');
+    } else {
+      document.body.style.overflow = 'hidden';
+      setOpenSideMenu('none');
+      setGamburger('transform-button');
+    }
+  };
+
   useEffect(() => {
     console.log(' useEffect redner MainLayout', router.pathname);
   }, []);
+
+  const showBackground = () => {
+    console.log('sss');
+  };
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar
+        openSideMenu={openSideMenu}
+        toggleMenu={toggleMen}
+        transformGamburger={gamburger}></NavBar>
 
       <main className={styles.main}>
         <div className="container">
@@ -33,6 +62,7 @@ export default function MainLayout({ children }) {
           </a>
         </div>
       </footer>
+      <div onClick={toggleMen} ref={divBackgroundEl}></div>
     </>
   );
 }

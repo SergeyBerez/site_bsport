@@ -79,10 +79,10 @@ export default function Pants({ goodList }) {
                 </option>
                 <option value="nameHight">имя а-я</option>
                 <option value="nameLow">имя я-а</option>
-                <option value="priceHigh">цена више </option>
-                <option value="priceLow">цена ниже </option>
-                <option value="dataNew">по датi новi</option>
-                <option value="dataOld">по датi стaрi</option>
+                <option value="priceHigh">цiна:више-нижче </option>
+                <option value="priceLow">цiна:нижче-вище </option>
+                <option value="dataNew">спочатку новi</option>
+                <option value="dataOld">спочатку стaрi</option>
               </select>
             </div>
           </div>
