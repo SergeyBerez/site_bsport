@@ -75,20 +75,21 @@
   background-color: #536dfe;
   font-size: 17px;
 }
-@media (min-width: 360px) {
+@media (min-width: 320px) {
   .productCard_block {
     margin: 5px;
     flex-grow: 0;
     flex-basis: calc(100% / 2 - 10px);
-    min-width: 160px;
+    /* min-width: 160px; */
   }
 }
 @media (min-width: 480px) {
   .productCard_block {
     margin: 5px;
     flex-grow: 0;
-    flex-basis: calc(100% / 2 - 10px);
-    min-width: 200px;
+    flex-basis: calc(100% / 3 - 10px);
+    /* min-width: 160px; */
+    /* max-width: 160px; */
   }
 }
 @media (min-width: 580px) {
