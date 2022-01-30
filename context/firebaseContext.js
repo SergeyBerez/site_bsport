@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 //import { getDatabase } from 'firebase/database';
 import { getFirestore, collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
 
@@ -15,15 +15,44 @@ const firebaseConfig = {
   appId: '1:852156358107:web:f2496a4d4c44932bb25bfe',
   measurementId: 'G-PR95NG6NW6',
 };
+
+const AppContext = createContext();
+export function useAppContext() {
+  return useContext(AppContext);
+}
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth();
 export default function FirebaseContext({ children }) {
   const [good, setGood] = useState([]);
   const [onegood, setOneGood] = useState(null);
   const [loading, setLoading] = useState(true);
-  const getGood = (params) => {
-    return getGoods(db, params);
+
+  const [CurrentUser, setCurrentUser] = useState(null);
+  const [uidAdmin, setUidAdmin] = useState(null);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        const uid = user.uid;
+        // ...
+        setUidAdmin(true);
+      } else {
+        // User is signed out
+        // ...
+        setUidAdmin(false);
+      }
+    });
+  }, []);
+  const Logout = () => {
+    auth.signOut();
   };
+
+  
+  // const getGood = (params) => {
+  //   return getGoods(db, params);
+  // };
   //   export const getStaticProps = async() => {
 
   // }
@@ -59,26 +88,18 @@ export default function FirebaseContext({ children }) {
       console.log('error', error);
     }
   }
-  useEffect(() => {
-    Promise.all([getGoods(db, 'pants'), getGoods(db, 'shorts')]).then((values) => {
-      let arr = [];
-      values.forEach((element) => {
-        arr.push(...element);
-      });
+  // useEffect(() => {
+  //   Promise.all([getGoods(db, 'pants'), getGoods(db, 'shorts')]).then((values) => {
+  //     let arr = [];
+  //     values.forEach((element) => {
+  //       arr.push(...element);
+  //     });
 
-      setGood(arr);
-    });
-  }, []);
+  //     setGood(arr);
+  //   });
+  // }, []);
 
-  return (
-    <AppContext.Provider value={{ loading, good, getGood, getOnceGoog, onegood }}>
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={{ loading }}>{children}</AppContext.Provider>;
 }
 
-const AppContext = createContext();
-export function useAppContext() {
-  return useContext(AppContext);
-}
 export { db };

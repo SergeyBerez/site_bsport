@@ -5,12 +5,29 @@ import Slider from '../components/Slider';
 
 import Link from 'next/link';
 import Image from 'next/image';
+import short from '../public/img/short_icon.svg';
+import koftazamok from '../public/img/koftazamok_icon.svg';
+import pants from '../public/img/pants_icon.svg';
+// import moduleName from '../public/img/short_icon';
+// import moduleName from '../public/img/';
 // import { useAppContext } from '../context/firebaseContext';
 export default function Index() {
-  const urlForSlider = [
-    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-09-18_22-23-35.jpg?alt=media&token=e4a1c5e3-bea8-4c37-8a11-b8cc96debb4a',
-    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-10-16_17-21-08.jpg?alt=media&token=26de566a-0cd3-4c1e-829a-9d7b324f4345',
-    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e',
+  const urlForIndexSlider = [
+    {
+      url: short,
+      path: '/sport-kostums',
+      name: 'спортивнi костюми',
+    },
+    {
+      url: pants,
+      path: '/pants',
+      name: 'штани',
+    },
+    {
+      url: koftazamok,
+      path: '/shorts',
+      name: 'шорти',
+    },
   ];
   // const { good, getGood } = useAppContext();
   useEffect(() => {
@@ -28,6 +45,12 @@ export default function Index() {
       </Head>
       <MainLayout>
         <h1 className="title-product-block h1">Каталог</h1>
+
+        <Slider
+          url={urlForIndexSlider}
+          autoplay={{ delay: 2000, disableOnInteraction: true }}
+          count={4}></Slider>
+
         <div className="productCard_block-katalog">
           {' '}
           <h4 className="bottom-subtitle">
@@ -165,8 +188,6 @@ export default function Index() {
               }></Image>
           </div>
         </div>
-
-        <Slider url={urlForSlider}></Slider>
       </MainLayout>
     </>
   );

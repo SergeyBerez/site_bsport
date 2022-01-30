@@ -1,6 +1,25 @@
 import React from 'react';
 import MainLayout from '../components/MainLayout';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+
 export default function regist() {
+  const auth = getAuth();
+
+  function createUser(e) {
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  }
+
   return (
     <MainLayout>
       <div className="block block-customer-login">
@@ -26,6 +45,7 @@ export default function regist() {
           // aria-hidden="true"
           style={{ display: 'static' }}>
           <form
+            onSubmit={createUser}
             className="form form-login"
             id="login-form"
             // novalidate="novalidate"
@@ -73,9 +93,8 @@ export default function regist() {
               <div className="actions-toolbar">
                 <div className="primary">
                   <button
-                    type="submit"
                     className="action login primary"
-                    name="send"
+
                     // id="send2"
                   >
                     <span>Войти</span>
@@ -100,7 +119,7 @@ export default function regist() {
 
         .block-title {
           color: #323232;
-
+          margin: 25px 0;
           font-style: normal;
           font-weight: 700;
           line-height: 1;

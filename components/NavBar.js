@@ -79,7 +79,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         </div>
       </header>
 
-      <div className="nav-container-sidebar">
+      <div className="side-nav-container">
         <div className="nav-content" tabIndex="0" style={{ transform: openSideMenu }}>
           <ul>
             <li className={router.pathname == '/' ? 'active' : ''} onClick={toggleMenu}>
@@ -192,8 +192,8 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
 } */
 
         .header {
-          font-weight: 600;
-          font-size: 0.875rem;
+          // font-weight: 600;
+          font-size: 1.6rem;
           display: flex;
           position: fixed;
           width: 100%;
@@ -237,7 +237,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
           transition: color 0.1s;
         }
         .nav-header li.active a {
-          font-weight: 800;
+          font-weight: 600;
         }
         // .nav-header li a:hover {
         //   opacity: 0.7;
@@ -272,7 +272,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
           cursor: pointer;
           margin-right: 20px;
         }
-        .nav-container-sidebar {
+        .side-nav-container {
           position: fixed;
           z-index: 999;
           height: 100vh;
@@ -280,7 +280,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
           pointer-events: none;
         }
 
-        .nav-container-sidebar * {
+        .side-nav-container * {
           // visibility: visible;
         }
 
@@ -428,7 +428,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         }
 
         .active {
-          font-weight: 700;
+          font-weight: 600;
         }
         .active a {
           font-weight: bold;
