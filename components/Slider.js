@@ -8,11 +8,21 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
   const [imgs, setImgs] = useState([
     'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505',
   ]);
+
+  const [imgs1, setImgs1] = useState(url[0]);
   useEffect(() => {
     if (url) {
       setImgs(url);
     }
   }, []);
+
+  const fnimg = (i) => {
+    console.log(i);
+    if (url[i]) {
+      setImgs1(url[i]);
+    }
+  };
+
   return (
     <>
       <Swiper
@@ -26,7 +36,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
         autoplay={autoplay}
         // pagination={{ clickable: true }}
         // onSwiper={(swiper) => console.log(swiper)}
-        // onSlideChange={() => console.log('slide change')}
+        onSlideChange={(swiper) => fnimg(swiper.activeIndex)}
         breakpoints={{
           300: {
             slidesPerView: count,
@@ -80,6 +90,13 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
               );
             })}
       </Swiper>
+
+      {imgs &&
+      imgs.filter((i) => {
+        return i.constructor.name === 'Object';
+      }).length > 0 ? null : (
+        <Image src={imgs1} width={300} height={405} alt="logo"></Image>
+      )}
 
       <style jsx>{`
         .bottom-subtitle {
