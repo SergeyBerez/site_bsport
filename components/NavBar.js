@@ -374,6 +374,8 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         .nav-content li a {
           padding: 10px 10px;
           display: block;
+          font-size: 1.2rem;
+          letter-spacing: 1px;
           text-transform: uppercase;
           transition: color 0.1s;
         }

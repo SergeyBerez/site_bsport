@@ -56,14 +56,16 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
           ? url.map((obj, i) => {
               return (
                 <SwiperSlide key={i}>
-                  <div className="img">
-                    <Image src={obj.url} width={300} height={405} alt="logo"></Image>
-                  </div>
-                  <h4 className="bottom-subtitle">
-                    <Link href={obj.path}>
-                      <a className="button button-default-white font">{obj.name}</a>
-                    </Link>
-                  </h4>
+                  <Link href={obj.path}>
+                    <a>
+                      <div className="img">
+                        <Image src={obj.url} width={300} height={405} alt="logo"></Image>
+                      </div>
+                      <div className="bottom-subtitle">
+                        <button className="button button-default-white font">{obj.name}</button>
+                      </div>
+                    </a>
+                  </Link>
                 </SwiperSlide>
               );
             })
@@ -90,6 +92,12 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
         .font:hover {
           background-color: transparent;
           color: black;
+          cursor: pointer;
+        }
+        @media (min-width: 640px) {
+          .font {
+            font-size: 1.4rem;
+          }
         }
       `}</style>
     </>
