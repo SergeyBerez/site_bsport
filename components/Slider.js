@@ -9,17 +9,23 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
     'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505',
   ]);
 
-  const [imgs1, setImgs1] = useState(url[0]);
+  const [imgs1, setImgs1] = useState(
+    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505',
+  );
   useEffect(() => {
     if (url) {
       setImgs(url);
     }
   }, []);
+  console.log(imgs1);
+  const findimg = (i) => {
+    const index = Math.floor(i / 2 - 1);
 
-  const fnimg = (i) => {
-    console.log(i);
-    if (url[i]) {
-      setImgs1(url[i]);
+    if (index == -1) {
+      index = 0;
+      setImgs1(url[index]);
+    } else if (index !== -1) {
+      setImgs1(url[index]);
     }
   };
 
@@ -35,8 +41,8 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
         grabCursor={grabCursor}
         autoplay={autoplay}
         // pagination={{ clickable: true }}
-        // onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={(swiper) => fnimg(swiper.activeIndex)}
+        onSwiper={(swiper) => findimg(swiper.activeIndex)}
+        onSlideChange={(swiper) => findimg(swiper.activeIndex)}
         breakpoints={{
           300: {
             slidesPerView: count,
