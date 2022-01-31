@@ -28,7 +28,11 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
       setImgs1(url[index]);
     }
   };
-
+  const goToDitailSlide = (e) => {
+    const src = e.currentTarget.src;
+    console.log(src);
+    setImgs1(src);
+  };
   return (
     <>
       <Swiper
@@ -36,7 +40,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={10}
         slidesPerView={1}
-        // navigation
+        navigation
         loop={true}
         grabCursor={grabCursor}
         autoplay={autoplay}
@@ -90,7 +94,12 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
               return (
                 <SwiperSlide key={i}>
                   <div className="img">
-                    <Image src={el} width={300} height={405} alt="logo"></Image>
+                    <Image
+                      src={el}
+                      width={300}
+                      height={405}
+                      alt="logo"
+                      onClick={goToDitailSlide}></Image>
                   </div>
                 </SwiperSlide>
               );
@@ -101,7 +110,9 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
       imgs.filter((i) => {
         return i.constructor.name === 'Object';
       }).length > 0 ? null : (
-        <Image src={imgs1} width={300} height={405} alt="logo"></Image>
+        <div className="img">
+          <Image src={imgs1} width={300} height={405} alt="logo"></Image>
+        </div>
       )}
 
       <style jsx>{`

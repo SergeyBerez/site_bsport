@@ -101,7 +101,7 @@ button {
   margin: 0px;
   letter-spacing: -0.6px;
   margin-bottom: 15px;
-  margin-top: 25px;
+  margin-top: 15px;
   letter-spacing: 1.4px;
 }
 .title-product-block.h1 {
@@ -501,7 +501,7 @@ input[type='radio'] + label {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 30px;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   text-align: left;
 }
 .sorter-label {
