@@ -4,7 +4,7 @@ If you need full work version you can download it here  https://github.com/Black
 */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import style from './cardStyle.module.css';
+import style from './card.module.css';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 // import Detail from './ButtonDetail';

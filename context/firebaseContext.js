@@ -27,7 +27,7 @@ export default function FirebaseContext({ children }) {
   const [good, setGood] = useState([]);
   const [onegood, setOneGood] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  
   const [CurrentUser, setCurrentUser] = useState(null);
   const [uidAdmin, setUidAdmin] = useState(null);
   useEffect(() => {
@@ -49,7 +49,6 @@ export default function FirebaseContext({ children }) {
     auth.signOut();
   };
 
-  
   // const getGood = (params) => {
   //   return getGoods(db, params);
   // };
@@ -99,7 +98,7 @@ export default function FirebaseContext({ children }) {
   //   });
   // }, []);
 
-  return <AppContext.Provider value={{ loading }}>{children}</AppContext.Provider>;
+  return <AppContext.Provider value={{ loading, uidAdmin }}>{children}</AppContext.Provider>;
 }
 
 export { db };

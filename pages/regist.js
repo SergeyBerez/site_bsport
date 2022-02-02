@@ -1,21 +1,45 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import MainLayout from '../components/MainLayout';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
-export default function regist() {
+export default function Regist() {
   const auth = getAuth();
+  const [massage, setMassage] = useState('');
+  const [valueInput, setValueInput] = useState({
+    email: '',
+    password: '',
+  });
+  const onHandler = (e) => {
+    const value = e.target.value;
+    const name = e.target.type;
+
+    setValueInput({ ...valueInput, [name]: value });
+  };
 
   function createUser(e) {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
+    console.log(valueInput.email, valueInput.password);
+    createUserWithEmailAndPassword(auth, valueInput.email, valueInput.password)
       .then((userCredential) => {
         // Signed in
+
         const user = userCredential.user;
         // ...
+        setMassage('ви уcпiшно зареэструвались', user.name);
+        setValueInput({ email: '', password: '' });
       })
       .catch((error) => {
         const errorCode = error.code;
+
         const errorMessage = error.message;
+        if (errorCode === 'auth/weak-password') {
+          setMassage('слабий пароль');
+        } else if (errorCode === 'auth/email-already-in-use') {
+          setMassage('такий акаунт вже iснуе');
+        } else {
+          setMassage(errorMessage);
+        }
+
         // ..
       });
   }
@@ -33,7 +57,7 @@ export default function regist() {
             // role="heading"
             // aria-level="2"
           >
-            Зарегистрированные клиенты
+            {massage ? { massage } : 'створити нового клиента'}
           </strong>{' '}
         </div>
         <div
@@ -61,9 +85,10 @@ export default function regist() {
                 </label>{' '}
                 <div className="control">
                   <input
+                    onChange={onHandler}
                     name="login[username]"
-                    value=""
-                    autoComplete="off"
+                    value={valueInput.email}
+                    autoComplete="on"
                     id="email"
                     type="email"
                     className="input-text"
@@ -79,6 +104,8 @@ export default function regist() {
                 </label>{' '}
                 <div className="control">
                   <input
+                    value={valueInput.password}
+                    onChange={onHandler}
                     name="login[password]"
                     type="password"
                     autoComplete="off"

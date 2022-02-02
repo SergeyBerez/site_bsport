@@ -17,20 +17,18 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
       setImgs(url);
     }
   }, []);
-  console.log(imgs1);
+
   const findimg = (i) => {
     const index = Math.floor(i / 2 - 1);
 
     if (index == -1) {
       index = 0;
       setImgs1(url[index]);
-    } else if (index !== -1) {
-      setImgs1(url[index]);
     }
   };
   const goToDitailSlide = (e) => {
     const src = e.currentTarget.src;
-    console.log(src);
+
     setImgs1(src);
   };
   return (
@@ -46,7 +44,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
         autoplay={autoplay}
         // pagination={{ clickable: true }}
         onSwiper={(swiper) => findimg(swiper.activeIndex)}
-        onSlideChange={(swiper) => findimg(swiper.activeIndex)}
+        // onSlideChange={(swiper) => findimg(swiper.activeIndex)}
         breakpoints={{
           300: {
             slidesPerView: count,

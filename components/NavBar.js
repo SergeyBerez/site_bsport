@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState, useRef, useEffect, useDebugValue } from 'react';
-
+import { useAppContext } from '../context/firebaseContext';
 import user from '../public/img/user2.svg';
 import cart from '../public/img/cart.svg';
 import Logo from '../public/img/logo.png';
@@ -10,9 +10,9 @@ import arrowNext from '../public/img/arrow-next.svg';
 
 export default function NavBar({ openSideMenu, transformGamburger, toggleMenu }) {
   const router = useRouter();
-
+  const { uidAdmin } = useAppContext();
   let arr = router.pathname.split('/');
-
+  console.log(uidAdmin);
   useEffect(() => {}, []);
 
   return (
