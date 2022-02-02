@@ -27,7 +27,7 @@ export default function FirebaseContext({ children }) {
   const [good, setGood] = useState([]);
   const [onegood, setOneGood] = useState(null);
   const [loading, setLoading] = useState(true);
-  
+
   const [CurrentUser, setCurrentUser] = useState(null);
   const [uidAdmin, setUidAdmin] = useState(null);
   useEffect(() => {
@@ -36,16 +36,18 @@ export default function FirebaseContext({ children }) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
+        console.log(uid);
         // ...
-        setUidAdmin(true);
+        setCurrentUser(true);
       } else {
         // User is signed out
         // ...
-        setUidAdmin(false);
+
+        setCurrentUser(false);
       }
     });
   }, []);
-  const Logout = () => {
+  const LogOut = () => {
     auth.signOut();
   };
 
@@ -98,7 +100,11 @@ export default function FirebaseContext({ children }) {
   //   });
   // }, []);
 
-  return <AppContext.Provider value={{ loading, uidAdmin }}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={{ loading, uidAdmin, LogOut, CurrentUser }}>
+      {children}
+    </AppContext.Provider>
+  );
 }
 
 export { db };

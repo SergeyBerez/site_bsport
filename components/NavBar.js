@@ -10,9 +10,9 @@ import arrowNext from '../public/img/arrow-next.svg';
 
 export default function NavBar({ openSideMenu, transformGamburger, toggleMenu }) {
   const router = useRouter();
-  const { uidAdmin } = useAppContext();
+  const { CurrentUser } = useAppContext();
   let arr = router.pathname.split('/');
-  console.log(uidAdmin);
+  console.log(CurrentUser);
   useEffect(() => {}, []);
 
   return (

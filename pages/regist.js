@@ -1,147 +1,228 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import MainLayout from '../components/MainLayout';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-
-export default function Regist() {
+import { useAppContext } from '../context/firebaseContext';
+export default function Registration() {
   const auth = getAuth();
+  const { LogOut, CurrentUser } = useAppContext();
+  const [disabled, setDisbled] = useState('');
+  console.log(CurrentUser);
   const [massage, setMassage] = useState('');
-  const [valueInput, setValueInput] = useState({
+  const [valueInputs, setValueInput] = useState({
+    text: '',
+    tel: '',
     email: '',
     password: '',
   });
-  const onHandler = (e) => {
-    const value = e.target.value;
-    const name = e.target.type;
-
-    setValueInput({ ...valueInput, [name]: value });
+  const Validate = () => {
+    if (valueInputs.email == '' || valueInputs.password.length <= 4) {
+      setDisbled('disabled');
+      return true;
+    } else {
+      setDisbled('');
+      return false;
+    }
   };
 
+  const onHandlerInput = (e) => {
+    const value = e.target.value;
+    const name = e.target.type;
+    setValueInput({ ...valueInputs, [name]: value });
+    Validate();
+  };
+  console.log(valueInputs);
   function createUser(e) {
     e.preventDefault();
-    console.log(valueInput.email, valueInput.password);
-    createUserWithEmailAndPassword(auth, valueInput.email, valueInput.password)
+    if (Validate()) {
+      return;
+    }
+    createUserWithEmailAndPassword(auth, valueInputs.email, valueInputs.password)
       .then((userCredential) => {
         // Signed in
 
         const user = userCredential.user;
         // ...
-        setMassage('ви уcпiшно зареэструвались', user.name);
-        setValueInput({ email: '', password: '' });
+        console.log(user);
+        setMassage('ви уcпiшно зареэструвались');
+        setDisbled(true);
+        setValueInput({ ...valueInputs, password: '', email: '' });
       })
       .catch((error) => {
         const errorCode = error.code;
 
         const errorMessage = error.message;
+
         if (errorCode === 'auth/weak-password') {
           setMassage('слабий пароль');
         } else if (errorCode === 'auth/email-already-in-use') {
           setMassage('такий акаунт вже iснуе');
         } else {
-          setMassage(errorMessage);
+          console.log(errorMessage);
         }
-
-        // ..
       });
   }
-
+  const singInUser = (e) => {
+    e.preventDefault();
+  };
   return (
     <MainLayout>
-      <div className="block block-customer-login">
-        <div
-          className="block-title"
-          // role="tablist"
-        >
-          <strong
-            // className="hidden-mobile"
-            id="block-customer-login-heading"
-            // role="heading"
-            // aria-level="2"
-          >
-            {massage ? { massage } : 'створити нового клиента'}
-          </strong>{' '}
-        </div>
-        <div
-          className="block-content"
-          // aria-labelledby="block-customer-login-heading-btn"
-          // data-role="content"
-          // role="tabpanel"
-          // data-collapsible="true"
-          // aria-hidden="true"
-          style={{ display: 'static' }}>
-          <form
-            onSubmit={createUser}
-            className="form form-login"
-            id="login-form"
-            // novalidate="novalidate"
-          >
-            <input name="form_key" type="hidden" value="fw1BR4yTTDz1DxRS"></input>{' '}
-            <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
-              {/* <div className="field note">
-                If you have an account, sign in with your email address.
-              </div> */}
-              <div className="field email required">
-                <label className="label" htmlFor="email">
-                  <span>E-mail:</span>
-                </label>{' '}
-                <div className="control">
-                  <input
-                    onChange={onHandler}
-                    name="login[username]"
-                    value={valueInput.email}
-                    autoComplete="on"
-                    id="email"
-                    type="email"
-                    className="input-text"
-                    title="Email"
-                    // data-validate="{required:true, 'validate-email':true}"
-                    // aria-required="true"
-                  ></input>
-                </div>
-              </div>
-              <div className="field password required">
-                <label htmlFor="pass" className="label">
-                  <span>Пароль:</span>
-                </label>{' '}
-                <div className="control">
-                  <input
-                    value={valueInput.password}
-                    onChange={onHandler}
-                    name="login[password]"
-                    type="password"
-                    autoComplete="off"
-                    className="input-text"
-                    id="pass"
-                    title="Пароль"
-                    // data-validate="{required:true}"
-                    // aria-required="true"
-                  ></input>
-                </div>
-              </div>
-              <div className="actions-toolbar">
-                <div className="primary">
-                  <button
-                    className="action login primary"
+      {!CurrentUser ? (
+        <>
+          <div className="block block-customer-login left">
+            <div className="block-title">
+              <strong id="block-customer-login-heading">
+                {massage ? massage : 'зареэструватися  новий клиент ?'}
+              </strong>{' '}
+            </div>
+            <div className="block-content">
+              <form onSubmit={createUser} className="form form-login" id="login-form">
+                <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
+                  {/* <div className="field name required">
+                    <label className="label" htmlFor="name">
+                      <span>Iмя :</span>
+                    </label>{' '}
+                    <div className="control">
+                      <input
+                        onChange={onHandlerInput}
+                        name="login[username]"
+                        value={valueInputs.text}
+                        autoComplete="on"
+                        id="name"
+                        type="text"
+                        className={'input-text ' + disabled}
+                        title="Name"></input>
+                    </div>
+                  </div> */}
+                  <div className="field name required">
+                    <label className="label" htmlFor="email">
+                      <span>E-mail :</span>
+                    </label>{' '}
+                    <div className="control">
+                      <input
+                        onChange={onHandlerInput}
+                        name="login[username]"
+                        value={valueInputs.email}
+                        autoComplete="on"
+                        id="email"
+                        type="email"
+                        className={'input-text ' + disabled}
+                        title="email"></input>
+                    </div>
+                  </div>
+                  {/* <div className="field tel required">
+                    <label className="label" htmlFor="tel">
+                      <span>Телефон :</span>
+                    </label>{' '}
+                    <div className="control">
+                      <input
+                        onChange={onHandlerInput}
+                        name="login[tel]"
+                        value={valueInputs.tel}
+                        autoComplete="on"
+                        id="tel"
+                        type="tel"
+                        className={'input-text ' + disabled}
+                        title="Phone"></input>
+                    </div>
+                  </div> */}
+                  <div className="field password required">
+                    <label htmlFor="pass" className="label">
+                      <span>Пароль :</span>
+                    </label>{' '}
+                    <div className="control">
+                      <input
+                        value={valueInputs.password}
+                        onChange={onHandlerInput}
+                        name="login[password]"
+                        type="password"
+                        autoComplete="off"
+                        className={'input-text ' + disabled}
+                        id="pass"
+                        title="Пароль"></input>
+                    </div>
+                  </div>
+                  <div className="actions-toolbar">
+                    <div className="primary">
+                      <button className="action login primary" type="submit" disabled={disabled}>
+                        <span>зареэстроватися</span>
+                      </button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
 
-                    // id="send2"
-                  >
-                    <span>Войти</span>
-                  </button>
-                </div>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-      </div>
+          <div className="block block-customer-login right">
+            <div className="block-title">
+              <strong id="block-customer-login-heading">
+                {massage ? massage : 'Вже зареэстрованi ?'}
+              </strong>{' '}
+            </div>
+            <div className="block-content">
+              <form onSubmit={singInUser} className="form form-login" id="login-form">
+                <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
+                  <div className="field name required">
+                    <label className="label" htmlFor="email">
+                      <span>E-mail :</span>
+                    </label>{' '}
+                    <div className="control">
+                      <input
+                        onChange={onHandlerInput}
+                        name="login[username]"
+                        value={valueInputs.email}
+                        autoComplete="on"
+                        id="email"
+                        type="email"
+                        className={'input-text ' + disabled}
+                        title="email"></input>
+                    </div>
+                  </div>
+
+                  <div className="field password required">
+                    <label htmlFor="pass" className="label">
+                      <span>Пароль :</span>
+                    </label>{' '}
+                    <div className="control">
+                      <input
+                        value={valueInputs.password}
+                        onChange={onHandlerInput}
+                        name="login[password]"
+                        type="password"
+                        autoComplete="off"
+                        className={'input-text ' + disabled}
+                        id="pass"
+                        title="Пароль"></input>
+                    </div>
+                  </div>
+                  <div className="actions-toolbar">
+                    <div className="primary">
+                      <button className="action login primary" type="submit" disabled={disabled}>
+                        <span>Увiйти</span>
+                      </button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </>
+      ) : (
+        <button className="action login primary" onClick={LogOut}>
+          <span>вийти</span>
+        </button>
+      )}
+
       <style jsx>{`
         .block.block-customer-login {
+          width: 350px;
           display: flex;
-
+          margin: 0 10px;
           flex-direction: column;
         }
-        .block-content {
-          display: flex;
 
-          flex-direction: column;
+        .block-content {
+          margin-top: auto;
         }
 
         .block-title {
@@ -180,13 +261,15 @@ export default function Regist() {
           font-size: 1.5rem;
         }
         .label:after {
-          content: '*';
+          content: ' *';
           color: #000;
           font-size: 1.4rem;
           margin: 0 0 0 1px;
         }
+        input[type='text'],
         input[type='email'],
-        input[type='password'] {
+        input[type='password'],
+        input[type='tel'] {
           background: #fff;
           background-clip: padding-box;
           border: 1px solid #cbcbcb;
@@ -204,9 +287,9 @@ export default function Regist() {
         }
 
         .control {
-          display: flex;
+          // display: flex;
 
-          flex-direction: column;
+          // flex-direction: column;
         }
 
         .actions-toolbar {
@@ -242,6 +325,9 @@ export default function Regist() {
           background: #444;
           border: 2px solid #000;
           color: #fff;
+        }
+        .input-text.disabled {
+          border: 1px solid red;
         }
       `}</style>
     </MainLayout>
