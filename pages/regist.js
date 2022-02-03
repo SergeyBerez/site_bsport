@@ -6,7 +6,7 @@ import { collection, getDocs, addDoc, doc, getDoc } from 'firebase/firestore/lit
 
 import { useAppContext, db, auth } from '../context/firebaseContext';
 export default function Registration() {
-  const { LogOut, setCurrentUser, uidUser } = useAppContext();
+  const { setCurrentUser, uidUser } = useAppContext();
   const [disabled, setDisbled] = useState('');
 
   const [massage, setMassage] = useState('');
@@ -108,33 +108,21 @@ export default function Registration() {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode);
+      if (errorCode === 'auth/internal-error') {
+        setMassageForLogIn('введiть пароль');
+      } else if (errorCode === 'auth/wrong-password') {
+        setMassageForLogIn('неправильний пароль');
+      } else if (errorCode === 'auth/invalid-email') {
+        setMassageForLogIn('введiть пароль');
+      } else {
+        console.log(errorMessage);
+      }
     }
-
-    // signInWithEmailAndPassword(auth, valueInputsLogIn.email, valueInputsLogIn.password)
-    //   .then((userCredential) => {
-    //     // Signed in
-    //     const user = userCredential.user;
-    //     setMassageForLogIn('ви уcпiшно ввiйшли');
-    //     setDisbled(true);
-    //     setValueInputLogIn({ ...valueInputsLogIn, password: '', email: '' });
-    //     return user.uid;
-    //   })
-    //   .then((id) => {
-    //     const querySnapshot = getDocs(collection(db, 'users'));
-
-    //     return { a: querySnapshot, b: id };
-
-    //     const docRef = doc(db, 'cities', id);
-    //     const docSnap = getDoc(docRef);
-    //     return docSnap;
-    //   })
-    //   .then(({ a, b }) => {
-    //     console.log(a, b);
-    //     const users = [];
-    //     a.forEach((doc) => {
-    //       users.push(doc.data().id);
-    //     });
-    //   })
+  };
+  const LogOut = () => {
+    auth.signOut();
+    setCurrentUser(null);
+    setMassageForLogIn('');
   };
   return (
     <MainLayout>

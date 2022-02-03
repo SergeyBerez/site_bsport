@@ -69,9 +69,9 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
               <a>
                 {' '}
                 <Image width={30} height={30} src={user} alt="logo"></Image>
-                {CurrentUser && CurrentUser.name}
               </a>
             </Link>
+            <p>{CurrentUser && CurrentUser.name}</p>
           </div>
           <div className="cart-header">
             {' '}
@@ -272,6 +272,14 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         .cart-header {
           cursor: pointer;
           margin-right: 20px;
+          text-align: center;
+        }
+        .user-header p {
+          text-transform: uppercase;
+          font-size: 1.2rem;
+          letter-spacing: 1px;
+          font-weight: bold;
+          color: #323232;
         }
         .side-nav-container {
           position: fixed;
@@ -313,15 +321,16 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
           }
         }
         .header-title {
-          margin-top: 2px;
-          font-size: 10px;
+          margin-top: 12px;
+
           color: #323232;
 
-          font-size: 10px;
-          line-height: 15px;
           text-transform: uppercase;
-          font-weight: 400;
+
           text-align: center;
+          font-size: 1.2rem;
+          letter-spacing: 1px;
+          font-weight: bold;
         }
         .icon-bar {
           display: block;

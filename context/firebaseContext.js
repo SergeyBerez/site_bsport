@@ -33,24 +33,53 @@ export default function FirebaseContext({ children }) {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
-        console.log(uid);
-        // ...
+
         setUidUser(true);
+        LogInUser(uid);
       } else {
-        // User is signed out
-        // ...
         setUidUser(false);
       }
     });
   }, []);
+
+  const LogInUser = async (id) => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'users'));
+      const users = [];
+      querySnapshot.forEach((doc) => {
+        users.push(doc.data());
+      });
+      setCurrentUser(
+        users.find((user) => {
+          return user.id === id;
+        }),
+      );
+
+      // setMassageForLogIn('ви уcпiшно ввiйшли');
+      // setDisbled(true);
+      // setValueInputLogIn({ ...valueInputsLogIn, password: '', email: '' });
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // console.log(errorCode);
+      // if (errorCode === 'auth/internal-error') {
+      //   setMassageForLogIn('введiть пароль');
+      // } else if (errorCode === 'auth/wrong-password') {
+      //   setMassageForLogIn('неправильний пароль');
+      // } else if (errorCode === 'auth/invalid-email') {
+      //   setMassageForLogIn('введiть пароль');
+      // } else {
+      //   console.log(errorMessage);
+      // }
+    }
+  };
+
   const LogOut = () => {
     auth.signOut();
     setCurrentUser(null);
   };
-
+  console.log(CurrentUser);
   // const getGood = (params) => {
   //   return getGoods(db, params);
   // };
