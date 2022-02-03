@@ -69,6 +69,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
               <a>
                 {' '}
                 <Image width={30} height={30} src={user} alt="logo"></Image>
+                {CurrentUser && CurrentUser.name}
               </a>
             </Link>
           </div>
@@ -162,7 +163,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
                   {router.pathname == '/sport-kostums' ? 'костюми' : null}
                   {router.pathname == '/delivery' ? 'доставка' : null}
                   {router.pathname == '/about' ? 'контакти' : null}
-                  {router.pathname == '/regist' ? 'вхiд' : null}
+                  {router.pathname == '/regist' ? 'авторизацiя' : null}
                   {router.query.id && arr[1] == 'shorts' ? 'шорти' : null}
                   {router.query.id && arr[1] == 'pants' ? 'штани' : null}
                   {router.query.id && arr[1] == 'sport-kostums' ? 'костюми' : null}

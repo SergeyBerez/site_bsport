@@ -1,21 +1,27 @@
 import { useState } from 'react';
 import MainLayout from '../components/MainLayout';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { useAppContext } from '../context/firebaseContext';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+
+import { collection, getDocs, addDoc, doc, getDoc } from 'firebase/firestore/lite';
+
+import { useAppContext, db, auth } from '../context/firebaseContext';
 export default function Registration() {
-  const auth = getAuth();
-  const { LogOut, CurrentUser } = useAppContext();
+  const { LogOut, setCurrentUser, uidUser } = useAppContext();
   const [disabled, setDisbled] = useState('');
-  console.log(CurrentUser);
+
   const [massage, setMassage] = useState('');
   const [valueInputs, setValueInput] = useState({
+    email: '',
+    password: '',
     text: '',
-    tel: '',
+  });
+  const [valueInputsLogIn, setValueInputLogIn] = useState({
     email: '',
     password: '',
   });
-  const Validate = () => {
-    if (valueInputs.email == '' || valueInputs.password.length <= 4) {
+  const [massageForLogIn, setMassageForLogIn] = useState('');
+  const Validate = (email, password) => {
+    if (email == '' || password.length <= 4) {
       setDisbled('disabled');
       return true;
     } else {
@@ -28,28 +34,42 @@ export default function Registration() {
     const value = e.target.value;
     const name = e.target.type;
     setValueInput({ ...valueInputs, [name]: value });
-    Validate();
+    // Validate(valueInputs.email, valueInputs.password);
+  };
+  const onHandlerInputLogIn = (e) => {
+    const value = e.target.value;
+    const name = e.target.type;
+    setValueInputLogIn({ ...valueInputsLogIn, [name]: value });
+    // Validate(valueInputsLogIn.email, valueInputsLogIn.password);
   };
   console.log(valueInputs);
+  console.log(valueInputsLogIn);
   function createUser(e) {
+    console.log('sssss');
     e.preventDefault();
-    if (Validate()) {
-      return;
-    }
+
+    // if (Validate()) {
+    //   return;
+    // }
     createUserWithEmailAndPassword(auth, valueInputs.email, valueInputs.password)
       .then((userCredential) => {
         // Signed in
 
         const user = userCredential.user;
-        // ...
-        console.log(user);
         setMassage('ви уcпiшно зареэструвались');
         setDisbled(true);
-        setValueInput({ ...valueInputs, password: '', email: '' });
+        setValueInput({ ...valueInputs, password: '', email: '', text: '' });
+        return user.uid;
+      })
+      .then((id) => {
+        addDoc(collection(db, 'users'), {
+          name: valueInputs.text,
+          email: valueInputs.email,
+          id: id,
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
-
         const errorMessage = error.message;
 
         if (errorCode === 'auth/weak-password') {
@@ -61,23 +81,82 @@ export default function Registration() {
         }
       });
   }
-  const singInUser = (e) => {
+  const LogInUser = async (e) => {
     e.preventDefault();
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        valueInputsLogIn.email,
+        valueInputsLogIn.password,
+      );
+      const id = userCredential.user.uid;
+      const querySnapshot = await getDocs(collection(db, 'users'));
+      const users = [];
+      querySnapshot.forEach((doc) => {
+        users.push(doc.data());
+      });
+      setCurrentUser(
+        users.find((user) => {
+          return user.id === id;
+        }),
+      );
+      setMassageForLogIn('ви уcпiшно ввiйшли');
+      setDisbled(true);
+      setValueInputLogIn({ ...valueInputsLogIn, password: '', email: '' });
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode);
+    }
+
+    // signInWithEmailAndPassword(auth, valueInputsLogIn.email, valueInputsLogIn.password)
+    //   .then((userCredential) => {
+    //     // Signed in
+    //     const user = userCredential.user;
+    //     setMassageForLogIn('ви уcпiшно ввiйшли');
+    //     setDisbled(true);
+    //     setValueInputLogIn({ ...valueInputsLogIn, password: '', email: '' });
+    //     return user.uid;
+    //   })
+    //   .then((id) => {
+    //     const querySnapshot = getDocs(collection(db, 'users'));
+
+    //     return { a: querySnapshot, b: id };
+
+    //     const docRef = doc(db, 'cities', id);
+    //     const docSnap = getDoc(docRef);
+    //     return docSnap;
+    //   })
+    //   .then(({ a, b }) => {
+    //     console.log(a, b);
+    //     const users = [];
+    //     a.forEach((doc) => {
+    //       users.push(doc.data().id);
+    //     });
+    //   })
   };
   return (
     <MainLayout>
-      {!CurrentUser ? (
+      {!uidUser ? (
         <>
+          <div className="social_block">
+            <div className="title">Увійти через соцмережі</div>
+            <div className="wrapp_btn">
+              <button className="soc_btn facebook"></button>
+              <button className="soc_btn google"></button>
+            </div>
+          </div>
           <div className="block block-customer-login left">
             <div className="block-title">
               <strong id="block-customer-login-heading">
-                {massage ? massage : 'зареэструватися  новий клиент ?'}
+                {massage ? massage : 'Новий клиент'}
               </strong>{' '}
             </div>
             <div className="block-content">
               <form onSubmit={createUser} className="form form-login" id="login-form">
                 <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
-                  {/* <div className="field name required">
+                  <div className="field name required">
                     <label className="label" htmlFor="name">
                       <span>Iмя :</span>
                     </label>{' '}
@@ -92,7 +171,7 @@ export default function Registration() {
                         className={'input-text ' + disabled}
                         title="Name"></input>
                     </div>
-                  </div> */}
+                  </div>
                   <div className="field name required">
                     <label className="label" htmlFor="email">
                       <span>E-mail :</span>
@@ -126,7 +205,7 @@ export default function Registration() {
                     </div>
                   </div> */}
                   <div className="field password required">
-                    <label htmlFor="pass" className="label">
+                    <label htmlFor="password" className="label">
                       <span>Пароль :</span>
                     </label>{' '}
                     <div className="control">
@@ -137,13 +216,13 @@ export default function Registration() {
                         type="password"
                         autoComplete="off"
                         className={'input-text ' + disabled}
-                        id="pass"
+                        id="password"
                         title="Пароль"></input>
                     </div>
                   </div>
                   <div className="actions-toolbar">
                     <div className="primary">
-                      <button className="action login primary" type="submit" disabled={disabled}>
+                      <button className="action login primary" type="submit">
                         <span>зареэстроватися</span>
                       </button>
                     </div>
@@ -155,12 +234,14 @@ export default function Registration() {
 
           <div className="block block-customer-login right">
             <div className="block-title">
-              <strong id="block-customer-login-heading">
-                {massage ? massage : 'Вже зареэстрованi ?'}
-              </strong>{' '}
+              <h5>
+                Зареэстрований клiэнт
+                <strong id="block-customer-login-heading"></strong>
+              </h5>{' '}
+              <span>{massageForLogIn ? massageForLogIn : null}</span>
             </div>
             <div className="block-content">
-              <form onSubmit={singInUser} className="form form-login" id="login-form">
+              <form onSubmit={LogInUser} className="form form-login" id="login-form">
                 <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
                   <div className="field name required">
                     <label className="label" htmlFor="email">
@@ -168,9 +249,9 @@ export default function Registration() {
                     </label>{' '}
                     <div className="control">
                       <input
-                        onChange={onHandlerInput}
+                        onChange={onHandlerInputLogIn}
                         name="login[username]"
-                        value={valueInputs.email}
+                        value={valueInputsLogIn.email}
                         autoComplete="on"
                         id="email"
                         type="email"
@@ -185,8 +266,8 @@ export default function Registration() {
                     </label>{' '}
                     <div className="control">
                       <input
-                        value={valueInputs.password}
-                        onChange={onHandlerInput}
+                        value={valueInputsLogIn.password}
+                        onChange={onHandlerInputLogIn}
                         name="login[password]"
                         type="password"
                         autoComplete="off"
@@ -197,7 +278,7 @@ export default function Registration() {
                   </div>
                   <div className="actions-toolbar">
                     <div className="primary">
-                      <button className="action login primary" type="submit" disabled={disabled}>
+                      <button className="action login primary" type="submit">
                         <span>Увiйти</span>
                       </button>
                     </div>
@@ -208,12 +289,41 @@ export default function Registration() {
           </div>
         </>
       ) : (
-        <button className="action login primary" onClick={LogOut}>
-          <span>вийти</span>
-        </button>
+        <div className="block-logOut">
+          <h2 className="h2">{massageForLogIn}</h2>
+          <button className="action login primary" onClick={LogOut}>
+            <span>вийти</span>
+          </button>
+        </div>
       )}
 
       <style jsx>{`
+        .block-logOut {
+          margin-top: 150px;
+        }
+        .h2 {
+        }
+        .social_block {
+          width: 100%;
+        }
+        .title {
+          font-size: 1.4rem;
+          text-align: center;
+          color: #1a1a1a;
+          margin-bottom: 35px;
+        }
+        .wrapp_btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .soc_btn {
+          border: 0px;
+          border-radius: 0px;
+          background: transparent;
+          margin: 0px 5px;
+          color: black;
+        }
         .block.block-customer-login {
           width: 350px;
           display: flex;

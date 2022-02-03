@@ -29,7 +29,7 @@ export default function FirebaseContext({ children }) {
   const [loading, setLoading] = useState(true);
 
   const [CurrentUser, setCurrentUser] = useState(null);
-  const [uidAdmin, setUidAdmin] = useState(null);
+  const [uidUser, setUidUser] = useState(null);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -38,17 +38,17 @@ export default function FirebaseContext({ children }) {
         const uid = user.uid;
         console.log(uid);
         // ...
-        setCurrentUser(true);
+        setUidUser(true);
       } else {
         // User is signed out
         // ...
-
-        setCurrentUser(false);
+        setUidUser(false);
       }
     });
   }, []);
   const LogOut = () => {
     auth.signOut();
+    setCurrentUser(null);
   };
 
   // const getGood = (params) => {
@@ -101,10 +101,10 @@ export default function FirebaseContext({ children }) {
   // }, []);
 
   return (
-    <AppContext.Provider value={{ loading, uidAdmin, LogOut, CurrentUser }}>
+    <AppContext.Provider value={{ uidUser, loading, LogOut, CurrentUser, setCurrentUser }}>
       {children}
     </AppContext.Provider>
   );
 }
 
-export { db };
+export { db, auth };
