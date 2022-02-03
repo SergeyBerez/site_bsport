@@ -1,12 +1,15 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import MainLayout from '../components/MainLayout';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-
+import Link from '../public/img/link_icon.svg';
+import Image from 'next/image';
 import { collection, getDocs, addDoc, doc, getDoc } from 'firebase/firestore/lite';
 
 import { useAppContext, db, auth } from '../context/firebaseContext';
 export default function Registration() {
-  const { setCurrentUser, uidUser } = useAppContext();
+  const router = useRouter();
+  const { setCurrentUser, uidUser, CurrentUser } = useAppContext();
   const [disabled, setDisbled] = useState('');
 
   const [massage, setMassage] = useState('');
@@ -42,10 +45,8 @@ export default function Registration() {
     setValueInputLogIn({ ...valueInputsLogIn, [name]: value });
     // Validate(valueInputsLogIn.email, valueInputsLogIn.password);
   };
-  console.log(valueInputs);
-  console.log(valueInputsLogIn);
+
   function createUser(e) {
-    console.log('sssss');
     e.preventDefault();
 
     // if (Validate()) {
@@ -111,9 +112,11 @@ export default function Registration() {
       if (errorCode === 'auth/internal-error') {
         setMassageForLogIn('введiть пароль');
       } else if (errorCode === 'auth/wrong-password') {
-        setMassageForLogIn('неправильний пароль');
+        setMassageForLogIn('такий пароль не icнуэ');
       } else if (errorCode === 'auth/invalid-email') {
-        setMassageForLogIn('введiть пароль');
+        setMassageForLogIn('введiть пошту');
+      } else if (errorCode === 'auth/user-not-found') {
+        setMassageForLogIn('такого користувача не iснуе');
       } else {
         console.log(errorMessage);
       }
@@ -123,6 +126,12 @@ export default function Registration() {
     auth.signOut();
     setCurrentUser(null);
     setMassageForLogIn('');
+  };
+  const goToMainPage = () => {
+    router.push('/');
+  };
+  const goToCart = () => {
+    router.push('/cart');
   };
   return (
     <MainLayout>
@@ -142,7 +151,7 @@ export default function Registration() {
               </strong>{' '}
             </div>
             <div className="block-content">
-              <form onSubmit={createUser} className="form form-login" id="login-form">
+              <form onSubmit={createUser} className="form form-login" id="regist-form">
                 <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
                   <div className="field name required">
                     <label className="label" htmlFor="name">
@@ -150,6 +159,7 @@ export default function Registration() {
                     </label>{' '}
                     <div className="control">
                       <input
+                        required
                         onChange={onHandlerInput}
                         name="login[username]"
                         value={valueInputs.text}
@@ -161,16 +171,17 @@ export default function Registration() {
                     </div>
                   </div>
                   <div className="field name required">
-                    <label className="label" htmlFor="email">
+                    <label className="label" htmlFor="email-regist">
                       <span>E-mail :</span>
                     </label>{' '}
                     <div className="control">
                       <input
+                        required
                         onChange={onHandlerInput}
                         name="login[username]"
                         value={valueInputs.email}
                         autoComplete="on"
-                        id="email"
+                        id="email-regist"
                         type="email"
                         className={'input-text ' + disabled}
                         title="email"></input>
@@ -193,18 +204,19 @@ export default function Registration() {
                     </div>
                   </div> */}
                   <div className="field password required">
-                    <label htmlFor="password" className="label">
+                    <label htmlFor="password-regist" className="label">
                       <span>Пароль :</span>
                     </label>{' '}
                     <div className="control">
                       <input
+                        required
                         value={valueInputs.password}
                         onChange={onHandlerInput}
                         name="login[password]"
                         type="password"
                         autoComplete="off"
                         className={'input-text ' + disabled}
-                        id="password"
+                        id="password-regist"
                         title="Пароль"></input>
                     </div>
                   </div>
@@ -222,18 +234,15 @@ export default function Registration() {
 
           <div className="block block-customer-login right">
             <div className="block-title">
-              <h5>
-                Зареэстрований клiэнт
-                <strong id="block-customer-login-heading"></strong>
-              </h5>{' '}
-              <span>{massageForLogIn ? massageForLogIn : null}</span>
+              <strong id="block-customer-login-heading"> Зареэстрований клiэнт</strong>
             </div>
+            <span>{massageForLogIn ? massageForLogIn : null}</span>
             <div className="block-content">
               <form onSubmit={LogInUser} className="form form-login" id="login-form">
                 <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
                   <div className="field name required">
                     <label className="label" htmlFor="email">
-                      <span>E-mail :</span>
+                      <span>E-mail :{massageForLogIn ? massageForLogIn : null}</span>
                     </label>{' '}
                     <div className="control">
                       <input
@@ -250,7 +259,7 @@ export default function Registration() {
 
                   <div className="field password required">
                     <label htmlFor="pass" className="label">
-                      <span>Пароль :</span>
+                      <span>Пароль :{massageForLogIn ? massageForLogIn : null}</span>
                     </label>{' '}
                     <div className="control">
                       <input
@@ -277,8 +286,15 @@ export default function Registration() {
           </div>
         </>
       ) : (
-        <div className="block-logOut">
-          <h2 className="h2">{massageForLogIn}</h2>
+        <div className="block-logIn">
+          <h2 className="title-product-block">ви увiйшли як </h2>
+          <p>{CurrentUser && CurrentUser.name}</p>
+          <button className="button-default-white" onClick={goToMainPage}>
+            <span>в каталог</span> <Image width={20} height={20} src={Link} alt="logo"></Image>
+          </button>
+          <button className="button-default-white" onClick={goToCart}>
+            <span>в корзину</span> <Image width={20} height={20} src={Link} alt="logo"></Image>
+          </button>
           <button className="action login primary" onClick={LogOut}>
             <span>вийти</span>
           </button>
@@ -286,8 +302,36 @@ export default function Registration() {
       )}
 
       <style jsx>{`
-        .block-logOut {
-          margin-top: 150px;
+        .title-product-block {
+          flex-grow: 0;
+          margin: 0px;
+        }
+        p {
+          margin: 0;
+          font-size: 2rem;
+          letter-spacing: 0.5rem;
+          text-transform: capitalize;
+        }
+        .button-default-white {
+          display: flex;
+          cursor: pointer;
+          align-items: center;
+          justify-content: center;
+          text-transform: none;
+          font-size: 1.6rem;
+        }
+        span {
+          margin-right: 5px;
+        }
+        .block-logIn {
+          padding: 0 5px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          height: 300px;
+          flex-grow: 1;
+          max-width: 400px;
+          text-align: center;
         }
         .h2 {
         }
@@ -364,10 +408,8 @@ export default function Registration() {
           font-size: 1.4rem;
           margin: 0 0 0 1px;
         }
-        input[type='text'],
-        input[type='email'],
-        input[type='password'],
-        input[type='tel'] {
+
+        .input-text {
           background: #fff;
           background-clip: padding-box;
           border: 1px solid #cbcbcb;
@@ -384,26 +426,10 @@ export default function Registration() {
           box-sizing: border-box;
         }
 
-        .control {
-          // display: flex;
-
-          // flex-direction: column;
-        }
-
         .actions-toolbar {
           padding-top: 3px;
         }
-        // .login-container .actions-toolbar .secondary {
-        //   margin-bottom: 25px;
-        //   text-align: right;
-        //   width: 100%;
-        // }
-        // .login-container .actions-toolbar .secondary a.action {
-        //   margin-top: 0;
-        // }
-        // .login-container .actions-toolbar .primary {
-        //   width: 100%;
-        // }
+
         .primary {
           width: 100%;
         }
@@ -418,6 +444,7 @@ export default function Registration() {
           line-height: 1;
           text-transform: uppercase;
           letter-spacing: 1.4px;
+          cursor: pointer;
         }
         .action.primary:hover {
           background: #444;
