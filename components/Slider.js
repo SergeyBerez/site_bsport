@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Navigation, Pagination, Autoplay } from 'swiper';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) => {
+const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) => {
   const [imgs, setImgs] = useState([
     'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505',
   ]);
@@ -37,12 +37,12 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
         // install Swiper modules
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={10}
-        slidesPerView={1}
+        slidesPerView={3}
         navigation
         loop={true}
         grabCursor={grabCursor}
         autoplay={autoplay}
-        // pagination={{ clickable: true }}
+        pagination={{ clickable: true }}
         onSwiper={(swiper) => findimg(swiper.activeIndex)}
         // onSlideChange={(swiper) => findimg(swiper.activeIndex)}
         breakpoints={{
@@ -74,16 +74,18 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 3 }) =>
           ? url.map((obj, i) => {
               return (
                 <SwiperSlide key={i}>
-                  <Link href={obj.path}>
-                    <a>
-                      <div className="img">
-                        <Image src={obj.url} width={300} height={405} alt="logo"></Image>
-                      </div>
-                      <div className="bottom-subtitle">
-                        <button className="button button-default-white font">{obj.name}</button>
-                      </div>
-                    </a>
-                  </Link>
+                  <div className="img">
+                    <Link href={obj.path}>
+                      <a>
+                        <div className="img">
+                          <Image src={obj.url} width={300} height={405} alt="logo"></Image>
+                        </div>
+                        <div className="bottom-subtitle">
+                          <button className="button button-default-white font">{obj.name}</button>
+                        </div>
+                      </a>
+                    </Link>
+                  </div>
                 </SwiperSlide>
               );
             })

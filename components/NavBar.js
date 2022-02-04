@@ -30,11 +30,11 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         </div>{' '}
         <nav className="nav-header">
           <ul>
-            {/* <li className={router.pathname == '/' ? 'li active' : 'li'}>
+            <li className={router.pathname == '/' ? 'active' : 'li'}>
               <Link href="/">
                 <a>катaлог</a>
               </Link>
-            </li> */}
+            </li>
             <li className={router.pathname == '/pants' ? 'active' : ''}>
               <Link href="/pants">
                 <a>брюки</a>
