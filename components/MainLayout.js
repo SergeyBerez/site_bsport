@@ -1,8 +1,8 @@
 import NavBar from './NavBar';
-import Link from 'next/link';
+
 import Image from 'next/image';
 import styles from './mainLayout.module.css';
-import { useEffect } from 'react';
+
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 export default function MainLayout({ children }) {
@@ -29,13 +29,6 @@ export default function MainLayout({ children }) {
     }
   };
 
-  useEffect(() => {
-    console.log(' useEffect redner MainLayout', router.pathname);
-  }, []);
-
-  const showBackground = () => {
-    console.log('sss');
-  };
   return (
     <>
       <NavBar
@@ -45,7 +38,7 @@ export default function MainLayout({ children }) {
 
       <main className={styles.main}>
         <div className="container">
-          <div className={styles['product-container']}>{children}</div>
+          <section className={styles['product-container']}>{children}</section>
         </div>
       </main>
 

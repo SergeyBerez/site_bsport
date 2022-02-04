@@ -65,21 +65,23 @@ export default function Index() {
 
         <div className="productCard_block-katalog">
           {' '}
-          <div className="img">
-            <Image
-              alt={'pant'}
-              width={300}
-              height={400}
-              src={
-                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-09-18_22-23-35.jpg?alt=media&token=e4a1c5e3-bea8-4c37-8a11-b8cc96debb4a'
-              }></Image>
-            <h4 className="bottom-subtitle">
-              <Link href="/pants">
-                <a className="button button-default-white">штаны</a>
-              </Link>
-            </h4>
-          </div>
+          <Link href="/pants">
+            <a>
+              {' '}
+              <Image
+                alt={'pant'}
+                width={300}
+                height={400}
+                src={
+                  'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/pants%2Fphoto_2021-09-18_22-23-35.jpg?alt=media&token=e4a1c5e3-bea8-4c37-8a11-b8cc96debb4a'
+                }></Image>
+              <div className="bottom-subtitle">
+                <button className="button button-default-white">штаны</button>
+              </div>
+            </a>
+          </Link>
         </div>
+
         <div className="productCard_block-katalog">
           {' '}
           <div className="img">

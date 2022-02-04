@@ -74,18 +74,16 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
           ? url.map((obj, i) => {
               return (
                 <SwiperSlide key={i}>
-                  <div className="img">
-                    <Link href={obj.path}>
-                      <a>
-                        <div className="img">
-                          <Image src={obj.url} width={300} height={405} alt="logo"></Image>
-                        </div>
-                        <div className="bottom-subtitle">
-                          <button className="button button-default-white font">{obj.name}</button>
-                        </div>
-                      </a>
-                    </Link>
-                  </div>
+                  <Link href={obj.path}>
+                    <a>
+                      <div className="img">
+                        <Image src={obj.url} width={300} height={405} alt="logo"></Image>
+                      </div>
+                      <div className="bottom-subtitle">
+                        <button className="button button-default-white font">{obj.name}</button>
+                      </div>
+                    </a>
+                  </Link>
                 </SwiperSlide>
               );
             })
@@ -93,7 +91,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
             imgs.map((el, i) => {
               return (
                 <SwiperSlide key={i}>
-                  <div className="img">
+                  <div className="img-card-detail">
                     <Image
                       src={el}
                       width={300}
@@ -117,6 +115,15 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
 
       <style jsx>{`
         .bottom-subtitle {
+          margin-top: 0;
+          text-align: center;
+          margin-bottom: 40px;
+        }
+        .img-card-detail {
+          max-width: 300px;
+          margin: 0 auto;
+          display: block;
+          margin-bottom: 35px;
         }
         .font {
           border: none;
