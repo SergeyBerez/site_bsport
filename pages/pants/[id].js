@@ -1,12 +1,11 @@
 import CardDetail from '../../components/CardDetail';
-import MainLayout from '../../components/MainLayout';
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
+import MainLayout from '../../components/MainLayout';
 
-export default function Pants({ good }) {
+export default function Shorts({ goods }) {
   const { description, detaileDescription, id, title, price, url, urlArr, color } =
-    JSON.parse(good);
-
+    JSON.parse(goods);
   return (
     <MainLayout>
       <CardDetail
@@ -35,7 +34,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const id = context.params.id;
-  console.log(context);
+
   const docRef = doc(db, 'pants', id);
 
   const docSnap = await getDoc(docRef);

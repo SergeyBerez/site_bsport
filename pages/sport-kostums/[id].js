@@ -34,11 +34,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const id = context.params.id;
-  console.log(id);
+
   const docRef = doc(db, 'sport-kostums', id);
 
   const docSnap = await getDoc(docRef);
-  // console.log(docSnap);
+
   return {
     props: { goods: JSON.stringify(docSnap.data()) || null }, // will be passed to the page component as props
   };

@@ -6,11 +6,11 @@ import { Spinner } from '../../components/Spinner';
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs } from 'firebase/firestore/lite';
 export default function Pants({ goodList }) {
-  // const goodClient = JSON.parse(goodList);
+  const goodClient = JSON.parse(goodList);
 
   const [loading, setLoading] = useState(true);
 
-  const [goods, setGood] = useState(JSON.parse(goodList) || []);
+  const [goods, setGood] = useState(goodClient);
 
   useEffect(() => {
     setLoading(false);
@@ -106,7 +106,7 @@ export async function getStaticProps(context) {
   const docRef = collection(db, 'pants');
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
-  console.log(querySnapshot.docs.map((doc) => doc.data()));
+
   return {
     props: { goodList: JSON.stringify(goodList) || null }, // will be passed to
   };
