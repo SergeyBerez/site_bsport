@@ -3,9 +3,9 @@ import MainLayout from '../../components/MainLayout';
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
 
-export default function Pants({ goods }) {
+export default function Pants({ good }) {
   const { description, detaileDescription, id, title, price, url, urlArr, color } =
-    JSON.parse(goods);
+    JSON.parse(good);
 
   return (
     <MainLayout>
@@ -35,7 +35,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const id = context.params.id;
-
+  console.log(context);
   const docRef = doc(db, 'pants', id);
 
   const docSnap = await getDoc(docRef);

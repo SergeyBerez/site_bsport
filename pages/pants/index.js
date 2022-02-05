@@ -6,11 +6,11 @@ import { Spinner } from '../../components/Spinner';
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs } from 'firebase/firestore/lite';
 export default function Pants({ goodList }) {
-  const goodClient = JSON.parse(goodList);
+  // const goodClient = JSON.parse(goodList);
 
   const [loading, setLoading] = useState(true);
 
-  const [goods, setGood] = useState(goodClient);
+  const [goods, setGood] = useState(JSON.parse(goodList) || []);
 
   useEffect(() => {
     setLoading(false);
@@ -89,12 +89,11 @@ export default function Pants({ goodList }) {
           {goods.map((good) => {
             return (
               <Card
-                description={good.description}
                 id={good.id}
                 key={good.id}
                 title={good.title}
                 price={good.price}
-                url={good.url}></Card>
+                url={good.urlArr[0]}></Card>
             );
           })}
         </>
@@ -104,12 +103,10 @@ export default function Pants({ goodList }) {
 }
 
 export async function getStaticProps(context) {
-  const id = context.params;
-
   const docRef = collection(db, 'pants');
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
-
+  console.log(querySnapshot.docs.map((doc) => doc.data()));
   return {
     props: { goodList: JSON.stringify(goodList) || null }, // will be passed to
   };

@@ -1,21 +1,7 @@
-.productCard_block {
-  display: flex;
-  flex-direction: column;
-  margin: 10px 10px 20px 10px;
-  padding: 5px;
-
-  /* background-color: rgb(243, 239, 239); */
-}
 .productCard_block :hover {
   cursor: pointer;
 }
 
-.productCard_block-katalog {
-  margin: 20px;
-
-  flex-basis: auto;
-  min-width: 250px;
-}
 /* .block_product {
   flex: 1;
   width: 100%;
@@ -30,29 +16,14 @@
   transition: 0.7s;
 } */
 
-.product-card__title {
-  font-size: 14px;
-  text-align: center;
-  text-transform: uppercase;
-  margin-top: 17px;
-  margin-bottom: 15px;
-
-  margin: 5px 0;
-  font-size: 1.2rem;
-  color: rgb(17, 17, 17);
-  font-weight: 500;
-  letter-spacing: 1px;
-}
 .block_price {
-  margin-top: 5px;
   width: 100%;
-  color: #1a1a1a;
+
   font-size: 1.4rem;
   font-weight: bold;
   text-align: center;
   color: #1a1a1a;
   padding: 0px 5px;
-  letter-spacing: 0.4px;
 }
 .block_price__currency {
   text-align: left;
@@ -76,13 +47,34 @@
   background-color: #536dfe;
   font-size: 17px;
 }
+
+.productCard_block {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  padding: 5px;
+  max-width: 230px;
+}
+.product-card__title {
+  text-align: center;
+  text-transform: capitalize;
+  margin: 5px 0;
+  color: rgb(17, 17, 17);
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media (min-width: 320px) {
   .productCard_block {
     margin: 5px;
     flex-grow: 0;
     flex-basis: calc(100% / 2 - 10px);
-    font-size: 1 rem;
-    /* min-width: 160px; */
+    min-width: 140px;
+  }
+  .product-card__title {
+    font-size: 1.4rem;
   }
 }
 @media (min-width: 480px) {
@@ -90,41 +82,21 @@
     margin: 5px;
     flex-grow: 0;
     flex-basis: calc(100% / 3 - 10px);
-    /* min-width: 160px; */
-    /* max-width: 160px; */
   }
 }
-@media (min-width: 580px) {
-  .productCard_block {
-    margin: 5px 5px 20px 5px;
-    flex-grow: 0;
-    flex-basis: calc(100% / 3 - 10px);
-    min-width: 170px;
-  }
-}
+
 @media (min-width: 680px) {
   .productCard_block {
     flex-grow: 0;
     flex-basis: calc(100% / 4 - 10px);
-    min-width: 200px;
+    min-width: 150px;
   }
 }
-@media (min-width: 900px) {
-  .productCard_block {
-    flex-grow: 0;
-    flex-basis: calc(100% / 4 - 10px);
-    min-width: 200px;
-  }
-}
+
 @media (min-width: 1140px) {
   .productCard_block {
     flex-grow: 0;
     flex-basis: calc(100% / 5 - 10px);
     min-width: 200px;
-  }
-  .productCard_block-catalog {
-    flex-grow: 0;
-    flex-basis: calc(100% / 2 - 10px);
-    min-width: 300px;
   }
 }

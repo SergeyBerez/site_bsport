@@ -29,11 +29,6 @@ export default function CardDetail({
           <button className="button button_addToCard">add to card</button>
         </div>
 
-        {/* <p className="block_model">
-          <span className="block_model__text">Model: </span>
-          <span className="block_model__number">505795</span>
-        </p> */}
-
         <p className="block_product__advantagesProduct">{description}</p>
         {/* <div className="img">
           <Image src={url} width={300} height={400} alt="logo"></Image>
@@ -43,9 +38,9 @@ export default function CardDetail({
           <span>{detaileDescription}</span>
 
           <p>-материал двухнитка пенье</p>
-          <p> -молодёжный покрой зауженные</p>
+          <p>-молодёжный покрой зауженные</p>
           <p>-Ткань турецкая состав: 80 % хлопок 20 % полиэстер</p>
-          <p> -Штаны на манжетах, глубокие карманы на молнии</p>
+          <p>-Штаны на манжетах, глубокие карманы на молнии</p>
         </div>
         <div className="block_descriptionInformation">
           <strong> Варианты оплаты и отправок: </strong>
