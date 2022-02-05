@@ -93,7 +93,7 @@ export default function Pants({ goodList }) {
                 key={good.id}
                 title={good.title}
                 price={good.price}
-                url={good.urlArr[0]}></Card>
+                url={good.url}></Card>
             );
           })}
         </>
