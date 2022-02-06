@@ -32,7 +32,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const id = context.params.id;
 
   const docRef = doc(db, 'pants', id);

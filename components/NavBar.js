@@ -33,33 +33,33 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         <nav className="nav-header">
           <ul>
             <li className={router.pathname == '/' ? 'active' : 'li'}>
-              <Link href="/">
+              <Link href="/" shallow>
                 <a>катaлог</a>
               </Link>
             </li>
             <li className={router.pathname == '/pants' ? 'active' : ''}>
-              <Link href="/pants">
+              <Link href="/pants" shallow>
                 <a>брюки</a>
               </Link>
             </li>
             <li className={router.pathname == '/shorts' ? 'active' : ''}>
-              <Link href="/shorts">
+              <Link href="/shorts" shallow>
                 <a>шорты</a>
               </Link>
             </li>
             <li className={router.pathname == '/sport-kostums' ? 'active' : ''}>
-              <Link href="/sport-kostums">
+              <Link href="/sport-kostums" shallow>
                 <a>костюмы</a>
               </Link>
             </li>
 
             <li className={router.pathname == '/delivery' ? 'li active' : 'li'}>
-              <Link href="/delivery">
+              <Link href="/delivery" shallow>
                 <a>доставка</a>
               </Link>
             </li>
             <li className={router.pathname == '/about' ? 'li active' : 'li'}>
-              <Link href="/about">
+              <Link href="/about" shallow>
                 <a>контакти</a>
               </Link>
             </li>
@@ -67,7 +67,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         </nav>
         <div className="block-user-cart">
           <div className="user-header">
-            <Link href="/regist">
+            <Link href="/regist" shallow>
               <a>
                 {' '}
                 <Image width={30} height={30} src={user} alt="logo"></Image>
@@ -76,7 +76,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
             <p>{CurrentUser && CurrentUser.name}</p>
           </div>
           <div className="cart-header">
-            <Link href="/cart">
+            <Link href="/cart" shallow>
               <a>
                 <Image width={30} height={30} src={cart} alt="logo"></Image>
               </a>
@@ -89,24 +89,24 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         <div className="nav-content" tabIndex="0" style={{ transform: openSideMenu }}>
           <ul>
             <li className={router.pathname == '/' ? 'active' : ''} onClick={toggleMenu}>
-              <Link href="/">
+              <Link href="/" shallow>
                 <a>Главная</a>
               </Link>
             </li>
             <li
               className={router.pathname == '/sport-kostums' ? 'active' : ''}
               onClick={toggleMenu}>
-              <Link href="/sport-kostums">
+              <Link href="/sport-kostums" shallow>
                 <a>костюмы</a>
               </Link>
             </li>
             <li className={router.pathname == '/pants' ? 'active' : ''} onClick={toggleMenu}>
-              <Link href="/pants">
+              <Link href="/pants" shallow>
                 <a> брюки</a>
               </Link>
             </li>
             <li className={router.pathname == '/shorts' ? 'active' : ''} onClick={toggleMenu}>
-              <Link href="/shorts">
+              <Link href="/shorts" shallow>
                 <a>шорты</a>
               </Link>
             </li>
@@ -116,12 +116,12 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
               </Link>
             </li> */}
             <li className={router.pathname == '/delivery' ? 'active' : ''} onClick={toggleMenu}>
-              <Link href="/delivery">
+              <Link href="/delivery" shallow>
                 <a>доставка</a>
               </Link>
             </li>
             <li onClick={toggleMenu}>
-              <Link href="/about">
+              <Link href="/about" shallow>
                 <a className={router.pathname == '/about' ? 'active' : ''}>контакти</a>
               </Link>
             </li>
@@ -137,7 +137,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         {router.pathname == '/' ? null : (
           <ul className="items">
             <li className={router.pathname == '/' ? 'item category active' : 'item category'}>
-              <Link href="/">
+              <Link href="/" shallow>
                 <a title="Go to Home Page">{router.pathname !== '/' ? 'катaлог' : null}</a>
               </Link>
             </li>
@@ -162,7 +162,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
                   ? 'item about active'
                   : ''
               }>
-              <Link href={`/${arr[1]}`}>
+              <Link href={`/${arr[1]}`} shallow>
                 <a title={`/${arr[1]}`}>
                   {' '}
                   {router.pathname == '/shorts' ? 'шорти' : null}
