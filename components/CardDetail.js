@@ -7,12 +7,10 @@ export default function CardDetail({
   description,
   detaileDescription,
   price,
-  url,
+
   urlArr,
   color,
 }) {
-  // let arr = router.pathname.split('/');
-
   return (
     <>
       {/* <div className="slider-wrapper"></div> */}
