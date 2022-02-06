@@ -30,56 +30,58 @@ export default function FirebaseContext({ children }) {
 
   const [CurrentUser, setCurrentUser] = useState(null);
   const [uidUser, setUidUser] = useState(null);
+  console.log(CurrentUser, uidUser);
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
 
         setUidUser(true);
-        LogInUser(uid);
+        // LogInUser(uid);
       } else {
         setUidUser(false);
       }
     });
   }, []);
 
-  const LogInUser = async (id) => {
-    try {
-      const querySnapshot = await getDocs(collection(db, 'users'));
-      const users = [];
-      querySnapshot.forEach((doc) => {
-        users.push(doc.data());
-      });
-      setCurrentUser(
-        users.find((user) => {
-          return user.id === id;
-        }),
-      );
+  // const LogInUser = async (id) => {
+  //   try {
+  //     const querySnapshot = await getDocs(collection(db, 'users'));
+  //     const users = [];
+  //     querySnapshot.forEach((doc) => {
+  //       users.push(doc.data());
+  //     });
+  //     setCurrentUser(
+  //       users.find((user) => {
+  //         return user.id === id;
+  //       }),
+  //     );
 
-      // setMassageForLogIn('ви уcпiшно ввiйшли');
-      // setDisbled(true);
-      // setValueInputLogIn({ ...valueInputsLogIn, password: '', email: '' });
-    } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // console.log(errorCode);
-      // if (errorCode === 'auth/internal-error') {
-      //   setMassageForLogIn('введiть пароль');
-      // } else if (errorCode === 'auth/wrong-password') {
-      //   setMassageForLogIn('неправильний пароль');
-      // } else if (errorCode === 'auth/invalid-email') {
-      //   setMassageForLogIn('введiть пароль');
-      // } else {
-      //   console.log(errorMessage);
-      // }
-    }
-  };
+  // setMassageForLogIn('ви уcпiшно ввiйшли');
+  // setDisbled(true);
+  // setValueInputLogIn({ ...valueInputsLogIn, password: '', email: '' });
+  // } catch (error) {
+  //   const errorCode = error.code;
+  //   const errorMessage = error.message;
+  // console.log(errorCode);
+  // if (errorCode === 'auth/internal-error') {
+  //   setMassageForLogIn('введiть пароль');
+  // } else if (errorCode === 'auth/wrong-password') {
+  //   setMassageForLogIn('неправильний пароль');
+  // } else if (errorCode === 'auth/invalid-email') {
+  //   setMassageForLogIn('введiть пароль');
+  // } else {
+  //   console.log(errorMessage);
+  // }
+  //   }
+  // };
 
-  const LogOut = () => {
-    auth.signOut();
-    setCurrentUser(null);
-  };
-  console.log(CurrentUser);
+  // const LogOut = () => {
+  //   auth.signOut();
+  //   setCurrentUser(null);
+  // };
+
   // const getGood = (params) => {
   //   return getGoods(db, params);
   // };
@@ -130,7 +132,7 @@ export default function FirebaseContext({ children }) {
   // }, []);
 
   return (
-    <AppContext.Provider value={{ uidUser, loading, LogOut, CurrentUser, setCurrentUser }}>
+    <AppContext.Provider value={{ uidUser, loading, CurrentUser, setCurrentUser }}>
       {children}
     </AppContext.Provider>
   );

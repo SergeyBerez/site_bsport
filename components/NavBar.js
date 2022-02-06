@@ -12,8 +12,10 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
   const router = useRouter();
   const { CurrentUser } = useAppContext();
   let arr = router.pathname.split('/');
-  console.log(CurrentUser);
-  useEffect(() => {}, []);
+
+  useEffect(() => {
+    console.log(CurrentUser);
+  }, []);
 
   return (
     <>

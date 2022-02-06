@@ -4,16 +4,24 @@ import MainLayout from '../components/MainLayout';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import Link from '../public/img/link_icon.svg';
 import Image from 'next/image';
-import { collection, getDocs, addDoc, doc, getDoc } from 'firebase/firestore/lite';
+import {
+  collection,
+  getDocs,
+  addDoc,
+  doc,
+  getDoc,
+  setDoc,
+  Timestamp,
+} from 'firebase/firestore/lite';
 
 import { useAppContext, db, auth } from '../context/firebaseContext';
 export default function Registration() {
   const router = useRouter();
   const { setCurrentUser, uidUser, CurrentUser } = useAppContext();
-  const [disabled, setDisbled] = useState('');
+  const [disabled, setDisbled] = useState('true');
 
   const [massage, setMassage] = useState('');
-  const [valueInputs, setValueInput] = useState({
+  const [valueInputsReg, setValueInputReg] = useState({
     email: '',
     password: '',
     text: '',
@@ -23,20 +31,20 @@ export default function Registration() {
     password: '',
   });
   const [massageForLogIn, setMassageForLogIn] = useState('');
-  const Validate = (email, password) => {
-    if (email == '' || password.length <= 4) {
-      setDisbled('disabled');
-      return true;
-    } else {
-      setDisbled('');
-      return false;
-    }
-  };
+  // const Validate = (email, password) => {
+  //   if (email == '' || password.length <= 4) {
+  //     setDisbled('disabled');
+  //     return true;
+  //   } else {
+  //     setDisbled('');
+  //     return false;
+  //   }
+  // };
 
-  const onHandlerInput = (e) => {
+  const onHandlerInputReg = (e) => {
     const value = e.target.value;
     const name = e.target.type;
-    setValueInput({ ...valueInputs, [name]: value });
+    setValueInputReg({ ...valueInputsReg, [name]: value });
     // Validate(valueInputs.email, valueInputs.password);
   };
   const onHandlerInputLogIn = (e) => {
@@ -48,26 +56,41 @@ export default function Registration() {
 
   function createUser(e) {
     e.preventDefault();
-
+    console.log('createUser');
     // if (Validate()) {
     //   return;
     // }
-    createUserWithEmailAndPassword(auth, valueInputs.email, valueInputs.password)
+    createUserWithEmailAndPassword(auth, valueInputsReg.email, valueInputsReg.password)
       .then((userCredential) => {
         // Signed in
 
         const user = userCredential.user;
         setMassage('ви уcпiшно зареэструвались');
         setDisbled(true);
-        setValueInput({ ...valueInputs, password: '', email: '', text: '' });
+
         return user.uid;
       })
       .then((id) => {
-        addDoc(collection(db, 'users'), {
-          name: valueInputs.text,
-          email: valueInputs.email,
+        // addDoc(collection(db, 'users'), {
+        //   name: valueInputsReg.text,
+        //   email: valueInputsReg.email,
+        //   id: id,
+        // });
+        setDoc(doc(db, 'users', id), {
+          name: valueInputsReg.text,
+          email: valueInputsReg.email,
           id: id,
+          time: Timestamp.fromDate(new Date()),
         });
+
+        setCurrentUser({
+          name: valueInputsReg.text,
+          email: valueInputsReg.email,
+          id: id,
+          time: Timestamp.fromDate(new Date()),
+        });
+        setValueInputReg({ ...valueInputsReg, password: '', email: '', text: '' });
+        // Add a new document in collection "cities"
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -92,17 +115,11 @@ export default function Registration() {
         valueInputsLogIn.password,
       );
       const id = userCredential.user.uid;
-      const querySnapshot = await getDocs(collection(db, 'users'));
-      const users = [];
-      querySnapshot.forEach((doc) => {
-        users.push(doc.data());
-      });
-      setCurrentUser(
-        users.find((user) => {
-          return user.id === id;
-        }),
-      );
-      setMassageForLogIn('ви уcпiшно ввiйшли');
+      const docRef = doc(db, 'users', id);
+      const docSnap = await getDoc(docRef);
+      setCurrentUser(docSnap.data());
+
+      setMassageForLogIn('ви уcпiшно ввiйшли ' + CurrentUser);
       setDisbled(true);
       setValueInputLogIn({ ...valueInputsLogIn, password: '', email: '' });
     } catch (error) {
@@ -160,9 +177,9 @@ export default function Registration() {
                     <div className="control">
                       <input
                         required
-                        onChange={onHandlerInput}
+                        onChange={onHandlerInputReg}
                         name="login[username]"
-                        value={valueInputs.text}
+                        value={valueInputsReg.text}
                         autoComplete="on"
                         id="name"
                         type="text"
@@ -177,9 +194,9 @@ export default function Registration() {
                     <div className="control">
                       <input
                         required
-                        onChange={onHandlerInput}
+                        onChange={onHandlerInputReg}
                         name="login[username]"
-                        value={valueInputs.email}
+                        value={valueInputsReg.email}
                         autoComplete="on"
                         id="email-regist"
                         type="email"
@@ -210,8 +227,8 @@ export default function Registration() {
                     <div className="control">
                       <input
                         required
-                        value={valueInputs.password}
-                        onChange={onHandlerInput}
+                        value={valueInputsReg.password}
+                        onChange={onHandlerInputReg}
                         name="login[password]"
                         type="password"
                         autoComplete="off"
@@ -246,6 +263,7 @@ export default function Registration() {
                     </label>{' '}
                     <div className="control">
                       <input
+                        required
                         onChange={onHandlerInputLogIn}
                         name="login[username]"
                         value={valueInputsLogIn.email}
@@ -263,11 +281,12 @@ export default function Registration() {
                     </label>{' '}
                     <div className="control">
                       <input
+                        required
                         value={valueInputsLogIn.password}
                         onChange={onHandlerInputLogIn}
                         name="login[password]"
                         type="password"
-                        autoComplete="off"
+                        autoComplete="on"
                         className={'input-text ' + disabled}
                         id="pass"
                         title="Пароль"></input>

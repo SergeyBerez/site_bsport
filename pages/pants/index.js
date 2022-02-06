@@ -102,7 +102,7 @@ export default function Pants({ goodList }) {
   );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const docRef = collection(db, 'pants');
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
