@@ -103,8 +103,6 @@ export default function Shorts({ goodList }) {
   );
 }
 export async function getStaticProps(context) {
-  const id = context.params;
-  console.log(context);
   const docRef = collection(db, 'shorts');
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
