@@ -15,6 +15,10 @@ import hudi from '../public/img/hudiclothing_icon.svg';
 // import moduleName from '../public/img/';
 // import { useAppContext } from '../context/firebaseContext';
 export default function Index() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(false);
+  }, []);
   const DataSvgForSlider = [
     {
       urlSvg: short,
@@ -111,7 +115,7 @@ export default function Index() {
         <Slider
           url={DataSvgForSlider}
           autoplay={{ delay: 2000, disableOnInteraction: true }}></Slider>
-        {false ? renserSkelton : renderGoods}
+        {loading ? renserSkelton : renderGoods}
 
         {/* <div className="productCard_block-katalog">
           {' '}
