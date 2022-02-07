@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import MainLayout from '../components/MainLayout';
 import Slider from '../components/Slider';
 
@@ -15,37 +15,91 @@ import hudi from '../public/img/hudiclothing_icon.svg';
 // import moduleName from '../public/img/';
 // import { useAppContext } from '../context/firebaseContext';
 export default function Index() {
-  const urlForIndexSlider = [
+  const DataSvgForSlider = [
     {
-      url: short,
+      urlSvg: short,
       path: '/shorts',
       name: 'шорти',
+      urlImg:
+        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2022-01-25_14-13-53_3_.webp?alt=media&token=dbba9899-8386-420e-8f06-7cd9b5e534d8',
     },
     {
-      url: pants,
+      urlSvg: pants,
       path: '/pants',
       name: 'штани',
+      urlImg:
+        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-08_19-57-15.webp?alt=media&token=2548d1a0-1660-48b4-beb5-3256e65afcab',
     },
     {
-      url: kostums,
+      urlSvg: kostums,
       path: '/sport-kostums',
       name: 'костюми',
+      urlImg:
+        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-15_22-15-52.webp?alt=media&token=acc72733-fb20-407c-9d14-7b32dda573b2',
     },
     {
-      url: koftazamok,
+      urlSvg: koftazamok,
       path: '/sports-jacket',
       name: 'кофти',
+      urlImg:
+        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391',
     },
     {
-      url: hudi,
+      urlSvg: hudi,
       path: '/hoodie',
       name: 'худи',
+      urlImg:
+        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391',
+    },
+    {
+      urlSvg: hudi,
+      path: '/t-shirt',
+      name: 'футболки',
+      urlImg:
+        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-07-12_20-32-00.webp?alt=media&token=e14ee5e9-d4cc-4a64-97b9-42c0bf779779',
     },
   ];
 
+  const renserSkelton = DataSvgForSlider.map((obj, i) => {
+    return (
+      <div className="productCard_block-katalog" key={i}>
+        <div>
+          <Image
+            alt={'pant'}
+            width={300}
+            height={400}
+            src={
+              'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505'
+            }></Image>
+          <div className="bottom-subtitle">
+            <button className="button button-default-white">...</button>
+          </div>
+        </div>
+      </div>
+    );
+  });
+
+  const renderGoods = DataSvgForSlider.map((obj, i) => {
+    return (
+      <div className="productCard_block-katalog" key={i}>
+        <Link href={obj?.path}>
+          <a>
+            {/* <Image alt={obj?.name} width={300} height={400} src={obj?.urlImg}></Image> */}
+
+            {obj?.urlImg.length > 0 && (
+              <Image src={obj?.urlImg} alt={obj?.name} width={300} height={400} />
+            )}
+            <div className="bottom-subtitle">
+              <button className="button button-default-white">{obj?.name}</button>
+            </div>
+          </a>
+        </Link>{' '}
+      </div>
+    );
+  });
+
   return (
     <>
-      {' '}
       <Head>
         {' '}
         <title>bsywear</title>
@@ -54,97 +108,11 @@ export default function Index() {
       </Head>
       <MainLayout>
         <h1 className="title-product-block h1">Каталог</h1>
-
         <Slider
-          url={urlForIndexSlider}
+          url={DataSvgForSlider}
           autoplay={{ delay: 2000, disableOnInteraction: true }}></Slider>
+        {false ? renserSkelton : renderGoods}
 
-        <div className="productCard_block-katalog">
-          {' '}
-          <Link href="/pants">
-            <a>
-              {' '}
-              <Image
-                alt={'pant'}
-                width={300}
-                height={400}
-                src={
-                  'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-08_19-57-15.webp?alt=media&token=2548d1a0-1660-48b4-beb5-3256e65afcab'
-                }></Image>
-              <div className="bottom-subtitle">
-                <button className="button button-default-white">штаны</button>
-              </div>
-            </a>
-          </Link>
-        </div>
-
-        <div className="productCard_block-katalog">
-          <Link href="/hoodie">
-            <a>
-              <Image
-                alt={'pant'}
-                width={300}
-                height={400}
-                src={
-                  'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391'
-                }></Image>
-              <div className="bottom-subtitle">
-                <button className="button button-default-white">худи</button>
-              </div>
-            </a>
-          </Link>{' '}
-        </div>
-
-        <div className="productCard_block-katalog">
-          <Link href="/sport-kostums">
-            <a href="">
-              <Image
-                alt={'pant'}
-                width={300}
-                height={400}
-                src={
-                  'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-15_22-15-52.webp?alt=media&token=acc72733-fb20-407c-9d14-7b32dda573b2'
-                }></Image>
-              <div className="bottom-subtitle">
-                <button className="button button-default-white">костюмы</button>
-              </div>
-            </a>
-          </Link>
-        </div>
-        <div className="productCard_block-katalog">
-          <Link href="/t-shirt">
-            <a href="">
-              {' '}
-              <Image
-                alt={'pants'}
-                width={300}
-                height={400}
-                src={
-                  'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-07-12_20-32-00.webp?alt=media&token=e14ee5e9-d4cc-4a64-97b9-42c0bf779779'
-                }></Image>
-              <div className="bottom-subtitle">
-                <button className="button button-default-white">футболки</button>
-              </div>
-            </a>
-          </Link>
-        </div>
-        <div className="productCard_block-katalog">
-          <Link href="/shorts">
-            <a>
-              {' '}
-              <Image
-                alt={'pants'}
-                width={300}
-                height={400}
-                src={
-                  'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2022-01-25_14-13-53_3_.webp?alt=media&token=dbba9899-8386-420e-8f06-7cd9b5e534d8'
-                }></Image>
-              <div className="bottom-subtitle">
-                <button className="button button-default-white">шорты</button>
-              </div>
-            </a>
-          </Link>
-        </div>
         {/* <div className="productCard_block-katalog">
           {' '}
           <h4 className="bottom-subtitle">

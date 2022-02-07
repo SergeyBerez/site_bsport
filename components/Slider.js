@@ -5,7 +5,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) => {
-  const [imgs, setImgs] = useState([
+  const [imgsObj, setImgs] = useState([
     'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505',
   ]);
 
@@ -67,17 +67,17 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
             spaceBetween: 50,
           },
         }}>
-        {imgs &&
-        imgs.filter((i) => {
+        {imgsObj &&
+        imgsObj.filter((i) => {
           return i.constructor.name === 'Object';
         }).length > 0
-          ? url.map((obj, i) => {
+          ? imgsObj.map((obj, i) => {
               return (
                 <SwiperSlide key={i}>
                   <Link href={obj.path}>
                     <a>
                       <div className="img">
-                        <Image src={obj.url} width={300} height={405} alt="logo"></Image>
+                        <Image src={obj.urlSvg} width={300} height={405} alt="logo"></Image>
                       </div>
                       <div className="bottom-subtitle">
                         <button className="button button-default-white font">{obj.name}</button>
@@ -87,8 +87,8 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
                 </SwiperSlide>
               );
             })
-          : imgs &&
-            imgs.map((el, i) => {
+          : imgsObj &&
+            imgsObj.map((el, i) => {
               return (
                 <SwiperSlide key={i}>
                   <div className="img-card-detail">
@@ -104,8 +104,8 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
             })}
       </Swiper>
 
-      {imgs &&
-      imgs.filter((i) => {
+      {imgsObj &&
+      imgsObj.filter((i) => {
         return i.constructor.name === 'Object';
       }).length > 0 ? null : (
         <div className="img">
