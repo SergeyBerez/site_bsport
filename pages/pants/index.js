@@ -6,19 +6,20 @@ import Image from 'next/image';
 
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs } from 'firebase/firestore/lite';
-
+import Swr from '../../context/Swr';
 import useSWR from 'swr';
 export default function Pants({ goodList }) {
   const goodClient = JSON.parse(goodList);
-
-  const [goods, setGood] = useState(goodClient);
   const getGoods = async (params) => {
     const docRef = collection(db, params);
     const querySnapshot = await getDocs(docRef);
     const goodList = querySnapshot.docs.map((doc) => doc.data());
     return goodList;
   };
-  const { data, isValidating } = useSWR('pants', getGoods, { initialData: goodClient });
+  const { data, isValidating } = useSWR('pants', getGoods, { fallbackData: goodClient });
+  // const user = Swr();
+
+  const [goods, setGood] = useState(data);
 
   const handlerFilterGoods = (e) => {
     const value = e.target.value;
@@ -66,7 +67,7 @@ export default function Pants({ goodList }) {
 
       {isValidating ? (
         <>
-          {goodClient.map((good) => {
+          {goods.map((good) => {
             return (
               <div key={good.id} className="productCard_block">
                 <Image
@@ -108,7 +109,7 @@ export default function Pants({ goodList }) {
               </select>
             </div>
           </div>
-          {data.map((good) => {
+          {goods.map((good) => {
             return (
               <Card
                 id={good.id}
@@ -178,7 +179,8 @@ export default function Pants({ goodList }) {
   );
 }
 
-export async function getServerSideProps(context) {
+// getServerSideProps('pants');
+export async function getStaticProps(context) {
   const docRef = collection(db, 'pants');
   const querySnapshot = await getDocs(docRef);
 

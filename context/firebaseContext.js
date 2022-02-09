@@ -120,16 +120,7 @@ export default function FirebaseContext({ children }) {
       console.log('error', error);
     }
   }
-  // useEffect(() => {
-  //   Promise.all([getGoods(db, 'pants'), getGoods(db, 'shorts')]).then((values) => {
-  //     let arr = [];
-  //     values.forEach((element) => {
-  //       arr.push(...element);
-  //     });
-
-  //     setGood(arr);
-  //   });
-  // }, []);
+  
 
   return (
     <AppContext.Provider value={{ uidUser, loading, CurrentUser, setCurrentUser }}>

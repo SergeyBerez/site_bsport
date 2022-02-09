@@ -24,7 +24,7 @@ export default function CardDetail({
           <p className="block_price__currency">цiна {price ? price : 'цiну уточнiть'} грн</p>
           <p className="block_price__shipping">Shipping and taxes extra</p>
 
-          <button className="button button_addToCard">add to card</button>
+          <button className="button button-default-white">add to card</button>
         </div>
 
         <p className="block_product__advantagesProduct">{description}</p>

@@ -21,18 +21,18 @@ export default function Shorts({ goods }) {
   );
 }
 
-// export async function getStaticPaths() {
-//   const querySnapshot = await getDocs(collection(db, 'pants'));
-//   const paths = querySnapshot.docs.map((doc) => {
-//     return { params: { id: doc.id.toString() } };
-//   });
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
+export async function getStaticPaths() {
+  const querySnapshot = await getDocs(collection(db, 'pants'));
+  const paths = querySnapshot.docs.map((doc) => {
+    return { params: { id: doc.id.toString() } };
+  });
+  return {
+    paths,
+    fallback: false,
+  };
+}
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const id = context.params.id;
 
   const docRef = doc(db, 'pants', id);
