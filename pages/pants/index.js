@@ -18,7 +18,7 @@ export default function Pants({ goodList }) {
   };
   const { data, isValidating } = useSWR('pants', getGoods, { fallbackData: goodClient });
   // const user = Swr();
-
+  console.log(goodClient);
   const [goods, setGood] = useState(data);
   console.log(data);
   const handlerFilterGoods = (e) => {
