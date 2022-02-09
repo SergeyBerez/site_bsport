@@ -20,7 +20,7 @@ export default function Pants({ goodList }) {
   // const user = Swr();
 
   const [goods, setGood] = useState(data);
-
+  console.log(data);
   const handlerFilterGoods = (e) => {
     const value = e.target.value;
 

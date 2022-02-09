@@ -109,7 +109,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
         return i.constructor.name === 'Object';
       }).length > 0 ? null : (
         <div className="img">
-          <Image src={imgs1} width={300} height={405} alt="logo"></Image>
+          <Image src={imgs1} width={350} height={450} alt="logo"></Image>
         </div>
       )}
 
@@ -135,7 +135,13 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
           color: black;
           cursor: pointer;
         }
+        .img {
+          display: none;
+        }
         @media (min-width: 640px) {
+          .img {
+            display: block;
+          }
           .font {
             font-size: 1.4rem;
           }

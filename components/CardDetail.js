@@ -15,7 +15,7 @@ export default function CardDetail({
     <>
       {/* <div className="slider-wrapper"></div> */}
       <h2 className="block_name block_name__addName">{title}</h2>
-      <Slider id={id} url={urlArr} grabCursor={true} pagination={true}></Slider>{' '}
+      <Slider id={id} url={urlArr} grabCursor={true} pagination={true} count={1}></Slider>{' '}
       <div className="block_product">
         <div className="block_goodColor">
           <span className="text_specification">колiр : {color}</span>
