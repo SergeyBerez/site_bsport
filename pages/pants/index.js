@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs } from 'firebase/firestore/lite';
-import Swr from '../../context/Swr';
+
 import useSWR from 'swr';
 export default function Pants({ goodList }) {
   const goodClient = JSON.parse(goodList);
@@ -17,10 +17,9 @@ export default function Pants({ goodList }) {
     return goodList;
   };
   const { data, isValidating } = useSWR('pants', getGoods, { fallbackData: goodClient });
-  // const user = Swr();
-  console.log(goodClient);
+
   const [goods, setGood] = useState(data);
-  console.log(data);
+
   const handlerFilterGoods = (e) => {
     const value = e.target.value;
 

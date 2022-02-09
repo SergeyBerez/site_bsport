@@ -15,7 +15,7 @@ export default function Card({ id, title, description, price, url, titlePage, cs
   );
 
   const goToCardDetail = (e) => {
-    console.log('gotodtail');
+    console.log('gotodtail' + id);
     e.stopPropagation();
     router.push(`${router.pathname}/${id}`);
   };
