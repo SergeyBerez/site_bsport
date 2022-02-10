@@ -6,6 +6,7 @@ import MainLayout from '../../components/MainLayout';
 export default function Shorts({ goods }) {
   const { description, detaileDescription, id, title, price, url, urlArr, color } =
     JSON.parse(goods);
+
   return (
     <MainLayout>
       <CardDetail
@@ -13,6 +14,7 @@ export default function Shorts({ goods }) {
         detaileDescription={detaileDescription}
         description={description}
         key={id}
+        id={id}
         title={title}
         price={price}
         url={url}
