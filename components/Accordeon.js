@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import arrowNext from '../public/img/arrow-next.svg';
+import arrowNext from '../public/static/img/arrow-next.svg';
 import Image from 'next/image';
 export default function Accordion(props) {
   const { title } = props;

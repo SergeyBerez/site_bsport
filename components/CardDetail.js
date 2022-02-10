@@ -1,12 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useGoodsContext } from '../context/contextGoods';
 import Accordion from './Accordeon';
-import arrowNext from '../public/img/1904671_arrow_arrow right_change_direction_next_icon.svg';
-import arrowPrev from '../public/img/1904658_arrow_arrow left_change_direction_left_icon.svg';
+import arrowNext from '../public/static/img/1904671_arrow_arrow right_change_direction_next_icon.svg';
+import arrowPrev from '../public/static/img/1904658_arrow_arrow left_change_direction_left_icon.svg';
 import Slider from './Slider';
 export default function CardDetail({
-  idd,
+  id,
   title,
   description,
   detaileDescription,
@@ -14,36 +15,20 @@ export default function CardDetail({
   urlArr,
   color,
 }) {
-  const order = { id: idd, price, count: 0 };
   const router = useRouter();
-  const [count, setCount] = useState(0);
+  const { userOdrerCtx, countGoodsMinus, countGoodsPlus, addToCart } = useGoodsContext();
+
   const inputRef = useRef();
-  const countGoodsPlus = () => {
-    if (inputRef.current.value >= 20) {
-      return;
-    } else {
-      setCount(++inputRef.current.value);
-      order.count = ++inputRef.current.value;
-    }
-  };
-  const countGoodsMinus = () => {
-    if (inputRef.current.value <= 0) {
-      console.log('1111111111');
-      return;
-    } else {
-      setCount(--inputRef.current.value);
-    }
-  };
-  const addToCart = () => {};
+
   const quickBuy = () => {
     router.push('/regist');
   };
-  console.log(idd);
+
   return (
     <>
       {/* <div className="slider-wrapper"></div> */}
       <h2 className="block_name block_name__addName">{title}</h2>
-      <Slider id={idd} url={urlArr} grabCursor={true} pagination={true} count={1}></Slider>{' '}
+      <Slider id={id} url={urlArr} grabCursor={true} pagination={true} count={1}></Slider>{' '}
       <div className="block_product">
         <div className="block_goodColor">
           <span className="text_specification">колiр : {color}</span>
@@ -52,7 +37,11 @@ export default function CardDetail({
           <p className="block_price__currency">цiна {price ? price : 'цiну уточнiть'} грн</p>
           <p className="block_product__advantagesProduct">{description}</p>
           <div className="qty_wrapp">
-            <div className="qty_btn bnt_minus" onClick={countGoodsMinus}>
+            <div
+              className="qty_btn bnt_minus"
+              onClick={() => {
+                countGoodsMinus(inputRef.current.value);
+              }}>
               <Image src={arrowPrev} alt="arrow"></Image>
             </div>
             <input
@@ -60,14 +49,19 @@ export default function CardDetail({
               type="text"
               name="quantity"
               data-min="1"
-              value={count}
+              value={userOdrerCtx.cnt}
               size="2"
               id="input-quantity"
               readOnly
             />
-            <div className="qty_btn bnt_plus" onClick={countGoodsPlus}>
+            <div
+              className="qty_btn bnt_plus"
+              onClick={() => {
+                countGoodsPlus(inputRef.current.value);
+              }}>
               <Image src={arrowNext} alt="arrow"></Image>
             </div>
+            загалом {userOdrerCtx.sum} грн
             {/* <input type="hidden" name="product_id" value={count} onChange={countGoods} /> */}
           </div>
           <button className="button button-default-white" onClick={addToCart}>
@@ -77,10 +71,6 @@ export default function CardDetail({
             купити швидко
           </button>
         </div>
-
-        {/* <div className="img">
-          <Image src={url} width={300} height={400} alt="logo"></Image>
-        </div> */}
 
         <div className="block_descriptionInformation">
           <Accordion title={'подробно'} detaileDescription>
@@ -147,6 +137,9 @@ export default function CardDetail({
           width: 40px;
           font-size: 14px;
           color: #1a1a1a;
+        }
+        .button-default-white {
+          width: 40%;
         }
       `}</style>
     </>

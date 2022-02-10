@@ -14,6 +14,7 @@ export default function Kostum({ goods }) {
         detaileDescription={detaileDescription}
         description={description}
         key={id}
+        id={id}
         title={title}
         price={price}
         url={url}

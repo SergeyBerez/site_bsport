@@ -5,11 +5,11 @@ import Slider from '../components/Slider';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import short from '../public/img/short_underpants_icon.svg';
-import kostums from '../public/img/kostum_pijamas_icon.svg';
-import koftazamok from '../public/img/koftazamok_icon.svg';
-import pants from '../public/img/pants_icon.svg';
-import hudi from '../public/img/hudiclothing_icon.svg';
+import short from '../public/static/img/short_underpants_icon.svg';
+import kostums from '../public/static/img/kostum_pijamas_icon.svg';
+import koftazamok from '../public/static/img/koftazamok_icon.svg';
+import pants from '../public/static/img/pants_icon.svg';
+import hudi from '../public/static/img/hudiclothing_icon.svg';
 
 // import moduleName from '../public/img/short_icon';
 // import moduleName from '../public/img/';
@@ -114,60 +114,9 @@ export default function Index() {
         <h1 className="title-product-block h1">Каталог</h1>
         <Slider
           url={DataSvgForSlider}
+          params={DataSvgForSlider}
           autoplay={{ delay: 2000, disableOnInteraction: true }}></Slider>
         {loading ? renserSkelton : renderGoods}
-
-        {/* <div className="productCard_block-katalog">
-          {' '}
-          <h4 className="bottom-subtitle">
-            <Link href="/shorts">
-              <a className="button button-default-white">худи флис</a>
-            </Link>
-          </h4>
-          <div className="img">
-            <Image
-              alt={'pants'}
-              width={300}
-              height={400}
-              src={
-                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e'
-              }></Image>
-          </div>
-        </div>
-        <div className="productCard_block-katalog">
-          {' '}
-          <h4 className="bottom-subtitle">
-            <Link href="/shorts">
-              <a className="button button-default-white">штаны флис</a>
-            </Link>
-          </h4>
-          <div className="img">
-            <Image
-              alt={'pants'}
-              width={300}
-              height={400}
-              src={
-                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e'
-              }></Image>
-          </div>
-        </div>
-        <div className="productCard_block-katalog">
-          {' '}
-          <h4 className="bottom-subtitle">
-            <Link href="/shorts">
-              <a className="button button-default-white">костюмы флис</a>
-            </Link>
-          </h4>
-          <div className="img">
-            <Image
-              alt={'pants'}
-              width={300}
-              height={400}
-              src={
-                'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/shorts%2Fphoto_2021-04-08_19-59-35.jpg?alt=media&token=b0520101-c10c-467c-ac6f-4d1d17e4d71e'
-              }></Image>
-          </div>
-        </div> */}
       </MainLayout>
     </>
   );

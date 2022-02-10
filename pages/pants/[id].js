@@ -2,18 +2,24 @@ import CardDetail from '../../components/CardDetail';
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
 import MainLayout from '../../components/MainLayout';
-
+import { useGoodsContext } from '../../context/contextGoods';
+import { useEffect, useState, useRef } from 'react';
 export default function Shorts({ goods }) {
   const { description, detaileDescription, id, title, price, url, urlArr, color } =
     JSON.parse(goods);
-  console.log(goods + '111111111111111111111');
+  const { userOdrerCtx, setUserOdrerCtx } = useGoodsContext();
+  console.log(userOdrerCtx);
+
+  useEffect(() => {
+    setUserOdrerCtx({ id, title, price, sum: 0, cnt: 0 });
+  }, []);
   return (
     <MainLayout>
       <CardDetail
         color={color}
         detaileDescription={detaileDescription}
         description={description}
-        idd={id}
+        id={id}
         title={title}
         price={price}
         url={url}

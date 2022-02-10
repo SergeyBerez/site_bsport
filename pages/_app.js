@@ -7,11 +7,13 @@ import '../styles/globals.css';
 //import '../styles/reset.css';
 
 import Context from '../context/firebaseContext';
-
+import ContextGoods from '../context/contextGoods';
 function MyApp({ Component, pageProps }) {
   return (
     <Context>
-      <Component {...pageProps} />
+      <ContextGoods>
+        <Component {...pageProps} />
+      </ContextGoods>
     </Context>
   );
 }

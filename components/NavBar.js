@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState, useRef, useEffect, useDebugValue } from 'react';
 import { useAppContext } from '../context/firebaseContext';
-import user from '../public/img/user2.svg';
-import cart from '../public/img/cart.svg';
-import Logo from '../public/img/logo.png';
-import arrowNext from '../public/img/arrow-next.svg';
+import user from '../public/static/img/user2.svg';
+import cart from '../public/static/img/cart.svg';
+import Logo from '../public/static/img/logo.png';
+import arrowNext from '../public/static/img/arrow-next.svg';
 
 export default function NavBar({ openSideMenu, transformGamburger, toggleMenu }) {
   const router = useRouter();
