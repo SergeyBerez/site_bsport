@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import MainLayout from '../components/MainLayout';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import Link from '../public/img/link_icon.svg';
+import Link from '../public/static/img/link_icon.svg';
 import Image from 'next/image';
 import {
   collection,
