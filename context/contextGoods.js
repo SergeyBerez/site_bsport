@@ -9,32 +9,44 @@ export default function ContextGoods({ children }) {
   const [userOdrerCartCtx, setUserOdrerCartCtx] = useState([]);
 
   const countGoodsPlus = (value) => {
-    if (value >= 20) {
+    let num = Number(value);
+    if (num >= 20) {
       return;
     } else {
-      let cnt = ++value;
-      let sum = userOdrerCtx.price * value;
+      console.log(num.textContent);
+      let cnt = ++num;
+      let sum = userOdrerCtx.price * num;
       setUserOdrerCtx({ ...userOdrerCtx, cnt, sum });
     }
   };
   const countGoodsMinus = (value) => {
-    if (value <= 0) {
+    let num = Number(value);
+    if (num <= 0) {
       return;
     } else {
-      let cnt = --value;
-      let sum = userOdrerCtx.price * value;
+      let cnt = --num;
+      let sum = userOdrerCtx.price * num;
       setUserOdrerCtx({ ...userOdrerCtx, cnt, sum });
     }
   };
-  const addToCart = () => {
-    userOdrerCartCtx.push(userOdrerCtx);
-    setUserOdrerCartCtx(userOdrerCartCtx);
+  const addToCart = (id, title, description, price, url) => {
+    let a = [...userOdrerCartCtx];
+    a.push({ id, title, description, price, url, sum: 0, cnt: 0 });
+    setUserOdrerCartCtx(a);
+    // console.log(userOdrerCartCtx);
   };
 
   console.log(userOdrerCartCtx);
   return (
     <GoodsContext.Provider
-      value={{ userOdrerCtx, setUserOdrerCtx, countGoodsMinus, countGoodsPlus, addToCart }}>
+      value={{
+        userOdrerCtx,
+        userOdrerCartCtx,
+        setUserOdrerCtx,
+        countGoodsMinus,
+        countGoodsPlus,
+        addToCart,
+      }}>
       {children}
     </GoodsContext.Provider>
   );

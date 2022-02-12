@@ -65,8 +65,17 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.a {
+  text-align: center;
+}
 
+.button-cart:hover {
+  background-color: transparent;
+}
 @media (min-width: 320px) {
+  .bottom-subtitle {
+    display: flex;
+  }
   .productCard_block {
     margin: 5px;
     flex-grow: 0;
@@ -74,7 +83,20 @@
     min-width: 140px;
   }
   .product-card__title {
+    margin-bottom: 0;
     font-size: 1.4rem;
+  }
+  .button-cart {
+    width: 20%;
+    padding: 2px 0;
+    font-size: 1rem;
+  }
+  .button-buy {
+    border-left: none;
+    width: 80%;
+    flex-grow: 1;
+    padding: 2px 0;
+    font-size: 1rem;
   }
 }
 @media (min-width: 480px) {

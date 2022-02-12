@@ -76,7 +76,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
                 <SwiperSlide key={i}>
                   <Link href={obj.path}>
                     <a>
-                      <div className="img">
+                      <div className="img-svg">
                         <Image src={obj.urlSvg} width={300} height={405} alt="logo"></Image>
                       </div>
                       <div className="bottom-subtitle">
@@ -108,7 +108,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
       imgsObj.filter((i) => {
         return i.constructor.name === 'Object';
       }).length > 0 ? null : (
-        <div className="img">
+        <div className="img-detail">
           <Image src={imgs1} width={350} height={450} alt="logo"></Image>
         </div>
       )}
@@ -135,12 +135,12 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
           color: black;
           cursor: pointer;
         }
-        .img {
+        .img-detail {
           display: none;
         }
         @media (min-width: 640px) {
-          .img {
-            display: block;
+          .img-detail {
+            display: none;
           }
           .font {
             font-size: 1.4rem;

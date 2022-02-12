@@ -18,7 +18,7 @@ export default function CardDetail({
   const router = useRouter();
   const { userOdrerCtx, countGoodsMinus, countGoodsPlus, addToCart } = useGoodsContext();
 
-  const inputRef = useRef();
+  // const inputRef = useRef();
 
   const quickBuy = () => {
     router.push('/regist');
@@ -37,14 +37,14 @@ export default function CardDetail({
           <p className="block_price__currency">цiна {price ? price : 'цiну уточнiть'} грн</p>
           <p className="block_product__advantagesProduct">{description}</p>
           <div className="qty_wrapp">
-            <div
+            {/* <div
               className="qty_btn bnt_minus"
               onClick={() => {
                 countGoodsMinus(inputRef.current.value);
               }}>
               <Image src={arrowPrev} alt="arrow"></Image>
-            </div>
-            <input
+            </div> */}
+            {/* <input
               ref={inputRef}
               type="text"
               name="quantity"
@@ -53,23 +53,30 @@ export default function CardDetail({
               size="2"
               id="input-quantity"
               readOnly
-            />
-            <div
+            /> */}
+
+            {/* <div
               className="qty_btn bnt_plus"
               onClick={() => {
                 countGoodsPlus(inputRef.current.value);
               }}>
               <Image src={arrowNext} alt="arrow"></Image>
-            </div>
-            загалом {userOdrerCtx.sum} грн
+            </div> */}
             {/* <input type="hidden" name="product_id" value={count} onChange={countGoods} /> */}
           </div>
-          <button className="button button-default-white" onClick={addToCart}>
-            добавити в корзину
-          </button>
-          <button className="button button-default-white" onClick={quickBuy}>
-            купити швидко
-          </button>
+          <div className="block-count">
+            {' '}
+            <button
+              className="button button-default-white"
+              onClick={() => {
+                addToCart(id, title, description, detaileDescription, price, urlArr, color);
+              }}>
+              добавити в корзину
+            </button>
+            <button className="button button-default-white" onClick={quickBuy}>
+              купити швидко
+            </button>
+          </div>
         </div>
 
         <div className="block_descriptionInformation">
@@ -105,6 +112,12 @@ export default function CardDetail({
           padding: 5px;
           max-width: 700px;
           justify-content: space-around;
+          min-width: 400px;
+        }
+        .block-count {
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
         }
         .block_price__currency {
           font-weight: bold;
@@ -139,7 +152,7 @@ export default function CardDetail({
           color: #1a1a1a;
         }
         .button-default-white {
-          width: 40%;
+          width: 45%;
         }
       `}</style>
     </>

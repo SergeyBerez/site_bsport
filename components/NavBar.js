@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState, useRef, useEffect, useDebugValue } from 'react';
 import { useAppContext } from '../context/firebaseContext';
+import { useGoodsContext } from '../context/contextGoods';
 import user from '../public/static/img/user2.svg';
 import cart from '../public/static/img/cart.svg';
 import Logo from '../public/static/img/logo.png';
@@ -11,6 +12,7 @@ import arrowNext from '../public/static/img/arrow-next.svg';
 export default function NavBar({ openSideMenu, transformGamburger, toggleMenu }) {
   const router = useRouter();
   const { CurrentUser } = useAppContext();
+  const { userOdrerCartCtx } = useGoodsContext();
   let arr = router.pathname.split('/');
 
   useEffect(() => {
@@ -79,6 +81,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
             <Link href="/cart" shallow>
               <a>
                 <Image width={30} height={30} src={cart} alt="logo"></Image>
+                <span>{userOdrerCartCtx.length}</span>
               </a>
             </Link>
           </div>

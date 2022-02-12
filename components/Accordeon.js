@@ -25,8 +25,7 @@ export default function Accordion(props) {
       <style jsx>{`
         .accordion {
           margin: 0;
-          border: 1px solid #d8d5db;
-          border-width: 0px 1px 1px 1px;
+          border-top: 1px solid #e6e6e6;
           padding: 10px;
           display: flex;
           flex-direction: column;

@@ -115,64 +115,65 @@ export default function Pants({ goodList }) {
                 key={good.id}
                 title={good.title}
                 price={good.price}
-                url={good.url}></Card>
+                url={good.url}
+                description={good.description}></Card>
             );
           })}
         </>
       )}
 
       <style jsx>{`
-        .block_price {
-          width: 100%;
-          background-color: rgb(128 128 128 / 64%);
-        }
+        // .block_price {
+        //   width: 100%;
+        //   background-color: rgb(128 128 128 / 64%);
+        // }
 
-        .productCard_block {
-          display: flex;
-          flex-direction: column;
-          margin: 10px;
-          padding: 5px;
-          max-width: 230px;
-        }
-        .product-card__title {
-          background-color: rgb(128 128 128 / 64%);
+        // .productCard_block {
+        //   display: flex;
+        //   flex-direction: column;
+        //   margin: 10px;
+        //   padding: 5px;
+        //   max-width: 230px;
+        // }
+        // .product-card__title {
+        //   background-color: rgb(128 128 128 / 64%);
 
-          margin: 5px 0;
+        //   margin: 5px 0;
 
-          font-weight: 400;
-        }
+        //   font-weight: 400;
+        // }
 
-        @media (min-width: 320px) {
-          .productCard_block {
-            margin: 5px;
-            flex-grow: 0;
-            flex-basis: calc(100% / 2 - 10px);
-            min-width: 140px;
-          }
-        }
-        @media (min-width: 480px) {
-          .productCard_block {
-            margin: 5px;
-            flex-grow: 0;
-            flex-basis: calc(100% / 3 - 10px);
-          }
-        }
+        // @media (min-width: 320px) {
+        //   .productCard_block {
+        //     margin: 5px;
+        //     flex-grow: 0;
+        //     flex-basis: calc(100% / 2 - 10px);
+        //     min-width: 140px;
+        //   }
+        // }
+        // @media (min-width: 480px) {
+        //   .productCard_block {
+        //     margin: 5px;
+        //     flex-grow: 0;
+        //     flex-basis: calc(100% / 3 - 10px);
+        //   }
+        // }
 
-        @media (min-width: 680px) {
-          .productCard_block {
-            flex-grow: 0;
-            flex-basis: calc(100% / 4 - 10px);
-            min-width: 150px;
-          }
-        }
+        // @media (min-width: 680px) {
+        //   .productCard_block {
+        //     flex-grow: 0;
+        //     flex-basis: calc(100% / 4 - 10px);
+        //     min-width: 150px;
+        //   }
+        // }
 
-        @media (min-width: 1140px) {
-          .productCard_block {
-            flex-grow: 0;
-            flex-basis: calc(100% / 5 - 10px);
-            min-width: 200px;
-          }
-        }
+        // @media (min-width: 1140px) {
+        //   .productCard_block {
+        //     flex-grow: 0;
+        //     flex-basis: calc(100% / 5 - 10px);
+        //     min-width: 200px;
+        //   }
+        // }
       `}</style>
     </MainLayout>
   );
