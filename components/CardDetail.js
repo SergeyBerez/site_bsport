@@ -105,11 +105,13 @@ export default function CardDetail({
       </div>
       <style jsx>{`
         .block_product {
+          overflow: hidden;
+
           flex: 1;
           width: 100%;
           display: flex;
           flex-direction: column;
-          padding: 5px;
+          padding: 10px;
           max-width: 700px;
           justify-content: space-around;
           min-width: 400px;
@@ -128,7 +130,7 @@ export default function CardDetail({
           font-size: 1.6rem;
         }
         .block_descriptionInformation {
-          margin-top: 20px;
+          margin: 10px 0;
         }
         .qty_wrapp {
           border: 1px solid #e6e6e6;

@@ -70,7 +70,7 @@
 }
 
 .button-cart:hover {
-  background-color: transparent;
+  background-color: #18141429;
 }
 @media (min-width: 320px) {
   .bottom-subtitle {

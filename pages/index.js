@@ -22,46 +22,46 @@ export default function Index() {
   const DataSvgForSlider = [
     {
       urlSvg: short,
-      path: '/shorts',
+      path: 'shorts',
       name: 'шорти',
       urlImg:
         'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2022-01-25_14-13-53_3_.webp?alt=media&token=dbba9899-8386-420e-8f06-7cd9b5e534d8',
     },
     {
       urlSvg: pants,
-      path: '/pants',
+      path: 'pants',
       name: 'штани',
       urlImg:
         'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-08_19-57-15.webp?alt=media&token=2548d1a0-1660-48b4-beb5-3256e65afcab',
     },
     {
       urlSvg: kostums,
-      path: '/sport-kostums',
+      path: 'sport-kostums',
       name: 'костюми',
       urlImg:
         'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-15_22-15-52.webp?alt=media&token=acc72733-fb20-407c-9d14-7b32dda573b2',
     },
     {
       urlSvg: koftazamok,
-      path: '/sports-jacket',
+      path: 'sports-jacket',
       name: 'кофти',
       urlImg:
         'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391',
     },
     {
       urlSvg: hudi,
-      path: '/hoodie',
+      path: 'hoodie',
       name: 'худи',
       urlImg:
         'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391',
     },
-    {
-      urlSvg: hudi,
-      path: '/t-shirt',
-      name: 'футболки',
-      urlImg:
-        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-07-12_20-32-00.webp?alt=media&token=e14ee5e9-d4cc-4a64-97b9-42c0bf779779',
-    },
+    // {
+    //   urlSvg: hudi,
+    //   path: 't-shirt',
+    //   name: 'футболки',
+    //   urlImg:
+    //     'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-07-12_20-32-00.webp?alt=media&token=e14ee5e9-d4cc-4a64-97b9-42c0bf779779',
+    // },
   ];
 
   const renserSkelton = DataSvgForSlider.map((obj, i) => {
@@ -86,7 +86,7 @@ export default function Index() {
   const renderGoods = DataSvgForSlider.map((obj, i) => {
     return (
       <div className="productCard_block-katalog" key={i}>
-        <Link href={obj?.path}>
+        <Link href={`/${obj.path}`}>
           <a>
             {/* <Image alt={obj?.name} width={300} height={400} src={obj?.urlImg}></Image> */}
 

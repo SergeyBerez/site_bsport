@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs } from 'firebase/firestore/lite';
+import { useGoodsContext } from '../../context/contextGoods';
 
 import useSWR from 'swr';
 export default function Pants({ goodList }) {
@@ -17,9 +18,14 @@ export default function Pants({ goodList }) {
     return goodList;
   };
   const { data, isValidating } = useSWR('pants', getGoods, { fallbackData: goodClient });
-
   const [goods, setGood] = useState(data);
+  const { state, dispatch } = useGoodsContext();
 
+  useEffect(() => {
+    if (isValidating) {
+      dispatch({ type: 'ADD GOODS', payload: [...data] });
+    }
+  }, []);
   const handlerFilterGoods = (e) => {
     const value = e.target.value;
 
@@ -56,6 +62,7 @@ export default function Pants({ goodList }) {
       setGood(sortGood);
     }
   };
+
   return (
     <MainLayout>
       <Head>
@@ -85,7 +92,7 @@ export default function Pants({ goodList }) {
         </>
       ) : (
         <>
-          <h2 className="title-product-block">штаны</h2>
+          <h1 className="title-product-block">штаны</h1>
           <div className="toolbar toolbar-products">
             <div className="toolbar-sorter sorter">
               <label className="sorter-label" forhtml="sorter">

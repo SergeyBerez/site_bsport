@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from 'react';
 // import Detail from './ButtonDetail';
 export default function Card({ id, title, description, price, url }) {
   const router = useRouter();
-  const { addToCart } = useGoodsContext();
+  const { dispatch } = useGoodsContext();
   const [image, setImage] = useState(
     'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505',
   );
@@ -35,16 +35,16 @@ export default function Card({ id, title, description, price, url }) {
         <Link href={`${router.pathname}/${id}`}>
           <a className={style.a}>
             <Image src={image} width={300} height={400} alt="logo"></Image>
-
-            <div className={style['product-card__title']}>{title}</div>
-            <span className={style['block_price']}>{price ? price + ' грн' : null} </span>
           </a>
         </Link>
         <div className={'bottom-subtitle ' + style['bottom-subtitle']}>
           <button
             className={`button button-default-white ${style['button-cart']}`}
             onClick={() => {
-              addToCart(id, title, description, price, url);
+              dispatch({
+                type: 'ADD TO CARD',
+                payload: { id, title, description, price, url, cnt: 1 },
+              });
             }}>
             <Image src={cart} width={20} height={20} alt="logo"></Image>
           </button>
@@ -54,6 +54,8 @@ export default function Card({ id, title, description, price, url }) {
             детально
           </button>
         </div>
+        <div className={style['product-card__title']}>{title}</div>
+        <span className={style['block_price']}>{price ? price + ' грн' : null} </span>
       </div>
     </>
   );
