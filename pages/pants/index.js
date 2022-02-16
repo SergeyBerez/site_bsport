@@ -123,6 +123,7 @@ export default function Pants({ goodList }) {
                 title={good.title}
                 price={good.price}
                 url={good.url}
+                color={good.color}
                 description={good.description}></Card>
             );
           })}

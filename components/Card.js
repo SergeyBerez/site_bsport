@@ -10,7 +10,7 @@ import Image from 'next/image';
 import cart from '../public/static/img/cart.svg';
 import { useEffect, useRef, useState } from 'react';
 // import Detail from './ButtonDetail';
-export default function Card({ id, title, description, price, url }) {
+export default function Card({ id, title, description, price, url, color }) {
   const router = useRouter();
   const { dispatch } = useGoodsContext();
   const [image, setImage] = useState(
@@ -43,7 +43,7 @@ export default function Card({ id, title, description, price, url }) {
             onClick={() => {
               dispatch({
                 type: 'ADD TO CARD',
-                payload: { id, title, description, price, url, cnt: 1 },
+                payload: { id, title, description, price, url, color, cnt: 1 },
               });
             }}>
             <Image src={cart} width={20} height={20} alt="logo"></Image>

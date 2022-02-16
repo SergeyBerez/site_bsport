@@ -25,7 +25,7 @@ export default function Cart() {
                 <div className="cart-item_header">{item.title}</div>
                 <div className="cart-item_table-column">
                   <div className="table-header-column">цвет&nbsp;:</div>{' '}
-                  <div className="textBold">черный</div>
+                  <div className="textBold">{item.color}</div>
                 </div>
                 <div className="cart-item_table-column">
                   {' '}
@@ -59,7 +59,7 @@ export default function Cart() {
                   {' '}
                   <div className="cart-item_table-column">
                     <div className="table-header-column">цiна&nbsp;:</div>{' '}
-                    <div className="textBold">244</div>
+                    <div className="textBold">{item.price}</div>
                   </div>
                 </div>
               </div>
