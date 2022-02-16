@@ -1,14 +1,13 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useGoodsContext } from '../context/contextGoods';
-import { useEffect, useState, useRef } from 'react';
+import { useRef } from 'react';
 import arrowNext from '../public/static/img/1904671_arrow_arrow right_change_direction_next_icon.svg';
 import arrowPrev from '../public/static/img/1904658_arrow_arrow left_change_direction_left_icon.svg';
 
 import MainLayout from '../components/MainLayout';
 export default function Cart() {
-  const { state, userOdrerCtx, userOdrerCartCtx, countGoodsMinus, countGoodsPlus, addToCart } =
-    useGoodsContext();
+  const { state, userOdrerCtx, countGoodsMinus, countGoodsPlus, addToCart } = useGoodsContext();
   const inputRef = useRef();
   console.log(state);
   return (
