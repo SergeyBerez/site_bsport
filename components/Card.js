@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from 'react';
 // import Detail from './ButtonDetail';
 export default function Card({ id, title, description, price, url, color }) {
   const router = useRouter();
-  const { dispatch } = useGoodsContext();
+  const { state, dispatch } = useGoodsContext();
   const [image, setImage] = useState(
     'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505',
   );
@@ -24,7 +24,7 @@ export default function Card({ id, title, description, price, url, color }) {
   };
 
   useEffect(() => {
-    // console.log('useEffect ' + router.pathname, id);
+    console.log(state.cart);
     if (url) {
       setImage(url);
     }

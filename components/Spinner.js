@@ -4,21 +4,27 @@ const Spinner = () => {
   return (
     <>
       {' '}
-      <div className="lds-spinner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+      <div className="spinner-wrap">
+        <div className="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
       <style jsx>{`
+        .spinner-wrap {
+          width: 100%;
+          text-align: center;
+        }
         .lds-spinner {
           color: official;
           display: inline-block;

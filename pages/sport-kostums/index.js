@@ -20,8 +20,6 @@ function Kostums({ goodList }) {
   const { state, dispatch } = useGoodsContext();
   const [goods, setGood] = useState(goodClient);
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     dispatch({ type: 'ADD GOODS', payload: [...data] });
   }, []);

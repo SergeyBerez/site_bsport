@@ -28,7 +28,7 @@ export default function ContextGoods({ children }) {
         let cart = existItem
           ? state.cart.map((item) => {
               if (item.id === existItem.id) {
-                newItem.cnt = 0;
+                newItem.cnt += 1;
                 return newItem;
               } else {
                 return item;
