@@ -37,7 +37,7 @@ export default function MainLayout({ children }) {
         transformGamburger={gamburger}></NavBar>
 
       <main className={styles.main}>
-        <div className="container">
+        <div className={styles.container}>
           <section className={styles['product-container']}>{children}</section>
         </div>
       </main>
