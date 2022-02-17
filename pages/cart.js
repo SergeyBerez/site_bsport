@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useGoodsContext } from '../context/contextGoods';
 import { useRef } from 'react';
 import arrowNext from '../public/static/img/1904671_arrow_arrow right_change_direction_next_icon.svg';
+import remove from '../public/static/img/2931168_bin_delete_remove_trash_garbage_icon.svg';
 import arrowPrev from '../public/static/img/1904658_arrow_arrow left_change_direction_left_icon.svg';
 
 import MainLayout from '../components/MainLayout';
@@ -22,35 +23,38 @@ export default function Cart() {
               <Image alt={'pant'} width={150} height={200} src={item.url}></Image>
               <div className="cart-item-block">
                 <div className="cart-item_header">{item.title}</div>
-                <div className="cart-item_table-column">
-                  <div className="table-header-column">цвет&nbsp;:</div>{' '}
-                  <div className="textBold">{item.color}</div>
-                </div>
-                <div className="cart-item_table-column">
-                  {' '}
-                  <div className="table-header-column">количество&nbsp;:</div>
-                  <div className="qty_wrapp">
-                    <div
-                      className="qty_btn bnt_minus"
-                      onClick={() => {
-                        countGoodsMinus(inputRef.current.value);
-                      }}>
-                      <Image src={arrowPrev} width={20} height={20} alt="arrow"></Image>
-                    </div>
-                    <input
-                      className="input-quantity"
-                      ref={inputRef}
-                      type="text"
-                      value={userOdrerCtx.cnt}
-                      readOnly
-                    />
 
-                    <div
-                      className="qty_btn bnt_plus"
-                      onClick={() => {
-                        countGoodsPlus(inputRef.current.value);
-                      }}>
-                      <Image src={arrowNext} width={20} height={20} alt="arrow"></Image>
+                <div className="block-infoDetail">
+                  <div className="cart-item_table-column">
+                    <div className="table-header-column">цвет&nbsp;:</div>{' '}
+                    <div className="textBold">{item.color}</div>
+                  </div>
+                  <div className="cart-item_table-column">
+                    {' '}
+                    <div className="table-header-column">количество&nbsp;:</div>
+                    <div className="qty_wrapp">
+                      <div
+                        className="qty_btn bnt_minus"
+                        onClick={() => {
+                          countGoodsMinus(inputRef.current.value);
+                        }}>
+                        <Image src={arrowPrev} width={20} height={20} alt="arrow"></Image>
+                      </div>
+                      <input
+                        className="input-quantity"
+                        ref={inputRef}
+                        type="text"
+                        value={userOdrerCtx.cnt}
+                        readOnly
+                      />
+
+                      <div
+                        className="qty_btn bnt_plus"
+                        onClick={() => {
+                          countGoodsPlus(inputRef.current.value);
+                        }}>
+                        <Image src={arrowNext} width={20} height={20} alt="arrow"></Image>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -59,6 +63,12 @@ export default function Cart() {
                   <div className="cart-item_table-column">
                     <div className="table-header-column">цiна&nbsp;:</div>{' '}
                     <div className="textBold">{item.price}</div>
+                  </div>
+                  <div className="cart-item_table-column">
+                    <div className="table-header-column">видалити&nbsp;:</div>{' '}
+                    <div className="textBold">
+                      <Image src={remove} width={20} height={20} alt="remove"></Image>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -87,7 +97,7 @@ export default function Cart() {
           width: 100%;
           display: flex;
           justify-content: space-around;
-          flex-wrap: wrap;
+          // flex-wrap: wrap;
           align-items: center;
           border-bottom: 1px solid #e6e6e6;
           padding: 10px 0;
@@ -101,7 +111,6 @@ export default function Cart() {
           flex-grow: 1;
           display: flex;
           flex-wrap: wrap;
-
           justify-content: space-around;
           align-items: center;
         }
@@ -116,11 +125,12 @@ export default function Cart() {
 
           color: #000;
         }
+        .block-infoDetail,
         .block_price {
-          // min-width: 300px;
           display: flex;
           flex-wrap: wrap;
           justify-content: space-around;
+          align-items: center;
         }
         .cart-item_table-column {
           margin-bottom: 20px;
@@ -189,7 +199,8 @@ export default function Cart() {
             width: 30%;
             margin: 10px 0;
           }
-          .block_price {
+          .block_price,
+          .block-infoDetail {
             width: 100%;
             flex-wrap: nowrap;
           }
@@ -200,10 +211,11 @@ export default function Cart() {
           }
           .cart-item_table-column {
             margin-bottom: 20px;
-            width: 30%;
+            width: 60%;
             margin: 10px 0;
           }
-          .block_price {
+          .block_price,
+          .block-infoDetail {
             width: 30%;
             flex-wrap: nowrap;
           }

@@ -114,7 +114,6 @@ export default function CardDetail({
           padding: 0 15px;
           max-width: 700px;
           justify-content: space-around;
-          min-width: 400px;
         }
         .block-count {
           width: 100%;

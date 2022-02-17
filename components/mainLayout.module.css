@@ -7,14 +7,12 @@
   justify-content: space-around;
 
   flex-wrap: wrap;
- 
 }
 .container {
   margin: 0 auto;
-
+  width: 95%;
   max-width: 1140px;
 }
-
 
 /* .footer {
   display: flex;
