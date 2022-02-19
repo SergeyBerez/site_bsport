@@ -84,7 +84,7 @@ export default function Pants({ goodList }) {
                   }
                   width={300}
                   height={300}
-                  alt="logo"></Image>
+                  alt="product"></Image>
 
                 <div className="product-card__title">...</div>
                 <span className="block_price">...</span>

@@ -12,18 +12,35 @@ export default function CardDetail({
   description,
   detaileDescription,
   price,
+  url,
   urlArr,
   color,
 }) {
   const router = useRouter();
-  const { userOdrerCtx, countGoodsMinus, countGoodsPlus, addToCart } = useGoodsContext();
+  const { state, dispatch } = useGoodsContext();
+  const { userOdrerCtx, countGoodsMinus, countGoodsPlus } = useGoodsContext();
 
   // const inputRef = useRef();
 
   const quickBuy = () => {
     router.push('/regist');
   };
-
+  const addToCart = () => {
+    dispatch({
+      type: 'ADD TO CARD',
+      payload: {
+        id,
+        title,
+        description,
+        price,
+        url,
+        color,
+        sum: 0,
+        // cnt: newGood ? newGood.cnt : 0,
+      },
+    });
+    router.push('/cart');
+  };
   return (
     <>
       {/* <div className="slider-wrapper"></div> */}
@@ -66,11 +83,7 @@ export default function CardDetail({
           </div>
           <div className="block-count">
             {' '}
-            <button
-              className="button button-default-white"
-              onClick={() => {
-                addToCart(id, title, description, detaileDescription, price, urlArr, color);
-              }}>
+            <button className="button button-default-white" onClick={addToCart}>
               добавити в корзину
             </button>
             <button className="button button-default-white" onClick={quickBuy}>

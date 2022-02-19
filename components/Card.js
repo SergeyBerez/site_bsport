@@ -22,30 +22,38 @@ export default function Card({ id, title, description, price, url, color }) {
     e.stopPropagation();
     router.push(`${router.pathname}/${id}`);
   };
-
+  const addToCart = () => {
+    dispatch({
+      type: 'ADD TO CARD',
+      payload: {
+        id,
+        title,
+        description,
+        price,
+        url,
+        color,
+        sum: +price,
+        cnt: 1,
+      },
+    });
+  };
   useEffect(() => {
-    console.log(state.cart);
     if (url) {
       setImage(url);
     }
-  }, [url]);
+  }, [state.cart]);
   return (
     <>
       <div className={style['productCard_block']}>
         <Link href={`${router.pathname}/${id}`}>
           <a className={style.a}>
-            <Image src={image} width={300} height={400} alt="logo"></Image>
+            <Image src={image} width={300} height={400} alt="product"></Image>
           </a>
         </Link>
         <div className={'bottom-subtitle ' + style['bottom-subtitle']}>
           <button
             className={`button button-default-white ${style['button-cart']}`}
-            onClick={() => {
-              dispatch({
-                type: 'ADD TO CARD',
-                payload: { id, title, description, price, url, color, cnt: 1 },
-              });
-            }}>
+            onClick={addToCart}>
             <Image src={cart} width={20} height={20} alt="logo"></Image>
           </button>
           <button

@@ -1,89 +1,138 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useGoodsContext } from '../context/contextGoods';
-import { useRef } from 'react';
+import Link from 'next/link';
+import LinkIcon from '../public/static/img/link_icon.svg';
 import arrowNext from '../public/static/img/1904671_arrow_arrow right_change_direction_next_icon.svg';
 import remove from '../public/static/img/2931168_bin_delete_remove_trash_garbage_icon.svg';
 import arrowPrev from '../public/static/img/1904658_arrow_arrow left_change_direction_left_icon.svg';
 
 import MainLayout from '../components/MainLayout';
 export default function Cart() {
-  const { state, userOdrerCtx, countGoodsMinus, countGoodsPlus, addToCart } = useGoodsContext();
-  const inputRef = useRef();
-  console.log(state);
+  const { state, countGoodsPlus, countGoodsMinus, deleteFromCart } = useGoodsContext();
+  console.log(!state.cart.length === 0);
+
+  // const countGoodsMinus = (item, value) => {
+  //   dispatch({
+  //     type: 'MINUS',
+  //     payload: { ...item, cnt: value },
+  //   });
+  // };
+  // const countGoodsPlus = (item, value) => {
+  //   console.log(value);
+  //   dispatch({
+  //     type: 'PLUS',
+  //     payload: { ...item, cnt: value },
+  //   });
+  // };
+
   return (
     <MainLayout>
       <h1 className="title-product-block">Корзина</h1>
+      {state.cart.length === 0 ? (
+        <>
+          <Link href="/">
+            <a>
+              {' '}
+              <span>до каталогу</span>{' '}
+              <Image width={20} height={20} src={LinkIcon} alt="logo"></Image>
+            </a>
+          </Link>
+        </>
+      ) : (
+        <>
+          <div className="cart-item_section-left">
+            {' '}
+            {state.cart.map((item, i) => {
+              return (
+                <div className="cart-item_section" key={i}>
+                  <Image alt={'pant'} width={150} height={200} src={item.url}></Image>
+                  <div className="cart-item-block">
+                    <div className="cart-item_header">{item.title}</div>
 
-      <div className="cart-item_section-left">
-        {' '}
-        {state.cart.map((item, i) => {
-          return (
-            <div className="cart-item_section" key={i}>
-              <Image alt={'pant'} width={150} height={200} src={item.url}></Image>
-              <div className="cart-item-block">
-                <div className="cart-item_header">{item.title}</div>
-
-                <div className="block-infoDetail">
-                  <div className="cart-item_table-column">
-                    <div className="table-header-column">цвет&nbsp;:</div>{' '}
-                    <div className="textBold">{item.color}</div>
-                  </div>
-                  <div className="cart-item_table-column">
-                    {' '}
-                    <div className="table-header-column">количество&nbsp;:</div>
-                    <div className="qty_wrapp">
-                      <div
-                        className="qty_btn bnt_minus"
-                        onClick={() => {
-                          countGoodsMinus(inputRef.current.value);
-                        }}>
-                        <Image src={arrowPrev} width={20} height={20} alt="arrow"></Image>
+                    <div className="block-infoDetail">
+                      <div className="cart-item_table-column">
+                        <div className="table-header-column">цвет&nbsp;:</div>{' '}
+                        <div className="textBold">{item.color}</div>
                       </div>
-                      <input
-                        className="input-quantity"
-                        ref={inputRef}
-                        type="text"
-                        value={userOdrerCtx.cnt}
-                        readOnly
-                      />
+                      <div className="cart-item_table-column">
+                        {' '}
+                        <div className="table-header-column">количество&nbsp;:</div>
+                        <div className="qty_wrapp">
+                          <div
+                            className="qty_btn bnt_minus"
+                            onClick={() => {
+                              countGoodsMinus({
+                                ...item,
+                                cnt: item.cnt ? item.cnt : 0,
+                              });
+                            }}>
+                            <Image src={arrowPrev} width={20} height={20} alt="arrow"></Image>
+                          </div>
+                          <input
+                            className="input-quantity"
+                            type="text"
+                            value={item.cnt ? item.cnt : 0}
+                            readOnly
+                          />
 
-                      <div
-                        className="qty_btn bnt_plus"
-                        onClick={() => {
-                          countGoodsPlus(inputRef.current.value);
-                        }}>
-                        <Image src={arrowNext} width={20} height={20} alt="arrow"></Image>
+                          <div
+                            className="qty_btn bnt_plus"
+                            onClick={() => {
+                              countGoodsPlus({
+                                ...item,
+                                cnt: item.cnt ? item.cnt : 0,
+                              });
+                            }}>
+                            <Image src={arrowNext} width={20} height={20} alt="arrow"></Image>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="block_price">
+                      {' '}
+                      <div className="cart-item_table-column">
+                        <div className="table-header-column">цiна&nbsp;:</div>{' '}
+                        <div className="textBold">{item.price}</div>
+                      </div>
+                      <div className="cart-item_table-column">
+                        <div className="table-header-column">загалом&nbsp;:</div>{' '}
+                        <div className="textBold">{item.sum}</div>
+                      </div>
+                      <div className="cart-item_table-column">
+                        <div className="table-header-column">видалити&nbsp;:</div>{' '}
+                        <div
+                          className="textBold-delete"
+                          onClick={() => {
+                            deleteFromCart({ ...item });
+                          }}>
+                          <Image src={remove} width={20} height={20} alt="remove"></Image>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="block_price">
-                  {' '}
-                  <div className="cart-item_table-column">
-                    <div className="table-header-column">цiна&nbsp;:</div>{' '}
-                    <div className="textBold">{item.price}</div>
-                  </div>
-                  <div className="cart-item_table-column">
-                    <div className="table-header-column">видалити&nbsp;:</div>{' '}
-                    <div className="textBold">
-                      <Image src={remove} width={20} height={20} alt="remove"></Image>
-                    </div>
-                  </div>
-                </div>
+              );
+            })}
+          </div>
+          <div className="cart-item_section-buy">
+            <div className="cart-item_table-column">
+              <h2 className="title-product-block">всего&nbsp;:</h2>{' '}
+              <div className="textBold">
+                {state.cart.reduce((sum, item) => {
+                  return sum + item.sum;
+                }, 0)}
               </div>
             </div>
-          );
-        })}
-      </div>
-      <div className="cart-item_section-buy">
-        <div className="cart-item_table-column">
-          <h2 className="title-product-block">всего&nbsp;:</h2>{' '}
-          <div className="textBold">244454</div>
-        </div>
-        <button className="button button-default-white">купити</button>
-      </div>
+            <button className="button button-default-white">купити</button>
+          </div>
+        </>
+      )}
+
       <style jsx>{`
+        .textBold-delete {
+          cursor: pointer;
+        }
         .table-header {
           width: 100%;
         }
@@ -168,7 +217,7 @@ export default function Cart() {
         }
         .qty_wrapp {
           // border: 1px solid #e6e6e6;
-
+          min-width: 70px;
           display: flex;
 
           justify-content: center;
@@ -195,9 +244,9 @@ export default function Cart() {
             width: 100%;
           }
           .cart-item_table-column {
-            margin-bottom: 20px;
+            // margin-bottom: 20px;
             width: 30%;
-            margin: 10px 0;
+            margin: 10px;
           }
           .block_price,
           .block-infoDetail {
@@ -210,13 +259,12 @@ export default function Cart() {
             width: 0%;
           }
           .cart-item_table-column {
-            margin-bottom: 20px;
             width: 60%;
-            margin: 10px 0;
+            margin: 20px;
           }
           .block_price,
           .block-infoDetail {
-            width: 30%;
+            width: 60%;
             flex-wrap: nowrap;
           }
           .cart-item_section-buy {
@@ -227,6 +275,14 @@ export default function Cart() {
             margin: 0 10px;
             border-bottom: 1px solid #e6e6e6;
             background-color: white;
+          }
+        }
+
+        @media (min-width: 980px) {
+          .block_price,
+          .block-infoDetail {
+            width: 30%;
+            flex-wrap: nowrap;
           }
         }
       `}</style>
