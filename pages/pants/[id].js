@@ -7,11 +7,7 @@ import { useEffect, useState, useRef } from 'react';
 export default function Shorts({ goods }) {
   const { description, detaileDescription, id, title, price, url, urlArr, color } =
     JSON.parse(goods);
-  const { setUserOdrerCtx } = useGoodsContext();
 
-  useEffect(() => {
-    setUserOdrerCtx({ id, title, price, sum: 0, cnt: 0, url, urlArr, description, color });
-  }, []);
   return (
     <MainLayout>
       <CardDetail
