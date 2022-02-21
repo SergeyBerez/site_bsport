@@ -19,6 +19,7 @@ export default function Registration() {
   const router = useRouter();
   const { setCurrentUser, uidUser, CurrentUser } = useAppContext();
   const [disabled, setDisbled] = useState('true');
+  const [active, setActive] = useState('true');
 
   const [massage, setMassage] = useState('');
   const [valueInputsReg, setValueInputReg] = useState({
@@ -40,7 +41,9 @@ export default function Registration() {
   //     return false;
   //   }
   // };
-
+  const toggleTab = () => {
+    setActive(!active);
+  };
   const onHandlerInputReg = (e) => {
     const value = e.target.value;
     const name = e.target.type;
@@ -161,12 +164,78 @@ export default function Registration() {
               <button className="soc_btn google"></button>
             </div>
           </div>
-          <div className="block block-customer-login left">
-            <div className="block-title">
-              <strong id="block-customer-login-heading">
-                {massage ? massage : 'Новий клиент'}
-              </strong>{' '}
+          <div className={active ? 'block-title active' : 'block-title'} onClick={toggleTab}>
+            Маю Акаунт
+          </div>
+          <div className={!active ? 'block-title active' : 'block-title'} onClick={toggleTab}>
+            Новий клиент
+            {massage ? massage : null}
+          </div>
+          <div
+            onClick={toggleTab}
+            className={
+              active
+                ? 'block block-customer-login right activeMobileContent'
+                : 'block block-customer-login right'
+            }>
+            <span>{massageForLogIn ? massageForLogIn : null}</span>
+            <div className="block-content">
+              <form onSubmit={LogInUser} className="form form-login" id="login-form">
+                <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
+                  <div className="field name required">
+                    <label className="label" htmlFor="email">
+                      <span>E-mail :{massageForLogIn ? massageForLogIn : null}</span>
+                    </label>{' '}
+                    <div className="control">
+                      <input
+                        required
+                        onChange={onHandlerInputLogIn}
+                        name="login[username]"
+                        value={valueInputsLogIn.email}
+                        autoComplete="on"
+                        id="email"
+                        type="email"
+                        className={'input-text ' + disabled}
+                        title="email"></input>
+                    </div>
+                  </div>
+
+                  <div className="field password required">
+                    <label htmlFor="pass" className="label">
+                      <span>Пароль :{massageForLogIn ? massageForLogIn : null}</span>
+                    </label>{' '}
+                    <div className="control">
+                      <input
+                        required
+                        value={valueInputsLogIn.password}
+                        onChange={onHandlerInputLogIn}
+                        name="login[password]"
+                        type="password"
+                        autoComplete="on"
+                        className={'input-text ' + disabled}
+                        id="pass"
+                        title="Пароль"></input>
+                    </div>
+                  </div>
+                  <div className="actions-toolbar">
+                    <div className="primary">
+                      <button className="action login primary" type="submit">
+                        <span>Увiйти</span>
+                      </button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
             </div>
+          </div>
+
+          <div
+            onClick={toggleTab}
+            className={
+              !active
+                ? 'block block-customer-login left activeMobileContent'
+                : 'block block-customer-login left'
+            }>
             <div className="block-content">
               <form onSubmit={createUser} className="form form-login" id="regist-form">
                 <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
@@ -240,62 +309,7 @@ export default function Registration() {
                   <div className="actions-toolbar">
                     <div className="primary">
                       <button className="action login primary" type="submit">
-                        <span>зареэстроватися</span>
-                      </button>
-                    </div>
-                  </div>
-                </fieldset>
-              </form>
-            </div>
-          </div>
-
-          <div className="block block-customer-login right">
-            <div className="block-title">
-              <strong id="block-customer-login-heading"> Зареэстрований клiэнт</strong>
-            </div>
-            <span>{massageForLogIn ? massageForLogIn : null}</span>
-            <div className="block-content">
-              <form onSubmit={LogInUser} className="form form-login" id="login-form">
-                <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
-                  <div className="field name required">
-                    <label className="label" htmlFor="email">
-                      <span>E-mail :{massageForLogIn ? massageForLogIn : null}</span>
-                    </label>{' '}
-                    <div className="control">
-                      <input
-                        required
-                        onChange={onHandlerInputLogIn}
-                        name="login[username]"
-                        value={valueInputsLogIn.email}
-                        autoComplete="on"
-                        id="email"
-                        type="email"
-                        className={'input-text ' + disabled}
-                        title="email"></input>
-                    </div>
-                  </div>
-
-                  <div className="field password required">
-                    <label htmlFor="pass" className="label">
-                      <span>Пароль :{massageForLogIn ? massageForLogIn : null}</span>
-                    </label>{' '}
-                    <div className="control">
-                      <input
-                        required
-                        value={valueInputsLogIn.password}
-                        onChange={onHandlerInputLogIn}
-                        name="login[password]"
-                        type="password"
-                        autoComplete="on"
-                        className={'input-text ' + disabled}
-                        id="pass"
-                        title="Пароль"></input>
-                    </div>
-                  </div>
-                  <div className="actions-toolbar">
-                    <div className="primary">
-                      <button className="action login primary" type="submit">
-                        <span>Увiйти</span>
+                        <span>Зареєструватися</span>
                       </button>
                     </div>
                   </div>
@@ -376,10 +390,15 @@ export default function Registration() {
           color: black;
         }
         .block.block-customer-login {
-          width: 350px;
+          width: 100%;
           display: flex;
-          margin: 0 10px;
+
           flex-direction: column;
+          display: none;
+          background: #f7f7f7;
+        }
+        .block.block-customer-login.activeMobileContent {
+          display: block;
         }
 
         .block-content {
@@ -387,14 +406,19 @@ export default function Registration() {
         }
 
         .block-title {
+          width: 50%;
           color: #323232;
-          margin: 25px 0;
+          padding: 15px 5px;
           font-style: normal;
           font-weight: 700;
           line-height: 1;
-          font-size: 2rem;
-          text-transform: uppercase;
+          font-size: 1.5rem;
+          cursor: pointer;
+
           text-align: center;
+        }
+        .block-title.active {
+          background: #f7f7f7;
         }
         .form {
           display: block;
@@ -429,11 +453,11 @@ export default function Registration() {
         }
 
         .input-text {
-          background: #fff;
           background-clip: padding-box;
           border: 1px solid #cbcbcb;
           border-radius: 0;
           color: #323232;
+          background: #f7f7f7;
           font-family: LabGrotesque;
           font-size: 14px;
           font-weight: 300;
@@ -457,13 +481,13 @@ export default function Registration() {
           width: 100%;
           color: #fff;
           background-color: #000;
-          font-size: 14px;
           font-weight: 900;
           padding: 16px 32px 14px;
           line-height: 1;
           text-transform: uppercase;
           letter-spacing: 1.4px;
           cursor: pointer;
+          font-size: 1.2rem;
         }
         .action.primary:hover {
           background: #444;
@@ -472,6 +496,22 @@ export default function Registration() {
         }
         .input-text.disabled {
           border: 1px solid red;
+        }
+
+        @media (min-width: 860px) {
+          .block.block-customer-login {
+            width: 40%;
+            display: block;
+            background-color: transparent;
+            margin: 0 10px;
+          }
+          .block-title {
+            background-color: transparent;
+            width: 30%;
+          }
+          .block-title active: {
+            background-color: transparent;
+          }
         }
       `}</style>
     </MainLayout>

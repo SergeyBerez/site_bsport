@@ -31,10 +31,10 @@ export default function Cart() {
       <h1 className="title-product-block">Корзина</h1>
       {state.cart.length === 0 ? (
         <>
+          <h2 className="title-product-block">Ваша корзина пуста</h2>
           <Link href="/">
-            <a>
-              {' '}
-              <span>до каталогу</span>{' '}
+            <a className="a">
+              <span className="span">в каталог</span>{' '}
               <Image width={20} height={20} src={LinkIcon} alt="logo"></Image>
             </a>
           </Link>
@@ -99,15 +99,15 @@ export default function Cart() {
                         <div className="table-header-column">загалом&nbsp;:</div>{' '}
                         <div className="textBold">{item.sum}</div>
                       </div>
-                      <div className="cart-item_table-column">
-                        <div className="table-header-column">видалити&nbsp;:</div>{' '}
-                        <div
-                          className="textBold-delete"
-                          onClick={() => {
-                            deleteFromCart({ ...item });
-                          }}>
-                          <Image src={remove} width={20} height={20} alt="remove"></Image>
-                        </div>
+                    </div>
+                    <div className="cart-item_table-column">
+                      <div className="table-header-column">видалити&nbsp;:</div>{' '}
+                      <div
+                        className="textBold-delete"
+                        onClick={() => {
+                          deleteFromCart({ ...item });
+                        }}>
+                        <Image src={remove} width={20} height={20} alt="remove"></Image>
                       </div>
                     </div>
                   </div>
@@ -130,6 +130,16 @@ export default function Cart() {
       )}
 
       <style jsx>{`
+        .a {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+        .span {
+          font-size: 1.8rem;
+          margin-right: 5px;
+          line-height: 1;
+        }
         .textBold-delete {
           cursor: pointer;
         }

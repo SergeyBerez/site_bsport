@@ -5,8 +5,8 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* <link href="../public/fonts/EuclidCircularA-Light.woff2" rel="stylesheet" />
-          <link href="../public/fonts/LabGrotesque-Light.woff2" rel="stylesheet" /> */}
+          <link href="../public/fonts/EuclidCircularA-Light.woff2" rel="stylesheet" />
+          <link href="../public/fonts/LabGrotesque-Light.woff2" rel="stylesheet" />
         </Head>
         <body>
           <Main />
