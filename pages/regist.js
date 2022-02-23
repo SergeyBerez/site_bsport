@@ -2,7 +2,10 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import MainLayout from '../components/MainLayout';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import Link from '../public/static/img/link_icon.svg';
+import LinkSvg from '../public/static/img/link_icon.svg';
+import GoogleSvg from '../public/static/img/1298745_google_brand_branding_logo_network_icon.svg';
+import FacebookSvg from '../public/static/img/3225194_app_facebook_logo_media_popular_icon.svg';
+
 import Image from 'next/image';
 import {
   collection,
@@ -19,7 +22,7 @@ export default function Registration() {
   const router = useRouter();
   const { setCurrentUser, uidUser, CurrentUser } = useAppContext();
   const [disabled, setDisbled] = useState('true');
-  const [active, setActive] = useState('true');
+  const [active, setActive] = useState('active');
 
   const [massage, setMassage] = useState('');
   const [valueInputsReg, setValueInputReg] = useState({
@@ -41,8 +44,12 @@ export default function Registration() {
   //     return false;
   //   }
   // };
+
   const toggleTab = () => {
-    setActive(!active);
+    setActive('active');
+  };
+  const toggleTabRight = () => {
+    setActive('');
   };
   const onHandlerInputReg = (e) => {
     const value = e.target.value;
@@ -153,30 +160,27 @@ export default function Registration() {
   const goToCart = () => {
     router.push('/cart');
   };
+
   return (
     <MainLayout>
       {!uidUser ? (
         <>
-          <div className="social_block">
-            <div className="title">Увійти через соцмережі</div>
-            <div className="wrapp_btn">
-              <button className="soc_btn facebook"></button>
-              <button className="soc_btn google"></button>
-            </div>
-          </div>
-          <div className={active ? 'block-title active' : 'block-title'} onClick={toggleTab}>
+          <div
+            // className={`block-title ${active}`}
+            onClick={toggleTab}
+            className={active ? 'block-title active' : 'block-title'}>
             Маю Акаунт
           </div>
-          <div className={!active ? 'block-title active' : 'block-title'} onClick={toggleTab}>
+          <div
+            // className={`block-title ${active1}`}
+            onClick={toggleTabRight}
+            className={!active ? 'block-title active' : 'block-title'}>
             Новий клиент
             {massage ? massage : null}
           </div>
           <div
-            onClick={toggleTab}
             className={
-              active
-                ? 'block block-customer-login right activeMobileContent'
-                : 'block block-customer-login right'
+              active ? 'block-customer-login left activeMobileContent' : 'block-customer-login left'
             }>
             <span>{massageForLogIn ? massageForLogIn : null}</span>
             <div className="block-content">
@@ -230,11 +234,10 @@ export default function Registration() {
           </div>
 
           <div
-            onClick={toggleTab}
             className={
               !active
-                ? 'block block-customer-login left activeMobileContent'
-                : 'block block-customer-login left'
+                ? 'block-customer-login right activeMobileContent'
+                : 'block-customer-login  right'
             }>
             <div className="block-content">
               <form onSubmit={createUser} className="form form-login" id="regist-form">
@@ -317,16 +320,27 @@ export default function Registration() {
               </form>
             </div>
           </div>
+          <div className="social_block">
+            <div className="title">Увійти через соцмережі</div>
+            <div className="wrapp_btn">
+              <button className="soc_btn facebook">
+                <Image width={20} height={20} src={GoogleSvg} alt="logo"></Image>
+              </button>
+              <button className="soc_btn google">
+                <Image width={20} height={20} src={FacebookSvg} alt="logo"></Image>
+              </button>
+            </div>
+          </div>
         </>
       ) : (
         <div className="block-logIn">
           <h2 className="title-product-block">ви увiйшли як </h2>
           <p>{CurrentUser && CurrentUser.name}</p>
           <button className="button-default-white" onClick={goToMainPage}>
-            <span>в каталог</span> <Image width={20} height={20} src={Link} alt="logo"></Image>
+            <span>в каталог</span> <Image width={20} height={20} src={LinkSvg} alt="logo"></Image>
           </button>
           <button className="button-default-white" onClick={goToCart}>
-            <span>в корзину</span> <Image width={20} height={20} src={Link} alt="logo"></Image>
+            <span>в корзину</span> <Image width={20} height={20} src={LinkSvg} alt="logo"></Image>
           </button>
           <button className="action login primary" onClick={LogOut}>
             <span>вийти</span>
@@ -335,6 +349,16 @@ export default function Registration() {
       )}
 
       <style jsx>{`
+        .social_block .title {
+          font-size: 1.4rem;
+          text-align: center;
+          color: #1a1a1a;
+          margin-top: 35px;
+        }
+
+        .social_block {
+          border-top: 1px solid #ccc;
+        }
         .title-product-block {
           flex-grow: 0;
           margin: 0px;
@@ -389,15 +413,21 @@ export default function Registration() {
           margin: 0px 5px;
           color: black;
         }
-        .block.block-customer-login {
+        .block-customer-login {
           width: 100%;
           display: flex;
-
           flex-direction: column;
           display: none;
           background: #f7f7f7;
         }
-        .block.block-customer-login.activeMobileContent {
+        .block-customer-login.right {
+          padding-left: 0px;
+        }
+        .block-customer-login.left {
+          padding-right: 0px;
+          border-right: none;
+        }
+        .block-customer-login.activeMobileContent {
           display: block;
         }
 
@@ -414,7 +444,7 @@ export default function Registration() {
           line-height: 1;
           font-size: 1.5rem;
           cursor: pointer;
-
+          margin-top: 10px;
           text-align: center;
         }
         .block-title.active {
@@ -453,7 +483,6 @@ export default function Registration() {
         }
 
         .input-text {
-          background-clip: padding-box;
           border: 1px solid #cbcbcb;
           border-radius: 0;
           color: #323232;
@@ -498,18 +527,27 @@ export default function Registration() {
           border: 1px solid red;
         }
 
-        @media (min-width: 860px) {
-          .block.block-customer-login {
+        @media (min-width: 700px) {
+          .block-customer-login {
             width: 40%;
             display: block;
+
             background-color: transparent;
-            margin: 0 10px;
           }
-          .block-title {
+          .block-customer-login.activeMobileContent {
             background-color: transparent;
-            width: 30%;
           }
-          .block-title active: {
+          .block-customer-login.right {
+            padding-left: 54.5px;
+          }
+          .block-customer-login.left {
+            padding-right: 54.5px;
+            border-right: 1px solid #d2d2d2;
+          }
+          .block-title.active {
+            background-color: transparent;
+          }
+          .input-text {
             background-color: transparent;
           }
         }

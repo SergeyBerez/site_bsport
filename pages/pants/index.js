@@ -146,12 +146,11 @@ export default function Pants({ goodList }) {
           padding: 5px;
           max-width: 230px;
         }
+
         .product-card__title {
           background-color: #c7c7c7;
           color: #c7c7c7;
           margin: 5px 0;
-
-          font-weight: 400;
         }
 
         @media (min-width: 320px) {
