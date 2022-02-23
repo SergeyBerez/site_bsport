@@ -115,8 +115,7 @@ export default function Index() {
         <Slider
           url={DataSvgForSlider}
           params={DataSvgForSlider}
-          autoplay={{ delay: 2000, disableOnInteraction: true }}>
-        </Slider>
+          autoplay={{ delay: 2000, disableOnInteraction: true }}></Slider>
         {loading ? renserSkelton : renderGoods}
       </MainLayout>
     </>

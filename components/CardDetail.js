@@ -132,6 +132,7 @@ export default function CardDetail({
           width: 100%;
           display: flex;
           justify-content: space-around;
+          margin-bottom: 20px;
         }
         .block_price__currency {
           font-weight: bold;
@@ -141,16 +142,13 @@ export default function CardDetail({
         .text_specification {
           font-size: 1.6rem;
         }
-        .block_descriptionInformation {
-          margin: 10px 0;
-        }
-        .qty_wrapp {
-          border: 1px solid #e6e6e6;
 
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
+        // .qty_wrapp {
+        //   display: flex;
+        //   justify-content: center;
+        //   align-items: center;
+        //   margin-bottom: 20px;
+        // }
         .qty_btn {
           width: 35px;
           position: relative;

@@ -77,7 +77,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
                   <Link href={obj.path}>
                     <a>
                       <div className="img-svg">
-                        <Image src={obj.urlSvg} width={300} height={405} alt="logo"></Image>
+                        <Image src={obj.urlSvg} width={200} height={200} alt="logo"></Image>
                       </div>
                       <div className="bottom-subtitle">
                         <button className="button button-default-white font">{obj.name}</button>

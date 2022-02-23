@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { useGoodsContext } from '../context/contextGoods';
 import Link from 'next/link';
 import LinkIcon from '../public/static/img/link_icon.svg';
-import arrowNext from '../public/static/img/1904671_arrow_arrow right_change_direction_next_icon.svg';
+import arrowNext from '../public/static/img/4781840_+_add_circle_create_expand_icon.svg';
 import remove from '../public/static/img/2931168_bin_delete_remove_trash_garbage_icon.svg';
-import arrowPrev from '../public/static/img/1904658_arrow_arrow left_change_direction_left_icon.svg';
+import arrowPrev from '../public/static/img/4781841_-_cancel_circle_collapse_min_icon.svg';
 
 import MainLayout from '../components/MainLayout';
 export default function Cart() {
@@ -227,7 +227,7 @@ export default function Cart() {
         }
         .qty_wrapp {
           // border: 1px solid #e6e6e6;
-          min-width: 70px;
+          min-width: 80px;
           display: flex;
 
           justify-content: center;
