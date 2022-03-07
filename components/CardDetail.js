@@ -23,7 +23,7 @@ export default function CardDetail({
   // const inputRef = useRef();
 
   const quickBuy = () => {
-    router.push('/regist');
+    router.push('/buy');
   };
   const addToCart = () => {
     dispatch({
