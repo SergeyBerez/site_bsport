@@ -1,11 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useGoodsContext } from '../context/contextGoods';
-import Accordion from './Accordeon';
-import arrowNext from '../public/static/img/1904671_arrow_arrow right_change_direction_next_icon.svg';
-import arrowPrev from '../public/static/img/1904658_arrow_arrow left_change_direction_left_icon.svg';
-import Slider from './Slider';
+import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useGoodsContext } from "../context/contextGoods";
+import BuyPopup from "./BuyPopup";
+import Accordion from "./Accordeon";
+import arrowNext from "../public/static/img/1904671_arrow_arrow right_change_direction_next_icon.svg";
+import arrowPrev from "../public/static/img/1904658_arrow_arrow left_change_direction_left_icon.svg";
+import Slider from "./Slider";
 export default function CardDetail({
   id,
   title,
@@ -17,17 +18,27 @@ export default function CardDetail({
   color,
 }) {
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+  const [massage, setMassage] = useState("");
   const { state, dispatch } = useGoodsContext();
   const { userOdrerCtx, countGoodsMinus, countGoodsPlus } = useGoodsContext();
 
   // const inputRef = useRef();
-
-  const quickBuy = () => {
-    router.push('/buy');
+  const toogleShowModal = (e) => {
+    let arrClassNameModal = e.target.className.split(" ");
+    let arrClassNameButton = e.target.className.split(" ");
+    let show =
+      arrClassNameModal.includes("fixed-overlay") ||
+      arrClassNameButton.includes("button");
+    if (show) {
+      setShowModal(!showModal);
+      setMassage("");
+    }
   };
+
   const addToCart = () => {
     dispatch({
-      type: 'ADD TO CARD',
+      type: "ADD TO CARD",
       payload: {
         id,
         title,
@@ -39,61 +50,52 @@ export default function CardDetail({
         // cnt: newGood ? newGood.cnt : 0,
       },
     });
-    router.push('/cart');
+    router.push("/cart");
   };
   return (
     <>
-      {/* <div className="slider-wrapper"></div> */}
+      <BuyPopup
+        urlArr={urlArr}
+        id={id}
+        showModal={showModal}
+        toogleShowModal={toogleShowModal}
+        massage={massage}
+        setMassage={setMassage}
+      ></BuyPopup>
       <h2 className="block_name block_name__addName">{title}</h2>
-      <Slider id={id} url={urlArr} grabCursor={true} pagination={true} count={1}></Slider>{' '}
+      <Slider
+        id={id}
+        url={urlArr}
+        grabCursor={true}
+        pagination={true}
+        count={1}
+      ></Slider>{" "}
       <div className="block_product">
         <div className="block_goodColor">
           <span className="text_specification">колiр : {color}</span>
         </div>
         <div className="block_price">
-          <p className="block_price__currency">цiна {price ? price : 'цiну уточнiть'} грн</p>
+          <p className="block_price__currency">
+            цiна {price ? price : "цiну уточнiть"} грн
+          </p>
           <p className="block_product__advantagesProduct">{description}</p>
-          <div className="qty_wrapp">
-            {/* <div
-              className="qty_btn bnt_minus"
-              onClick={() => {
-                countGoodsMinus(inputRef.current.value);
-              }}>
-              <Image src={arrowPrev} alt="arrow"></Image>
-            </div> */}
-            {/* <input
-              ref={inputRef}
-              type="text"
-              name="quantity"
-              data-min="1"
-              value={userOdrerCtx.cnt}
-              size="2"
-              id="input-quantity"
-              readOnly
-            /> */}
-
-            {/* <div
-              className="qty_btn bnt_plus"
-              onClick={() => {
-                countGoodsPlus(inputRef.current.value);
-              }}>
-              <Image src={arrowNext} alt="arrow"></Image>
-            </div> */}
-            {/* <input type="hidden" name="product_id" value={count} onChange={countGoods} /> */}
-          </div>
+          <div className="qty_wrapp"></div>
           <div className="block-count">
-            {' '}
+            {" "}
             <button className="button button-default-white" onClick={addToCart}>
               добавити в корзину
             </button>
-            <button className="button button-default-white" onClick={quickBuy}>
+            <button
+              className="button button-default-white"
+              onClick={toogleShowModal}
+            >
               купити швидко
             </button>
           </div>
         </div>
 
         <div className="block_descriptionInformation">
-          <Accordion title={'подробно'} detaileDescription>
+          <Accordion title={"подробно"} detaileDescription>
             {detaileDescription}
             <p>-материал двухнитка пенье</p>
             <p>-молодёжный покрой зауженные</p>
@@ -102,15 +104,16 @@ export default function CardDetail({
           </Accordion>
         </div>
         <div className="block_descriptionInformation">
-          <Accordion title={'Варианты оплаты и отправок:'}>
-            {' '}
+          <Accordion title={"Варианты оплаты и отправок:"}>
+            {" "}
             <p>
-              1. Наложка (по предоплате за доставку 100 грн, вычитаем из вычитаем из общей суммы)
+              1. Наложка (по предоплате за доставку 100 грн, вычитаем из
+              вычитаем из общей суммы)
             </p>
             <p>
-              {' '}
-              2. Полная оплата на карту (экономия 40-50 грн, на почте платите только за доставку)
-              обмен размера осуществляем по договоренности
+              {" "}
+              2. Полная оплата на карту (экономия 40-50 грн, на почте платите
+              только за доставку) обмен размера осуществляем по договоренности
             </p>
             <p> 3. Урк почта / Justin / Новая почта</p>
           </Accordion>

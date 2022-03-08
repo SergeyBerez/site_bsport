@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import arrowNext from '../public/static/img/arrow-next.svg';
-import Image from 'next/image';
+import React, { useState } from "react";
+import arrowNext from "../public/static/img/arrow-next.svg";
+import Image from "next/image";
 export default function Accordion(props) {
   const { title } = props;
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +25,7 @@ export default function Accordion(props) {
       <style jsx>{`
         .accordion {
           margin: 0;
-          border-top: 1px solid #e6e6e6;
+          border-top: 2px solid #888;
           padding: 10px;
           display: flex;
           flex-direction: column;
@@ -55,7 +55,7 @@ export default function Accordion(props) {
           transition: all 0.35s ease;
         }
 
-        .accordion div.toggle[aria-expanded='true'] {
+        .accordion div.toggle[aria-expanded="true"] {
           transform: rotateZ(90deg);
         }
 
@@ -65,7 +65,7 @@ export default function Accordion(props) {
           transition: max-height 1s ease-in-out;
         }
 
-        .accordion-content[aria-expanded='true'] {
+        .accordion-content[aria-expanded="true"] {
           max-height: 0px;
           transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
         }

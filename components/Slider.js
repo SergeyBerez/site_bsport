@@ -1,16 +1,22 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import Spinner from './Spinner.js';
-import Link from 'next/link';
-import { Navigation, Pagination, Autoplay } from 'swiper';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) => {
+import { Swiper, SwiperSlide } from "swiper/react";
+import Spinner from "./Spinner.js";
+import Link from "next/link";
+import { Navigation, Pagination, Autoplay } from "swiper";
+import Image from "next/image";
+import { useState, useEffect } from "react";
+const Slider = ({
+  url,
+  id,
+  grabCursor = false,
+  autoplay = false,
+  count = 4,
+}) => {
   const [imgsObj, setImgs] = useState([
-    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505',
+    "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505",
   ]);
 
   const [imgs1, setImgs1] = useState(
-    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505',
+    "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
   );
   useEffect(() => {
     if (url) {
@@ -30,6 +36,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
     const src = e.currentTarget.src;
 
     setImgs1(src);
+    console.log(imgs1);
   };
   return (
     <>
@@ -66,10 +73,11 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
             slidesPerView: 5,
             spaceBetween: 50,
           },
-        }}>
+        }}
+      >
         {imgsObj &&
         imgsObj.filter((i) => {
-          return i.constructor.name === 'Object';
+          return i.constructor.name === "Object";
         }).length > 0
           ? imgsObj.map((obj, i) => {
               return (
@@ -77,10 +85,17 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
                   <Link href={obj.path}>
                     <a>
                       <div className="img-svg">
-                        <Image src={obj.urlSvg} width={200} height={200} alt="logo"></Image>
+                        <Image
+                          src={obj.urlSvg}
+                          width={200}
+                          height={200}
+                          alt="logo"
+                        ></Image>
                       </div>
                       <div className="bottom-subtitle">
-                        <button className="button button-default-white font">{obj.name}</button>
+                        <button className="button button-default-white font">
+                          {obj.name}
+                        </button>
                       </div>
                     </a>
                   </Link>
@@ -97,7 +112,8 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
                       width={300}
                       height={405}
                       alt="logo"
-                      onClick={goToDitailSlide}></Image>
+                      onClick={goToDitailSlide}
+                    ></Image>
                   </div>
                 </SwiperSlide>
               );
@@ -106,7 +122,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
 
       {imgsObj &&
       imgsObj.filter((i) => {
-        return i.constructor.name === 'Object';
+        return i.constructor.name === "Object";
       }).length > 0 ? null : (
         <div className="img-detail">
           <Image src={imgs1} width={350} height={450} alt="logo"></Image>
@@ -140,7 +156,7 @@ const Slider = ({ url, id, grabCursor = false, autoplay = false, count = 4 }) =>
         }
         @media (min-width: 640px) {
           .img-detail {
-            display: none;
+            display: block;
           }
           .font {
             font-size: 1.4rem;
