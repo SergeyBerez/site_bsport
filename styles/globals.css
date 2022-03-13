@@ -15,9 +15,9 @@ body {
   margin: 0;
   color: #323232;
   -webkit-font-smoothing: subpixel-antialiased;
-  -webkit-locale: 'ua';
-  font-family: -apple-system, euclid circular a, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica, Neue, sans-serif;
+  -webkit-locale: "ua";
+  /* font-family: -apple-system, euclid circular a, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica, Neue, sans-serif; */
 }
 #__next {
   min-height: 100%;

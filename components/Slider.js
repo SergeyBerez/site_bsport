@@ -42,6 +42,7 @@ const Slider = ({
     <>
       <Swiper
         // install Swiper modules
+
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={10}
         slidesPerView={3}

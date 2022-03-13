@@ -62,7 +62,6 @@ export default function CardDetail({
         massage={massage}
         setMassage={setMassage}
       ></BuyPopup>
-      <h2 className="block_name block_name__addName">{title}</h2>
       <Slider
         id={id}
         url={urlArr}
@@ -71,14 +70,18 @@ export default function CardDetail({
         count={1}
       ></Slider>{" "}
       <div className="block_product">
+        <h1 className="block_product-title">
+          <span>{title}</span>
+        </h1>
+        <p className="block_product__advantagesProduct">{description}</p>
         <div className="block_goodColor">
           <span className="text_specification">колiр : {color}</span>
         </div>
         <div className="block_price">
           <p className="block_price__currency">
-            цiна {price ? price : "цiну уточнiть"} грн
+            {price ? price : "цiну уточнiть"} грн
           </p>
-          <p className="block_product__advantagesProduct">{description}</p>
+
           <div className="qty_wrapp"></div>
           <div className="block-count">
             {" "}
@@ -95,16 +98,82 @@ export default function CardDetail({
         </div>
 
         <div className="block_descriptionInformation">
-          <Accordion title={"подробно"} detaileDescription>
-            {detaileDescription}
+          <Accordion title={"Опис товару"}>
             <p>-материал двухнитка пенье</p>
-            <p>-молодёжный покрой зауженные</p>
             <p>-Ткань турецкая состав: 80 % хлопок 20 % полиэстер</p>
-            <p>-Штаны на манжетах, глубокие карманы на молнии</p>
           </Accordion>
         </div>
         <div className="block_descriptionInformation">
-          <Accordion title={"Варианты оплаты и отправок:"}>
+          <Accordion title={"Розмірна сітка"}>
+            <table
+              border="1"
+              cellpadding="1"
+              cellspacing="1"
+              // style="height:232px;width:414px;"
+            >
+              <thead>
+                <tr>
+                  <th scope="col">Розмір</th>
+                  <th scope="col">Обхват грудної клітини</th>
+                  <th scope="col">Обхват талії</th>
+                  <th scope="col">Обхват стегон</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>32/XXS</td>
+                  <td>74-77</td>
+                  <td>61-63</td>
+                  <td>83-85</td>
+                </tr>
+                <tr>
+                  <td>34/XS</td>
+                  <td>78-81</td>
+                  <td>62-64</td>
+                  <td>86-89</td>
+                </tr>
+                <tr>
+                  <td>36/S</td>
+                  <td>82-85</td>
+                  <td>65-67</td>
+                  <td>93-96</td>
+                </tr>
+                <tr>
+                  <td>38/M</td>
+                  <td>86-89</td>
+                  <td>68-71</td>
+                  <td>97-100</td>
+                </tr>
+                <tr>
+                  <td>40/L</td>
+                  <td>90-93</td>
+                  <td>72-75</td>
+                  <td>101-104</td>
+                </tr>
+                <tr>
+                  <td>42/XL</td>
+                  <td>94-97</td>
+                  <td>76-79</td>
+                  <td>105-107</td>
+                </tr>
+                <tr>
+                  <td>44/XXL</td>
+                  <td>98-101</td>
+                  <td>80-84</td>
+                  <td>108-112</td>
+                </tr>
+                <tr>
+                  <td>46/XXXL</td>
+                  <td>102-106</td>
+                  <td>85-89</td>
+                  <td>113-117</td>
+                </tr>
+              </tbody>
+            </table>
+          </Accordion>
+        </div>
+        <div className="block_descriptionInformation">
+          <Accordion title={"Доставка"}>
             {" "}
             <p>
               1. Наложка (по предоплате за доставку 100 грн, вычитаем из
@@ -120,16 +189,29 @@ export default function CardDetail({
         </div>
       </div>
       <style jsx>{`
+        .block_product__advantagesProduct {
+          font-size: 2rem;
+        }
+        .block_product-title span {
+          text-transform: uppercase;
+        }
+        .block_product-title {
+          display: flex;
+          flex-direction: column;
+          font-weight: 400;
+        }
         .block_product {
           overflow: hidden;
-
           flex: 1;
-          width: 100%;
+
           display: flex;
           flex-direction: column;
           padding: 0 15px;
           max-width: 700px;
-          justify-content: space-around;
+        }
+        .block_descriptionInformation {
+          align-self: right;
+          border-top: 2px solid #888;
         }
         .block-count {
           width: 100%;
@@ -139,8 +221,8 @@ export default function CardDetail({
         }
         .block_price__currency {
           font-weight: bold;
-          color: green;
-          font-size: 2 rem;
+
+          font-size: 2.5rem;
         }
         .text_specification {
           font-size: 1.6rem;
