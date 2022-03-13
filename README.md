@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Open in browser show this app https://site-bsport.vercel.app/
+
 First, run the development server:
 
 ```bash
