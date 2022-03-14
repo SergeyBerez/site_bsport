@@ -43,7 +43,7 @@ export default function FirebaseContext({ children }) {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
-
+        setCurrentUser(user);
         setUidUser(true);
         const displayName = user.displayName;
         const email = user.email;

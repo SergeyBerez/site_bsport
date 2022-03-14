@@ -79,11 +79,20 @@ export default function NavBar({
           <div className="user-header">
             <Link href="/regist" shallow>
               <a>
-                {" "}
-                <Image width={30} height={30} src={user} alt="logo"></Image>
+                {CurrentUser?.photoURL ? (
+                  <Image
+                    src={CurrentUser?.photoURL ? CurrentUser?.photoURL : user}
+                    width={30}
+                    height={30}
+                    alt="logo"
+                  ></Image>
+                ) : (
+                  <Image width={30} height={30} src={user} alt="logo"></Image>
+                )}
               </a>
             </Link>
             <p>{CurrentUser && CurrentUser.name}</p>
+            <p>{CurrentUser?.displayName}</p>
           </div>
           <div className="cart-header">
             <Link href="/cart" shallow>

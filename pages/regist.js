@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+
 import MainLayout from "../components/MainLayout";
 import {
   collection,
@@ -23,7 +24,8 @@ import GoogleButton from "react-google-button";
 import FacebookSvg from "../public/static/img/3225194_app_facebook_logo_media_popular_icon.svg";
 
 import Image from "next/image";
-
+const img =
+  "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505";
 export default function Registration() {
   const router = useRouter();
   const { setCurrentUser, uidUser, CurrentUser } = useAppContext();
@@ -367,22 +369,7 @@ export default function Registration() {
                       ></input>
                     </div>
                   </div>
-                  {/* <div className="field tel required">
-                    <label className="label" htmlFor="tel">
-                      <span>Телефон :</span>
-                    </label>{' '}
-                    <div className="control">
-                      <input
-                        onChange={onHandlerInput}
-                        name="login[tel]"
-                        value={valueInputs.tel}
-                        autoComplete="on"
-                        id="tel"
-                        type="tel"
-                        className={'input-text ' + disabled}
-                        title="Phone"></input>
-                    </div>
-                  </div> */}
+
                   <div className="field password required">
                     <label htmlFor="password-regist" className="label">
                       <span>Пароль :</span>
@@ -432,8 +419,17 @@ export default function Registration() {
         </>
       ) : (
         <div className="block-logIn">
-          <h2 className="title-product-block">ви увiйшли як </h2>
-          <p>{CurrentUser && CurrentUser.name}</p>
+          <h2 className="h2-title-product-block">ви увiйшли як </h2>
+          <div className="block-title-login">
+            <span>{CurrentUser?.name}</span>
+            <span>{CurrentUser?.displayName}</span>
+
+            <Image
+              src={CurrentUser?.photoURL ? CurrentUser?.photoURL : img}
+              width={50}
+              height={50}
+            ></Image>
+          </div>
           <button className="button-default-white" onClick={goToMainPage}>
             <span>в каталог</span>{" "}
             <Image width={20} height={20} src={LinkSvg} alt="logo"></Image>
@@ -443,12 +439,18 @@ export default function Registration() {
             <Image width={20} height={20} src={LinkSvg} alt="logo"></Image>
           </button>
           <button className="action login primary" onClick={LogOut}>
-            <span>вийти</span>
+            вийти
           </button>
         </div>
       )}
 
       <style jsx>{`
+        .block-title-login {
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          justify-content: center;
+        }
         .social_block .title {
           font-size: 1.4rem;
           text-align: center;
@@ -473,7 +475,7 @@ export default function Registration() {
         .soc_btn.facebook span {
           margin-left: 5px;
         }
-        .title-product-block {
+        h2-title-product-block {
           flex-grow: 0;
           margin: 0px;
         }
@@ -503,8 +505,6 @@ export default function Registration() {
           flex-grow: 1;
           max-width: 400px;
           text-align: center;
-        }
-        .h2 {
         }
 
         .title {
