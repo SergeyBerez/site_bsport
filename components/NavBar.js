@@ -1,19 +1,23 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { useState, useRef, useEffect, useDebugValue } from 'react';
-import { useAppContext } from '../context/firebaseContext';
-import { useGoodsContext } from '../context/contextGoods';
-import user from '../public/static/img/user2.svg';
-import cart from '../public/static/img/cart.svg';
-import Logo from '../public/static/img/logo.png';
-import arrowNext from '../public/static/img/arrow-next.svg';
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useState, useRef, useEffect, useDebugValue } from "react";
+import { useAppContext } from "../context/firebaseContext";
+import { useGoodsContext } from "../context/contextGoods";
+import user from "../public/static/img/user2.svg";
+import cart from "../public/static/img/cart.svg";
+import Logo from "../public/static/img/logo.png";
+import arrowNext from "../public/static/img/arrow-next.svg";
 
-export default function NavBar({ openSideMenu, transformGamburger, toggleMenu }) {
+export default function NavBar({
+  openSideMenu,
+  transformGamburger,
+  toggleMenu,
+}) {
   const router = useRouter();
   const { CurrentUser } = useAppContext();
   const { state } = useGoodsContext();
-  let arr = router.pathname.split('/');
+  let arr = router.pathname.split("/");
 
   useEffect(() => {
     console.log(CurrentUser);
@@ -23,44 +27,48 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
     <>
       <header className="header" tabIndex="0">
         <button onClick={toggleMenu} className="button" tabIndex="0">
-          <span className={'icon-bar ' + transformGamburger}></span>
-          <span className={'icon-bar ' + transformGamburger}></span>
-          <span className={'icon-bar ' + transformGamburger}></span>
+          <span className={"icon-bar " + transformGamburger}></span>
+          <span className={"icon-bar " + transformGamburger}></span>
+          <span className={"icon-bar " + transformGamburger}></span>
           <span className="header-title">меню</span>
         </button>
         <div className="header-logo">
-          {' '}
-          <Image width={70} height={70} src={Logo} alt="logo"></Image>
-        </div>{' '}
+          {" "}
+          <Link href="/" shallow>
+            <a title="Go to Home Page">
+              <Image width={70} height={70} src={Logo} alt="logo"></Image>
+            </a>
+          </Link>
+        </div>{" "}
         <nav className="nav-header">
           <ul>
-            <li className={router.pathname == '/' ? 'active' : 'li'}>
+            <li className={router.pathname == "/" ? "active" : "li"}>
               <Link href="/" shallow>
                 <a>катaлог</a>
               </Link>
             </li>
-            <li className={router.pathname == '/pants' ? 'active' : ''}>
+            <li className={router.pathname == "/pants" ? "active" : ""}>
               <Link href="/pants" shallow>
                 <a>брюки</a>
               </Link>
             </li>
-            <li className={router.pathname == '/shorts' ? 'active' : ''}>
+            <li className={router.pathname == "/shorts" ? "active" : ""}>
               <Link href="/shorts" shallow>
                 <a>шорты</a>
               </Link>
             </li>
-            <li className={router.pathname == '/sport-kostums' ? 'active' : ''}>
+            <li className={router.pathname == "/sport-kostums" ? "active" : ""}>
               <Link href="/sport-kostums" shallow>
                 <a>костюмы</a>
               </Link>
             </li>
 
-            <li className={router.pathname == '/delivery' ? 'li active' : 'li'}>
+            <li className={router.pathname == "/delivery" ? "li active" : "li"}>
               <Link href="/delivery" shallow>
                 <a>доставка</a>
               </Link>
             </li>
-            <li className={router.pathname == '/about' ? 'li active' : 'li'}>
+            <li className={router.pathname == "/about" ? "li active" : "li"}>
               <Link href="/about" shallow>
                 <a>контакти</a>
               </Link>
@@ -71,7 +79,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
           <div className="user-header">
             <Link href="/regist" shallow>
               <a>
-                {' '}
+                {" "}
                 <Image width={30} height={30} src={user} alt="logo"></Image>
               </a>
             </Link>
@@ -89,26 +97,40 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
       </header>
 
       <div className="side-nav-container">
-        <div className="nav-content" tabIndex="0" style={{ transform: openSideMenu }}>
+        <div
+          className="nav-content"
+          tabIndex="0"
+          style={{ transform: openSideMenu }}
+        >
           <ul>
-            <li className={router.pathname == '/' ? 'active' : ''} onClick={toggleMenu}>
+            <li
+              className={router.pathname == "/" ? "active" : ""}
+              onClick={toggleMenu}
+            >
               <Link href="/" shallow>
                 <a>Главная</a>
               </Link>
             </li>
             <li
-              className={router.pathname == '/sport-kostums' ? 'active' : ''}
-              onClick={toggleMenu}>
+              className={router.pathname == "/sport-kostums" ? "active" : ""}
+              onClick={toggleMenu}
+            >
               <Link href="/sport-kostums" shallow>
                 <a>костюмы</a>
               </Link>
             </li>
-            <li className={router.pathname == '/pants' ? 'active' : ''} onClick={toggleMenu}>
+            <li
+              className={router.pathname == "/pants" ? "active" : ""}
+              onClick={toggleMenu}
+            >
               <Link href="/pants" shallow>
                 <a> брюки</a>
               </Link>
             </li>
-            <li className={router.pathname == '/shorts' ? 'active' : ''} onClick={toggleMenu}>
+            <li
+              className={router.pathname == "/shorts" ? "active" : ""}
+              onClick={toggleMenu}
+            >
               <Link href="/shorts" shallow>
                 <a>шорты</a>
               </Link>
@@ -118,14 +140,19 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
                 <a>Contact</a>
               </Link>
             </li> */}
-            <li className={router.pathname == '/delivery' ? 'active' : ''} onClick={toggleMenu}>
+            <li
+              className={router.pathname == "/delivery" ? "active" : ""}
+              onClick={toggleMenu}
+            >
               <Link href="/delivery" shallow>
                 <a>доставка</a>
               </Link>
             </li>
             <li onClick={toggleMenu}>
               <Link href="/about" shallow>
-                <a className={router.pathname == '/about' ? 'active' : ''}>контакти</a>
+                <a className={router.pathname == "/about" ? "active" : ""}>
+                  контакти
+                </a>
               </Link>
             </li>
             <li className="small">
@@ -137,57 +164,68 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
       </div>
 
       <div className="breadcrumbs">
-        {router.pathname == '/' ? null : (
+        {router.pathname == "/" ? null : (
           <ul className="items">
-            <li className={router.pathname == '/' ? 'item category active' : 'item category'}>
+            <li
+              className={
+                router.pathname == "/"
+                  ? "item category active"
+                  : "item category"
+              }
+            >
               <Link href="/" shallow>
-                <a title="Go to Home Page">{router.pathname !== '/' ? 'катaлог' : null}</a>
+                <a title="Go to Home Page">
+                  {router.pathname !== "/" ? "катaлог" : null}
+                </a>
               </Link>
             </li>
-            {router.pathname !== '/' ? (
+            {router.pathname !== "/" ? (
               <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
             ) : null}
             <li
               className={
-                router.pathname == '/shorts'
-                  ? 'item shorts active'
-                  : router.pathname == '/pants'
-                  ? 'item pants active'
-                  : router.pathname == '/sport-kostums'
-                  ? 'item sport-kostums active'
-                  : router.pathname == '/delivery'
-                  ? 'item delivery active'
-                  : router.pathname == '/about'
-                  ? 'item about active'
-                  : router.pathname == '/regist'
-                  ? 'item about active'
-                  : router.pathname == '/cart'
-                  ? 'item about active'
-                  : ''
-              }>
+                router.pathname == "/shorts"
+                  ? "item shorts active"
+                  : router.pathname == "/pants"
+                  ? "item pants active"
+                  : router.pathname == "/sport-kostums"
+                  ? "item sport-kostums active"
+                  : router.pathname == "/delivery"
+                  ? "item delivery active"
+                  : router.pathname == "/about"
+                  ? "item about active"
+                  : router.pathname == "/regist"
+                  ? "item about active"
+                  : router.pathname == "/cart"
+                  ? "item about active"
+                  : ""
+              }
+            >
               <Link href={`/${arr[1]}`} shallow>
                 <a title={`/${arr[1]}`}>
-                  {' '}
-                  {router.pathname == '/shorts' ? 'шорти' : null}
-                  {router.pathname == '/pants' ? 'штани' : null}
-                  {router.pathname == '/sport-kostums' ? 'костюми' : null}
-                  {router.pathname == '/delivery' ? 'доставка' : null}
-                  {router.pathname == '/about' ? 'контакти' : null}
-                  {router.pathname == '/regist' ? 'авторизацiя' : null}
-                  {router.pathname == '/cart' ? 'корзина' : null}
-                  {router.query.id && arr[1] == 'shorts' ? 'шорти' : null}
-                  {router.query.id && arr[1] == 'pants' ? 'штани' : null}
-                  {router.query.id && arr[1] == 'sport-kostums' ? 'костюми' : null}
+                  {" "}
+                  {router.pathname == "/shorts" ? "шорти" : null}
+                  {router.pathname == "/pants" ? "штани" : null}
+                  {router.pathname == "/sport-kostums" ? "костюми" : null}
+                  {router.pathname == "/delivery" ? "доставка" : null}
+                  {router.pathname == "/about" ? "контакти" : null}
+                  {router.pathname == "/regist" ? "авторизацiя" : null}
+                  {router.pathname == "/cart" ? "корзина" : null}
+                  {router.query.id && arr[1] == "shorts" ? "шорти" : null}
+                  {router.query.id && arr[1] == "pants" ? "штани" : null}
+                  {router.query.id && arr[1] == "sport-kostums"
+                    ? "костюми"
+                    : null}
                   {/* {router.query.id ==arr[1]? : null} */}
                 </a>
               </Link>
-            </li>{' '}
+            </li>{" "}
             {router.query.id ? (
               <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
-            ) : null}{' '}
-            <li className={router.query.id ? 'active' : null}>
-              {router.query.id ? `детально` : null}{' '}
-            </li>{' '}
+            ) : null}{" "}
+            <li className={router.query.id ? "active" : null}>
+              {router.query.id ? `детально` : null}{" "}
+            </li>{" "}
           </ul>
         )}
       </div>
@@ -217,6 +255,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
           box-shadow: 0 5px 4px -4px rgba(0, 0, 0, 0.2);
         }
         .header-logo {
+          cursor: pointer;
           //margin: 0 auto;
           // border: 1px solid #000;
         }

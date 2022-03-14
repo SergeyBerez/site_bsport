@@ -107,8 +107,8 @@ export default function CardDetail({
           <Accordion title={"Розмірна сітка"}>
             <table
               border="1"
-              cellpadding="1"
-              cellspacing="1"
+              cellPadding="1"
+              cellSpacing="1"
               // style="height:232px;width:414px;"
             >
               <thead>
