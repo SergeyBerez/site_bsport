@@ -243,7 +243,6 @@ export default function Registration() {
             className={!active ? "block-title active" : "block-title"}
           >
             Новий клиент
-            {massage ? massage : null}
           </div>
           <div
             className={
