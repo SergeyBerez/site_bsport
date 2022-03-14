@@ -1,12 +1,6 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import MainLayout from '../components/MainLayout';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import LinkSvg from '../public/static/img/link_icon.svg';
-import GoogleSvg from '../public/static/img/1298745_google_brand_branding_logo_network_icon.svg';
-import FacebookSvg from '../public/static/img/3225194_app_facebook_logo_media_popular_icon.svg';
-
-import Image from 'next/image';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import MainLayout from "../components/MainLayout";
 import {
   collection,
   getDocs,
@@ -15,26 +9,38 @@ import {
   getDoc,
   setDoc,
   Timestamp,
-} from 'firebase/firestore/lite';
+} from "firebase/firestore/lite";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  FacebookAuthProvider,
+} from "firebase/auth";
+import { useAppContext, db, auth } from "../context/firebaseContext";
+import LinkSvg from "../public/static/img/link_icon.svg";
+import GoogleButton from "react-google-button";
+import FacebookSvg from "../public/static/img/3225194_app_facebook_logo_media_popular_icon.svg";
 
-import { useAppContext, db, auth } from '../context/firebaseContext';
+import Image from "next/image";
+
 export default function Registration() {
   const router = useRouter();
   const { setCurrentUser, uidUser, CurrentUser } = useAppContext();
-  const [disabled, setDisbled] = useState('true');
-  const [active, setActive] = useState('active');
+  const [disabled, setDisbled] = useState("true");
+  const [active, setActive] = useState("active");
 
-  const [massage, setMassage] = useState('');
+  const [massage, setMassage] = useState("");
   const [valueInputsReg, setValueInputReg] = useState({
-    email: '',
-    password: '',
-    text: '',
+    email: "",
+    password: "",
+    text: "",
   });
   const [valueInputsLogIn, setValueInputLogIn] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const [massageForLogIn, setMassageForLogIn] = useState('');
+  const [massageForLogIn, setMassageForLogIn] = useState("");
   // const Validate = (email, password) => {
   //   if (email == '' || password.length <= 4) {
   //     setDisbled('disabled');
@@ -46,10 +52,10 @@ export default function Registration() {
   // };
 
   const toggleTab = () => {
-    setActive('active');
+    setActive("active");
   };
   const toggleTabRight = () => {
-    setActive('');
+    setActive("");
   };
   const onHandlerInputReg = (e) => {
     const value = e.target.value;
@@ -66,16 +72,20 @@ export default function Registration() {
 
   function createUser(e) {
     e.preventDefault();
-    console.log('createUser');
+    console.log("createUser");
     // if (Validate()) {
     //   return;
     // }
-    createUserWithEmailAndPassword(auth, valueInputsReg.email, valueInputsReg.password)
+    createUserWithEmailAndPassword(
+      auth,
+      valueInputsReg.email,
+      valueInputsReg.password
+    )
       .then((userCredential) => {
         // Signed in
 
         const user = userCredential.user;
-        setMassage('ви уcпiшно зареэструвались');
+        setMassage("ви уcпiшно зареэструвались");
         setDisbled(true);
 
         return user.uid;
@@ -86,7 +96,7 @@ export default function Registration() {
         //   email: valueInputsReg.email,
         //   id: id,
         // });
-        setDoc(doc(db, 'users', id), {
+        setDoc(doc(db, "users", id), {
           name: valueInputsReg.text,
           email: valueInputsReg.email,
           id: id,
@@ -99,17 +109,22 @@ export default function Registration() {
           id: id,
           time: Timestamp.fromDate(new Date()),
         });
-        setValueInputReg({ ...valueInputsReg, password: '', email: '', text: '' });
+        setValueInputReg({
+          ...valueInputsReg,
+          password: "",
+          email: "",
+          text: "",
+        });
         // Add a new document in collection "cities"
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
 
-        if (errorCode === 'auth/weak-password') {
-          setMassage('слабий пароль');
-        } else if (errorCode === 'auth/email-already-in-use') {
-          setMassage('такий акаунт вже iснуе');
+        if (errorCode === "auth/weak-password") {
+          setMassage("слабий пароль");
+        } else if (errorCode === "auth/email-already-in-use") {
+          setMassage("такий акаунт вже iснуе");
         } else {
           console.log(errorMessage);
         }
@@ -122,28 +137,28 @@ export default function Registration() {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         valueInputsLogIn.email,
-        valueInputsLogIn.password,
+        valueInputsLogIn.password
       );
       const id = userCredential.user.uid;
-      const docRef = doc(db, 'users', id);
+      const docRef = doc(db, "users", id);
       const docSnap = await getDoc(docRef);
       setCurrentUser(docSnap.data());
 
-      setMassageForLogIn('ви уcпiшно ввiйшли ' + CurrentUser);
+      setMassageForLogIn("ви уcпiшно ввiйшли " + CurrentUser);
       setDisbled(true);
-      setValueInputLogIn({ ...valueInputsLogIn, password: '', email: '' });
+      setValueInputLogIn({ ...valueInputsLogIn, password: "", email: "" });
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode);
-      if (errorCode === 'auth/internal-error') {
-        setMassageForLogIn('введiть пароль');
-      } else if (errorCode === 'auth/wrong-password') {
-        setMassageForLogIn('такий пароль не icнуэ');
-      } else if (errorCode === 'auth/invalid-email') {
-        setMassageForLogIn('введiть пошту');
-      } else if (errorCode === 'auth/user-not-found') {
-        setMassageForLogIn('такого користувача не iснуе');
+      if (errorCode === "auth/internal-error") {
+        setMassageForLogIn("введiть пароль");
+      } else if (errorCode === "auth/wrong-password") {
+        setMassageForLogIn("такий пароль не icнуэ");
+      } else if (errorCode === "auth/invalid-email") {
+        setMassageForLogIn("введiть пошту");
+      } else if (errorCode === "auth/user-not-found") {
+        setMassageForLogIn("такого користувача не iснуе");
       } else {
         console.log(errorMessage);
       }
@@ -152,15 +167,63 @@ export default function Registration() {
   const LogOut = () => {
     auth.signOut();
     setCurrentUser(null);
-    setMassageForLogIn('');
+    setMassageForLogIn("");
   };
   const goToMainPage = () => {
-    router.push('/');
+    router.push("/");
   };
   const goToCart = () => {
-    router.push('/cart');
+    router.push("/cart");
   };
 
+  const AuthWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+      });
+  };
+  const AuthWithFacebook = (params) => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = FacebookAuthProvider.credentialFromError(error);
+
+        // ...
+      });
+  };
   return (
     <MainLayout>
       {!uidUser ? (
@@ -168,28 +231,42 @@ export default function Registration() {
           <div
             // className={`block-title ${active}`}
             onClick={toggleTab}
-            className={active ? 'block-title active' : 'block-title'}>
+            className={active ? "block-title active" : "block-title"}
+          >
             Маю Акаунт
           </div>
           <div
             // className={`block-title ${active1}`}
             onClick={toggleTabRight}
-            className={!active ? 'block-title active' : 'block-title'}>
+            className={!active ? "block-title active" : "block-title"}
+          >
             Новий клиент
             {massage ? massage : null}
           </div>
           <div
             className={
-              active ? 'block-customer-login left activeMobileContent' : 'block-customer-login left'
-            }>
+              active
+                ? "block-customer-login left activeMobileContent"
+                : "block-customer-login left"
+            }
+          >
             <span>{massageForLogIn ? massageForLogIn : null}</span>
             <div className="block-content">
-              <form onSubmit={LogInUser} className="form form-login" id="login-form">
-                <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
+              <form
+                onSubmit={LogInUser}
+                className="form form-login"
+                id="login-form"
+              >
+                <fieldset
+                  className="fieldset login"
+                  data-hasrequired="* Обязательные поля"
+                >
                   <div className="field name required">
                     <label className="label" htmlFor="email">
-                      <span>E-mail :{massageForLogIn ? massageForLogIn : null}</span>
-                    </label>{' '}
+                      <span>
+                        E-mail :{massageForLogIn ? massageForLogIn : null}
+                      </span>
+                    </label>{" "}
                     <div className="control">
                       <input
                         required
@@ -199,15 +276,18 @@ export default function Registration() {
                         autoComplete="on"
                         id="email"
                         type="email"
-                        className={'input-text ' + disabled}
-                        title="email"></input>
+                        className={"input-text " + disabled}
+                        title="email"
+                      ></input>
                     </div>
                   </div>
 
                   <div className="field password required">
                     <label htmlFor="pass" className="label">
-                      <span>Пароль :{massageForLogIn ? massageForLogIn : null}</span>
-                    </label>{' '}
+                      <span>
+                        Пароль :{massageForLogIn ? massageForLogIn : null}
+                      </span>
+                    </label>{" "}
                     <div className="control">
                       <input
                         required
@@ -216,9 +296,10 @@ export default function Registration() {
                         name="login[password]"
                         type="password"
                         autoComplete="on"
-                        className={'input-text ' + disabled}
+                        className={"input-text " + disabled}
                         id="pass"
-                        title="Пароль"></input>
+                        title="Пароль"
+                      ></input>
                     </div>
                   </div>
                   <div className="actions-toolbar">
@@ -236,16 +317,24 @@ export default function Registration() {
           <div
             className={
               !active
-                ? 'block-customer-login right activeMobileContent'
-                : 'block-customer-login  right'
-            }>
+                ? "block-customer-login right activeMobileContent"
+                : "block-customer-login  right"
+            }
+          >
             <div className="block-content">
-              <form onSubmit={createUser} className="form form-login" id="regist-form">
-                <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
+              <form
+                onSubmit={createUser}
+                className="form form-login"
+                id="regist-form"
+              >
+                <fieldset
+                  className="fieldset login"
+                  data-hasrequired="* Обязательные поля"
+                >
                   <div className="field name required">
                     <label className="label" htmlFor="name">
                       <span>Iмя :</span>
-                    </label>{' '}
+                    </label>{" "}
                     <div className="control">
                       <input
                         required
@@ -255,14 +344,15 @@ export default function Registration() {
                         autoComplete="on"
                         id="name"
                         type="text"
-                        className={'input-text ' + disabled}
-                        title="Name"></input>
+                        className={"input-text " + disabled}
+                        title="Name"
+                      ></input>
                     </div>
                   </div>
                   <div className="field name required">
                     <label className="label" htmlFor="email-regist">
                       <span>E-mail :</span>
-                    </label>{' '}
+                    </label>{" "}
                     <div className="control">
                       <input
                         required
@@ -272,8 +362,9 @@ export default function Registration() {
                         autoComplete="on"
                         id="email-regist"
                         type="email"
-                        className={'input-text ' + disabled}
-                        title="email"></input>
+                        className={"input-text " + disabled}
+                        title="email"
+                      ></input>
                     </div>
                   </div>
                   {/* <div className="field tel required">
@@ -295,7 +386,7 @@ export default function Registration() {
                   <div className="field password required">
                     <label htmlFor="password-regist" className="label">
                       <span>Пароль :</span>
-                    </label>{' '}
+                    </label>{" "}
                     <div className="control">
                       <input
                         required
@@ -304,9 +395,10 @@ export default function Registration() {
                         name="login[password]"
                         type="password"
                         autoComplete="off"
-                        className={'input-text ' + disabled}
+                        className={"input-text " + disabled}
                         id="password-regist"
-                        title="Пароль"></input>
+                        title="Пароль"
+                      ></input>
                     </div>
                   </div>
                   <div className="actions-toolbar">
@@ -323,11 +415,17 @@ export default function Registration() {
           <div className="social_block">
             <div className="title">Увійти через соцмережі</div>
             <div className="wrapp_btn">
-              <button className="soc_btn facebook">
-                <Image width={20} height={20} src={GoogleSvg} alt="logo"></Image>
-              </button>
               <button className="soc_btn google">
-                <Image width={20} height={20} src={FacebookSvg} alt="logo"></Image>
+                <GoogleButton onClick={AuthWithGoogle} />
+              </button>
+              <button className="soc_btn facebook" onClick={AuthWithFacebook}>
+                <Image
+                  width={20}
+                  height={20}
+                  src={FacebookSvg}
+                  alt="logo"
+                ></Image>
+                <span>війти за допомогою facebook</span>
               </button>
             </div>
           </div>
@@ -337,10 +435,12 @@ export default function Registration() {
           <h2 className="title-product-block">ви увiйшли як </h2>
           <p>{CurrentUser && CurrentUser.name}</p>
           <button className="button-default-white" onClick={goToMainPage}>
-            <span>в каталог</span> <Image width={20} height={20} src={LinkSvg} alt="logo"></Image>
+            <span>в каталог</span>{" "}
+            <Image width={20} height={20} src={LinkSvg} alt="logo"></Image>
           </button>
           <button className="button-default-white" onClick={goToCart}>
-            <span>в корзину</span> <Image width={20} height={20} src={LinkSvg} alt="logo"></Image>
+            <span>в корзину</span>{" "}
+            <Image width={20} height={20} src={LinkSvg} alt="logo"></Image>
           </button>
           <button className="action login primary" onClick={LogOut}>
             <span>вийти</span>
@@ -357,7 +457,21 @@ export default function Registration() {
         }
 
         .social_block {
+          width: 100%;
           border-top: 1px solid #ccc;
+        }
+        .soc_btn.facebook {
+          margin-top: 10px;
+          padding: 15px 15px;
+          display: flex;
+          flex-flow: row nowrap;
+          align-items: center;
+          border-radius: 5px;
+          border: 1px solid black;
+          cursor: pointer;
+        }
+        .soc_btn.facebook span {
+          margin-left: 5px;
         }
         .title-product-block {
           flex-grow: 0;
@@ -392,9 +506,7 @@ export default function Registration() {
         }
         .h2 {
         }
-        .social_block {
-          width: 100%;
-        }
+
         .title {
           font-size: 1.4rem;
           text-align: center;
@@ -405,6 +517,7 @@ export default function Registration() {
           display: flex;
           align-items: center;
           justify-content: center;
+          flex-wrap: wrap;
         }
         .soc_btn {
           border: 0px;
@@ -476,7 +589,7 @@ export default function Registration() {
           font-size: 1.5rem;
         }
         .label:after {
-          content: ' *';
+          content: " *";
           color: #000;
           font-size: 1.4rem;
           margin: 0 0 0 1px;
@@ -526,7 +639,11 @@ export default function Registration() {
         .input-text.disabled {
           border: 1px solid red;
         }
-
+        @media (min-width: 520px) {
+          .soc_btn.facebook {
+            margin-top: 0px;
+          }
+        }
         @media (min-width: 700px) {
           .block-customer-login {
             width: 40%;
