@@ -28,7 +28,7 @@ const img =
   "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505";
 export default function Registration() {
   const router = useRouter();
-  const { setCurrentUser, uidUser, CurrentUser } = useAppContext();
+  const { setCurrentUser, CurrentUser } = useAppContext();
   const [disabled, setDisbled] = useState("true");
   const [active, setActive] = useState("active");
 
@@ -206,7 +206,7 @@ export default function Registration() {
       .then((result) => {
         // The signed-in user info.
         const user = result.user;
-
+        console.log(result);
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
@@ -228,7 +228,7 @@ export default function Registration() {
   };
   return (
     <MainLayout>
-      {!uidUser ? (
+      {!CurrentUser ? (
         <>
           <div
             // className={`block-title ${active}`}
@@ -399,7 +399,7 @@ export default function Registration() {
             </div>
           </div>
           <div className="social_block">
-            <div className="title">Увійти через соцмережі</div>
+            <div className="block-title">Увійти через соцмережі</div>
             <div className="wrapp_btn">
               <button className="soc_btn google">
                 <GoogleButton onClick={AuthWithGoogle} />
@@ -411,7 +411,7 @@ export default function Registration() {
                   src={FacebookSvg}
                   alt="logo"
                 ></Image>
-                <span>війти за допомогою facebook</span>
+                <span>Увійти через facebook</span>
               </button>
             </div>
           </div>
@@ -450,29 +450,28 @@ export default function Registration() {
           align-items: center;
           justify-content: center;
         }
-        .social_block .title {
-          font-size: 1.4rem;
-          text-align: center;
-          color: #1a1a1a;
-          margin-top: 35px;
-        }
-
         .social_block {
+          text-align: center;
           width: 100%;
           border-top: 1px solid #ccc;
         }
+
         .soc_btn.facebook {
+          font-size: 1.6rem;
+          font-weight: 500;
+          color: #fff;
+          background: #3a5897;
           margin-top: 10px;
-          padding: 15px 15px;
+          padding: 15px 20px;
           display: flex;
           flex-flow: row nowrap;
           align-items: center;
           border-radius: 5px;
-          border: 1px solid black;
+
           cursor: pointer;
         }
         .soc_btn.facebook span {
-          margin-left: 5px;
+          margin-left: 20px;
         }
         h2-title-product-block {
           flex-grow: 0;
@@ -492,9 +491,7 @@ export default function Registration() {
           text-transform: none;
           font-size: 1.6rem;
         }
-        span {
-          margin-right: 5px;
-        }
+
         .block-logIn {
           padding: 0 5px;
           display: flex;
@@ -562,6 +559,10 @@ export default function Registration() {
         .block-title.active {
           background: #f7f7f7;
         }
+        .social_block .block-title {
+          margin-top: 50px;
+          width: 100%;
+        }
         .form {
           display: block;
           margin-top: 0em;
@@ -599,7 +600,7 @@ export default function Registration() {
           border-radius: 0;
           color: #323232;
           background: #f7f7f7;
-          font-family: LabGrotesque;
+
           font-size: 14px;
           font-weight: 300;
           height: 32px;

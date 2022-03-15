@@ -36,25 +36,25 @@ export default function FirebaseContext({ children }) {
   const [loading, setLoading] = useState(true);
 
   const [CurrentUser, setCurrentUser] = useState(null);
-  const [uidUser, setUidUser] = useState(null);
-  console.log(CurrentUser, uidUser);
+  // const [uidUser, setUidUser] = useState(null);
+  console.log(CurrentUser);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
         setCurrentUser(user);
-        setUidUser(true);
+        // setUidUser(true);
         const displayName = user.displayName;
         const email = user.email;
         const photoURL = user.photoURL;
         const emailVerified = user.emailVerified;
         // LogInUser(uid);
       } else {
-        setUidUser(false);
+        // setUidUser(false);
       }
     });
-  }, []);
+  }, [CurrentUser]);
 
   // const LogInUser = async (id) => {
   //   try {
@@ -133,9 +133,7 @@ export default function FirebaseContext({ children }) {
   }
 
   return (
-    <AppContext.Provider
-      value={{ uidUser, loading, CurrentUser, setCurrentUser }}
-    >
+    <AppContext.Provider value={{ loading, CurrentUser, setCurrentUser }}>
       {children}
     </AppContext.Provider>
   );
