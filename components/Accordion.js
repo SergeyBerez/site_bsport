@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import arrowNext from "../public/static/img/arrow-next.svg";
+import arrowNext from "../public/static/img/chevron_right_icon.svg";
 import Image from "next/image";
 export default function Accordion(props) {
-  const { title } = props;
+  const { title, cls } = props;
   const [isOpen, setIsOpen] = useState(false);
   function toggle() {
     setIsOpen(!isOpen);
@@ -10,8 +10,8 @@ export default function Accordion(props) {
 
   return (
     <>
-      <div className="accordion">
-        <div className="accordion-title" onClick={toggle}>
+      <div className={"accordion " + cls}>
+        <div className={"accordion-title " + cls} onClick={toggle}>
           <span>{title}</span>
           <div className="toggle" aria-expanded={isOpen}>
             <Image src={arrowNext} alt="uppy"></Image>
@@ -24,11 +24,11 @@ export default function Accordion(props) {
 
       <style jsx>{`
         .accordion {
-          margin: 0;
-         
-          padding: 20px 0;
           display: flex;
           flex-direction: column;
+          margin: 0;
+          padding: 20px 0;
+
           width: 100%;
         }
 
@@ -37,12 +37,22 @@ export default function Accordion(props) {
         }
 
         .accordion-title {
+          display: flex;
+          align-items: center;
           font-size: 18px;
           color: #3e4e50;
           font-weight: 500;
-          display: flex;
         }
+        .accordion.link {
+          padding: 10px;
+        }
+        .accordion-title.link {
+          font-size: 1.2rem;
+          letter-spacing: 1px;
+          text-transform: uppercase;
 
+          transition: color 0.1s;
+        }
         .accordion-title:hover {
           cursor: pointer;
         }

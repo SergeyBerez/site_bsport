@@ -1,7 +1,9 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import { useGoodsContext } from "../context/contextGoods";
 import Link from "next/link";
+import BuyPopup from "../components/BuyPopup";
 import LinkIcon from "../public/static/img/link_icon.svg";
 import arrowNext from "../public/static/img/4781840_+_add_circle_create_expand_icon.svg";
 import remove from "../public/static/img/2931168_bin_delete_remove_trash_garbage_icon.svg";
@@ -11,21 +13,24 @@ import MainLayout from "../components/MainLayout";
 export default function Cart() {
   const { state, countGoodsPlus, countGoodsMinus, deleteFromCart } =
     useGoodsContext();
-  console.log(!state.cart.length === 0);
 
-  // const countGoodsMinus = (item, value) => {
-  //   dispatch({
-  //     type: 'MINUS',
-  //     payload: { ...item, cnt: value },
-  //   });
-  // };
-  // const countGoodsPlus = (item, value) => {
-  //   console.log(value);
-  //   dispatch({
-  //     type: 'PLUS',
-  //     payload: { ...item, cnt: value },
-  //   });
-  // };
+  const [showModal, setShowModal] = useState(false);
+  const [massage, setMassage] = useState("");
+
+  const toogleShowModal = (e) => {
+    let arrClassNameModal = e.target.className.split(" ");
+    let arrClassNameButton = e.target.className.split(" ");
+    let arrClassNameClose = e.target.alt;
+
+    let show =
+      arrClassNameModal.includes("fixed-overlay") ||
+      arrClassNameButton.includes("button") ||
+      arrClassNameClose === "close";
+    if (show) {
+      setShowModal(!showModal);
+      setMassage("");
+    }
+  };
 
   return (
     <MainLayout>
@@ -42,7 +47,12 @@ export default function Cart() {
         </>
       ) : (
         <>
-          {" "}
+          <BuyPopup
+            showModal={showModal}
+            toogleShowModal={toogleShowModal}
+            massage={massage}
+            setMassage={setMassage}
+          ></BuyPopup>{" "}
           {state.cart.map((item, i) => {
             return (
               <div className="cart-item_section" key={i}>
@@ -158,7 +168,12 @@ export default function Cart() {
                 &nbsp;грн
               </h2>{" "}
             </div>
-            <button className="button button-default-white">купити</button>
+            <button
+              onClick={toogleShowModal}
+              className="button button-default-white"
+            >
+              купити
+            </button>
           </div>
         </>
       )}

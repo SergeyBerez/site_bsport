@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
+import { useState } from "react";
+
 import { useRouter } from "next/router";
 import { useGoodsContext } from "../context/contextGoods";
 import BuyPopup from "./BuyPopup";
-import Accordion from "./Accordeon";
+import Accordion from "./Accordion";
 import arrowNext from "../public/static/img/1904671_arrow_arrow right_change_direction_next_icon.svg";
 import arrowPrev from "../public/static/img/1904658_arrow_arrow left_change_direction_left_icon.svg";
 import Slider from "./Slider";
@@ -21,15 +21,16 @@ export default function CardDetail({
   const [showModal, setShowModal] = useState(false);
   const [massage, setMassage] = useState("");
   const { state, dispatch } = useGoodsContext();
-  const { userOdrerCtx, countGoodsMinus, countGoodsPlus } = useGoodsContext();
 
-  // const inputRef = useRef();
   const toogleShowModal = (e) => {
     let arrClassNameModal = e.target.className.split(" ");
     let arrClassNameButton = e.target.className.split(" ");
+    let arrClassNameClose = e.target.alt;
+
     let show =
       arrClassNameModal.includes("fixed-overlay") ||
-      arrClassNameButton.includes("button");
+      arrClassNameButton.includes("button") ||
+      arrClassNameClose === "close";
     if (show) {
       setShowModal(!showModal);
       setMassage("");
@@ -73,7 +74,7 @@ export default function CardDetail({
         <h1 className="block_product-title">
           <span>{title}</span>
         </h1>
-        <p className="block_product__advantagesProduct">{description}</p>
+        <p className="block_product__description">{description}</p>
         <div className="block_goodColor">
           <span className="text_specification">колiр : {color}</span>
         </div>
@@ -97,6 +98,18 @@ export default function CardDetail({
           </div>
         </div>
 
+        <div className="block_descriptionInformation">
+          <Accordion title={"Для оптових покупців"}>
+            <div className="phone">
+              <p>Сергій</p>
+              <a href="tel:+380632483200">+38 (063) 248-32-00</a>
+            </div>
+            <div className="phone">
+              <p>Валентина</p>
+              <a href="tel:+380977760954">+38 (097) 776-09-54</a>
+            </div>
+          </Accordion>
+        </div>
         <div className="block_descriptionInformation">
           <Accordion title={"Опис товару"}>
             <p>-материал двухнитка пенье</p>
@@ -189,10 +202,14 @@ export default function CardDetail({
         </div>
       </div>
       <style jsx>{`
-        .block_product__advantagesProduct {
-          font-size: 2rem;
+        .phone a {
+          font-weight: 600;
+        }
+
+        .block_product__description {
         }
         .block_product-title span {
+          font-size: 2rem;
           text-transform: uppercase;
         }
         .block_product-title {

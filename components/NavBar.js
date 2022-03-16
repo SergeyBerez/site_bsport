@@ -8,7 +8,7 @@ import user from "../public/static/img/user2.svg";
 import cart from "../public/static/img/cart.svg";
 import Logo from "../public/static/img/logo.png";
 import arrowNext from "../public/static/img/arrow-next.svg";
-
+import Accordion from "./Accordion";
 export default function NavBar({
   openSideMenu,
   transformGamburger,
@@ -47,19 +47,10 @@ export default function NavBar({
                 <a>катaлог</a>
               </Link>
             </li>
-            <li className={router.pathname == "/pants" ? "active" : ""}>
-              <Link href="/pants" shallow>
-                <a>брюки</a>
-              </Link>
-            </li>
-            <li className={router.pathname == "/shorts" ? "active" : ""}>
-              <Link href="/shorts" shallow>
-                <a>шорты</a>
-              </Link>
-            </li>
-            <li className={router.pathname == "/sport-kostums" ? "active" : ""}>
-              <Link href="/sport-kostums" shallow>
-                <a>костюмы</a>
+
+            <li className={router.pathname == "/opt" ? "active" : ""}>
+              <Link href="/opt" shallow>
+                <a>опт</a>
               </Link>
             </li>
 
@@ -117,23 +108,79 @@ export default function NavBar({
               onClick={toggleMenu}
             >
               <Link href="/" shallow>
-                <a>Главная</a>
+                <a>головна</a>
               </Link>
             </li>
+            <div className="accordion-block">
+              <Accordion title={"спортивні костюми"} cls={"link"}>
+                <li
+                  className={
+                    router.pathname == "/sport-kostums" ? "active" : ""
+                  }
+                  onClick={toggleMenu}
+                >
+                  <Link href="/sport-kostums" shallow>
+                    <a>костюми</a>
+                  </Link>
+                </li>
+                <li
+                  className={
+                    router.pathname == "/sport-kostums" ? "active" : ""
+                  }
+                  onClick={toggleMenu}
+                >
+                  <Link href="/sport-kostums" shallow>
+                    <a>теплі костюми</a>
+                  </Link>
+                </li>
+              </Accordion>
+            </div>
+            <div className="accordion-block">
+              <Accordion title={"спортивні штани"} cls={"link"}>
+                <li
+                  className={router.pathname == "/pants" ? "active" : ""}
+                  onClick={toggleMenu}
+                >
+                  <Link href="/pants" shallow>
+                    <a>штани</a>
+                  </Link>
+                </li>
+                <li
+                  className={router.pathname == "/pants" ? "active" : ""}
+                  onClick={toggleMenu}
+                >
+                  <Link href="/pants" shallow>
+                    <a>теплі штани</a>
+                  </Link>
+                </li>
+              </Accordion>
+            </div>
+            <div className="accordion-block">
+              <Accordion title={"худі"} cls={"link"}>
+                <li
+                  className={router.pathname == "/hoodie" ? "active" : ""}
+                  onClick={toggleMenu}
+                >
+                  <Link href="/hoodie" shallow>
+                    <a>худі</a>
+                  </Link>
+                </li>
+                <li
+                  className={router.pathname == "/hoodie" ? "active" : ""}
+                  onClick={toggleMenu}
+                >
+                  <Link href="/hoodie" shallow>
+                    <a>теплі худі</a>
+                  </Link>
+                </li>
+              </Accordion>
+            </div>
             <li
-              className={router.pathname == "/sport-kostums" ? "active" : ""}
+              className={router.pathname == "/sweatshirt" ? "active" : ""}
               onClick={toggleMenu}
             >
-              <Link href="/sport-kostums" shallow>
-                <a>костюмы</a>
-              </Link>
-            </li>
-            <li
-              className={router.pathname == "/pants" ? "active" : ""}
-              onClick={toggleMenu}
-            >
-              <Link href="/pants" shallow>
-                <a> брюки</a>
+              <Link href="/sweatshirt" shallow>
+                <a>світшоти</a>
               </Link>
             </li>
             <li
@@ -141,7 +188,15 @@ export default function NavBar({
               onClick={toggleMenu}
             >
               <Link href="/shorts" shallow>
-                <a>шорты</a>
+                <a>шорти</a>
+              </Link>
+            </li>
+            <li
+              className={router.pathname == "/shorts" ? "active" : ""}
+              onClick={toggleMenu}
+            >
+              <Link href="/shorts" shallow>
+                <a>футболки</a>
               </Link>
             </li>
             {/* <li>
@@ -164,6 +219,7 @@ export default function NavBar({
                 </a>
               </Link>
             </li>
+
             <li className="small">
               <Link href="#0">Facebook</Link>
               <Link href="#0">Instagram</Link>
@@ -240,15 +296,9 @@ export default function NavBar({
       </div>
 
       <style jsx>{`
-        /* .header {
-  width: 100%;
-  height: 20vh;
-  background: #fdfdfd;
-  
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  color: #212121;
-} */
+        .accordion-block {
+          border-bottom: 1px solid #b4abab;
+        }
 
         .header {
           // font-weight: 600;

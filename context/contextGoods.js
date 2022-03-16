@@ -1,10 +1,11 @@
-import React from 'react';
-import { createContext, useReducer, useContext } from 'react';
+import React from "react";
+import { createContext, useReducer, useContext } from "react";
 
 const initialState = {
   goods: [],
   cart: [],
 };
+
 const GoodsContext = createContext(initialState);
 
 export function useGoodsContext() {
@@ -35,7 +36,7 @@ export default function ContextGoods({ children }) {
     });
 
     dispatch({
-      type: 'PLUS',
+      type: "PLUS",
       payload: cart,
     });
   };
@@ -58,7 +59,7 @@ export default function ContextGoods({ children }) {
       }
     });
     dispatch({
-      type: 'MINUS',
+      type: "MINUS",
       payload: cart,
     });
   };
@@ -71,21 +72,21 @@ export default function ContextGoods({ children }) {
     });
     cart;
     dispatch({
-      type: 'DELE FROM CARD',
+      type: "DELE FROM CARD",
       payload: cart,
     });
   };
   function reducer(state, action) {
     switch (action.type) {
-      case 'PLUS':
+      case "PLUS":
         return { ...state, cart: action.payload };
-      case 'MINUS':
+      case "MINUS":
         return { ...state, cart: action.payload };
-      case 'ADD GOODS':
+      case "ADD GOODS":
         return { ...state, goods: action.payload };
-      case 'DELE FROM CARD':
+      case "DELE FROM CARD":
         return { ...state, cart: action.payload };
-      case 'ADD TO CARD':
+      case "ADD TO CARD":
         const newItem = action.payload;
         const existItem = state.cart.find((item) => {
           return item.id === newItem.id;
@@ -100,7 +101,8 @@ export default function ContextGoods({ children }) {
               }
             })
           : [...state.cart, newItem];
-
+        console.log(cart);
+        localStorage.setItem("CART", JSON.stringify(cart));
         return { ...state, cart };
 
       default:
@@ -134,7 +136,8 @@ export default function ContextGoods({ children }) {
         countGoodsPlus,
         countGoodsMinus,
         deleteFromCart,
-      }}>
+      }}
+    >
       {children}
     </GoodsContext.Provider>
   );

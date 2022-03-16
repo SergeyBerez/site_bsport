@@ -1,16 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-
+import Image from "next/image";
 import MainLayout from "../components/MainLayout";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  doc,
-  getDoc,
-  setDoc,
-  Timestamp,
-} from "firebase/firestore/lite";
+import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore/lite";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -23,7 +15,6 @@ import LinkSvg from "../public/static/img/link_icon.svg";
 import GoogleButton from "react-google-button";
 import FacebookSvg from "../public/static/img/3225194_app_facebook_logo_media_popular_icon.svg";
 
-import Image from "next/image";
 const img =
   "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505";
 export default function Registration() {

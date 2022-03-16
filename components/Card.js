@@ -9,7 +9,7 @@ import style from './card.module.css';
 import Image from 'next/image';
 import cart from '../public/static/img/cart.svg';
 import { useEffect, useRef, useState } from 'react';
-// import Detail from './ButtonDetail';
+
 export default function Card({ id, title, description, price, url, color }) {
   const router = useRouter();
   const { state, dispatch } = useGoodsContext();

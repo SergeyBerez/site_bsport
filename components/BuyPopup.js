@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { useRouter } from "next/router";
-import MainLayout from "./MainLayout";
+import Image from "next/image";
+import { useAppContext } from "../context/firebaseContext";
+import IconClose from "../public/static/img/2703079_close_delete_exit_x_icon.svg";
 import { collection, addDoc, doc, getDoc } from "firebase/firestore/lite";
 import { db } from "../context/firebaseContext";
 export default function BuyPopup({
@@ -16,6 +17,8 @@ export default function BuyPopup({
     name: "",
     phone: "",
   });
+  const { CurrentUser } = useAppContext();
+
   const addOrder = async (e) => {
     e.preventDefault();
     setMassage("");
@@ -66,6 +69,19 @@ export default function BuyPopup({
                 className="form form-login"
                 id="regist-form"
               >
+                <div className="form-login-block-close">
+                  {" "}
+                  <span className="form-login-block-left">
+                    <Image
+                      onClick={toogleShowModal}
+                      src={IconClose}
+                      width={10}
+                      height={10}
+                      alt="close"
+                    ></Image>
+                  </span>
+                </div>
+
                 <fieldset
                   className="fieldset login"
                   data-hasrequired="* Обязательные поля"
@@ -157,7 +173,12 @@ export default function BuyPopup({
           height: 250px;
           padding: 20px;
         }
-
+        .form-login-block-close {
+          text-align: right;
+        }
+        .form-login-block-left {
+          cursor: pointer;
+        }
         .field {
           margin: 0 0 25px;
           line-height: 1;
