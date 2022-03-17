@@ -11,7 +11,7 @@ import arrowPrev from "../public/static/img/4781841_-_cancel_circle_collapse_min
 
 import MainLayout from "../components/MainLayout";
 export default function Cart() {
-  const { state, countGoodsPlus, countGoodsMinus, deleteFromCart } =
+  const { state, countGoodsPlus, countGoodsMinus, deleteFromCart, dispatch } =
     useGoodsContext();
 
   const [showModal, setShowModal] = useState(false);
@@ -54,6 +54,7 @@ export default function Cart() {
             setMassage={setMassage}
           ></BuyPopup>{" "}
           {state.cart.map((item, i) => {
+            console.log(item);
             return (
               <div className="cart-item_section" key={i}>
                 <Image
@@ -66,10 +67,10 @@ export default function Cart() {
                   <div className="cart-item_header">{item.title}</div>
                   <div className="cart-item-block">
                     <div className="block-infoDetail">
-                      <div className="cart-item_table-column">
+                      {/* <div className="cart-item_table-column">
                         <div className="table-header-column">цвет&nbsp;:</div>{" "}
                         <div className="textBold">{item.color}</div>
-                      </div>
+                      </div> */}
                       <div className="cart-item_table-column">
                         {" "}
                         <div className="table-header-column">
@@ -81,7 +82,7 @@ export default function Cart() {
                             onClick={() => {
                               countGoodsMinus({
                                 ...item,
-                                cnt: item.cnt ? item.cnt : 0,
+                                cnt: item.cnt,
                               });
                             }}
                           >
@@ -95,7 +96,7 @@ export default function Cart() {
                           <input
                             className="input-quantity"
                             type="text"
-                            value={item.cnt ? item.cnt : 0}
+                            value={item.cnt}
                             readOnly
                           />
 
@@ -104,7 +105,7 @@ export default function Cart() {
                             onClick={() => {
                               countGoodsPlus({
                                 ...item,
-                                cnt: item.cnt ? item.cnt : 0,
+                                cnt: item.cnt,
                               });
                             }}
                           >
@@ -117,9 +118,6 @@ export default function Cart() {
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="block_price">
-                      {" "}
                       <div className="cart-item_table-column">
                         <div className="table-header-column">цiна&nbsp;:</div>{" "}
                         <div className="textBold">{item.price}</div>
@@ -130,8 +128,6 @@ export default function Cart() {
                         </div>{" "}
                         <div className="textBold">{item.sum}</div>
                       </div>
-                    </div>
-                    <div className="block_delete">
                       <div className="cart-item_table-column">
                         <div className="table-header-column">
                           видалити&nbsp;:
@@ -139,7 +135,7 @@ export default function Cart() {
                         <div
                           className="textBold-delete"
                           onClick={() => {
-                            deleteFromCart({ ...item });
+                            deleteFromCart(item);
                           }}
                         >
                           <Image
@@ -151,6 +147,22 @@ export default function Cart() {
                         </div>
                       </div>
                     </div>
+                    {/* <div className="block_price">
+                      {" "}
+                      <div className="cart-item_table-column">
+                        <div className="table-header-column">цiна&nbsp;:</div>{" "}
+                        <div className="textBold">{item.price}</div>
+                      </div>
+                      <div className="cart-item_table-column">
+                        <div className="table-header-column">
+                          загалом&nbsp;:
+                        </div>{" "}
+                        <div className="textBold">{item.sum}</div>
+                      </div>
+                    </div> */}
+                    {/* <div className="block_delete">
+                      
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -179,6 +191,15 @@ export default function Cart() {
       )}
 
       <style jsx>{`
+        .cart-item_section {
+          width: 100%;
+          display: flex;
+          justify-content: space-around;
+          flex-wrap: wrap;
+
+          border-bottom: 1px solid #e6e6e6;
+          padding: 10px 0;
+        }
         .flex-wrap-section-right {
           display: flex;
           flex-wrap: wrap;
@@ -204,15 +225,6 @@ export default function Cart() {
         .textBold {
           font-weight: 600;
         }
-        .cart-item_section {
-          width: 100%;
-          display: flex;
-          justify-content: space-around;
-          flex-wrap: wrap;
-          align-items: center;
-          border-bottom: 1px solid #e6e6e6;
-          padding: 10px 0;
-        }
 
         .cart-item-block {
           width: 100%;
@@ -227,21 +239,19 @@ export default function Cart() {
           width: 100%;
           text-align: center;
         }
-        .block-infoDetail,
-        .block_price,
-        .block_delete {
+        .block-infoDetail {
           display: flex;
-          align-items: center;
+
           width: 100%;
         }
         .cart-item_table-column {
-          margin-bottom: 20px;
+          margin: 10px;
           text-align: center;
           width: 100%;
         }
         .table-header-column {
           font-size: 1.2rem;
-          margin: 5px 0;
+          margin: 10px;
           color: #000;
         }
 
@@ -294,12 +304,11 @@ export default function Cart() {
           }
         }
         @media (min-width: 760px) {
-          .block-infoDetail,
-          .block_price,
-          .block_delete {
+          .block-infoDetail {
+            justify-content: space-around;
             display: flex;
             align-items: center;
-            width: 30%;
+            width: 100%;
           }
         }
       `}</style>

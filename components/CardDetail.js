@@ -43,12 +43,12 @@ export default function CardDetail({
       payload: {
         id,
         title,
-        description,
+
         price,
         url,
         color,
         sum: 0,
-        // cnt: newGood ? newGood.cnt : 0,
+        cnt: 1,
       },
     });
     router.push("/cart");

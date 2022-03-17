@@ -70,7 +70,6 @@ export default function ContextGoods({ children }) {
     const cart = newCartGoods.filter((item) => {
       return item.id !== newItem.id;
     });
-    cart;
     dispatch({
       type: "DELE FROM CARD",
       payload: cart,
