@@ -13,7 +13,6 @@ export default function CardDetail({
   description,
   detaileDescription,
   price,
-  url,
   urlArr,
   color,
 }) {
@@ -43,9 +42,8 @@ export default function CardDetail({
       payload: {
         id,
         title,
-
         price,
-        url,
+        urlArr,
         color,
         sum: 0,
         cnt: 1,
@@ -62,10 +60,19 @@ export default function CardDetail({
         toogleShowModal={toogleShowModal}
         massage={massage}
         setMassage={setMassage}
+        orderOneGood={{
+          id,
+          title,
+          description,
+          detaileDescription,
+          price,
+          urlArr,
+          color,
+        }}
       ></BuyPopup>
       <Slider
         id={id}
-        url={urlArr}
+        urlArr={urlArr}
         grabCursor={true}
         pagination={true}
         count={1}

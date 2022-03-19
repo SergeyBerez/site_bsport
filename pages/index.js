@@ -1,15 +1,15 @@
-import Head from 'next/head';
-import { useEffect, useState } from 'react';
-import MainLayout from '../components/MainLayout';
-import Slider from '../components/Slider';
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import MainLayout from "../components/MainLayout";
+import Slider from "../components/Slider";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import short from '../public/static/img/short_underpants_icon.svg';
-import kostums from '../public/static/img/kostum_pijamas_icon.svg';
-import koftazamok from '../public/static/img/koftazamok_icon.svg';
-import pants from '../public/static/img/pants_icon.svg';
-import hudi from '../public/static/img/hudiclothing_icon.svg';
+import Link from "next/link";
+import Image from "next/image";
+import short from "../public/static/img/short_underpants_icon.svg";
+import kostums from "../public/static/img/kostum_pijamas_icon.svg";
+import koftazamok from "../public/static/img/koftazamok_icon.svg";
+import pants from "../public/static/img/pants_icon.svg";
+import hudi from "../public/static/img/hudiclothing_icon.svg";
 
 // import moduleName from '../public/img/short_icon';
 // import moduleName from '../public/img/';
@@ -22,38 +22,38 @@ export default function Index() {
   const DataSvgForSlider = [
     {
       urlSvg: short,
-      path: 'shorts',
-      name: 'шорти',
+      path: "shorts",
+      name: "шорти",
       urlImg:
-        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2022-01-25_14-13-53_3_.webp?alt=media&token=dbba9899-8386-420e-8f06-7cd9b5e534d8',
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2022-01-25_14-13-53_3_.webp?alt=media&token=dbba9899-8386-420e-8f06-7cd9b5e534d8",
     },
     {
       urlSvg: pants,
-      path: 'pants',
-      name: 'штани',
+      path: "pants",
+      name: "штани",
       urlImg:
-        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-08_19-57-15.webp?alt=media&token=2548d1a0-1660-48b4-beb5-3256e65afcab',
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-08_19-57-15.webp?alt=media&token=2548d1a0-1660-48b4-beb5-3256e65afcab",
     },
     {
       urlSvg: kostums,
-      path: 'sport-kostums',
-      name: 'костюми',
+      path: "sport-kostums",
+      name: "костюми",
       urlImg:
-        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-15_22-15-52.webp?alt=media&token=acc72733-fb20-407c-9d14-7b32dda573b2',
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-15_22-15-52.webp?alt=media&token=acc72733-fb20-407c-9d14-7b32dda573b2",
     },
     {
       urlSvg: koftazamok,
-      path: 'sports-jacket',
-      name: 'кофти',
+      path: "sports-jacket",
+      name: "кофти",
       urlImg:
-        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391',
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391",
     },
     {
       urlSvg: hudi,
-      path: 'hoodie',
-      name: 'худи',
+      path: "hoodie",
+      name: "худи",
       urlImg:
-        'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391',
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391",
     },
     // {
     //   urlSvg: hudi,
@@ -69,12 +69,13 @@ export default function Index() {
       <div className="productCard_block-katalog" key={i}>
         <div>
           <Image
-            alt={'pant'}
+            alt={"pant"}
             width={300}
             height={400}
             src={
-              'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505'
-            }></Image>
+              "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
+            }
+          ></Image>
           <div className="bottom-subtitle">
             <button className="button button-default-white">...</button>
           </div>
@@ -91,13 +92,20 @@ export default function Index() {
             {/* <Image alt={obj?.name} width={300} height={400} src={obj?.urlImg}></Image> */}
 
             {obj?.urlImg.length > 0 && (
-              <Image src={obj?.urlImg} alt={obj?.name} width={300} height={400} />
+              <Image
+                src={obj?.urlImg}
+                alt={obj?.name}
+                width={300}
+                height={400}
+              />
             )}
             <div className="bottom-subtitle">
-              <button className="button button-default-white">{obj?.name}</button>
+              <button className="button button-default-white">
+                {obj?.name}
+              </button>
             </div>
           </a>
-        </Link>{' '}
+        </Link>{" "}
       </div>
     );
   });
@@ -105,7 +113,7 @@ export default function Index() {
   return (
     <>
       <Head>
-        {' '}
+        {" "}
         <title>bsywear</title>
         <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/favicon.ico" />
@@ -113,9 +121,10 @@ export default function Index() {
       <MainLayout>
         <h1 className="title-product-block h1">Каталог</h1>
         <Slider
-          url={DataSvgForSlider}
+          urlArr={DataSvgForSlider}
           params={DataSvgForSlider}
-          autoplay={{ delay: 2000, disableOnInteraction: true }}></Slider>
+          autoplay={{ delay: 2000, disableOnInteraction: true }}
+        ></Slider>
         {loading ? renserSkelton : renderGoods}
       </MainLayout>
     </>

@@ -31,7 +31,7 @@ export default function Cart() {
       setMassage("");
     }
   };
-
+  console.log(state.cart);
   return (
     <MainLayout>
       <h1 className="title-product-block">Корзина</h1>
@@ -41,7 +41,7 @@ export default function Cart() {
           <Link href="/">
             <a className="link-back">
               <span className="span">в каталог</span>{" "}
-              <Image width={20} height={20} src={LinkIcon} alt="logo"></Image>
+              <Image width={20} height={20} src={LinkIcon} alt="photo"></Image>
             </a>
           </Link>
         </>
@@ -52,16 +52,16 @@ export default function Cart() {
             toogleShowModal={toogleShowModal}
             massage={massage}
             setMassage={setMassage}
+            orderGoods={state.cart}
           ></BuyPopup>{" "}
           {state.cart.map((item, i) => {
-            console.log(item);
             return (
               <div className="cart-item_section" key={i}>
                 <Image
                   alt={"pant"}
                   width={150}
                   height={200}
-                  src={item.url}
+                  src={item?.urlArr[0]}
                 ></Image>
                 <div className="flex-wrap-section-right">
                   <div className="cart-item_header">{item.title}</div>
@@ -200,6 +200,7 @@ export default function Cart() {
           border-bottom: 1px solid #e6e6e6;
           padding: 10px 0;
         }
+
         .flex-wrap-section-right {
           display: flex;
           flex-wrap: wrap;

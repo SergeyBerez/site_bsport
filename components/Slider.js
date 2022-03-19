@@ -5,38 +5,35 @@ import { Navigation, Pagination, Autoplay } from "swiper";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 const Slider = ({
-  url,
-  id,
+  urlArr,
   grabCursor = false,
   autoplay = false,
   count = 4,
 }) => {
-  const [imgsObj, setImgs] = useState([
-    "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505",
-  ]);
+  const clearImg =
+    "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505";
+  const [images, setImages] = useState([clearImg]);
 
-  const [imgs1, setImgs1] = useState(
-    "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
-  );
+  const [imgDetail, setImgDetail] = useState(clearImg);
   useEffect(() => {
-    if (url) {
-      setImgs(url);
+    // console.log(urlArr.includes(""));
+    if (urlArr) {
+      setImages(urlArr);
+      setImgDetail(urlArr[0]);
     }
   }, []);
 
-  const findimg = (i) => {
-    const index = Math.floor(i / 2 - 1);
+  // const findimg = (i) => {
+  //   const index = Math.floor(i / 2 - 1);
 
-    if (index == -1) {
-      index = 0;
-      setImgs1(url[index]);
-    }
-  };
+  //   if (index == -1) {
+  //     index = 0;
+  //     setImgDetail(urlArr[index]);
+  //   }
+  // };
   const goToDitailSlide = (e) => {
     const src = e.currentTarget.src;
-
-    setImgs1(src);
-    console.log(imgs1);
+    setImgDetail(src);
   };
   return (
     <>
@@ -51,7 +48,7 @@ const Slider = ({
         grabCursor={grabCursor}
         autoplay={autoplay}
         pagination={{ clickable: true }}
-        onSwiper={(swiper) => findimg(swiper.activeIndex)}
+        // onSwiper={(swiper) => findimg(swiper.activeIndex)}
         // onSlideChange={(swiper) => findimg(swiper.activeIndex)}
         breakpoints={{
           300: {
@@ -76,21 +73,21 @@ const Slider = ({
           },
         }}
       >
-        {imgsObj &&
-        imgsObj.filter((i) => {
+        {images &&
+        images.filter((i) => {
           return i.constructor.name === "Object";
         }).length > 0
-          ? imgsObj.map((obj, i) => {
+          ? images.map((obj, i) => {
               return (
                 <SwiperSlide key={i}>
                   <Link href={obj.path}>
                     <a>
                       <div className="img-svg">
                         <Image
-                          src={obj.urlSvg}
+                          src={obj?.urlSvg}
                           width={200}
                           height={200}
-                          alt="logo"
+                          alt="photo"
                         ></Image>
                       </div>
                       <div className="bottom-subtitle">
@@ -103,16 +100,16 @@ const Slider = ({
                 </SwiperSlide>
               );
             })
-          : imgsObj &&
-            imgsObj.map((el, i) => {
+          : images &&
+            images.map((img, i) => {
               return (
                 <SwiperSlide key={i}>
                   <div className="img-card-detail">
                     <Image
-                      src={el}
+                      src={img}
                       width={300}
                       height={405}
-                      alt="logo"
+                      alt="photo"
                       onClick={goToDitailSlide}
                     ></Image>
                   </div>
@@ -121,12 +118,12 @@ const Slider = ({
             })}
       </Swiper>
 
-      {imgsObj &&
-      imgsObj.filter((i) => {
+      {images &&
+      images.filter((i) => {
         return i.constructor.name === "Object";
       }).length > 0 ? null : (
         <div className="img-detail">
-          <Image src={imgs1} width={350} height={450} alt="logo"></Image>
+          <Image src={imgDetail} width={350} height={450} alt="photo"></Image>
         </div>
       )}
 

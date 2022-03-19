@@ -1,10 +1,10 @@
-import CardDetail from '../../components/CardDetail';
-import { db } from '../../context/firebaseContext';
-import { collection, getDocs, doc, getDoc } from 'firebase/firestore/lite';
+import CardDetail from "../../components/CardDetail";
+import { db } from "../../context/firebaseContext";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore/lite";
 
-import MainLayout from '../../components/MainLayout';
+import MainLayout from "../../components/MainLayout";
 export default function Kostum({ goods }) {
-  const { description, detaileDescription, id, title, price, url, urlArr, color } =
+  const { description, detaileDescription, id, title, price, urlArr, color } =
     JSON.parse(goods);
 
   return (
@@ -17,13 +17,13 @@ export default function Kostum({ goods }) {
         id={id}
         title={title}
         price={price}
-        url={url}
-        urlArr={urlArr}></CardDetail>
+        urlArr={urlArr}
+      ></CardDetail>
     </MainLayout>
   );
 }
 export async function getStaticPaths() {
-  const querySnapshot = await getDocs(collection(db, 'sport-kostums'));
+  const querySnapshot = await getDocs(collection(db, "sport-kostums"));
   const paths = querySnapshot.docs.map((doc) => {
     return { params: { id: doc.id.toString() } };
   });
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const id = context.params.id;
 
-  const docRef = doc(db, 'sport-kostums', id);
+  const docRef = doc(db, "sport-kostums", id);
 
   const docSnap = await getDoc(docRef);
 

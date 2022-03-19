@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import Image from "next/image";
-import { useAppContext } from "../context/firebaseContext";
+
 import IconClose from "../public/static/img/2703079_close_delete_exit_x_icon.svg";
 import { collection, addDoc, doc, getDoc } from "firebase/firestore/lite";
-import { db } from "../context/firebaseContext";
+import { useAppContext, db } from "../context/firebaseContext";
+
 export default function BuyPopup({
   showModal,
   toogleShowModal,
@@ -12,13 +13,16 @@ export default function BuyPopup({
   setMassage,
   urlArr,
   id,
+  orderGoods,
+  orderOneGood,
 }) {
   const [valueInputsReg, setValueInputReg] = useState({
     name: "",
     phone: "",
   });
   const { CurrentUser } = useAppContext();
-
+  console.log(orderGoods);
+  console.log(orderOneGood);
   const addOrder = async (e) => {
     e.preventDefault();
     setMassage("");
@@ -26,8 +30,10 @@ export default function BuyPopup({
       const docRef = await addDoc(collection(db, "order"), {
         name: valueInputsReg.name,
         phone: valueInputsReg.phone,
-        urlArr,
-        id,
+        urlArr: urlArr || "",
+        id: id || "",
+        // user: CurrentUser?.displayName || "",
+        // orderGoods,
       });
       const docRefone = await doc(db, "order", docRef.id);
       const docSnap = await getDoc(docRefone);
@@ -59,9 +65,22 @@ export default function BuyPopup({
           <div className="modal_container">
             {massage !== "" ? (
               <>
-                {" "}
-                <h5>Дякуємо ми скоро вам передзвонимо</h5>
-                <span>{massage}</span>
+                <div className="form-login-block-close">
+                  {" "}
+                  <span className="form-login-block-left">
+                    <Image
+                      onClick={toogleShowModal}
+                      src={IconClose}
+                      width={10}
+                      height={10}
+                      alt="close"
+                    ></Image>
+                  </span>
+                </div>
+                <h5>
+                  Дякуємо за замовлення <span>{massage}</span>
+                  <p>Чекайте дзвінка. Гарного дня!</p>
+                </h5>
               </>
             ) : (
               <form
@@ -138,6 +157,9 @@ export default function BuyPopup({
       </div>
 
       <style jsx>{`
+        .modal_container h5 {
+          text-align: center;
+        }
         .fixed-overlay.false {
           display: none;
           position: fixed;

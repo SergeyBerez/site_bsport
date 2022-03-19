@@ -86,21 +86,41 @@ export default function ContextGoods({ children }) {
       case "DELE FROM CARD":
         return { ...state, cart: action.payload };
       case "ADD TO CARD":
-        const newItem = action.payload;
-        const existItem = state.cart.find((item) => {
-          return item.id === newItem.id;
+        const newItemGood = action.payload;
+        const copyCartGoods = [...state.cart];
+
+        const existGood = copyCartGoods.find((item) => {
+          return item.id === newItemGood.id;
         });
-        let newCartGoods = [...state.cart];
-        let cart = existItem
-          ? newCartGoods.map((item) => {
-              if (item.id === existItem.id) {
-                return newItem;
+
+        const cart = existGood
+          ? copyCartGoods.map((item) => {
+              if (item.id === newItemGood.id) {
+                return existGood;
               } else {
                 return item;
               }
             })
-          : [...state.cart, newItem];
-        console.log(cart);
+          : [...copyCartGoods, newItemGood];
+
+        // let cart = existItem
+        //   ? newCartGoods.map((item) => {
+        //       if (item.id === existItem.id) {
+        //         return newItem;
+        //       } else {
+        //         return item;
+        //       }
+        //     })
+        //   : [...state.cart, newItem];
+        // const uniqueArrays = newCartGoods.filter((obj, index, self) => {
+        //   return (
+        //     index ===
+        //     self.findIndex((obj2) => {
+        //       return obj2.id === obj.id;
+        //     })
+        //   );
+        // });
+
         localStorage.setItem("CART", JSON.stringify(cart));
         return { ...state, cart };
 

@@ -422,11 +422,11 @@ export default function Registration() {
           </div>
           <button className="button-default-white" onClick={goToMainPage}>
             <span>в каталог</span>{" "}
-            <Image width={20} height={20} src={LinkSvg} alt="logo"></Image>
+            <Image width={20} height={20} src={LinkSvg} alt="photo"></Image>
           </button>
           <button className="button-default-white" onClick={goToCart}>
             <span>в корзину</span>{" "}
-            <Image width={20} height={20} src={LinkSvg} alt="logo"></Image>
+            <Image width={20} height={20} src={LinkSvg} alt="photo"></Image>
           </button>
           <button className="action login primary" onClick={LogOut}>
             вийти

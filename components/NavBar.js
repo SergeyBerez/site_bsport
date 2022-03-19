@@ -88,7 +88,7 @@ export default function NavBar({
           <div className="cart-header">
             <Link href="/cart" shallow>
               <a>
-                <Image width={30} height={30} src={cart} alt="logo"></Image>
+                <Image width={30} height={30} src={cart} alt="cart"></Image>
                 <span>{state.cart.length}</span>
               </a>
             </Link>
@@ -245,7 +245,7 @@ export default function NavBar({
               </Link>
             </li>
             {router.pathname !== "/" ? (
-              <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
+              <Image width={10} height={10} src={arrowNext} alt="arrow"></Image>
             ) : null}
             <li
               className={
