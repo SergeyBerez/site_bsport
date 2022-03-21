@@ -17,13 +17,14 @@ export default function Shorts({ goodList }) {
     // const docRef = collection(db, params);
     // const querySnapshot = await getDocs(docRef);
     // const goodList = querySnapshot.docs.map((doc) => doc.data());
-    // return goodList;
   };
-  const { data, isValidating } = useSWR("sport-kostums", getGoods, {
+  const { data, isValidating } = useSWR("shorts", getGoods, {
     fallbackData: goodClient,
   });
 
-  useEffect(() => {}, [state.goods]);
+  // useEffect(() => {
+  //   console.log("ssss");
+  // }, [data]);
 
   const add = ({ id, title, description, price, urlArr, color }) => {
     dispatch({
@@ -80,6 +81,7 @@ export default function Shorts({ goodList }) {
       dispatch({ type: "ADD GOODS", payload: [...sortGood] });
     }
   };
+
   return (
     <MainLayout>
       <Head>

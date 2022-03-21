@@ -12,7 +12,6 @@ import useSWR from "swr";
 export default function Pants({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
-  const [goods, setGood] = useState();
 
   const getGoods = async (params) => {
     dispatch({ type: "ADD GOODS", payload: [...goodClient] });
@@ -20,8 +19,9 @@ export default function Pants({ goodList }) {
     // const querySnapshot = await getDocs(docRef);
     // const goodList = querySnapshot.docs.map((doc) => doc.data());
     // return goodList;
+    return state.goods;
   };
-  const { data, isValidating } = useSWR("sport-kostums", getGoods, {
+  const { data, isValidating } = useSWR("pants", getGoods, {
     fallbackData: goodClient,
   });
 
