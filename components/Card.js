@@ -10,41 +10,33 @@ import Image from "next/image";
 import cart from "../public/static/img/cart.svg";
 import { useEffect, useRef, useState } from "react";
 
-export default function Card({ id, title, description, price, urlArr, color }) {
+export default function Card({
+  id,
+  title,
+  description,
+  price,
+  urlArr,
+  color,
+  active,
+  add,
+ 
+}) {
   const router = useRouter();
   const { state, dispatch } = useGoodsContext();
   const [image, setImage] = useState(
     "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
   );
-  const [mes, setMes] = useState("");
-  const [active, setActive] = useState("");
+const [mes, setMes] = useState("");
   const goToCardDetail = (e) => {
     e.stopPropagation();
     router.push(`${router.pathname}/${id}`);
   };
   const addToCart = (e) => {
-    setActive("active");
-    dispatch({
-      type: "ADD TO CARD",
-      payload: {
-        id,
-        title,
-        description,
-        price,
-        urlArr,
-        color,
-        sum: +price,
-        cnt: 1,
-        active: "active",
-      },
-    });
     const dataAtr = e.target.dataset.id;
 
     state.cart.find((item) => {
       if (item.id === id) {
         setMes("show");
-        setActive("active");
-        // setTimeout(setMes(""), 5000);
       }
     });
     if (dataAtr === id) {
@@ -52,7 +44,7 @@ export default function Card({ id, title, description, price, urlArr, color }) {
     }
   };
   useEffect(() => {
-    console.log("sdsdsdss", state.goods);
+    // console.log("sdsdsdss", state.goods);
     // state.cart.map((item) => {
     //   if (item.active === "active") {
     //     console.log("true");
@@ -77,7 +69,10 @@ export default function Card({ id, title, description, price, urlArr, color }) {
             data-id={id}
             data-title="ви вже добавили цей товар у корзину"
             className={`button button-default-white ${style["button-cart"]} ${active} ${mes}`}
-            onClick={addToCart}
+            onClick={(e) => {
+              addToCart(e);
+              add({ id, title, description, price, urlArr, color });
+            }}
           >
             <Image src={cart} width={20} height={20} alt="cart"></Image>
           </button>

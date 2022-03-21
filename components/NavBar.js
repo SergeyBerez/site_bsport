@@ -1,8 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState, useRef, useEffect, useDebugValue } from "react";
-import { useAppContext } from "../context/firebaseContext";
+
+import { useFirebaseContext } from "../context/firebaseContext";
 import { useGoodsContext } from "../context/contextGoods";
 import user from "../public/static/img/user2.svg";
 import cart from "../public/static/img/cart.svg";
@@ -15,13 +15,9 @@ export default function NavBar({
   toggleMenu,
 }) {
   const router = useRouter();
-  const { CurrentUser } = useAppContext();
+  const { CurrentUser } = useFirebaseContext();
   const { state } = useGoodsContext();
   let arr = router.pathname.split("/");
-
-  useEffect(() => {
-    console.log(CurrentUser);
-  }, []);
 
   return (
     <>

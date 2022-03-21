@@ -10,7 +10,7 @@ import {
   signInWithPopup,
   FacebookAuthProvider,
 } from "firebase/auth";
-import { useAppContext, db, auth } from "../context/firebaseContext";
+import { useFirebaseContext, db, auth } from "../context/firebaseContext";
 import LinkSvg from "../public/static/img/link_icon.svg";
 import GoogleButton from "react-google-button";
 import FacebookSvg from "../public/static/img/3225194_app_facebook_logo_media_popular_icon.svg";
@@ -19,7 +19,7 @@ const img =
   "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505";
 export default function Registration() {
   const router = useRouter();
-  const { setCurrentUser, CurrentUser } = useAppContext();
+  const { setCurrentUser, CurrentUser } = useFirebaseContext();
   const [disabled, setDisbled] = useState("true");
   const [active, setActive] = useState("active");
 

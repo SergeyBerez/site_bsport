@@ -24,7 +24,7 @@ const firebaseConfig = {
 };
 
 const AppContext = createContext();
-export function useAppContext() {
+export function useFirebaseContext() {
   return useContext(AppContext);
 }
 const app = initializeApp(firebaseConfig);
@@ -37,7 +37,6 @@ export default function FirebaseContext({ children }) {
 
   const [CurrentUser, setCurrentUser] = useState(null);
   // const [uidUser, setUidUser] = useState(null);
-  console.log(CurrentUser);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {

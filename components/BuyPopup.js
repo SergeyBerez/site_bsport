@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import IconClose from "../public/static/img/2703079_close_delete_exit_x_icon.svg";
 import { collection, addDoc, doc, getDoc } from "firebase/firestore/lite";
-import { useAppContext, db } from "../context/firebaseContext";
+import { useFirebaseContext, db } from "../context/firebaseContext";
 
 export default function BuyPopup({
   showModal,
@@ -20,9 +20,8 @@ export default function BuyPopup({
     name: "",
     phone: "",
   });
-  const { CurrentUser } = useAppContext();
-  console.log(orderGoods);
-  console.log(orderOneGood);
+  const { CurrentUser } = useFirebaseContext();
+
   const addOrder = async (e) => {
     e.preventDefault();
     setMassage("");

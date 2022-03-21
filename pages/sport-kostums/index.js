@@ -7,57 +7,81 @@ import { db } from "../../context/firebaseContext";
 import { collection, getDocs } from "firebase/firestore/lite";
 import { useGoodsContext } from "../../context/contextGoods";
 import useSWR from "swr";
+import Image from "next/image";
 function Kostums({ goodList }) {
   const goodClient = JSON.parse(goodList);
+  const { state, dispatch } = useGoodsContext();
+  const [goods, setGood] = useState();
+
   const getGoods = async (params) => {
-    const docRef = collection(db, params);
-    const querySnapshot = await getDocs(docRef);
-    const goodList = querySnapshot.docs.map((doc) => doc.data());
-    return goodList;
+    dispatch({ type: "ADD GOODS", payload: [...goodClient] });
+    // const docRef = collection(db, params);
+    // const querySnapshot = await getDocs(docRef);
+    // const goodList = querySnapshot.docs.map((doc) => doc.data());
+    // return goodList;
   };
   const { data, isValidating } = useSWR("sport-kostums", getGoods, {
     fallbackData: goodClient,
   });
 
-  const { state, dispatch } = useGoodsContext();
-  const [goods, setGood] = useState(data);
-  isValidating && dispatch({ type: "ADD GOODS", payload: [...data] });
-  useEffect(() => {}, []);
-  const handlerFilterGoods = (e) => {
-    const value = e.target.value;
+  useEffect(() => {
+    console.log("use effect kostums", isValidating);
+  }, [state.goods]);
 
-    if (value === "priceLow") {
-      const copyGood = goods.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return a.price - b.price;
-      });
-      console.log(sortGood);
-      setGood(sortGood);
-    }
-    if (value === "priceHigh") {
-      const copyGood = goods.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return b.price - a.price;
-      });
-      console.log(sortGood);
-      setGood(sortGood);
-    }
-    if (value === "dataNew") {
-      const copyGood = goods.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return b.time.seconds - a.time.seconds;
-      });
-      console.log(sortGood);
-      setGood(sortGood);
-    }
-    if (value === "dataOld") {
-      const copyGood = goods.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return a.time.seconds - b.time.seconds;
-      });
-      console.log(sortGood);
-      setGood(sortGood);
-    }
+  const add = ({ id, title, description, price, urlArr, color }) => {
+    dispatch({
+      type: "ADD TO CARD",
+      payload: {
+        id,
+        title,
+        price,
+        urlArr,
+        color,
+        sum: 0,
+        cnt: 1,
+        active: "active",
+      },
+    });
+
+    const copyGood = state.goods.slice();
+    copyGood.map((item) => {
+      if (item.id === id) {
+        item.active = "active";
+      }
+    });
+    dispatch({ type: "ADD GOODS", payload: [...copyGood] });
+  };
+  const handlerFilterGoods = (e) => {
+  const value = e.target.value;
+
+  if (value === "priceLow") {
+    const copyGood = state.goods.slice();
+    let sortGood = copyGood.sort((a, b) => {
+      return a.price - b.price;
+    });
+    dispatch({ type: "ADD GOODS", payload: [...sortGood] });
+  }
+  if (value === "priceHigh") {
+    const copyGood = state.goods.slice();
+    let sortGood = copyGood.sort((a, b) => {
+      return b.price - a.price;
+    });
+    dispatch({ type: "ADD GOODS", payload: [...sortGood] });
+  }
+  if (value === "dataNew") {
+    const copyGood = state.goods.slice();
+    let sortGood = copyGood.sort((a, b) => {
+      return b.time.seconds - a.time.seconds;
+    });
+    dispatch({ type: "ADD GOODS", payload: [...sortGood] });
+  }
+  if (value === "dataOld") {
+    const copyGood = state.goods.slice();
+    let sortGood = copyGood.sort((a, b) => {
+      return a.time.seconds - b.time.seconds;
+    });
+    dispatch({ type: "ADD GOODS", payload: [...sortGood] });
+  }
   };
   return (
     <MainLayout>
@@ -68,7 +92,28 @@ function Kostums({ goodList }) {
       </Head>
 
       {isValidating ? (
-        <Spinner></Spinner>
+        <>
+          <Spinner></Spinner>
+          {state.goods.map((obj, i) => {
+            return (
+              <div className="productCard_block-katalog" key={i}>
+                <div>
+                  <Image
+                    alt={"pant"}
+                    width={300}
+                    height={400}
+                    src={
+                      "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
+                    }
+                  ></Image>
+                  <div className="bottom-subtitle">
+                    <button className="button button-default-white">...</button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </>
       ) : (
         <>
           <h2 className="title-product-block">спортивнi костюми</h2>
@@ -96,9 +141,10 @@ function Kostums({ goodList }) {
             </div>
           </div>
           {state.goods.map((good) => {
-            console.log(good.urlArr);
             return (
               <Card
+                add={add}
+                active={good.active}
                 description={good.description}
                 id={good.id}
                 key={good.id}
@@ -113,20 +159,14 @@ function Kostums({ goodList }) {
     </MainLayout>
   );
 }
-export async function getStaticProps(context) {
-  // const id = context.params;
-  // console.log(context);
+export async function getStaticProps() {
   const docRef = collection(db, "sport-kostums");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
 
   return {
-    props: { goodList: JSON.stringify(goodList) || null }, // will be passed to
+    props: { goodList: JSON.stringify(goodList) || null },
   };
 }
-
-// Kostums.getInitialProps = async ({ goods }) => {
-
-// };
 
 export default Kostums;
