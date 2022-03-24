@@ -8,25 +8,24 @@ import { collection, getDocs } from "firebase/firestore/lite";
 import { useGoodsContext } from "../../context/contextGoods";
 import useSWR from "swr";
 import Image from "next/image";
+import { useRouter } from "next/router";
 function Kostums({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
-  const [goods, setGood] = useState();
 
-  const getGoods = async (params) => {
-    dispatch({ type: "ADD GOODS", payload: [...goodClient] });
+  const getGoods = async () => {
+    dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
+
     // const docRef = collection(db, params);
     // const querySnapshot = await getDocs(docRef);
     // const goodList = querySnapshot.docs.map((doc) => doc.data());
     // return goodList;
   };
-  const { data, isValidating } = useSWR("sport-kostums", getGoods, {
+  const { data, isValidating } = useSWR("shorts", getGoods, {
     fallbackData: goodClient,
   });
 
-  useEffect(() => {
-    console.log("use effect kostums", isValidating);
-  }, [state.goods]);
+  useEffect(() => {}, []);
 
   const add = ({ id, title, description, price, urlArr, color }) => {
     dispatch({
@@ -43,45 +42,45 @@ function Kostums({ goodList }) {
       },
     });
 
-    const copyGood = state.goods.slice();
+    const copyGood = state.kostum.slice();
     copyGood.map((item) => {
       if (item.id === id) {
         item.active = "active";
       }
     });
-    dispatch({ type: "ADD GOODS", payload: [...copyGood] });
+    dispatch({ type: "ADD KOSTUMS", payload: [...copyGood] });
   };
   const handlerFilterGoods = (e) => {
-  const value = e.target.value;
+    const value = e.target.value;
 
-  if (value === "priceLow") {
-    const copyGood = state.goods.slice();
-    let sortGood = copyGood.sort((a, b) => {
-      return a.price - b.price;
-    });
-    dispatch({ type: "ADD GOODS", payload: [...sortGood] });
-  }
-  if (value === "priceHigh") {
-    const copyGood = state.goods.slice();
-    let sortGood = copyGood.sort((a, b) => {
-      return b.price - a.price;
-    });
-    dispatch({ type: "ADD GOODS", payload: [...sortGood] });
-  }
-  if (value === "dataNew") {
-    const copyGood = state.goods.slice();
-    let sortGood = copyGood.sort((a, b) => {
-      return b.time.seconds - a.time.seconds;
-    });
-    dispatch({ type: "ADD GOODS", payload: [...sortGood] });
-  }
-  if (value === "dataOld") {
-    const copyGood = state.goods.slice();
-    let sortGood = copyGood.sort((a, b) => {
-      return a.time.seconds - b.time.seconds;
-    });
-    dispatch({ type: "ADD GOODS", payload: [...sortGood] });
-  }
+    if (value === "priceLow") {
+      const copyGood = state.kostum.slice();
+      let sortGood = copyGood.sort((a, b) => {
+        return a.price - b.price;
+      });
+      dispatch({ type: "ADD KOSTUMS", payload: [...sortGood] });
+    }
+    if (value === "priceHigh") {
+      const copyGood = state.kostum.slice();
+      let sortGood = copyGood.sort((a, b) => {
+        return b.price - a.price;
+      });
+      dispatch({ type: "ADD KOSTUMS", payload: [...sortGood] });
+    }
+    if (value === "dataNew") {
+      const copyGood = state.kostum.slice();
+      let sortGood = copyGood.sort((a, b) => {
+        return b.time.seconds - a.time.seconds;
+      });
+      dispatch({ type: "ADD KOSTUMS", payload: [...sortGood] });
+    }
+    if (value === "dataOld") {
+      const copyGood = state.kostum.slice();
+      let sortGood = copyGood.sort((a, b) => {
+        return a.time.seconds - b.time.seconds;
+      });
+      dispatch({ type: "ADD KOSTUMS", payload: [...sortGood] });
+    }
   };
   return (
     <MainLayout>
@@ -94,7 +93,7 @@ function Kostums({ goodList }) {
       {isValidating ? (
         <>
           <Spinner></Spinner>
-          {state.goods.map((obj, i) => {
+          {data.map((obj, i) => {
             return (
               <div className="productCard_block-katalog" key={i}>
                 <div>
@@ -140,7 +139,7 @@ function Kostums({ goodList }) {
               </select>
             </div>
           </div>
-          {state.goods.map((good) => {
+          {state.kostum.map((good) => {
             return (
               <Card
                 add={add}

@@ -115,21 +115,7 @@ export default function FirebaseContext({ children }) {
     }
   }
 
-  async function getGoods(db, params) {
-    try {
-      setLoading(true);
-      const docRef = collection(db, params);
-      const querySnapshot = await getDocs(docRef);
-      const goodList = querySnapshot.docs.map((doc) => doc.data());
-      // console.log('get goods from Firestore', goodList);
-      setGood(goodList);
-      // console.log(goodList);
-      setLoading(false);
-      return goodList;
-    } catch (error) {
-      console.log("error", error);
-    }
-  }
+  
 
   return (
     <AppContext.Provider value={{ loading, CurrentUser, setCurrentUser }}>

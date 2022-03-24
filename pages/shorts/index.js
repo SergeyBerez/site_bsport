@@ -8,12 +8,18 @@ import { collection, getDocs } from "firebase/firestore/lite";
 import { useGoodsContext } from "../../context/contextGoods";
 import useSWR from "swr";
 import Image from "next/image";
+
 export default function Shorts({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
 
+  // if (state.shorts !== undefined) {
+  //   SetGoods(state.shorts);
+  // }
+  useEffect(() => {}, []);
   const getGoods = async (params) => {
-    dispatch({ type: "ADD GOODS", payload: [...goodClient] });
+    dispatch({ type: "ADD SHORTS", payload: [...goodClient] });
+    // dispatch({ type: "ADD SHORTS", payload: [...goodClient] });
     // const docRef = collection(db, params);
     // const querySnapshot = await getDocs(docRef);
     // const goodList = querySnapshot.docs.map((doc) => doc.data());
@@ -21,10 +27,6 @@ export default function Shorts({ goodList }) {
   const { data, isValidating } = useSWR("shorts", getGoods, {
     fallbackData: goodClient,
   });
-
-  // useEffect(() => {
-  //   console.log("ssss");
-  // }, [data]);
 
   const add = ({ id, title, description, price, urlArr, color }) => {
     dispatch({
@@ -41,44 +43,46 @@ export default function Shorts({ goodList }) {
       },
     });
 
-    const copyGood = state.goods.slice();
+    const copyGood = state.shorts.slice();
+
     copyGood.map((item) => {
       if (item.id === id) {
         item.active = "active";
       }
     });
-    dispatch({ type: "ADD GOODS", payload: [...copyGood] });
+    dispatch({ type: "ADD SHORTS", payload: [...copyGood] });
   };
+
   const handlerFilterGoods = (e) => {
     const value = e.target.value;
 
     if (value === "priceLow") {
-      const copyGood = state.goods.slice();
+      const copyGood = state.shorts.slice();
       let sortGood = copyGood.sort((a, b) => {
         return a.price - b.price;
       });
-      dispatch({ type: "ADD GOODS", payload: [...sortGood] });
+      dispatch({ type: "ADD SHORTS", payload: [...sortGood] });
     }
     if (value === "priceHigh") {
-      const copyGood = state.goods.slice();
+      const copyGood = state.shorts.slice();
       let sortGood = copyGood.sort((a, b) => {
         return b.price - a.price;
       });
-      dispatch({ type: "ADD GOODS", payload: [...sortGood] });
+      dispatch({ type: "ADD SHORTS", payload: [...sortGood] });
     }
     if (value === "dataNew") {
-      const copyGood = state.goods.slice();
+      const copyGood = state.shorts.slice();
       let sortGood = copyGood.sort((a, b) => {
         return b.time.seconds - a.time.seconds;
       });
-      dispatch({ type: "ADD GOODS", payload: [...sortGood] });
+      dispatch({ type: "ADD SHORTS", payload: [...sortGood] });
     }
     if (value === "dataOld") {
-      const copyGood = state.goods.slice();
+      const copyGood = state.shorts.slice();
       let sortGood = copyGood.sort((a, b) => {
         return a.time.seconds - b.time.seconds;
       });
-      dispatch({ type: "ADD GOODS", payload: [...sortGood] });
+      dispatch({ type: "ADD SHORTS", payload: [...sortGood] });
     }
   };
 
@@ -93,7 +97,7 @@ export default function Shorts({ goodList }) {
       {isValidating ? (
         <>
           <Spinner></Spinner>
-          {state.goods.map((obj, i) => {
+          {data.map((obj, i) => {
             return (
               <div className="productCard_block-katalog" key={i}>
                 <div>
@@ -139,7 +143,7 @@ export default function Shorts({ goodList }) {
               </select>
             </div>
           </div>
-          {state.goods.map((good) => {
+          {state.shorts.map((good) => {
             return (
               <Card
                 add={add}
@@ -158,7 +162,7 @@ export default function Shorts({ goodList }) {
     </MainLayout>
   );
 }
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   const docRef = collection(db, "shorts");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());

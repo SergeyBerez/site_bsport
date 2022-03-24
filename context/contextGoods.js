@@ -1,9 +1,17 @@
-import React from "react";
-import { createContext, useReducer, useContext } from "react";
+import {
+  useState,
+  createContext,
+  useReducer,
+  useContext,
+  useEffect,
+} from "react";
 
+import { db } from "./firebaseContext";
+import { collection, getDocs } from "firebase/firestore/lite";
 const initialState = {
   goods: [],
   cart: [],
+  pants: [],
 };
 
 const GoodsContext = createContext(initialState);
@@ -14,7 +22,9 @@ export function useGoodsContext() {
 
 export default function ContextGoods({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  // const [url, setUrl] = useState("pants");
 
+  useEffect(() => {}, []);
   const countGoodsPlus = (action) => {
     const newItem = action;
 
@@ -123,7 +133,12 @@ export default function ContextGoods({ children }) {
 
         localStorage.setItem("CART", JSON.stringify(cart));
         return { ...state, cart };
-
+      case "ADD PANTS":
+        return { ...state, pants: action.payload };
+      case "ADD SHORTS":
+        return { ...state, shorts: action.payload };
+      case "ADD KOSTUMS":
+        return { ...state, kostum: action.payload };
       default:
         return state;
     }
@@ -147,6 +162,26 @@ export default function ContextGoods({ children }) {
   // };
 
   // console.log(userOdrerCartCtx);
+
+  async function getGoods() {
+    try {
+      const docRef = collection(db, "pants");
+      const querySnapshot = await getDocs(docRef);
+      const goodList = querySnapshot.docs.map((doc) => doc.data());
+      dispatch({ type: "ADD PANTS", payload: [...goodList] });
+    } catch (error) {
+      console.log("error", error);
+    }
+
+    try {
+      const docRef = collection(db, "shorts");
+      const querySnapshot = await getDocs(docRef);
+      const goodList = querySnapshot.docs.map((doc) => doc.data());
+      dispatch({ type: "ADD SHORTS", payload: [...goodList] });
+    } catch (error) {
+      console.log("error", error);
+    }
+  }
   return (
     <GoodsContext.Provider
       value={{
@@ -155,6 +190,8 @@ export default function ContextGoods({ children }) {
         countGoodsPlus,
         countGoodsMinus,
         deleteFromCart,
+
+        getGoods,
       }}
     >
       {children}
