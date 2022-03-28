@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayout";
 import Head from "next/head";
 import Card from "../../components/Card";
@@ -13,16 +12,8 @@ export default function Shorts({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
 
-  // if (state.shorts !== undefined) {
-  //   SetGoods(state.shorts);
-  // }
-  useEffect(() => {}, []);
   const getGoods = async (params) => {
     dispatch({ type: "ADD SHORTS", payload: [...goodClient] });
-    // dispatch({ type: "ADD SHORTS", payload: [...goodClient] });
-    // const docRef = collection(db, params);
-    // const querySnapshot = await getDocs(docRef);
-    // const goodList = querySnapshot.docs.map((doc) => doc.data());
   };
   const { data, isValidating } = useSWR("shorts", getGoods, {
     fallbackData: goodClient,

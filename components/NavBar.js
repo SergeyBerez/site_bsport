@@ -188,18 +188,14 @@ export default function NavBar({
               </Link>
             </li>
             <li
-              className={router.pathname == "/shorts" ? "active" : ""}
+              className={router.pathname == "/t-shirt" ? "active" : ""}
               onClick={toggleMenu}
             >
-              <Link href="/shorts" shallow>
+              <Link href="/t-shirt" shallow>
                 <a>футболки</a>
               </Link>
             </li>
-            {/* <li>
-              <Link href="/contact">
-                <a>Contact</a>
-              </Link>
-            </li> */}
+
             <li
               className={router.pathname == "/delivery" ? "active" : ""}
               onClick={toggleMenu}

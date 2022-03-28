@@ -11,9 +11,6 @@ import koftazamok from "../public/static/img/koftazamok_icon.svg";
 import pants from "../public/static/img/pants_icon.svg";
 import hudi from "../public/static/img/hudiclothing_icon.svg";
 
-// import moduleName from '../public/img/short_icon';
-// import moduleName from '../public/img/';
-// import { useAppContext } from '../context/firebaseContext';
 export default function Index() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -46,22 +43,22 @@ export default function Index() {
       path: "sports-jacket",
       name: "кофти",
       urlImg:
-        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391",
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2022-03-28_10-33-46.jpg?alt=media&token=1d10b2a5-15fa-455c-b200-45cd474725ae",
     },
     {
       urlSvg: hudi,
       path: "hoodie",
       name: "худи",
       urlImg:
-        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/IMG_8835.webp?alt=media&token=c6ba33f2-609e-4d0d-9ddd-73b84a59a391",
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2022-03-28_10-21-40.jpg?alt=media&token=43650e4b-bd78-4493-90df-cc8d887f3915",
     },
-    // {
-    //   urlSvg: hudi,
-    //   path: 't-shirt',
-    //   name: 'футболки',
-    //   urlImg:
-    //     'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-07-12_20-32-00.webp?alt=media&token=e14ee5e9-d4cc-4a64-97b9-42c0bf779779',
-    // },
+    {
+      urlSvg: hudi,
+      path: "t-shirt",
+      name: "футболки",
+      urlImg:
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-07-12_20-32-00.webp?alt=media&token=e14ee5e9-d4cc-4a64-97b9-42c0bf779779",
+    },
   ];
 
   const renserSkelton = DataSvgForSlider.map((obj, i) => {

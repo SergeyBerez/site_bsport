@@ -12,6 +12,7 @@ const initialState = {
   goods: [],
   cart: [],
   pants: [],
+  kostum: [],
 };
 
 const GoodsContext = createContext(initialState);

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import MainLayout from "../../components/MainLayout";
 import Head from "next/head";
 import Card from "../../components/Card";
@@ -8,24 +7,17 @@ import { collection, getDocs } from "firebase/firestore/lite";
 import { useGoodsContext } from "../../context/contextGoods";
 import useSWR from "swr";
 import Image from "next/image";
-import { useRouter } from "next/router";
+
 function Kostums({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
 
   const getGoods = async () => {
     dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
-
-    // const docRef = collection(db, params);
-    // const querySnapshot = await getDocs(docRef);
-    // const goodList = querySnapshot.docs.map((doc) => doc.data());
-    // return goodList;
   };
   const { data, isValidating } = useSWR("shorts", getGoods, {
     fallbackData: goodClient,
   });
-
-  useEffect(() => {}, []);
 
   const add = ({ id, title, description, price, urlArr, color }) => {
     dispatch({
@@ -93,7 +85,7 @@ function Kostums({ goodList }) {
       {isValidating ? (
         <>
           <Spinner></Spinner>
-          {data.map((obj, i) => {
+          {state.kostum.map((obj, i) => {
             return (
               <div className="productCard_block-katalog" key={i}>
                 <div>

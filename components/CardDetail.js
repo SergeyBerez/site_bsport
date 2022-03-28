@@ -119,7 +119,8 @@ export default function CardDetail({
         </div>
         <div className="block_descriptionInformation">
           <Accordion title={"Опис товару"}>
-            <p>-материал двухнитка пенье</p>
+            <p>-{detaileDescription}</p>
+
             <p>-Ткань турецкая состав: 80 % хлопок 20 % полиэстер</p>
           </Accordion>
         </div>
