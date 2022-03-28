@@ -255,6 +255,8 @@ export default function NavBar({
                   ? "item about active"
                   : router.pathname == "/cart"
                   ? "item about active"
+                  : router.pathname == "/hoodie"
+                  ? "item about active"
                   : ""
               }
             >
@@ -263,12 +265,14 @@ export default function NavBar({
                   {" "}
                   {router.pathname == "/shorts" ? "шорти" : null}
                   {router.pathname == "/pants" ? "штани" : null}
+                  {router.pathname == "/hoodie" ? "худі" : null}
                   {router.pathname == "/sport-kostums" ? "костюми" : null}
                   {router.pathname == "/delivery" ? "доставка" : null}
                   {router.pathname == "/about" ? "контакти" : null}
                   {router.pathname == "/regist" ? "авторизацiя" : null}
                   {router.pathname == "/cart" ? "корзина" : null}
                   {router.query.id && arr[1] == "shorts" ? "шорти" : null}
+                  {router.query.id && arr[1] == "hoodie" ? "худi" : null}
                   {router.query.id && arr[1] == "pants" ? "штани" : null}
                   {router.query.id && arr[1] == "sport-kostums"
                     ? "костюми"
