@@ -19,23 +19,24 @@ export default function Card({
   color,
   active,
   add,
- 
+  show,
 }) {
   const router = useRouter();
   const { state, dispatch } = useGoodsContext();
   const [image, setImage] = useState(
     "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
   );
-const [mes, setMes] = useState("");
+  const [mes, setMes] = useState("");
   const goToCardDetail = (e) => {
     e.stopPropagation();
     router.push(`${router.pathname}/${id}`);
   };
-  const addToCart = (e) => {
+  const addToCart = (e, id) => {
     const dataAtr = e.target.dataset.id;
 
     state.cart.find((item) => {
-      if (item.id === id) {
+      if (item.id === dataAtr) {
+        console.log("ssss");
         setMes("show");
       }
     });
@@ -55,7 +56,7 @@ const [mes, setMes] = useState("");
       setImage(urlArr[0]);
     }
   }, [state.cart]);
-
+  console.log(active);
   return (
     <>
       <div className={style["productCard_block"]}>
@@ -68,10 +69,10 @@ const [mes, setMes] = useState("");
           <button
             data-id={id}
             data-title="ви вже добавили цей товар у корзину"
-            className={`button button-default-white ${style["button-cart"]} ${active} ${mes}`}
+            className={`button button-default-white ${style["button-cart"]} ${active} ${show}`}
             onClick={(e) => {
-              addToCart(e);
-              add({ id, title, description, price, urlArr, color });
+              addToCart(e, id);
+              add({ id, title, description, price, urlArr, color, active });
             }}
           >
             <Image src={cart} width={20} height={20} alt="cart"></Image>

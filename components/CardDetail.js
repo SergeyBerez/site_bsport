@@ -45,7 +45,7 @@ export default function CardDetail({
         price,
         urlArr,
         color,
-        sum: 0,
+        sum: price,
         cnt: 1,
       },
     });
@@ -94,7 +94,7 @@ export default function CardDetail({
           <div className="block-count">
             {" "}
             <button className="button button-default-white" onClick={addToCart}>
-              добавити в корзину
+              до корзини
             </button>
             <button
               className="button button-default-white"

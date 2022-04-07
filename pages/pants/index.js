@@ -1,4 +1,3 @@
-
 import MainLayout from "../../components/MainLayout";
 import Head from "next/head";
 import Card from "../../components/Card";
@@ -7,23 +6,34 @@ import { Spinner } from "../../components/Spinner";
 import { db } from "../../context/firebaseContext";
 import { collection, getDocs } from "firebase/firestore/lite";
 import { useGoodsContext } from "../../context/contextGoods";
-
+import { useEffect } from "react";
 import useSWR from "swr";
 export default function Pants({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
-
+  useEffect((params) => {
+    if (state.pants.length === 0) {
+      dispatch({ type: "ADD PANTS", payload: [...goodClient] });
+    }
+  }, []);
   const getGoods = async () => {
-    dispatch({ type: "ADD PANTS", payload: [...goodClient] });
-   
+    //dispatch({ type: "ADD PANTS", payload: [...goodClient] });
   };
   const { data, isValidating } = useSWR("pants", getGoods, {
     fallbackData: goodClient,
   });
 
-  
+  const add = ({ id, title, price, urlArr, color, active }) => {
+    console.log(active);
+    const copyGood = state.pants.slice();
+    copyGood.map((item) => {
+      if (item.id === id) {
+        item.active = "active";
+      }
+    });
 
-  const add = ({ id, title, price, urlArr, color }) => {
+    dispatch({ type: "ADD PANTS", payload: [...copyGood] });
+
     dispatch({
       type: "ADD TO CARD",
       payload: {
@@ -32,19 +42,11 @@ export default function Pants({ goodList }) {
         price,
         urlArr,
         color,
-        sum: 0,
+        sum: price,
         cnt: 1,
         active: "active",
       },
     });
-
-    const copyGood = state.pants.slice();
-    copyGood.map((item) => {
-      if (item.id === id) {
-        item.active = "active";
-      }
-    });
-    dispatch({ type: "ADD PANTS", payload: [...copyGood] });
   };
   const handlerFilterGoods = (e) => {
     const value = e.target.value;
@@ -146,6 +148,7 @@ export default function Pants({ goodList }) {
                 urlArr={good.urlArr}
                 color={good.color}
                 description={good.description}
+                show={good.show}
               ></Card>
             );
           })}
