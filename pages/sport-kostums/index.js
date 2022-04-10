@@ -21,16 +21,16 @@ function Kostums({ goodList }) {
 
   const add = ({ id, title, description, price, urlArr, color }) => {
     dispatch({
-      type: "ADD TO CARD",
+      type: 'ADD TO CARD',
       payload: {
         id,
         title,
         price,
         urlArr,
         color,
-        sum: 0,
+        sum: price,
         cnt: 1,
-        active: "active",
+        active: 'active',
       },
     });
 
