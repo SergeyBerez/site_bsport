@@ -104,10 +104,6 @@ export default function CardDetail({
               <p>Сергій</p>
               <a href="tel:+380632483200">+38 (063) 248-32-00</a>
             </div>
-            <div className="phone">
-              <p>Валентина</p>
-              <a href="tel:+380977760954">+38 (097) 776-09-54</a>
-            </div>
           </Accordion>
         </div>
         <div className="block_descriptionInformation">
