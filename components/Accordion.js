@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import arrowNext from "../public/static/img/chevron_right_icon.svg";
-import Image from "next/image";
+import React, { useState } from 'react';
+import arrowNext from '../public/static/img/chevron_right_icon.svg';
+import Image from 'next/image';
+import filter from '../public/static/img/filter_filters_icon.svg';
 export default function Accordion(props) {
   const { title, cls } = props;
   const [isOpen, setIsOpen] = useState(false);
@@ -10,9 +11,17 @@ export default function Accordion(props) {
 
   return (
     <>
-      <div className={"accordion " + cls}>
-        <div className={"accordion-title " + cls} onClick={toggle}>
-          <span>{title}</span>
+      <div className={'accordion ' + cls}>
+        <div className={'accordion-title ' + cls} onClick={toggle}>
+          {title === 'фiльтр' ? (
+            <>
+              <Image src={filter} width={20} height={20} alt="cart"></Image>
+              <span>{title}</span>
+            </>
+          ) : (
+            <span>{title}</span>
+          )}
+
           <div className="toggle" aria-expanded={isOpen}>
             <Image src={arrowNext} alt="uppy"></Image>
           </div>
@@ -65,7 +74,7 @@ export default function Accordion(props) {
           transition: all 0.35s ease;
         }
 
-        .accordion div.toggle[aria-expanded="true"] {
+        .accordion div.toggle[aria-expanded='true'] {
           transform: rotateZ(90deg);
         }
 
@@ -75,7 +84,7 @@ export default function Accordion(props) {
           transition: max-height 1s ease-in-out;
         }
 
-        .accordion-content[aria-expanded="true"] {
+        .accordion-content[aria-expanded='true'] {
           max-height: 0px;
           transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
         }

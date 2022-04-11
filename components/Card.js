@@ -47,7 +47,7 @@ export default function Card({ id, title, description, price, urlArr, color, act
       setImage(urlArr[0]);
     }
   }, [state.cart]);
-  console.log(active);
+
   return (
     <>
       <div className={style['productCard_block']}>
