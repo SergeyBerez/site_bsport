@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { useRouter } from "next/router";
-import { useGoodsContext } from "../context/contextGoods";
-import BuyPopup from "./BuyPopup";
-import Accordion from "./Accordion";
-import arrowNext from "../public/static/img/1904671_arrow_arrow right_change_direction_next_icon.svg";
-import arrowPrev from "../public/static/img/1904658_arrow_arrow left_change_direction_left_icon.svg";
-import Slider from "./Slider";
+import { useRouter } from 'next/router';
+import { useGoodsContext } from '../context/contextGoods';
+import BuyPopup from './BuyPopup';
+import Accordion from './Accordion';
+import arrowNext from '../public/static/img/1904671_arrow_arrow right_change_direction_next_icon.svg';
+import arrowPrev from '../public/static/img/1904658_arrow_arrow left_change_direction_left_icon.svg';
+import Slider from './Slider';
 export default function CardDetail({
   id,
   title,
@@ -18,27 +18,27 @@ export default function CardDetail({
 }) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
-  const [massage, setMassage] = useState("");
+  const [massage, setMassage] = useState('');
   const { state, dispatch } = useGoodsContext();
 
   const toogleShowModal = (e) => {
-    let arrClassNameModal = e.target.className.split(" ");
-    let arrClassNameButton = e.target.className.split(" ");
+    let arrClassNameModal = e.target.className.split(' ');
+    let arrClassNameButton = e.target.className.split(' ');
     let arrClassNameClose = e.target.alt;
 
     let show =
-      arrClassNameModal.includes("fixed-overlay") ||
-      arrClassNameButton.includes("button") ||
-      arrClassNameClose === "close";
+      arrClassNameModal.includes('fixed-overlay') ||
+      arrClassNameButton.includes('button') ||
+      arrClassNameClose === 'close';
     if (show) {
       setShowModal(!showModal);
-      setMassage("");
+      setMassage('');
     }
   };
 
   const addToCart = () => {
     dispatch({
-      type: "ADD TO CARD",
+      type: 'ADD TO CARD',
       payload: {
         id,
         title,
@@ -49,7 +49,7 @@ export default function CardDetail({
         cnt: 1,
       },
     });
-    router.push("/cart");
+    router.push('/cart');
   };
   return (
     <>
@@ -68,15 +68,8 @@ export default function CardDetail({
           price,
           urlArr,
           color,
-        }}
-      ></BuyPopup>
-      <Slider
-        id={id}
-        urlArr={urlArr}
-        grabCursor={true}
-        pagination={true}
-        count={1}
-      ></Slider>{" "}
+        }}></BuyPopup>
+      <Slider id={id} urlArr={urlArr} grabCursor={true} pagination={true} count={1}></Slider>{' '}
       <div className="block_product">
         <h1 className="block_product-title">
           <span>{title}</span>
@@ -86,27 +79,27 @@ export default function CardDetail({
           <span className="text_specification">колiр : {color}</span>
         </div>
         <div className="block_price">
-          <p className="block_price__currency">
-            {price ? price : "цiну уточнiть"} грн
-          </p>
+          <p className="block_price__currency">{price ? price : 'цiну уточнiть'} грн</p>
 
           <div className="qty_wrapp"></div>
           <div className="block-count">
-            {" "}
+            {' '}
             <button className="button button-default-white" onClick={addToCart}>
               до корзини
             </button>
-            <button
-              className="button button-default-white"
-              onClick={toogleShowModal}
-            >
+            <button className="button button-default-white" onClick={toogleShowModal}>
               купити швидко
+            </button>
+            <button className="button button-default-white">
+              <a href="tel:+380632483200" className="jsx-89893122e891ec04">
+                подзвонити
+              </a>
             </button>
           </div>
         </div>
 
         <div className="block_descriptionInformation">
-          <Accordion title={"Для оптових покупців"}>
+          <Accordion title={'Для оптових покупців'}>
             <div className="phone">
               <p>Сергій</p>
               <a href="tel:+380632483200">+38 (063) 248-32-00</a>
@@ -118,14 +111,14 @@ export default function CardDetail({
           </Accordion>
         </div>
         <div className="block_descriptionInformation">
-          <Accordion title={"Опис товару"}>
+          <Accordion title={'Опис товару'}>
             <p>-{detaileDescription}</p>
 
             <p>-Ткань турецкая состав: 80 % хлопок 20 % полиэстер</p>
           </Accordion>
         </div>
         <div className="block_descriptionInformation">
-          <Accordion title={"Розмірна сітка"}>
+          <Accordion title={'Розмірна сітка'}>
             <table
               border="1"
               cellPadding="1"
@@ -194,16 +187,15 @@ export default function CardDetail({
           </Accordion>
         </div>
         <div className="block_descriptionInformation">
-          <Accordion title={"Доставка"}>
-            {" "}
+          <Accordion title={'Доставка'}>
+            {' '}
             <p>
-              1. Наложка (по предоплате за доставку 100 грн, вычитаем из
-              вычитаем из общей суммы)
+              1. Наложка (по предоплате за доставку 100 грн, вычитаем из вычитаем из общей суммы)
             </p>
             <p>
-              {" "}
-              2. Полная оплата на карту (экономия 40-50 грн, на почте платите
-              только за доставку) обмен размера осуществляем по договоренности
+              {' '}
+              2. Полная оплата на карту (экономия 40-50 грн, на почте платите только за доставку)
+              обмен размера осуществляем по договоренности
             </p>
             <p> 3. Урк почта / Justin / Новая почта</p>
           </Accordion>
@@ -275,6 +267,18 @@ export default function CardDetail({
         }
         .button-default-white {
           width: 45%;
+          margin: 0 5px;
+          padding: 5px;
+          font-size: 1rem;
+        }
+
+        @media (min-width: 400px) {
+          .button-default-white {
+            width: 45%;
+            margin: 0 2px;
+            font-size: 1.2rem;
+            padding: 15px 0;
+          }
         }
       `}</style>
     </>

@@ -69,7 +69,8 @@
   text-align: center;
 }
 
-.button-cart:hover {
+.button-cart:hover,
+.button-phone:hover {
   background-color: #18141429;
 }
 @media (min-width: 320px) {
@@ -93,15 +94,15 @@
   }
   .button-buy {
     border-left: none;
-    width: 40%;
+    width: 60%;
     flex-grow: 1;
     padding: 2px 0;
     font-size: 1rem;
   }
   .button-phone {
     border-left: none;
-    width: 30%;
-    flex-grow: 1;
+    width: 20%;
+
     padding: 2px 0;
     font-size: 1rem;
   }
