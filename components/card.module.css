@@ -93,7 +93,14 @@
   }
   .button-buy {
     border-left: none;
-    width: 80%;
+    width: 40%;
+    flex-grow: 1;
+    padding: 2px 0;
+    font-size: 1rem;
+  }
+  .button-phone {
+    border-left: none;
+    width: 30%;
     flex-grow: 1;
     padding: 2px 0;
     font-size: 1rem;
