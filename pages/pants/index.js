@@ -13,6 +13,7 @@ import useSWR from 'swr';
 export default function Pants({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
+
   useEffect((params) => {
     if (state.pants.length === 0) {
       dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
@@ -45,28 +46,29 @@ export default function Pants({ goodList }) {
         urlArr,
         color,
         sum: price,
-        cnt: 1,
+        cnt: 5,
         active: 'active',
       },
     });
   };
   const filterGoods = (e) => {
     const copyGood = state.pants.slice();
+    const text = e.target.textContent.toLowerCase();
 
     const filterGoods = copyGood.filter((item) => {
-      if (item.title.indexOf(e.target.textContent) !== -1) {
+      if (item.title.toLowerCase().indexOf(text) !== -1) {
         return item;
       }
     });
 
     if (filterGoods.length === 0) {
       filterGoods = goodClient.filter((item) => {
-        if (item.title.indexOf(e.target.textContent) !== -1) {
+        if (item.title.toLowerCase().indexOf(text) !== -1) {
           return item;
         }
       });
     }
-    if (e.target.textContent === 'зняти фiльтр') {
+    if (text === 'зняти фiльтр') {
       dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
     } else {
       dispatch({ type: 'ADD PANTS', payload: [...filterGoods] });
@@ -140,12 +142,28 @@ export default function Pants({ goodList }) {
 
           <div className="toolbar toolbar-products">
             <div>
-              <Accordion title={'фiльтр'}>
-                <p onClick={filterGoods}>манжет</p>
-                <p onClick={filterGoods}>прямi</p>
-                <p onClick={filterGoods}>зняти фiльтр</p>
+              <Accordion title={'фiльтр'} cnt={state.pants.length}>
+                <p className="accordion-item" onClick={filterGoods}>
+                  <input type="checkbox">манжет</input>
+                </p>
+                <p className="accordion-item" onClick={filterGoods}>
+                  прямi
+                  <input type="checkbox"></input>
+                </p>
+                <p className="accordion-item" onClick={filterGoods}>
+                  батал
+                  <input type="checkbox"></input>
+                </p>
+                <p className="accordion-item" onClick={filterGoods}>
+                  зняти фiльтр
+                  <input type="checkbox"></input>
+                </p>
               </Accordion>
             </div>
+            {/* <div className="cnt-goods">
+              {' '}
+             
+            </div> */}
             <div className="toolbar-sorter sorter">
               <label className="sorter-label" forhtml="sorter">
                 сортувати
@@ -186,6 +204,16 @@ export default function Pants({ goodList }) {
       )}
 
       <style jsx>{`
+        .cnt-goods {
+          margin: 0 10px;
+          font-size: 18px;
+          letter-spacing: 1.4px;
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+        .accordion-item {
+          cursor: pointer;
+        }
         .toolbar-products {
           display: flex;
           align-items: center;

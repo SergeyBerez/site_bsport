@@ -46,7 +46,7 @@ export default function CardDetail({
         urlArr,
         color,
         sum: price,
-        cnt: 1,
+        cnt: 5,
       },
     });
     router.push('/cart');

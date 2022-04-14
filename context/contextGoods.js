@@ -1,13 +1,7 @@
-import {
-  useState,
-  createContext,
-  useReducer,
-  useContext,
-  useEffect,
-} from "react";
+import { useState, createContext, useReducer, useContext, useEffect } from 'react';
 
-import { db } from "./firebaseContext";
-import { collection, getDocs } from "firebase/firestore/lite";
+import { db } from './firebaseContext';
+import { collection, getDocs } from 'firebase/firestore/lite';
 const initialState = {
   goods: [],
   cart: [],
@@ -29,8 +23,8 @@ export default function ContextGoods({ children }) {
   const countGoodsPlus = (action) => {
     const newItem = action;
 
-    if (newItem.cnt < 20) {
-      newItem.cnt = newItem.cnt + 1;
+    if (newItem.cnt < 10) {
+      newItem.cnt = newItem.cnt + 5;
 
       newItem.sum = +newItem.price * newItem.cnt;
       console.log(newItem);
@@ -47,7 +41,7 @@ export default function ContextGoods({ children }) {
     });
 
     dispatch({
-      type: "PLUS",
+      type: 'PLUS',
       payload: cart,
     });
   };
@@ -56,7 +50,7 @@ export default function ContextGoods({ children }) {
     const newItem = action;
 
     if (newItem.cnt > 0) {
-      newItem.cnt = newItem.cnt - 1;
+      newItem.cnt = newItem.cnt - 5;
       newItem.sum = +newItem.price * newItem.cnt;
     }
 
@@ -70,7 +64,7 @@ export default function ContextGoods({ children }) {
       }
     });
     dispatch({
-      type: "MINUS",
+      type: 'MINUS',
       payload: cart,
     });
   };
@@ -82,21 +76,21 @@ export default function ContextGoods({ children }) {
       return item.id !== newItem.id;
     });
     dispatch({
-      type: "DELE FROM CARD",
+      type: 'DELE FROM CARD',
       payload: cart,
     });
   };
   function reducer(state, action) {
     switch (action.type) {
-      case "PLUS":
+      case 'PLUS':
         return { ...state, cart: action.payload };
-      case "MINUS":
+      case 'MINUS':
         return { ...state, cart: action.payload };
-      case "ADD GOODS":
+      case 'ADD GOODS':
         return { ...state, goods: action.payload };
-      case "DELE FROM CARD":
+      case 'DELE FROM CARD':
         return { ...state, cart: action.payload };
-      case "ADD TO CARD":
+      case 'ADD TO CARD':
         const newItemGood = action.payload;
         const copyCartGoods = [...state.cart];
 
@@ -132,13 +126,13 @@ export default function ContextGoods({ children }) {
         //   );
         // });
 
-        localStorage.setItem("CART", JSON.stringify(cart));
+        localStorage.setItem('CART', JSON.stringify(cart));
         return { ...state, cart };
-      case "ADD PANTS":
+      case 'ADD PANTS':
         return { ...state, pants: action.payload };
-      case "ADD SHORTS":
+      case 'ADD SHORTS':
         return { ...state, shorts: action.payload };
-      case "ADD KOSTUMS":
+      case 'ADD KOSTUMS':
         return { ...state, kostum: action.payload };
       default:
         return state;
@@ -166,21 +160,21 @@ export default function ContextGoods({ children }) {
 
   async function getGoods() {
     try {
-      const docRef = collection(db, "pants");
+      const docRef = collection(db, 'pants');
       const querySnapshot = await getDocs(docRef);
       const goodList = querySnapshot.docs.map((doc) => doc.data());
-      dispatch({ type: "ADD PANTS", payload: [...goodList] });
+      dispatch({ type: 'ADD PANTS', payload: [...goodList] });
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
     }
 
     try {
-      const docRef = collection(db, "shorts");
+      const docRef = collection(db, 'shorts');
       const querySnapshot = await getDocs(docRef);
       const goodList = querySnapshot.docs.map((doc) => doc.data());
-      dispatch({ type: "ADD SHORTS", payload: [...goodList] });
+      dispatch({ type: 'ADD SHORTS', payload: [...goodList] });
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
     }
   }
   return (
@@ -193,8 +187,7 @@ export default function ContextGoods({ children }) {
         deleteFromCart,
 
         getGoods,
-      }}
-    >
+      }}>
       {children}
     </GoodsContext.Provider>
   );

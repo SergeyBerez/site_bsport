@@ -15,7 +15,7 @@ body {
   margin: 0;
   color: #323232;
   -webkit-font-smoothing: subpixel-antialiased;
-  -webkit-locale: "ua";
+  -webkit-locale: 'ua';
   /* font-family: -apple-system, euclid circular a, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica, Neue, sans-serif; */
 }
@@ -471,10 +471,16 @@ input[type='radio'] + label {
   width: 100%;
   flex-grow: 1;
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
-  margin-bottom: 30px;
+  /* align-items: center; */
   /* margin-top: 30px; */
   text-align: left;
+}
+.toolbar-sorter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 .sorter-label {
   font-weight: 700;
