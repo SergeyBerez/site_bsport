@@ -7,13 +7,14 @@ import { db } from '../../context/firebaseContext';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { useGoodsContext } from '../../context/contextGoods';
 import Accordion from '../../components/Accordion';
-
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import useSWR from 'swr';
 export default function Pants({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
-
+  const router = useRouter();
   useEffect((params) => {
     if (state.pants.length === 0) {
       dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
@@ -139,27 +140,8 @@ export default function Pants({ goodList }) {
       ) : (
         <>
           <h1 className="title-product-block">штаны</h1>
-
           <div className="toolbar toolbar-products">
-            <div>
-              <Accordion title={'фiльтр'} cnt={state.pants.length}>
-                <p className="accordion-item" onClick={filterGoods}>
-                  <input type="checkbox">манжет</input>
-                </p>
-                <p className="accordion-item" onClick={filterGoods}>
-                  прямi
-                  <input type="checkbox"></input>
-                </p>
-                <p className="accordion-item" onClick={filterGoods}>
-                  батал
-                  <input type="checkbox"></input>
-                </p>
-                <p className="accordion-item" onClick={filterGoods}>
-                  зняти фiльтр
-                  <input type="checkbox"></input>
-                </p>
-              </Accordion>
-            </div>
+            <h3 className="title-category">категорii</h3>
             {/* <div className="cnt-goods">
               {' '}
              
@@ -185,25 +167,129 @@ export default function Pants({ goodList }) {
               </select>
             </div>
           </div>
-          {state.pants.map((good) => {
-            return (
-              <Card
-                add={add}
-                active={good.active}
-                id={good.id}
-                key={good.id}
-                title={good.title}
-                price={good.price}
-                urlArr={good.urlArr}
-                color={good.color}
-                description={good.description}
-                show={good.show}></Card>
-            );
-          })}
+          <div className="section-filter-products">
+            <div className="section-left">
+              <div className="category">
+                <div className="accordion-block">
+                  <Accordion title={'спортивні костюми'} cls={'link'}>
+                    <li className={router.pathname == '/sport-kostums' ? 'active' : '' + 'link'}>
+                      <Link href="/sport-kostums" shallow>
+                        <a>костюми</a>
+                      </Link>
+                    </li>
+                    <li className={router.pathname == '/sport-kostums' ? 'active' : '' + 'link'}>
+                      <Link href="/sport-kostums" shallow>
+                        <a>теплі костюми</a>
+                      </Link>
+                    </li>
+                  </Accordion>
+                </div>
+                <div className="accordion-block">
+                  <Accordion title={'спортивні штани'} cls={'link'}>
+                    <li className={router.pathname == '/pants' ? 'active' : '' + 'link'}>
+                      <Link href="/pants" shallow>
+                        <a>штани</a>
+                      </Link>
+                    </li>
+                    <li className={router.pathname == '/pants' ? 'active' : '' + 'link'}>
+                      <Link href="/pants" shallow>
+                        <a>теплі штани</a>
+                      </Link>
+                    </li>
+                  </Accordion>
+                </div>
+                <div className="accordion-block">
+                  <Accordion title={'худі'} cls={'link'}>
+                    <li className={router.pathname == '/hoodie' ? 'active' : '' + 'link'}>
+                      <Link href="/hoodie" shallow>
+                        <a>худі</a>
+                      </Link>
+                    </li>
+                    <li className={router.pathname == '/hoodie' ? 'active' : '' + 'link'}>
+                      <Link href="/hoodie" shallow>
+                        <a>теплі худі</a>
+                      </Link>
+                    </li>
+                  </Accordion>
+                </div>
+                <li className={router.pathname == '/sweatshirt' ? 'active' : '' + 'link-single'}>
+                  <Link href="/sweatshirt" shallow>
+                    <a>світшоти</a>
+                  </Link>
+                </li>
+                <li className={router.pathname == '/shorts' ? 'active' : '' + 'link-single'}>
+                  <Link href="/shorts" shallow>
+                    <a>шорти</a>
+                  </Link>
+                </li>
+                <li className={router.pathname == '/t-shirt' ? 'active' : '' + 'link-single'}>
+                  <Link href="/t-shirt" shallow>
+                    <a>футболки</a>
+                  </Link>
+                </li>
+              </div>
+              <div className="filter">
+                <h3 className="sorter-label">фiльтри</h3>
+                <p className="accordion-item" onClick={filterGoods}>
+                  манжет
+                </p>
+                <p className="accordion-item" onClick={filterGoods}>
+                  прямi
+                </p>
+                <p className="accordion-item" onClick={filterGoods}>
+                  батал
+                </p>
+                <p className="accordion-item" onClick={filterGoods}>
+                  зняти фiльтр
+                </p>
+              </div>
+              <div className="accordion-pants">
+                <Accordion title={'фiльтр'} cnt={state.pants.length}>
+                  <p className="accordion-item" onClick={filterGoods}>
+                    манжет
+                  </p>
+                  <p className="accordion-item" onClick={filterGoods}>
+                    прямi
+                  </p>
+                  <p className="accordion-item" onClick={filterGoods}>
+                    батал
+                  </p>
+                  <p className="accordion-item" onClick={filterGoods}>
+                    зняти фiльтр
+                  </p>
+                </Accordion>
+              </div>
+            </div>
+            <div className="section-right">
+              {state.pants.map((good) => {
+                return (
+                  <Card
+                    add={add}
+                    active={good.active}
+                    id={good.id}
+                    key={good.id}
+                    title={good.title}
+                    price={good.price}
+                    urlArr={good.urlArr}
+                    color={good.color}
+                    description={good.description}
+                    show={good.show}></Card>
+                );
+              })}
+            </div>
+          </div>
         </>
       )}
 
       <style jsx>{`
+        .link {
+          margin-top: 10px;
+        }
+        .link-single {
+          letter-spacing: 1.4px;
+          font-weight: 600;
+          padding: 10px 0;
+        }
         .cnt-goods {
           margin: 0 10px;
           font-size: 18px;
@@ -215,9 +301,9 @@ export default function Pants({ goodList }) {
           cursor: pointer;
         }
         .toolbar-products {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
+          // display: flex;
+          // align-items: center;
+          // justify-content: space-between;
         }
         .block_price {
           width: 100%;

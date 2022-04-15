@@ -3,7 +3,7 @@ import arrowNext from '../public/static/img/chevron_right_icon.svg';
 import Image from 'next/image';
 import filter from '../public/static/img/filter_filters_icon.svg';
 export default function Accordion(props) {
-  const { title, cls, cnt } = props;
+  const { title, cls } = props;
   const [isOpen, setIsOpen] = useState(false);
   function toggle() {
     setIsOpen(!isOpen);
@@ -12,11 +12,11 @@ export default function Accordion(props) {
   return (
     <>
       <div className={'accordion'}>
-        <div className={'accordion-title '} onClick={toggle}>
+        <div className={'accordion-title'} onClick={toggle}>
           {title === 'фiльтр' ? (
             <>
               <Image src={filter} width={20} height={20} alt="cart"></Image>
-              <span>{title}</span> <span>{cnt}</span>
+              &nbsp; <span>{title}</span> &nbsp;<span>{props?.cnt}</span>
             </>
           ) : (
             <span>{title}</span>
@@ -36,7 +36,7 @@ export default function Accordion(props) {
           display: flex;
           flex-direction: column;
           margin: 0;
-          padding: 20px 0;
+          padding: 10px 0;
 
           width: 100%;
         }
@@ -48,7 +48,7 @@ export default function Accordion(props) {
         .accordion-title {
           display: flex;
           align-items: center;
-          font-size: 18px;
+          white-space: nowrap;
           letter-spacing: 1.4px;
           font-weight: 600;
         }
