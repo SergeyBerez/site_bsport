@@ -12,11 +12,11 @@ export default function Accordion(props) {
   return (
     <>
       <div className={'accordion'}>
-        <div className={'accordion-title'} onClick={toggle}>
+        <div className={`accordion-title ${cls}`} onClick={toggle}>
           {title === 'фiльтр' ? (
             <>
               <Image src={filter} width={20} height={20} alt="cart"></Image>
-              &nbsp; <span>{title}</span> &nbsp;<span>{props?.cnt}</span>
+              &nbsp; <span>{title}</span>
             </>
           ) : (
             <span>{title}</span>
@@ -50,22 +50,23 @@ export default function Accordion(props) {
           align-items: center;
           white-space: nowrap;
           letter-spacing: 1.4px;
-          font-weight: 600;
         }
-        .accordion.link {
-          padding: 10px;
-        }
-        .accordion-title.link {
-          font-size: 1.2rem;
-          letter-spacing: 1px;
-          text-transform: uppercase;
+        // .accordion.link {
+        //   padding: 10px;
+        // }
+        // .accordion-title.link {
+        //   font-size: 1.2rem;
+        //   letter-spacing: 1px;
+        //   text-transform: uppercase;
 
-          transition: color 0.1s;
-        }
+        //   transition: color 0.1s;
+        // }
         .accordion-title:hover {
           cursor: pointer;
         }
-
+        .accordion-title.page-filter-bold {
+          font-weight: 600;
+        }
         .accordion div.toggle {
           width: 16px;
           height: 16px;

@@ -171,7 +171,7 @@ export default function Pants({ goodList }) {
             <div className="section-left">
               <div className="category">
                 <div className="accordion-block">
-                  <Accordion title={'спортивні костюми'} cls={'link'}>
+                  <Accordion title={'спортивні костюми'} cls={'page-filter-bold'}>
                     <li className={router.pathname == '/sport-kostums' ? 'active' : '' + 'link'}>
                       <Link href="/sport-kostums" shallow>
                         <a>костюми</a>
@@ -185,7 +185,7 @@ export default function Pants({ goodList }) {
                   </Accordion>
                 </div>
                 <div className="accordion-block">
-                  <Accordion title={'спортивні штани'} cls={'link'}>
+                  <Accordion title={'спортивні штани'} cls={'page-filter-bold'}>
                     <li className={router.pathname == '/pants' ? 'active' : '' + 'link'}>
                       <Link href="/pants" shallow>
                         <a>штани</a>
@@ -199,7 +199,7 @@ export default function Pants({ goodList }) {
                   </Accordion>
                 </div>
                 <div className="accordion-block">
-                  <Accordion title={'худі'} cls={'link'}>
+                  <Accordion title={'худі'} cls={'page-filter-bold'}>
                     <li className={router.pathname == '/hoodie' ? 'active' : '' + 'link'}>
                       <Link href="/hoodie" shallow>
                         <a>худі</a>
@@ -244,7 +244,7 @@ export default function Pants({ goodList }) {
                 </p>
               </div>
               <div className="accordion-pants">
-                <Accordion title={'фiльтр'} cnt={state.pants.length}>
+                <Accordion title={'фiльтр'} cls={'page-filter-bold'} cnt={state.pants.length}>
                   <p className="accordion-item" onClick={filterGoods}>
                     манжет
                   </p>

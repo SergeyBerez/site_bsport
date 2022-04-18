@@ -1,61 +1,57 @@
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/router";
+import Link from 'next/link';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-import { useFirebaseContext } from "../context/firebaseContext";
-import { useGoodsContext } from "../context/contextGoods";
-import user from "../public/static/img/user2.svg";
-import cart from "../public/static/img/cart.svg";
-import Logo from "../public/static/img/logo.png";
-import arrowNext from "../public/static/img/arrow-next.svg";
-import Accordion from "./Accordion";
-export default function NavBar({
-  openSideMenu,
-  transformGamburger,
-  toggleMenu,
-}) {
+import { useFirebaseContext } from '../context/firebaseContext';
+import { useGoodsContext } from '../context/contextGoods';
+import user from '../public/static/img/user2.svg';
+import cart from '../public/static/img/cart.svg';
+import Logo from '../public/static/img/logo.png';
+import arrowNext from '../public/static/img/arrow-next.svg';
+import Accordion from './Accordion';
+export default function NavBar({ openSideMenu, transformGamburger, toggleMenu }) {
   const router = useRouter();
   const { CurrentUser } = useFirebaseContext();
   const { state } = useGoodsContext();
-  let arr = router.pathname.split("/");
+  let arr = router.pathname.split('/');
 
   return (
     <>
       <header className="header" tabIndex="0">
         <button onClick={toggleMenu} className="button" tabIndex="0">
-          <span className={"icon-bar " + transformGamburger}></span>
-          <span className={"icon-bar " + transformGamburger}></span>
-          <span className={"icon-bar " + transformGamburger}></span>
+          <span className={'icon-bar ' + transformGamburger}></span>
+          <span className={'icon-bar ' + transformGamburger}></span>
+          <span className={'icon-bar ' + transformGamburger}></span>
           <span className="header-title">меню</span>
         </button>
         <div className="header-logo">
-          {" "}
+          {' '}
           <Link href="/" shallow>
             <a title="Go to Home Page">
               <Image width={70} height={70} src={Logo} alt="logo"></Image>
             </a>
           </Link>
-        </div>{" "}
+        </div>{' '}
         <nav className="nav-header">
           <ul>
-            <li className={router.pathname == "/" ? "active" : "li"}>
+            <li className={router.pathname == '/' ? 'active' : 'li'}>
               <Link href="/" shallow>
                 <a>катaлог</a>
               </Link>
             </li>
 
-            <li className={router.pathname == "/opt" ? "active" : ""}>
+            <li className={router.pathname == '/opt' ? 'active' : ''}>
               <Link href="/opt" shallow>
                 <a>опт</a>
               </Link>
             </li>
 
-            <li className={router.pathname == "/delivery" ? "li active" : "li"}>
+            <li className={router.pathname == '/delivery' ? 'li active' : 'li'}>
               <Link href="/delivery" shallow>
                 <a>доставка</a>
               </Link>
             </li>
-            <li className={router.pathname == "/about" ? "li active" : "li"}>
+            <li className={router.pathname == '/about' ? 'li active' : 'li'}>
               <Link href="/about" shallow>
                 <a>контакти</a>
               </Link>
@@ -71,8 +67,7 @@ export default function NavBar({
                     src={CurrentUser?.photoURL ? CurrentUser?.photoURL : user}
                     width={30}
                     height={30}
-                    alt="logo"
-                  ></Image>
+                    alt="logo"></Image>
                 ) : (
                   <Image width={30} height={30} src={user} alt="logo"></Image>
                 )}
@@ -93,38 +88,25 @@ export default function NavBar({
       </header>
 
       <div className="side-nav-container">
-        <div
-          className="nav-content"
-          tabIndex="0"
-          style={{ transform: openSideMenu }}
-        >
+        <div className="nav-content" tabIndex="0" style={{ transform: openSideMenu }}>
           <ul>
-            <li
-              className={router.pathname == "/" ? "active" : ""}
-              onClick={toggleMenu}
-            >
+            <li className={router.pathname == '/' ? 'active' : ''} onClick={toggleMenu}>
               <Link href="/" shallow>
                 <a>головна</a>
               </Link>
             </li>
             <div className="accordion-block">
-              <Accordion title={"спортивні костюми"} cls={"link"}>
+              <Accordion title={'спортивні костюми'}>
                 <li
-                  className={
-                    router.pathname == "/sport-kostums" ? "active" : ""
-                  }
-                  onClick={toggleMenu}
-                >
+                  className={router.pathname == '/sport-kostums' ? 'active' : ''}
+                  onClick={toggleMenu}>
                   <Link href="/sport-kostums" shallow>
                     <a>костюми</a>
                   </Link>
                 </li>
                 <li
-                  className={
-                    router.pathname == "/sport-kostums" ? "active" : ""
-                  }
-                  onClick={toggleMenu}
-                >
+                  className={router.pathname == '/sport-kostums' ? 'active' : ''}
+                  onClick={toggleMenu}>
                   <Link href="/sport-kostums" shallow>
                     <a>теплі костюми</a>
                   </Link>
@@ -132,19 +114,13 @@ export default function NavBar({
               </Accordion>
             </div>
             <div className="accordion-block">
-              <Accordion title={"спортивні штани"} cls={"link"}>
-                <li
-                  className={router.pathname == "/pants" ? "active" : ""}
-                  onClick={toggleMenu}
-                >
+              <Accordion title={'спортивні штани'}>
+                <li className={router.pathname == '/pants' ? 'active' : ''} onClick={toggleMenu}>
                   <Link href="/pants" shallow>
                     <a>штани</a>
                   </Link>
                 </li>
-                <li
-                  className={router.pathname == "/pants" ? "active" : ""}
-                  onClick={toggleMenu}
-                >
+                <li className={router.pathname == '/pants' ? 'active' : ''} onClick={toggleMenu}>
                   <Link href="/pants" shallow>
                     <a>теплі штани</a>
                   </Link>
@@ -152,63 +128,43 @@ export default function NavBar({
               </Accordion>
             </div>
             <div className="accordion-block">
-              <Accordion title={"худі"} cls={"link"}>
-                <li
-                  className={router.pathname == "/hoodie" ? "active" : ""}
-                  onClick={toggleMenu}
-                >
+              <Accordion title={'худі'}>
+                <li className={router.pathname == '/hoodie' ? 'active' : ''} onClick={toggleMenu}>
                   <Link href="/hoodie" shallow>
                     <a>худі</a>
                   </Link>
                 </li>
-                <li
-                  className={router.pathname == "/hoodie" ? "active" : ""}
-                  onClick={toggleMenu}
-                >
+                <li className={router.pathname == '/hoodie' ? 'active' : ''} onClick={toggleMenu}>
                   <Link href="/hoodie" shallow>
                     <a>теплі худі</a>
                   </Link>
                 </li>
               </Accordion>
             </div>
-            <li
-              className={router.pathname == "/sweatshirt" ? "active" : ""}
-              onClick={toggleMenu}
-            >
+            <li className={router.pathname == '/sweatshirt' ? 'active' : ''} onClick={toggleMenu}>
               <Link href="/sweatshirt" shallow>
                 <a>світшоти</a>
               </Link>
             </li>
-            <li
-              className={router.pathname == "/shorts" ? "active" : ""}
-              onClick={toggleMenu}
-            >
+            <li className={router.pathname == '/shorts' ? 'active' : ''} onClick={toggleMenu}>
               <Link href="/shorts" shallow>
                 <a>шорти</a>
               </Link>
             </li>
-            <li
-              className={router.pathname == "/t-shirt" ? "active" : ""}
-              onClick={toggleMenu}
-            >
+            <li className={router.pathname == '/t-shirt' ? 'active' : ''} onClick={toggleMenu}>
               <Link href="/t-shirt" shallow>
                 <a>футболки</a>
               </Link>
             </li>
 
-            <li
-              className={router.pathname == "/delivery" ? "active" : ""}
-              onClick={toggleMenu}
-            >
+            <li className={router.pathname == '/delivery' ? 'active' : ''} onClick={toggleMenu}>
               <Link href="/delivery" shallow>
                 <a>доставка</a>
               </Link>
             </li>
             <li onClick={toggleMenu}>
               <Link href="/about" shallow>
-                <a className={router.pathname == "/about" ? "active" : ""}>
-                  контакти
-                </a>
+                <a className={router.pathname == '/about' ? 'active' : ''}>контакти</a>
               </Link>
             </li>
 
@@ -221,72 +177,61 @@ export default function NavBar({
       </div>
 
       <div className="breadcrumbs">
-        {router.pathname == "/" ? null : (
+        {router.pathname == '/' ? null : (
           <ul className="items">
-            <li
-              className={
-                router.pathname == "/"
-                  ? "item category active"
-                  : "item category"
-              }
-            >
+            <li className={router.pathname == '/' ? 'item category active' : 'item category'}>
               <Link href="/" shallow>
-                <a title="Go to Home Page">
-                  {router.pathname !== "/" ? "катaлог" : null}
-                </a>
+                <a title="Go to Home Page">{router.pathname !== '/' ? 'катaлог' : null}</a>
               </Link>
             </li>
-            {router.pathname !== "/" ? (
+            {router.pathname !== '/' ? (
               <Image width={10} height={10} src={arrowNext} alt="arrow"></Image>
             ) : null}
             <li
               className={
-                router.pathname == "/shorts"
-                  ? "item shorts active"
-                  : router.pathname == "/pants"
-                  ? "item pants active"
-                  : router.pathname == "/sport-kostums"
-                  ? "item sport-kostums active"
-                  : router.pathname == "/delivery"
-                  ? "item delivery active"
-                  : router.pathname == "/about"
-                  ? "item about active"
-                  : router.pathname == "/regist"
-                  ? "item about active"
-                  : router.pathname == "/cart"
-                  ? "item about active"
-                  : router.pathname == "/hoodie"
-                  ? "item about active"
-                  : ""
-              }
-            >
+                router.pathname == '/shorts'
+                  ? 'item shorts active'
+                  : router.pathname == '/pants'
+                  ? 'item pants active'
+                  : router.pathname == '/sport-kostums'
+                  ? 'item sport-kostums active'
+                  : router.pathname == '/delivery'
+                  ? 'item delivery active'
+                  : router.pathname == '/about'
+                  ? 'item about active'
+                  : router.pathname == '/regist'
+                  ? 'item about active'
+                  : router.pathname == '/cart'
+                  ? 'item about active'
+                  : router.pathname == '/hoodie'
+                  ? 'item about active'
+                  : ''
+              }>
               <Link href={`/${arr[1]}`} shallow>
                 <a title={`/${arr[1]}`}>
-                  {" "}
-                  {router.pathname == "/shorts" ? "шорти" : null}
-                  {router.pathname == "/pants" ? "штани" : null}
-                  {router.pathname == "/hoodie" ? "худі" : null}
-                  {router.pathname == "/sport-kostums" ? "костюми" : null}
-                  {router.pathname == "/delivery" ? "доставка" : null}
-                  {router.pathname == "/about" ? "контакти" : null}
-                  {router.pathname == "/regist" ? "авторизацiя" : null}
-                  {router.pathname == "/cart" ? "корзина" : null}
-                  {router.query.id && arr[1] == "shorts" ? "шорти" : null}
-                  {router.query.id && arr[1] == "hoodie" ? "худi" : null}
-                  {router.query.id && arr[1] == "pants" ? "штани" : null}
-                  {router.query.id && arr[1] == "sport-kostums"
-                    ? "костюми"
-                    : null}
+                  {' '}
+                  {router.pathname == '/shorts' ? 'шорти' : null}
+                  {router.pathname == '/pants' ? 'штани' : null}
+                  {router.pathname == '/hoodie' ? 'худі' : null}
+                  {router.pathname == '/sport-kostums' ? 'костюми' : null}
+                  {router.pathname == '/delivery' ? 'доставка' : null}
+                  {router.pathname == '/about' ? 'контакти' : null}
+                  {router.pathname == '/regist' ? 'авторизацiя' : null}
+                  {router.pathname == '/cart' ? 'корзина' : null}
+                  {router.query.id && arr[1] == 'shorts' ? 'шорти' : null}
+                  {router.query.id && arr[1] == 'hoodie' ? 'худi' : null}
+                  {router.query.id && arr[1] == 'pants' ? 'штани' : null}
+                  {router.query.id && arr[1] == 'sport-kostums' ? 'костюми' : null}
                   {/* {router.query.id ==arr[1]? : null} */}
                 </a>
               </Link>
-            </li>{" "}
+            </li>{' '}
             {router.query.id ? (
               <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
-            ) : null}{" "}
-            <li className={router.query.id ? "active" : null}>
-              {router.query.id ? `детально` : null}{" "}
-            </li>{" "}
+            ) : null}{' '}
+            <li className={router.query.id ? 'active' : null}>
+              {router.query.id ? `детально` : null}{' '}
+            </li>{' '}
           </ul>
         )}
       </div>
@@ -397,67 +342,6 @@ export default function NavBar({
         .side-nav-container * {
           // visibility: visible;
         }
-
-        .button {
-          // position: fixed;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          z-index: 1;
-          -webkit-appearance: none;
-          border: 0;
-          background: transparent;
-          border-radius: 0;
-          height: 70px;
-          width: 30px;
-          cursor: pointer;
-          pointer-events: auto;
-          margin-left: 15px;
-          touch-action: manipulation;
-          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        }
-        @media (min-width: 900px) {
-          .button {
-            display: none;
-          }
-          .nav-header {
-            display: flex;
-          }
-        }
-        .header-title {
-          margin-top: 12px;
-
-          color: #323232;
-
-          text-transform: uppercase;
-
-          text-align: center;
-          font-size: 1.2rem;
-          letter-spacing: 1px;
-          font-weight: bold;
-        }
-        .icon-bar {
-          display: block;
-          width: 100%;
-          height: 3px;
-          background: #aaa;
-          transition: 0.3s;
-        }
-        .icon-bar + .icon-bar {
-          margin-top: 5px;
-        }
-
-        .icon-bar.transform-button:nth-of-type(1) {
-          transform: translate3d(0, 8px, 0) rotate(45deg);
-        }
-        .icon-bar.transform-button:nth-of-type(2) {
-          opacity: 0;
-        }
-        .icon-bar.transform-button:nth-of-type(3) {
-          transform: translate3d(0, -8px, 0) rotate(-45deg);
-        }
-
         .nav-content {
           margin-top: 70px;
           padding: 20px 0;
@@ -483,7 +367,7 @@ export default function NavBar({
           display: flex;
           flex-direction: column;
         }
-        .nav-content ul li {
+        .nav-content ul li:first-child {
           border-bottom: 1px solid #b4abab;
         }
         .nav-content li a {
@@ -550,6 +434,65 @@ export default function NavBar({
         .active a {
           font-weight: bold;
           // border-bottom: 4px solid #323232;
+        }
+        .button {
+          // position: fixed;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          z-index: 1;
+          -webkit-appearance: none;
+          border: 0;
+          background: transparent;
+          border-radius: 0;
+          height: 70px;
+          width: 30px;
+          cursor: pointer;
+          pointer-events: auto;
+          margin-left: 15px;
+          touch-action: manipulation;
+          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        @media (min-width: 900px) {
+          .button {
+            display: none;
+          }
+          .nav-header {
+            display: flex;
+          }
+        }
+        .header-title {
+          margin-top: 12px;
+
+          color: #323232;
+
+          text-transform: uppercase;
+
+          text-align: center;
+          font-size: 1.2rem;
+          letter-spacing: 1px;
+          font-weight: bold;
+        }
+        .icon-bar {
+          display: block;
+          width: 100%;
+          height: 3px;
+          background: #aaa;
+          transition: 0.3s;
+        }
+        .icon-bar + .icon-bar {
+          margin-top: 5px;
+        }
+
+        .icon-bar.transform-button:nth-of-type(1) {
+          transform: translate3d(0, 8px, 0) rotate(45deg);
+        }
+        .icon-bar.transform-button:nth-of-type(2) {
+          opacity: 0;
+        }
+        .icon-bar.transform-button:nth-of-type(3) {
+          transform: translate3d(0, -8px, 0) rotate(-45deg);
         }
 
         // .ad_bg {

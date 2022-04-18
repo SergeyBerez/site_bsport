@@ -440,6 +440,9 @@ input[type='radio'] + label {
   text-transform: uppercase;
   /* font-size: 1.6rem; */
   letter-spacing: 1.4px;
+  border-bottom: solid 1px #e6e6e6;
+  width: 200px;
+  padding-bottom: 5px;
 }
 
 .accordion-pants {
@@ -451,9 +454,9 @@ input[type='radio'] + label {
 .section-filter-products {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .section-left {
-  border-top: solid 1px #e6e6e6;
   margin-right: 20px;
 }
 .section-right {
@@ -521,7 +524,9 @@ input[type='radio'] + label {
   letter-spacing: 1.4px;
 }
 .sorter-options {
-  border-color: #ccc;
+  /* border-color: #ccc; */
+  border: none;
+  outline: none;
   font-size: 1rem;
   letter-spacing: 1.4px;
   font-weight: 700;
