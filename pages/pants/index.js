@@ -169,7 +169,7 @@ export default function Pants({ goodList }) {
           </div>
           <div className="section-filter-products">
             <div className="section-left">
-              <div className="category">
+              <div className="category-catalog">
                 <div className="accordion-block">
                   <Accordion title={'спортивні костюми'} cls={'page-filter-bold'}>
                     <li className={router.pathname == '/sport-kostums' ? 'active' : '' + 'link'}>

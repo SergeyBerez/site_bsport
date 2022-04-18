@@ -431,7 +431,7 @@ input[type='radio'] + label {
     transform: rotateY(3600deg);
   }
 } */
-.category,
+.category-catalog,
 .title-category {
   display: none;
 }
@@ -565,7 +565,7 @@ select {
 }
 
 @media (min-width: 680px) {
-  .category,
+  .category-catalog,
   .title-category {
     display: block;
   }
