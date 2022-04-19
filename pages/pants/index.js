@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import useSWR from 'swr';
+import Toolbar from '../../components/Toolbar';
 export default function Pants({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
@@ -142,13 +143,10 @@ export default function Pants({ goodList }) {
           <h1 className="title-product-block">штаны</h1>
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
-            {/* <div className="cnt-goods">
-              {' '}
-             
-            </div> */}
+
             <div className="toolbar-sorter sorter">
               <label className="sorter-label" forhtml="sorter">
-                сортувати
+                сортувати :
               </label>{' '}
               <select
                 id="sorter"
@@ -243,7 +241,7 @@ export default function Pants({ goodList }) {
                   зняти фiльтр
                 </p>
               </div>
-              <div className="accordion-pants">
+              <div className="accordion-filter-mobile">
                 <Accordion title={'фiльтр'} cls={'page-filter-bold'} cnt={state.pants.length}>
                   <p className="accordion-item" onClick={filterGoods}>
                     манжет
@@ -259,6 +257,8 @@ export default function Pants({ goodList }) {
                   </p>
                 </Accordion>
               </div>
+
+              <div className="cnt-goods">{state.pants.length}&nbsp;Результатiв</div>
             </div>
             <div className="section-right">
               {state.pants.map((good) => {
@@ -292,10 +292,8 @@ export default function Pants({ goodList }) {
         }
         .cnt-goods {
           margin: 0 10px;
-          font-size: 18px;
-          letter-spacing: 1.4px;
-          font-weight: 600;
-          text-transform: uppercase;
+          font-size: 1.2rem;
+          color: #6f6f6f;
         }
         .accordion-item {
           cursor: pointer;
