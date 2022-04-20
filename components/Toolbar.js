@@ -5,7 +5,7 @@ export default function Toolbar(props) {
   const { dispatch } = useGoodsContext();
   const handelSortGoods = (e) => {
     const value = e.target.value;
-    console.log(props);
+
     if (value === 'priceLow') {
       const copyGood = props.state.slice();
       let sortGood = copyGood.sort((a, b) => {
