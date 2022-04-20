@@ -9,12 +9,16 @@ import { useGoodsContext } from '../../context/contextGoods';
 import Accordion from '../../components/Accordion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import Toolbar from '../../components/Toolbar';
 export default function Pants({ goodList }) {
   const goodClient = JSON.parse(goodList);
+
   const { state, dispatch } = useGoodsContext();
+  const label = [{ value: 'манжет' }, { value: 'прямi' }, { value: 'батал' }];
+  const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
+
   const router = useRouter();
   useEffect((params) => {
     if (state.pants.length === 0) {
@@ -57,59 +61,47 @@ export default function Pants({ goodList }) {
     const copyGood = state.pants.slice();
     const text = e.target.textContent.toLowerCase();
 
+    if (text === 'зняти фiльтр') {
+      setCheckedState(new Array(3).fill(false));
+      dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
+    }
+  };
+  const handleOnChange = (e, position) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item,
+    );
+    setCheckedState(updatedCheckedState);
+    const copyGood = state.pants.slice();
+    const inputValue = e.target.value.toLowerCase();
+
     const filterGoods = copyGood.filter((item) => {
-      if (item.title.toLowerCase().indexOf(text) !== -1) {
+      if (item.title.toLowerCase().indexOf(inputValue) !== -1) {
         return item;
       }
     });
 
     if (filterGoods.length === 0) {
       filterGoods = goodClient.filter((item) => {
-        if (item.title.toLowerCase().indexOf(text) !== -1) {
+        if (item.title.toLowerCase().indexOf(inputValue) !== -1) {
           return item;
         }
       });
+      filterGoods.push(...copyGood);
     }
-    if (text === 'зняти фiльтр') {
-      dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
-    } else {
+    if (inputValue === 'манжет') {
+    }
+    if (e.target.checked) {
       dispatch({ type: 'ADD PANTS', payload: [...filterGoods] });
+    } else {
+      setCheckedState(new Array(3).fill(false));
+
+      dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
     }
+
+    // if (inputValue === 'зняти фiльтр') {
+    //   dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
+    // }
   };
-
-  // const handelSortGoods = (e) => {
-  //   const value = e.target.value;
-
-  //   if (value === 'priceLow') {
-  //     const copyGood = state.pants.slice();
-  //     let sortGood = copyGood.sort((a, b) => {
-  //       return a.price - b.price;
-  //     });
-  //     dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
-  //   }
-  //   if (value === 'priceHigh') {
-  //     const copyGood = state.pants.slice();
-  //     let sortGood = copyGood.sort((a, b) => {
-  //       return b.price - a.price;
-  //     });
-  //     dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
-  //   }
-  //   if (value === 'dataNew') {
-  //     const copyGood = state.pants.slice();
-  //     let sortGood = copyGood.sort((a, b) => {
-  //       return b.time.seconds - a.time.seconds;
-  //     });
-  //     dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
-  //   }
-  //   if (value === 'dataOld') {
-  //     const copyGood = state.pants.slice();
-  //     let sortGood = copyGood.sort((a, b) => {
-  //       return a.time.seconds - b.time.seconds;
-  //     });
-  //     dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
-  //   }
-  // };
-
   return (
     <MainLayout>
       <Head>
@@ -144,38 +136,18 @@ export default function Pants({ goodList }) {
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
             <Toolbar state={state.pants} type={'ADD PANTS'}></Toolbar>
-            {/* <div className="toolbar-sorter sorter">
-              <label className="sorter-label" forhtml="sorter">
-                сортувати :
-              </label>{' '}
-              <select
-                id="sorter"
-                data-role="sorter"
-                onChange={handelSortGoods}
-                className="sorter-options">
-                <option value="position" defaultValue="">
-                  не сортовано
-                </option>
-                <option value="nameHight">имя а-я</option>
-                <option value="nameLow">имя я-а</option>
-                <option value="priceHigh">цiна:више-нижче </option>
-                <option value="priceLow">цiна:нижче-вище </option>
-                <option value="dataNew">спочатку новi</option>
-                <option value="dataOld">спочатку стaрi</option>
-              </select>
-            </div> */}
           </div>
           <div className="section-filter-products">
             <div className="section-left">
               <div className="category-catalog">
                 <div className="accordion-block">
                   <Accordion title={'спортивні костюми'} cls={'page-filter-bold'}>
-                    <li className={router.pathname == '/sport-kostums' ? 'active' : '' + 'link'}>
+                    <li className={router.pathname == '/sport-kostums link' ? 'active' : 'link'}>
                       <Link href="/sport-kostums" shallow>
                         <a>костюми</a>
                       </Link>
                     </li>
-                    <li className={router.pathname == '/sport-kostums' ? 'active' : '' + 'link'}>
+                    <li className={router.pathname == '/sport-kostums link' ? 'active' : 'link'}>
                       <Link href="/sport-kostums" shallow>
                         <a>теплі костюми</a>
                       </Link>
@@ -184,12 +156,12 @@ export default function Pants({ goodList }) {
                 </div>
                 <div className="accordion-block">
                   <Accordion title={'спортивні штани'} cls={'page-filter-bold'}>
-                    <li className={router.pathname == '/pants' ? 'active' : '' + 'link'}>
+                    <li className={router.pathname == '/pants' ? 'active link' : 'link'}>
                       <Link href="/pants" shallow>
                         <a>штани</a>
                       </Link>
                     </li>
-                    <li className={router.pathname == '/pants' ? 'active' : '' + 'link'}>
+                    <li className={router.pathname == '/pants' ? 'active link' : 'link'}>
                       <Link href="/pants" shallow>
                         <a>теплі штани</a>
                       </Link>
@@ -198,29 +170,29 @@ export default function Pants({ goodList }) {
                 </div>
                 <div className="accordion-block">
                   <Accordion title={'худі'} cls={'page-filter-bold'}>
-                    <li className={router.pathname == '/hoodie' ? 'active' : '' + 'link'}>
+                    <li className={router.pathname == '/hoodie' ? 'active link' : 'link'}>
                       <Link href="/hoodie" shallow>
                         <a>худі</a>
                       </Link>
                     </li>
-                    <li className={router.pathname == '/hoodie' ? 'active' : '' + 'link'}>
+                    <li className={router.pathname == '/hoodie' ? 'active link' : 'link'}>
                       <Link href="/hoodie" shallow>
                         <a>теплі худі</a>
                       </Link>
                     </li>
                   </Accordion>
                 </div>
-                <li className={router.pathname == '/sweatshirt' ? 'active' : '' + 'link-single'}>
+                <li className={router.pathname == '/sweatshirt' ? 'active link' : 'link'}>
                   <Link href="/sweatshirt" shallow>
                     <a>світшоти</a>
                   </Link>
                 </li>
-                <li className={router.pathname == '/shorts' ? 'active' : '' + 'link-single'}>
+                <li className={router.pathname == '/shorts' ? 'active link' : 'link'}>
                   <Link href="/shorts" shallow>
                     <a>шорти</a>
                   </Link>
                 </li>
-                <li className={router.pathname == '/t-shirt' ? 'active' : '' + 'link-single'}>
+                <li className={router.pathname == '/t-shirt' ? 'active link' : 'link'}>
                   <Link href="/t-shirt" shallow>
                     <a>футболки</a>
                   </Link>
@@ -228,30 +200,46 @@ export default function Pants({ goodList }) {
               </div>
               <div className="filter">
                 <h3 className="sorter-label">фiльтри</h3>
-                <p className="accordion-item" onClick={filterGoods}>
-                  манжет
-                </p>
-                <p className="accordion-item" onClick={filterGoods}>
-                  прямi
-                </p>
-                <p className="accordion-item" onClick={filterGoods}>
-                  батал
-                </p>
+                {label.map((item, i) => {
+                  return (
+                    <div key={i}>
+                      <label>
+                        &nbsp;
+                        <input
+                          type="checkbox"
+                          onChange={(e) => handleOnChange(e, i)}
+                          checked={checkedState[i]}
+                          value={item.value}
+                        />{' '}
+                        {item.value}
+                      </label>
+                    </div>
+                  );
+                })}
+
                 <p className="accordion-item" onClick={filterGoods}>
                   зняти фiльтр
                 </p>
               </div>
               <div className="accordion-filter-mobile">
                 <Accordion title={'фiльтр'} cls={'page-filter-bold'} cnt={state.pants.length}>
-                  <p className="accordion-item" onClick={filterGoods}>
-                    манжет
-                  </p>
-                  <p className="accordion-item" onClick={filterGoods}>
-                    прямi
-                  </p>
-                  <p className="accordion-item" onClick={filterGoods}>
-                    батал
-                  </p>
+                  {label.map((item, i) => {
+                    return (
+                      <div key={i}>
+                        <label>
+                          &nbsp;
+                          <input
+                            type="checkbox"
+                            onChange={(e) => handleOnChange(e, i)}
+                            checked={checkedState[i]}
+                            value={item.value}
+                          />{' '}
+                          {item.value}
+                        </label>
+                      </div>
+                    );
+                  })}
+
                   <p className="accordion-item" onClick={filterGoods}>
                     зняти фiльтр
                   </p>
@@ -282,12 +270,16 @@ export default function Pants({ goodList }) {
       )}
 
       <style jsx>{`
+        .sorter-label {
+          display: flex;
+          flex-direction: column;
+        }
         .link {
           margin-top: 10px;
         }
         .link-single {
           letter-spacing: 1.4px;
-          font-weight: 600;
+
           padding: 10px 0;
         }
         .cnt-goods {

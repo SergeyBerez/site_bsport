@@ -8,7 +8,7 @@ export default function Accordion(props) {
   function toggle() {
     setIsOpen(!isOpen);
   }
-  console.log(cls);
+
   return (
     <>
       <div className={'accordion'}>
