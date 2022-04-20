@@ -77,38 +77,38 @@ export default function Pants({ goodList }) {
     }
   };
 
-  const handelSortGoods = (e) => {
-    const value = e.target.value;
+  // const handelSortGoods = (e) => {
+  //   const value = e.target.value;
 
-    if (value === 'priceLow') {
-      const copyGood = state.pants.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return a.price - b.price;
-      });
-      dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
-    }
-    if (value === 'priceHigh') {
-      const copyGood = state.pants.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return b.price - a.price;
-      });
-      dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
-    }
-    if (value === 'dataNew') {
-      const copyGood = state.pants.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return b.time.seconds - a.time.seconds;
-      });
-      dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
-    }
-    if (value === 'dataOld') {
-      const copyGood = state.pants.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return a.time.seconds - b.time.seconds;
-      });
-      dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
-    }
-  };
+  //   if (value === 'priceLow') {
+  //     const copyGood = state.pants.slice();
+  //     let sortGood = copyGood.sort((a, b) => {
+  //       return a.price - b.price;
+  //     });
+  //     dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
+  //   }
+  //   if (value === 'priceHigh') {
+  //     const copyGood = state.pants.slice();
+  //     let sortGood = copyGood.sort((a, b) => {
+  //       return b.price - a.price;
+  //     });
+  //     dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
+  //   }
+  //   if (value === 'dataNew') {
+  //     const copyGood = state.pants.slice();
+  //     let sortGood = copyGood.sort((a, b) => {
+  //       return b.time.seconds - a.time.seconds;
+  //     });
+  //     dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
+  //   }
+  //   if (value === 'dataOld') {
+  //     const copyGood = state.pants.slice();
+  //     let sortGood = copyGood.sort((a, b) => {
+  //       return a.time.seconds - b.time.seconds;
+  //     });
+  //     dispatch({ type: 'ADD PANTS', payload: [...sortGood] });
+  //   }
+  // };
 
   return (
     <MainLayout>
@@ -143,8 +143,8 @@ export default function Pants({ goodList }) {
           <h1 className="title-product-block">штаны</h1>
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
-
-            <div className="toolbar-sorter sorter">
+            <Toolbar state={state.pants} type={'ADD PANTS'}></Toolbar>
+            {/* <div className="toolbar-sorter sorter">
               <label className="sorter-label" forhtml="sorter">
                 сортувати :
               </label>{' '}
@@ -163,7 +163,7 @@ export default function Pants({ goodList }) {
                 <option value="dataNew">спочатку новi</option>
                 <option value="dataOld">спочатку стaрi</option>
               </select>
-            </div>
+            </div> */}
           </div>
           <div className="section-filter-products">
             <div className="section-left">

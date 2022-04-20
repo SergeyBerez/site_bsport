@@ -64,9 +64,9 @@ export default function Accordion(props) {
         .accordion-title:hover {
           cursor: pointer;
         }
-        .accordion-title.page-filter-bold {
-          font-weight: 600;
-        }
+        // .accordion-title.page-filter-bold {
+        //   font-weight: 600;
+        // }
         .accordion div.toggle {
           width: 16px;
           height: 16px;
