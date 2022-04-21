@@ -33,12 +33,7 @@ export default function Accordion(props) {
 
       <style jsx>{`
         .accordion {
-          display: flex;
-          flex-direction: column;
-          margin: 0;
           padding: 10px 0;
-
-          width: 100%;
         }
 
         .accordion:nth-of-type(1) {
@@ -50,6 +45,7 @@ export default function Accordion(props) {
           align-items: center;
           white-space: nowrap;
           letter-spacing: 1.4px;
+          // margin: 5px 0;
         }
         // .accordion.link {
         //   padding: 10px;
@@ -64,9 +60,9 @@ export default function Accordion(props) {
         .accordion-title:hover {
           cursor: pointer;
         }
-        // .accordion-title.page-filter-bold {
-        //   font-weight: 600;
-        // }
+        .accordion-title.page-filter-bold {
+          font-weight: 600;
+        }
         .accordion div.toggle {
           width: 16px;
           height: 16px;

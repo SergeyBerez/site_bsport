@@ -11,6 +11,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import square from '../../public/static/img/351984_crop_square_icon.svg';
+import menu from '../../public/static/img/4243313_ux_basic_app_menu_icon.svg';
 import Toolbar from '../../components/Toolbar';
 export default function Pants({ goodList }) {
   const goodClient = JSON.parse(goodList);
@@ -135,9 +137,41 @@ export default function Pants({ goodList }) {
           <h1 className="title-product-block">штаны</h1>
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
+            <div className="toogle-icon">
+              {' '}
+              <Image src={square} width={30} height={30} alt="product"></Image>
+              <Image src={menu} width={20} height={20} alt="product"></Image>
+            </div>{' '}
             <Toolbar state={state.pants} type={'ADD PANTS'}></Toolbar>
           </div>
           <div className="section-filter-products">
+            <div className="section-mobile accordion-filter-mobile">
+              <Accordion title={'фiльтр'} cnt={state.pants.length}>
+                {label.map((item, i) => {
+                  return (
+                    <div className="label" key={i}>
+                      <label>
+                        &nbsp;
+                        <input
+                          type="checkbox"
+                          onChange={(e) => handleOnChange(e, i)}
+                          checked={checkedState[i]}
+                          value={item.value}
+                        />{' '}
+                        {item.value}
+                      </label>
+                    </div>
+                  );
+                })}
+
+                <p className="accordion-item" onClick={filterGoods}>
+                  зняти фiльтр
+                </p>
+              </Accordion>
+
+              <div className="cnt-goods">{state.pants.length}&nbsp;Результатiв</div>
+            </div>
+
             <div className="section-left">
               <div className="category-catalog">
                 <div className="accordion-block">
@@ -182,17 +216,17 @@ export default function Pants({ goodList }) {
                     </li>
                   </Accordion>
                 </div>
-                <li className={router.pathname == '/sweatshirt' ? 'active link' : 'link'}>
+                <li className={router.pathname == '/sweatshirt' ? 'active link' : 'link-single'}>
                   <Link href="/sweatshirt" shallow>
                     <a>світшоти</a>
                   </Link>
                 </li>
-                <li className={router.pathname == '/shorts' ? 'active link' : 'link'}>
+                <li className={router.pathname == '/shorts' ? 'active link' : 'link-single'}>
                   <Link href="/shorts" shallow>
                     <a>шорти</a>
                   </Link>
                 </li>
-                <li className={router.pathname == '/t-shirt' ? 'active link' : 'link'}>
+                <li className={router.pathname == '/t-shirt' ? 'active link' : 'link-single'}>
                   <Link href="/t-shirt" shallow>
                     <a>футболки</a>
                   </Link>
@@ -202,7 +236,7 @@ export default function Pants({ goodList }) {
                 <h3 className="sorter-label">фiльтри</h3>
                 {label.map((item, i) => {
                   return (
-                    <div key={i}>
+                    <div div className="label" key={i}>
                       <label>
                         &nbsp;
                         <input
@@ -220,33 +254,8 @@ export default function Pants({ goodList }) {
                 <p className="accordion-item" onClick={filterGoods}>
                   зняти фiльтр
                 </p>
+                <div className="cnt-goods">{state.pants.length}&nbsp;Результатiв</div>
               </div>
-              <div className="accordion-filter-mobile">
-                <Accordion title={'фiльтр'} cls={'page-filter-bold'} cnt={state.pants.length}>
-                  {label.map((item, i) => {
-                    return (
-                      <div key={i}>
-                        <label>
-                          &nbsp;
-                          <input
-                            type="checkbox"
-                            onChange={(e) => handleOnChange(e, i)}
-                            checked={checkedState[i]}
-                            value={item.value}
-                          />{' '}
-                          {item.value}
-                        </label>
-                      </div>
-                    );
-                  })}
-
-                  <p className="accordion-item" onClick={filterGoods}>
-                    зняти фiльтр
-                  </p>
-                </Accordion>
-              </div>
-
-              <div className="cnt-goods">{state.pants.length}&nbsp;Результатiв</div>
             </div>
             <div className="section-right">
               {state.pants.map((good) => {
@@ -270,17 +279,25 @@ export default function Pants({ goodList }) {
       )}
 
       <style jsx>{`
+        .toogle-icon {
+          display: flex;
+          flex-grow: 1;
+        }
+        .label {
+          margin-top: 10px;
+        }
         .sorter-label {
           display: flex;
           flex-direction: column;
         }
         .link {
-          margin-top: 10px;
+          margin: 10px 0px 0 10px;
         }
         .link-single {
+          margin: 10px 0;
+          font-weight: 600;
+          // padding: 10px 0;
           letter-spacing: 1.4px;
-
-          padding: 10px 0;
         }
         .cnt-goods {
           margin: 0 10px;
@@ -324,6 +341,9 @@ export default function Pants({ goodList }) {
           }
         }
         @media (min-width: 480px) {
+          .toogle-icon {
+            display: none;
+          }
           .productCard_block {
             margin: 5px;
             flex-grow: 0;

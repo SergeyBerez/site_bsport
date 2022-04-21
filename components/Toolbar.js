@@ -39,7 +39,7 @@ export default function Toolbar(props) {
   return (
     <div className="toolbar-sorter sorter">
       <label className="sorter-label" forhtml="sorter">
-        сортувати
+        сортувати :
       </label>{' '}
       <select id="sorter" data-role="sorter" onChange={handelSortGoods} className="sorter-options">
         <option value="position" defaultValue="">
@@ -59,7 +59,7 @@ export default function Toolbar(props) {
           align-items: center;
         }
         .sorter-label {
-          font-size: 1.4rem;
+          font-size: 1rem;
           color: #6f6f6f;
           letter-spacing: 1px;
           text-transform: uppercase;
