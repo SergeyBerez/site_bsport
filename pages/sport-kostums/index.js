@@ -1,4 +1,5 @@
 import MainLayout from '../../components/MainLayout';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Card from '../../components/Card';
 import { Spinner } from '../../components/Spinner';
@@ -10,18 +11,31 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Accordion from '../../components/Accordion';
+import Toolbar from '../../components/Toolbar';
+import Category from '../../components/Category';
+import square from '../../public/static/img/351984_crop_square_icon.svg';
+import menu from '../../public/static/img/4243313_ux_basic_app_menu_icon.svg';
+import Doubleicon from '../../components/DoubleIcon';
 function Kostums({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
-  const router = useRouter();
+  const label = [{ value: 'манжет' }, { value: 'прямi' }, { value: 'батал' }];
+  const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
+
   const getGoods = async () => {
     dispatch({ type: 'ADD KOSTUMS', payload: [...goodClient] });
   };
-  const { data, isValidating } = useSWR('shorts', getGoods, {
+  const { data, isValidating } = useSWR('sport-kostums', getGoods, {
     fallbackData: goodClient,
   });
 
   const add = ({ id, title, description, price, urlArr, color }) => {
+    const copyGood = state.kostum.slice();
+    copyGood.map((item) => {
+      if (item.id === id) {
+        item.active = 'active';
+      }
+    });
     dispatch({
       type: 'ADD TO CARD',
       payload: {
@@ -30,75 +44,58 @@ function Kostums({ goodList }) {
         price,
         urlArr,
         color,
-        sum: price,
-        cnt: 1,
+        sum: price * 5,
+        cnt: 5,
         active: 'active',
       },
     });
 
-    const copyGood = state.kostum.slice();
-    copyGood.map((item) => {
-      if (item.id === id) {
-        item.active = 'active';
-      }
-    });
     dispatch({ type: 'ADD KOSTUMS', payload: [...copyGood] });
   };
-
-  const filterGoods = (e) => {
-    const copyGood = state.pants.slice();
+  const [show, setShow] = useState(false);
+  const showTwoGood = () => {
+    setShow(false);
+  };
+  const showOneGood = () => {
+    setShow(true);
+  };
+  const ClearFilter = (e) => {
     const text = e.target.textContent.toLowerCase();
 
+    if (text === 'зняти фiльтр') {
+      setCheckedState(new Array(3).fill(false));
+      dispatch({ type: 'ADD KOSTUMS', payload: [...goodClient] });
+    }
+  };
+  const handleOnChange = (e, position) => {
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === position ? !item : item,
+    );
+    setCheckedState(updatedCheckedState);
+    const copyGood = state.kostum.slice();
+    const inputValue = e.target.value.toLowerCase();
+
     const filterGoods = copyGood.filter((item) => {
-      if (item.title.toLowerCase().indexOf(text) !== -1) {
+      if (item.title.toLowerCase().indexOf(inputValue) !== -1) {
         return item;
       }
     });
 
     if (filterGoods.length === 0) {
       filterGoods = goodClient.filter((item) => {
-        if (item.title.toLowerCase().indexOf(text) !== -1) {
+        if (item.title.toLowerCase().indexOf(inputValue) !== -1) {
           return item;
         }
       });
+      filterGoods.push(...copyGood);
     }
-    if (text === 'зняти фiльтр') {
-      dispatch({ type: 'ADD KOSTUMS', payload: [...goodClient] });
-    } else {
+
+    if (e.target.checked) {
       dispatch({ type: 'ADD KOSTUMS', payload: [...filterGoods] });
-    }
-  };
+    } else {
+      setCheckedState(new Array(3).fill(false));
 
-  const handlerFilterGoods = (e) => {
-    const value = e.target.value;
-
-    if (value === 'priceLow') {
-      const copyGood = state.kostum.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return a.price - b.price;
-      });
-      dispatch({ type: 'ADD KOSTUMS', payload: [...sortGood] });
-    }
-    if (value === 'priceHigh') {
-      const copyGood = state.kostum.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return b.price - a.price;
-      });
-      dispatch({ type: 'ADD KOSTUMS', payload: [...sortGood] });
-    }
-    if (value === 'dataNew') {
-      const copyGood = state.kostum.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return b.time.seconds - a.time.seconds;
-      });
-      dispatch({ type: 'ADD KOSTUMS', payload: [...sortGood] });
-    }
-    if (value === 'dataOld') {
-      const copyGood = state.kostum.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return a.time.seconds - b.time.seconds;
-      });
-      dispatch({ type: 'ADD KOSTUMS', payload: [...sortGood] });
+      dispatch({ type: 'ADD KOSTUMS', payload: [...goodClient] });
     }
   };
   return (
@@ -133,121 +130,67 @@ function Kostums({ goodList }) {
         </>
       ) : (
         <>
-          <h2 className="title-product-block">спортивнi костюми</h2>
+          <h1 className="title-product-block">спортивнi костюми</h1>
           <div className="toolbar toolbar-products">
-            <div className="toolbar-sorter sorter">
-              <label className="sorter-label" forhtml="sorter">
-                сортувати
-              </label>{' '}
-              <select
-                id="sorter"
-                data-role="sorter"
-                onChange={handlerFilterGoods}
-                className="sorter-options">
-                <option value="position" defaultValue="">
-                  не сортовано
-                </option>
-                <option value="nameHight">имя а-я</option>
-                <option value="nameLow">имя я-а</option>
-                <option value="priceHigh">цена више </option>
-                <option value="priceLow">цена ниже </option>
-                <option value="dataNew">по датi новi</option>
-                <option value="dataOld">по датi стaрi</option>
-              </select>
-            </div>
+            <h3 className="title-category">категорii</h3>
+            <Doubleicon show={show} showTwoGood={showTwoGood} showOneGood={showOneGood} />
+            <Toolbar state={state.kostum} type={'ADD KOSTUMS'}></Toolbar>
           </div>
 
           <div className="section-filter-products">
-            <div className="section-left">
-              <div className="category">
-                <h3 className="sorter-label">категорii</h3>
-                <div className="accordion-block">
-                  <Accordion title={'спортивні костюми'} cls={'link'}>
-                    <li className={router.pathname == '/sport-kostums' ? 'active' : ''}>
-                      <Link href="/sport-kostums" shallow>
-                        <a>костюми</a>
-                      </Link>
-                    </li>
-                    <li className={router.pathname == '/sport-kostums' ? 'active' : ''}>
-                      <Link href="/sport-kostums" shallow>
-                        <a>теплі костюми</a>
-                      </Link>
-                    </li>
-                  </Accordion>
-                </div>
-                <div className="accordion-block">
-                  <Accordion title={'спортивні штани'} cls={'link'}>
-                    <li className={router.pathname == '/pants' ? 'active' : ''}>
-                      <Link href="/pants" shallow>
-                        <a>штани</a>
-                      </Link>
-                    </li>
-                    <li className={router.pathname == '/pants' ? 'active' : ''}>
-                      <Link href="/pants" shallow>
-                        <a>теплі штани</a>
-                      </Link>
-                    </li>
-                  </Accordion>
-                </div>
-                <div className="accordion-block">
-                  <Accordion title={'худі'} cls={'link'}>
-                    <li className={router.pathname == '/hoodie' ? 'active' : ''}>
-                      <Link href="/hoodie" shallow>
-                        <a>худі</a>
-                      </Link>
-                    </li>
-                    <li className={router.pathname == '/hoodie' ? 'active' : ''}>
-                      <Link href="/hoodie" shallow>
-                        <a>теплі худі</a>
-                      </Link>
-                    </li>
-                  </Accordion>
-                </div>
-                <li className={router.pathname == '/sweatshirt' ? 'active' : ''}>
-                  <Link href="/sweatshirt" shallow>
-                    <a>світшоти</a>
-                  </Link>
-                </li>
-                <li className={router.pathname == '/shorts' ? 'active' : ''}>
-                  <Link href="/shorts" shallow>
-                    <a>шорти</a>
-                  </Link>
-                </li>
-                <li className={router.pathname == '/t-shirt' ? 'active' : ''}>
-                  <Link href="/t-shirt" shallow>
-                    <a>футболки</a>
-                  </Link>
-                </li>
-              </div>
-              <div className="filter">
-                <h3 className="sorter-label">фiльтри</h3>
-                <p className="accordion-item" onClick={filterGoods}>
-                  манжет
-                </p>
-                <p className="accordion-item" onClick={filterGoods}>
-                  прямi
-                </p>
-                <p className="accordion-item" onClick={filterGoods}>
-                  батал
-                </p>
-                <p className="accordion-item" onClick={filterGoods}>
+            <div className="section-mobile accordion-filter-mobile">
+              <Accordion title={'фiльтр'}>
+                {label.map((item, i) => {
+                  return (
+                    <div className="label" key={i}>
+                      <label>
+                        &nbsp;
+                        <input
+                          type="checkbox"
+                          onChange={(e) => handleOnChange(e, i)}
+                          checked={checkedState[i]}
+                          value={item.value}
+                        />{' '}
+                        {item.value}
+                      </label>
+                    </div>
+                  );
+                })}
+
+                <p className="accordion-item" onClick={ClearFilter}>
                   зняти фiльтр
                 </p>
+              </Accordion>
+
+              <div className="cnt-goods">{state.kostum.length}&nbsp;Результатiв</div>
+            </div>
+
+            <div className="section-left">
+              <Category></Category>
+              <div className="filter">
+                <h3 className="sorter-label">фiльтри</h3>
+                {label.map((item, i) => {
+                  return (
+                    <div div className="label" key={i}>
+                      <label>
+                        &nbsp;
+                        <input
+                          type="checkbox"
+                          onChange={(e) => handleOnChange(e, i)}
+                          checked={checkedState[i]}
+                          value={item.value}
+                        />{' '}
+                        {item.value}
+                      </label>
+                    </div>
+                  );
+                })}
+
+                <p className="accordion-item" onClick={ClearFilter}>
+                  зняти фiльтр
+                </p>
+                <div className="cnt-goods">{state.kostum.length}&nbsp;Результатiв</div>
               </div>
-              {/* <Accordion title={'фiльтр'} cnt={state.pants.length}>
-              <p className="accordion-item" onClick={filterGoods}>
-                манжет
-              </p>
-              <p className="accordion-item" onClick={filterGoods}>
-                прямi
-              </p>
-              <p className="accordion-item" onClick={filterGoods}>
-                батал
-              </p>
-              <p className="accordion-item" onClick={filterGoods}>
-                зняти фiльтр
-              </p>
-            </Accordion> */}
             </div>
 
             <div className="section-right">
@@ -261,7 +204,8 @@ function Kostums({ goodList }) {
                     key={good.id}
                     title={good.title}
                     price={good.price}
-                    urlArr={good.urlArr}></Card>
+                    urlArr={good.urlArr}
+                    show={show}></Card>
                 );
               })}
             </div>

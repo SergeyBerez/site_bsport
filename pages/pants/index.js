@@ -7,13 +7,13 @@ import { db } from '../../context/firebaseContext';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { useGoodsContext } from '../../context/contextGoods';
 import Accordion from '../../components/Accordion';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import square from '../../public/static/img/351984_crop_square_icon.svg';
-import menu from '../../public/static/img/4243313_ux_basic_app_menu_icon.svg';
+
 import Toolbar from '../../components/Toolbar';
+import Category from '../../components/Category';
+import Doubleicon from '../../components/DoubleIcon';
 export default function Pants({ goodList }) {
   const goodClient = JSON.parse(goodList);
 
@@ -21,8 +21,8 @@ export default function Pants({ goodList }) {
   const label = [{ value: 'манжет' }, { value: 'прямi' }, { value: 'батал' }];
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
-  const router = useRouter();
   useEffect((params) => {
+    console.log(11111);
     if (state.pants.length === 0) {
       dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
     }
@@ -35,7 +35,6 @@ export default function Pants({ goodList }) {
   });
 
   const add = ({ id, title, price, urlArr, color, active }) => {
-    console.log(active);
     const copyGood = state.pants.slice();
     copyGood.map((item) => {
       if (item.id === id) {
@@ -53,14 +52,20 @@ export default function Pants({ goodList }) {
         price,
         urlArr,
         color,
-        sum: price,
+        sum: price * 5,
         cnt: 5,
         active: 'active',
       },
     });
   };
-  const filterGoods = (e) => {
-    const copyGood = state.pants.slice();
+  const [show, setShow] = useState(false);
+  const showTwoGood = () => {
+    setShow(false);
+  };
+  const showOneGood = () => {
+    setShow(true);
+  };
+  const ClearFilter = (e) => {
     const text = e.target.textContent.toLowerCase();
 
     if (text === 'зняти фiльтр') {
@@ -99,10 +104,6 @@ export default function Pants({ goodList }) {
 
       dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
     }
-
-    // if (inputValue === 'зняти фiльтр') {
-    //   dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
-    // }
   };
   return (
     <MainLayout>
@@ -117,7 +118,7 @@ export default function Pants({ goodList }) {
           <Spinner></Spinner>
           {state.pants.map((good) => {
             return (
-              <div key={good.id} className="productCard_block">
+              <div key={good.id} className="productCard_block-katalog">
                 <Image
                   src={
                     'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505'
@@ -134,15 +135,11 @@ export default function Pants({ goodList }) {
         </>
       ) : (
         <>
-          <h1 className="title-product-block">штаны</h1>
+          <h1 className="title-product-block">штани</h1>
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
-            <div className="toogle-icon">
-              {' '}
-              <Image src={square} width={30} height={30} alt="product"></Image>
-              <Image src={menu} width={20} height={20} alt="product"></Image>
-            </div>{' '}
-            <Toolbar state={state.pants} type={'ADD PANTS'}></Toolbar>
+            <Doubleicon show={show} showTwoGood={showTwoGood} showOneGood={showOneGood} />
+            <Toolbar state={state.pants} type={'ADD PANTS'} />
           </div>
           <div className="section-filter-products">
             <div className="section-mobile accordion-filter-mobile">
@@ -164,7 +161,7 @@ export default function Pants({ goodList }) {
                   );
                 })}
 
-                <p className="accordion-item" onClick={filterGoods}>
+                <p className="accordion-item" onClick={ClearFilter}>
                   зняти фiльтр
                 </p>
               </Accordion>
@@ -173,65 +170,7 @@ export default function Pants({ goodList }) {
             </div>
 
             <div className="section-left">
-              <div className="category-catalog">
-                <div className="accordion-block">
-                  <Accordion title={'спортивні костюми'} cls={'page-filter-bold'}>
-                    <li className={router.pathname == '/sport-kostums link' ? 'active' : 'link'}>
-                      <Link href="/sport-kostums" shallow>
-                        <a>костюми</a>
-                      </Link>
-                    </li>
-                    <li className={router.pathname == '/sport-kostums link' ? 'active' : 'link'}>
-                      <Link href="/sport-kostums" shallow>
-                        <a>теплі костюми</a>
-                      </Link>
-                    </li>
-                  </Accordion>
-                </div>
-                <div className="accordion-block">
-                  <Accordion title={'спортивні штани'} cls={'page-filter-bold'}>
-                    <li className={router.pathname == '/pants' ? 'active link' : 'link'}>
-                      <Link href="/pants" shallow>
-                        <a>штани</a>
-                      </Link>
-                    </li>
-                    <li className={router.pathname == '/pants' ? 'active link' : 'link'}>
-                      <Link href="/pants" shallow>
-                        <a>теплі штани</a>
-                      </Link>
-                    </li>
-                  </Accordion>
-                </div>
-                <div className="accordion-block">
-                  <Accordion title={'худі'} cls={'page-filter-bold'}>
-                    <li className={router.pathname == '/hoodie' ? 'active link' : 'link'}>
-                      <Link href="/hoodie" shallow>
-                        <a>худі</a>
-                      </Link>
-                    </li>
-                    <li className={router.pathname == '/hoodie' ? 'active link' : 'link'}>
-                      <Link href="/hoodie" shallow>
-                        <a>теплі худі</a>
-                      </Link>
-                    </li>
-                  </Accordion>
-                </div>
-                <li className={router.pathname == '/sweatshirt' ? 'active link' : 'link-single'}>
-                  <Link href="/sweatshirt" shallow>
-                    <a>світшоти</a>
-                  </Link>
-                </li>
-                <li className={router.pathname == '/shorts' ? 'active link' : 'link-single'}>
-                  <Link href="/shorts" shallow>
-                    <a>шорти</a>
-                  </Link>
-                </li>
-                <li className={router.pathname == '/t-shirt' ? 'active link' : 'link-single'}>
-                  <Link href="/t-shirt" shallow>
-                    <a>футболки</a>
-                  </Link>
-                </li>
-              </div>
+              <Category></Category>
               <div className="filter">
                 <h3 className="sorter-label">фiльтри</h3>
                 {label.map((item, i) => {
@@ -251,7 +190,7 @@ export default function Pants({ goodList }) {
                   );
                 })}
 
-                <p className="accordion-item" onClick={filterGoods}>
+                <p className="accordion-item" onClick={ClearFilter}>
                   зняти фiльтр
                 </p>
                 <div className="cnt-goods">{state.pants.length}&nbsp;Результатiв</div>
@@ -270,7 +209,7 @@ export default function Pants({ goodList }) {
                     urlArr={good.urlArr}
                     color={good.color}
                     description={good.description}
-                    show={good.show}></Card>
+                    show={show}></Card>
                 );
               })}
             </div>
@@ -279,93 +218,60 @@ export default function Pants({ goodList }) {
       )}
 
       <style jsx>{`
-        .toogle-icon {
-          display: flex;
-          flex-grow: 1;
-        }
-        .label {
-          margin-top: 10px;
-        }
-        .sorter-label {
-          display: flex;
-          flex-direction: column;
-        }
-        .link {
-          margin: 10px 0px 0 10px;
-        }
-        .link-single {
-          margin: 10px 0;
-          font-weight: 600;
-          // padding: 10px 0;
-          letter-spacing: 1.4px;
-        }
-        .cnt-goods {
-          margin: 0 10px;
-          font-size: 1.2rem;
-          color: #6f6f6f;
-        }
-        .accordion-item {
-          cursor: pointer;
-        }
-        .toolbar-products {
-          // display: flex;
-          // align-items: center;
-          // justify-content: space-between;
-        }
-        .block_price {
-          width: 100%;
-          background-color: #c7c7c7;
-          color: #c7c7c7;
-        }
+        // .block_price {
+        //   width: 100%;
+        //   background-color: #c7c7c7;
+        //   color: #c7c7c7;
+        // }
 
-        .productCard_block {
-          display: flex;
-          flex-direction: column;
-          margin: 10px;
-          padding: 5px;
-          max-width: 230px;
-        }
+        // .productCard_block {
+        //   display: flex;
+        //   flex-direction: column;
+        //   margin: 10px;
+        //   padding: 5px;
+        //   max-width: 230px;
+        // }
 
-        .product-card__title {
-          background-color: #c7c7c7;
-          color: #c7c7c7;
-          margin: 5px 0;
-        }
+        // .product-card__title {
+        //   background-color: #c7c7c7;
+        //   color: #c7c7c7;
+        //   margin: 5px 0;
+        // }
 
-        @media (min-width: 320px) {
-          .productCard_block {
-            margin: 5px;
-            flex-grow: 0;
-            flex-basis: calc(100% / 2 - 10px);
-            min-width: 140px;
-          }
-        }
-        @media (min-width: 480px) {
-          .toogle-icon {
-            display: none;
-          }
-          .productCard_block {
-            margin: 5px;
-            flex-grow: 0;
-            flex-basis: calc(100% / 3 - 10px);
-          }
-        }
+        // @media (min-width: 320px) {
+        //   .productCard_block {
+        //     margin: 5px;
+        //     flex-grow: 0;
+        //     flex-basis: calc(100% / 2 - 10px);
+        //     min-width: 140px;
+        //   }
+        // }
+        // @media (min-width: 480px) {
+        //   .toogle-icon {
+        //     display: none;
+        //   }
+        //   .productCard_block {
+        //     margin: 5px;
+        //     flex-grow: 0;
+        //     flex-basis: calc(100% / 3 - 10px);
+        //   }
+        // }
 
-        @media (min-width: 680px) {
-          .productCard_block {
-            flex-grow: 0;
-            flex-basis: calc(100% / 4 - 10px);
-            min-width: 150px;
-          }
-        }
+        // @media (min-width: 680px) {
+        //   .productCard_block {
+        //     flex-grow: 0;
+        //     flex-basis: calc(100% / 4 - 10px);
+        //     min-width: 150px;
+        //   }
+        // }
 
-        @media (min-width: 1140px) {
-          .productCard_block {
-            flex-grow: 0;
-            flex-basis: calc(100% / 5 - 10px);
-            min-width: 200px;
-          }
-        }
+        // @media (min-width: 1140px) {
+        //   .productCard_block {
+        //     flex-grow: 0;
+        //     flex-basis: calc(100% / 5 - 10px);
+        //     min-width: 200px;
+        //   }
+        // }
       `}</style>
     </MainLayout>
   );

@@ -1,34 +1,33 @@
-import Image from "next/image";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { useGoodsContext } from "../context/contextGoods";
-import Link from "next/link";
-import BuyPopup from "../components/BuyPopup";
-import LinkIcon from "../public/static/img/link_icon.svg";
-import arrowNext from "../public/static/img/4781840_+_add_circle_create_expand_icon.svg";
-import remove from "../public/static/img/2931168_bin_delete_remove_trash_garbage_icon.svg";
-import arrowPrev from "../public/static/img/4781841_-_cancel_circle_collapse_min_icon.svg";
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useGoodsContext } from '../context/contextGoods';
+import Link from 'next/link';
+import BuyPopup from '../components/BuyPopup';
+import LinkIcon from '../public/static/img/link_icon.svg';
+import arrowNext from '../public/static/img/4781840_+_add_circle_create_expand_icon.svg';
+import remove from '../public/static/img/2931168_bin_delete_remove_trash_garbage_icon.svg';
+import arrowPrev from '../public/static/img/4781841_-_cancel_circle_collapse_min_icon.svg';
 
-import MainLayout from "../components/MainLayout";
+import MainLayout from '../components/MainLayout';
 export default function Cart() {
-  const { state, countGoodsPlus, countGoodsMinus, deleteFromCart, dispatch } =
-    useGoodsContext();
+  const { state, countGoodsPlus, countGoodsMinus, deleteFromCart, dispatch } = useGoodsContext();
 
   const [showModal, setShowModal] = useState(false);
-  const [massage, setMassage] = useState("");
+  const [massage, setMassage] = useState('');
 
   const toogleShowModal = (e) => {
-    let arrClassNameModal = e.target.className.split(" ");
-    let arrClassNameButton = e.target.className.split(" ");
+    let arrClassNameModal = e.target.className.split(' ');
+    let arrClassNameButton = e.target.className.split(' ');
     let arrClassNameClose = e.target.alt;
 
     let show =
-      arrClassNameModal.includes("fixed-overlay") ||
-      arrClassNameButton.includes("button") ||
-      arrClassNameClose === "close";
+      arrClassNameModal.includes('fixed-overlay') ||
+      arrClassNameButton.includes('button') ||
+      arrClassNameClose === 'close';
     if (show) {
       setShowModal(!showModal);
-      setMassage("");
+      setMassage('');
     }
   };
   console.log(state.cart);
@@ -38,12 +37,14 @@ export default function Cart() {
       {state.cart.length === 0 ? (
         <>
           <h2 className="title-product-block">Ваша корзина пуста</h2>
-          <Link href="/">
-            <a className="link-back">
-              <span className="span">в каталог</span>{" "}
-              <Image width={20} height={20} src={LinkIcon} alt="photo"></Image>
-            </a>
-          </Link>
+          <div className="link-back">
+            <Link href="/">
+              <a>
+                <span className="span">в каталог</span>{' '}
+                <Image width={20} height={20} src={LinkIcon} alt="photo"></Image>
+              </a>
+            </Link>
+          </div>
         </>
       ) : (
         <>
@@ -52,17 +53,11 @@ export default function Cart() {
             toogleShowModal={toogleShowModal}
             massage={massage}
             setMassage={setMassage}
-            orderGoods={state.cart}
-          ></BuyPopup>{" "}
+            orderGoods={state.cart}></BuyPopup>{' '}
           {state.cart.map((item, i) => {
             return (
               <div className="cart-item_section" key={i}>
-                <Image
-                  alt={"pant"}
-                  width={150}
-                  height={200}
-                  src={item?.urlArr[0]}
-                ></Image>
+                <Image alt={'pant'} width={150} height={200} src={item?.urlArr[0]}></Image>
                 <div className="flex-wrap-section-right">
                   <div className="cart-item_header">{item.title}</div>
                   <div className="cart-item-block">
@@ -72,10 +67,8 @@ export default function Cart() {
                         <div className="textBold">{item.color}</div>
                       </div> */}
                       <div className="cart-item_table-column">
-                        {" "}
-                        <div className="table-header-column">
-                          количество&nbsp;:
-                        </div>
+                        {' '}
+                        <div className="table-header-column">количество&nbsp;:</div>
                         <div className="qty_wrapp">
                           <div
                             className="qty_btn bnt_minus"
@@ -84,21 +77,10 @@ export default function Cart() {
                                 ...item,
                                 cnt: item.cnt,
                               });
-                            }}
-                          >
-                            <Image
-                              src={arrowPrev}
-                              width={20}
-                              height={20}
-                              alt="arrow"
-                            ></Image>
+                            }}>
+                            <Image src={arrowPrev} width={20} height={20} alt="arrow"></Image>
                           </div>
-                          <input
-                            className="input-quantity"
-                            type="text"
-                            value={item.cnt}
-                            readOnly
-                          />
+                          <input className="input-quantity" type="text" value={item.cnt} readOnly />
 
                           <div
                             className="qty_btn bnt_plus"
@@ -107,43 +89,27 @@ export default function Cart() {
                                 ...item,
                                 cnt: item.cnt,
                               });
-                            }}
-                          >
-                            <Image
-                              src={arrowNext}
-                              width={20}
-                              height={20}
-                              alt="arrow"
-                            ></Image>
+                            }}>
+                            <Image src={arrowNext} width={20} height={20} alt="arrow"></Image>
                           </div>
                         </div>
                       </div>
                       <div className="cart-item_table-column">
-                        <div className="table-header-column">цiна&nbsp;:</div>{" "}
+                        <div className="table-header-column">цiна&nbsp;:</div>{' '}
                         <div className="textBold">{item.price}</div>
                       </div>
                       <div className="cart-item_table-column">
-                        <div className="table-header-column">
-                          загалом&nbsp;:
-                        </div>{" "}
+                        <div className="table-header-column">загалом&nbsp;:</div>{' '}
                         <div className="textBold">{item.sum}</div>
                       </div>
                       <div className="cart-item_table-column">
-                        <div className="table-header-column">
-                          видалити&nbsp;:
-                        </div>{" "}
+                        <div className="table-header-column">видалити&nbsp;:</div>{' '}
                         <div
                           className="textBold-delete"
                           onClick={() => {
                             deleteFromCart(item);
-                          }}
-                        >
-                          <Image
-                            src={remove}
-                            width={20}
-                            height={20}
-                            alt="remove"
-                          ></Image>
+                          }}>
+                          <Image src={remove} width={20} height={20} alt="remove"></Image>
                         </div>
                       </div>
                     </div>
@@ -178,12 +144,9 @@ export default function Cart() {
                   }, 0)}
                 </span>
                 &nbsp;грн
-              </h2>{" "}
+              </h2>{' '}
             </div>
-            <button
-              onClick={toogleShowModal}
-              className="button button-default-white"
-            >
+            <button onClick={toogleShowModal} className="button button-default-white">
               купити
             </button>
           </div>
@@ -207,14 +170,21 @@ export default function Cart() {
           width: 100%;
         }
         .link-back {
+          margin-top: 50px;
+          width: 100%;
+          text-align: center;
           display: flex;
           align-items: center;
           cursor: pointer;
+          justify-content: center;
+        }
+        .link-back a {
+          display: flex;
+          align-items: center;
         }
         .span {
           font-size: 1.8rem;
           margin-right: 5px;
-          line-height: 1;
         }
         .textBold-delete {
           cursor: pointer;

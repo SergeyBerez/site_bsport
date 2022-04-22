@@ -45,7 +45,7 @@ export default function CardDetail({
         price,
         urlArr,
         color,
-        sum: price,
+        sum: price * 5,
         cnt: 5,
       },
     });
