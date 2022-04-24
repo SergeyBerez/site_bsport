@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-export default function catalog() {
+export default function Catalog() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(false);
