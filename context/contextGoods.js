@@ -7,6 +7,7 @@ const initialState = {
   cart: [],
   pants: [],
   kostum: [],
+  hoodie: [],
 };
 
 const GoodsContext = createContext(initialState);
@@ -19,7 +20,6 @@ export default function ContextGoods({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   // const [url, setUrl] = useState("pants");
 
-  useEffect(() => {}, []);
   const countGoodsPlus = (action) => {
     const newItem = action;
 
@@ -90,7 +90,7 @@ export default function ContextGoods({ children }) {
         return { ...state, goods: action.payload };
       case 'DELE FROM CARD':
         return { ...state, cart: action.payload };
-      case 'ADD TO CARD':
+      case 'ADD TO CART':
         const newItemGood = action.payload;
         const copyCartGoods = [...state.cart];
 
@@ -134,6 +134,8 @@ export default function ContextGoods({ children }) {
         return { ...state, shorts: action.payload };
       case 'ADD KOSTUMS':
         return { ...state, kostum: action.payload };
+      case 'ADD HOODIE':
+        return { ...state, hoodie: action.payload };
       default:
         return state;
     }

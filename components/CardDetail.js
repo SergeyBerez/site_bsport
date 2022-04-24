@@ -38,7 +38,7 @@ export default function CardDetail({
 
   const addToCart = () => {
     dispatch({
-      type: 'ADD TO CARD',
+      type: 'ADD TO CART',
       payload: {
         id,
         title,

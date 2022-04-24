@@ -1,17 +1,17 @@
 import NavBar from './NavBar';
-
+import Link from 'next/link';
 import Image from 'next/image';
 import styles from './mainLayout.module.css';
 
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
-export default function MainLayout({ children }) {
+export default function MainLayout({ children, cls }) {
   const router = useRouter();
   const [openSideMenu, setOpenSideMenu] = useState('');
   const [gamburger, setGamburger] = useState('');
   const divBackgroundEl = useRef(null);
 
-  const toggleMen = () => {
+  const toggleMenu = () => {
     const className = divBackgroundEl.current.className;
     if (className === 'ad_bg') {
       divBackgroundEl.current.className = '';
@@ -33,11 +33,11 @@ export default function MainLayout({ children }) {
     <>
       <NavBar
         openSideMenu={openSideMenu}
-        toggleMenu={toggleMen}
+        toggleMenu={toggleMenu}
         transformGamburger={gamburger}></NavBar>
 
       <main className={styles.main}>
-        <div className={styles.container}>
+        <div className={cls ? styles['container-index'] : styles.container}>
           <section className={styles['product-container']}>{children}</section>
         </div>
       </main>
@@ -55,7 +55,7 @@ export default function MainLayout({ children }) {
           </a>
         </div>
       </footer>
-      <div onClick={toggleMen} ref={divBackgroundEl}></div>
+      <div onClick={toggleMenu} ref={divBackgroundEl}></div>
     </>
   );
 }

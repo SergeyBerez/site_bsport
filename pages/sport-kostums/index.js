@@ -37,7 +37,7 @@ function Kostums({ goodList }) {
       }
     });
     dispatch({
-      type: 'ADD TO CARD',
+      type: 'ADD TO CART',
       payload: {
         id,
         title,

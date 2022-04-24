@@ -14,6 +14,18 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
   const { CurrentUser } = useFirebaseContext();
   const { state } = useGoodsContext();
   let arr = router.pathname.split('/');
+  console.log(arr);
+  const navParams = [
+    { href: '/', name: 'головна', className: router.pathname == '/' ? 'active' : '' },
+    { href: '/catalog', name: 'катaлог', className: router.pathname == '/catalog' ? 'active' : '' },
+    { href: '/about', name: 'опт', className: router.pathname == '/about' ? 'active' : '' },
+    {
+      href: '/delivery',
+      name: 'доставка',
+      className: router.pathname == '/delivery' ? 'active' : '',
+    },
+    { href: '/about', name: 'контакти', className: router.pathname == '/about' ? 'active' : '' },
+  ];
 
   return (
     <>
@@ -34,28 +46,15 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
         </div>{' '}
         <nav className="nav-header">
           <ul>
-            <li className={router.pathname == '/' ? 'active' : 'li'}>
-              <Link href="/" shallow>
-                <a>катaлог</a>
-              </Link>
-            </li>
-
-            <li className={router.pathname == '/opt' ? 'active' : ''}>
-              <Link href="/opt" shallow>
-                <a>опт</a>
-              </Link>
-            </li>
-
-            <li className={router.pathname == '/delivery' ? 'li active' : 'li'}>
-              <Link href="/delivery" shallow>
-                <a>доставка</a>
-              </Link>
-            </li>
-            <li className={router.pathname == '/about' ? 'li active' : 'li'}>
-              <Link href="/about" shallow>
-                <a>контакти</a>
-              </Link>
-            </li>
+            {navParams.map((item) => {
+              return (
+                <li key={item.name} className={item.className}>
+                  <Link href={item.href} shallow>
+                    <a>{item.name}</a>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
         <div className="block-user-cart">
@@ -86,7 +85,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
           </div>
         </div>
       </header>
-
+      {/* ------------------side mobile navigation menu ------------------------- */}
       <div className="side-nav-container">
         <div className="nav-content" tabIndex="0" style={{ transform: openSideMenu }}>
           <ul>
@@ -134,18 +133,16 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
                     <a>худі</a>
                   </Link>
                 </li>
-                <li className={router.pathname == '/hoodie' ? 'active' : ''} onClick={toggleMenu}>
-                  <Link href="/hoodie" shallow>
+                <li
+                  className={router.pathname == '/warm-hoodie' ? 'active' : ''}
+                  onClick={toggleMenu}>
+                  <Link href="/warm-hoodie" shallow>
                     <a>теплі худі</a>
                   </Link>
                 </li>
               </Accordion>
             </div>
-            <li className={router.pathname == '/sweatshirt' ? 'active' : ''} onClick={toggleMenu}>
-              <Link href="/sweatshirt" shallow>
-                <a>світшоти</a>
-              </Link>
-            </li>
+
             <li className={router.pathname == '/shorts' ? 'active' : ''} onClick={toggleMenu}>
               <Link href="/shorts" shallow>
                 <a>шорти</a>

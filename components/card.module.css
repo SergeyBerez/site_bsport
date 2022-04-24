@@ -70,13 +70,16 @@
 
 .product-card__title {
   text-align: center;
-  text-transform: capitalize;
+
   margin: 5px 0;
-  color: rgb(17, 17, 17);
+  color: #000;
   font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.product-card__title::first-letter {
+  text-transform: uppercase;
 }
 .a {
   text-align: center;
