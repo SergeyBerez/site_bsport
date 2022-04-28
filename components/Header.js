@@ -9,12 +9,32 @@ import cart from '../public/static/img/cart.svg';
 import Logo from '../public/static/img/logo.png';
 import arrowNext from '../public/static/img/arrow-next.svg';
 import Accordion from './Accordion';
-export default function NavBar({ openSideMenu, transformGamburger, toggleMenu }) {
+import Category from './Category';
+export default function Header({ openSideMenu, transformGamburger, toggleMenu }) {
   const router = useRouter();
   const { CurrentUser } = useFirebaseContext();
   const { state } = useGoodsContext();
   let arr = router.pathname.split('/');
-  console.log(arr);
+  const navParamsCategory = [
+    {
+      href: '/sport-kostums',
+      name: 'спортивні костюми',
+      name2: 'теплі костюми',
+      className: router.pathname == '/sport-kostums' ? 'active' : '',
+    },
+    {
+      href: '/pants',
+      name: 'спортивні штани',
+      name2: 'теплі штани',
+      className: router.pathname == '/pants' ? 'active' : '',
+    },
+    {
+      href: '/hoodie',
+      name: 'худі',
+      name2: 'теплі худі',
+      className: router.pathname == '/hoodie' ? 'active' : '',
+    },
+  ];
   const navParams = [
     { href: '/', name: 'головна', className: router.pathname == '/' ? 'active' : '' },
     { href: '/catalog', name: 'катaлог', className: router.pathname == '/catalog' ? 'active' : '' },
@@ -94,7 +114,26 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
                 <a>головна</a>
               </Link>
             </li>
-            <div className="accordion-block">
+
+            {navParamsCategory.map((item) => {
+              return (
+                <div key={item.name} className="accordion-block">
+                  <Accordion title={item.name} cls={'page-filter'}>
+                    <li className={item.className} onClick={toggleMenu}>
+                      <Link href={item.href} shallow>
+                        <a>{item.name}</a>
+                      </Link>
+                    </li>
+                    <li className={item.className} onClick={toggleMenu}>
+                      <Link href={item.href} shallow>
+                        <a>{item.name2}</a>
+                      </Link>
+                    </li>
+                  </Accordion>
+                </div>
+              );
+            })}
+            {/* <div className="accordion-block">
               <Accordion title={'спортивні костюми'}>
                 <li
                   className={router.pathname == '/sport-kostums' ? 'active' : ''}
@@ -141,7 +180,7 @@ export default function NavBar({ openSideMenu, transformGamburger, toggleMenu })
                   </Link>
                 </li>
               </Accordion>
-            </div>
+            </div> */}
 
             <li className={router.pathname == '/shorts' ? 'active' : ''} onClick={toggleMenu}>
               <Link href="/shorts" shallow>
