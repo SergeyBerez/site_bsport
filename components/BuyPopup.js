@@ -1,10 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import Image from "next/image";
-
-import IconClose from "../public/static/img/2703079_close_delete_exit_x_icon.svg";
-import { collection, addDoc, doc, getDoc } from "firebase/firestore/lite";
-import { useFirebaseContext, db } from "../context/firebaseContext";
+import React from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
+import { useGoodsContext } from '../context/contextGoods';
+import IconClose from '../public/static/img/2703079_close_delete_exit_x_icon.svg';
+import { collection, addDoc, doc, getDoc } from 'firebase/firestore/lite';
+import { useFirebaseContext, db } from '../context/firebaseContext';
 
 export default function BuyPopup({
   showModal,
@@ -14,36 +14,39 @@ export default function BuyPopup({
   urlArr,
   id,
   orderGoods,
+
   orderOneGood,
 }) {
   const [valueInputsReg, setValueInputReg] = useState({
-    name: "",
-    phone: "",
+    name: '',
+    phone: '',
   });
   const { CurrentUser } = useFirebaseContext();
-
+  const { state, countGoodsPlus, countGoodsMinus, deleteFromCart, dispatch } = useGoodsContext();
   const addOrder = async (e) => {
     e.preventDefault();
-    setMassage("");
+    ('');
     try {
-      const docRef = await addDoc(collection(db, "order"), {
+      const docRef = await addDoc(collection(db, 'order'), {
         name: valueInputsReg.name,
         phone: valueInputsReg.phone,
-        urlArr: urlArr || "",
-        id: id || "",
+        urlArr: urlArr || '',
+        id: id || '',
         // user: CurrentUser?.displayName || "",
         // orderGoods,
       });
-      const docRefone = await doc(db, "order", docRef.id);
+      const docRefone = await doc(db, 'order', docRef.id);
       const docSnap = await getDoc(docRefone);
-
+      // state.cart.length = 0;
       if (docSnap.exists()) {
         setMassage(docSnap.data().name);
       } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
+        console.log('No such document!');
       }
-      setValueInputReg({ ...valueInputsReg, name: "", phone: "" });
+      setValueInputReg({ ...valueInputsReg, name: '', phone: '' });
+      orderGood.length = 0;
+      console.log(showModal);
     } catch (error) {
       console.log(error);
     }
@@ -59,21 +62,20 @@ export default function BuyPopup({
 
   return (
     <>
-      <div className={"fixed-overlay " + showModal} onClick={toogleShowModal}>
+      <div className={'fixed-overlay ' + showModal} onClick={toogleShowModal}>
         <div className="modal">
           <div className="modal_container">
-            {massage !== "" ? (
+            {massage !== '' ? (
               <>
                 <div className="form-login-block-close">
-                  {" "}
+                  {' '}
                   <span className="form-login-block-left">
                     <Image
                       onClick={toogleShowModal}
                       src={IconClose}
                       width={10}
                       height={10}
-                      alt="close"
-                    ></Image>
+                      alt="close"></Image>
                   </span>
                 </div>
                 <h5>
@@ -82,32 +84,24 @@ export default function BuyPopup({
                 </h5>
               </>
             ) : (
-              <form
-                onSubmit={addOrder}
-                className="form form-login"
-                id="regist-form"
-              >
+              <form onSubmit={addOrder} className="form form-login" id="regist-form">
                 <div className="form-login-block-close">
-                  {" "}
+                  {' '}
                   <span className="form-login-block-left">
                     <Image
                       onClick={toogleShowModal}
                       src={IconClose}
                       width={10}
                       height={10}
-                      alt="close"
-                    ></Image>
+                      alt="close"></Image>
                   </span>
                 </div>
 
-                <fieldset
-                  className="fieldset login"
-                  data-hasrequired="* Обязательные поля"
-                >
+                <fieldset className="fieldset login" data-hasrequired="* Обязательные поля">
                   <div className="field name required">
                     <label className="label" htmlFor="name">
                       <span>Iмя :</span>
-                    </label>{" "}
+                    </label>{' '}
                     <div className="control">
                       <input
                         required
@@ -117,16 +111,15 @@ export default function BuyPopup({
                         autoComplete="on"
                         id="name"
                         type="text"
-                        className={"input-text"}
-                        title="Name"
-                      ></input>
+                        className={'input-text'}
+                        title="Name"></input>
                     </div>
                   </div>
 
                   <div className="field tel required">
                     <label className="label" htmlFor="tel">
                       <span>Телефон :</span>
-                    </label>{" "}
+                    </label>{' '}
                     <div className="control">
                       <input
                         onChange={onHandlerInputReg}
@@ -135,9 +128,8 @@ export default function BuyPopup({
                         autoComplete="on"
                         id="phone"
                         type="tel"
-                        className={"input-text"}
-                        title="Phone"
-                      ></input>
+                        className={'input-text'}
+                        title="Phone"></input>
                     </div>
                   </div>
 
@@ -220,7 +212,7 @@ export default function BuyPopup({
           font-size: 1.5rem;
         }
         .label:after {
-          content: " *";
+          content: ' *';
           color: #000;
           font-size: 1.4rem;
           margin: 0 0 0 1px;

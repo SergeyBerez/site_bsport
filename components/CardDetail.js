@@ -203,12 +203,14 @@ export default function CardDetail({
         }
 
         .block_product__description {
+          padding-left: 10px;
         }
         .block_product-title span {
           font-size: 2rem;
           text-transform: uppercase;
         }
         .block_product-title {
+          padding-left: 10px;
           display: flex;
           flex-direction: column;
           font-weight: 400;
@@ -219,12 +221,13 @@ export default function CardDetail({
 
           display: flex;
           flex-direction: column;
-          padding: 0 15px;
+
           max-width: 700px;
         }
         .block_descriptionInformation {
+          border-bottom: 1px solid #b4abab;
           align-self: right;
-          border-top: 2px solid #888;
+          // border-top: 2px solid #888;
         }
         .block-count {
           width: 100%;
@@ -233,11 +236,13 @@ export default function CardDetail({
           margin-bottom: 20px;
         }
         .block_price__currency {
+          padding-left: 10px;
           font-weight: bold;
 
           font-size: 2.5rem;
         }
         .text_specification {
+          padding-left: 10px;
           font-size: 1.6rem;
         }
 
@@ -248,6 +253,7 @@ export default function CardDetail({
         //   margin-bottom: 20px;
         // }
         .qty_btn {
+          padding-left: 10px;
           width: 35px;
           position: relative;
           cursor: pointer;

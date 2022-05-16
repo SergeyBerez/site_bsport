@@ -138,10 +138,11 @@ export default function Pants({ goodList }) {
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
             <Doubleicon show={show} showTwoGood={showTwoGood} showOneGood={showOneGood} />
+            <div className="cnt-goods">Товарiв:&nbsp;{state.pants.length}</div>
             <Toolbar state={state.pants} type={'ADD PANTS'} />
           </div>
           <div className="section-filter-products">
-            <div className="section-mobile accordion-filter-mobile">
+            {/* <div className="section-mobile accordion-filter-mobile">
               <Accordion title={'фiльтр'} cnt={state.pants.length}>
                 {labelFilter.map((item, i) => {
                   return (
@@ -164,12 +165,10 @@ export default function Pants({ goodList }) {
                   зняти фiльтр
                 </p>
               </Accordion>
-
-              <div className="cnt-goods">{state.pants.length}&nbsp;Результатiв</div>
-            </div>
+            </div> */}
 
             <div className="section-left">
-              <Category></Category>
+              <Category cls={'menu-for-page'}></Category>
               <div className="filter">
                 <h3 className="sorter-label">фiльтри</h3>
                 {labelFilter.map((item, i) => {

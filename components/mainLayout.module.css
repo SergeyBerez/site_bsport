@@ -9,7 +9,7 @@
 }
 .container {
   margin: 0 auto;
-  width: 95%;
+  width: 100%;
   max-width: 1260px;
 }
 .container-index {
@@ -23,4 +23,12 @@
   justify-content: center;
   align-items: center;
   flex-grow: 1;
+}
+
+@media (min-width: 620px) {
+  .container {
+    margin: 0 auto;
+    width: 95%;
+    max-width: 1260px;
+  }
 }

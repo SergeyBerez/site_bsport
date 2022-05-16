@@ -13,15 +13,15 @@ export default function Accordion(props) {
     <>
       <div className={'accordion'}>
         <div className={`accordion-title ${cls}`} onClick={toggle}>
-          {title === 'фiльтр' ? (
+          {/* {title === 'фiльтр' ? (
             <>
               <Image src={filter} width={20} height={20} alt="cart"></Image>
               &nbsp; <span>{title}</span>
             </>
           ) : (
-            <span>{title}</span>
-          )}
-
+           
+          )} */}
+          <span>{title}</span>
           <div className="toggle" aria-expanded={isOpen}>
             <Image src={arrowNext} alt="uppy"></Image>
           </div>
@@ -33,12 +33,13 @@ export default function Accordion(props) {
 
       <style jsx>{`
         .accordion {
-          padding: 10px 0;
+          padding: 10px 0px 10px 10px;
+          // border-bottom: 1px solid #b4abab;
         }
 
-        .accordion:nth-of-type(1) {
-          border-top-width: 1px;
-        }
+        // .accordion:nth-of-type(1) {
+        //   border-top-width: 1px;
+        // }
 
         .accordion-title {
           display: flex;

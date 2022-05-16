@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Accordion from '../components/Accordion';
 import { useRouter } from 'next/router';
-export default function Category({ toggleMenu }) {
+export default function Category({ cls }) {
   const router = useRouter();
   const navParams = [
     {
@@ -25,11 +25,11 @@ export default function Category({ toggleMenu }) {
     },
   ];
   return (
-    <div className="category-catalog">
+    <div className={'category-catalog ' + cls}>
       {navParams.map((item) => {
         return (
           <div key={item.name} className="accordion-block">
-            <Accordion title={item.name} cls={'page-filter-bold'}>
+            <Accordion title={item.name} cls={cls}>
               <li className={item.className}>
                 <Link href={item.href} shallow>
                   <a>{item.name}</a>
@@ -45,17 +45,17 @@ export default function Category({ toggleMenu }) {
         );
       })}
 
-      <li className={router.pathname == '/sweatshirt' ? 'active' : 'link-single'}>
+      <li className={router.pathname == '/sweatshirt' ? 'active' : ''}>
         <Link href="/sweatshirt" shallow>
           <a>світшоти</a>
         </Link>
       </li>
-      <li className={router.pathname == '/shorts' ? 'active' : 'link-single'}>
+      <li className={router.pathname == '/shorts' ? 'active' : ''}>
         <Link href="/shorts" shallow>
           <a>шорти</a>
         </Link>
       </li>
-      <li className={router.pathname == '/t-shirt' ? 'active' : 'link-single'}>
+      <li className={router.pathname == '/t-shirt' ? 'active' : ''}>
         <Link href="/t-shirt" shallow>
           <a>футболки</a>
         </Link>
@@ -64,6 +64,9 @@ export default function Category({ toggleMenu }) {
       <style jsx>{`
         li {
           margin: 10px;
+        }
+        .active {
+          font-weight: 600;
         }
         .link {
           margin: 10px 0px 0 10px;

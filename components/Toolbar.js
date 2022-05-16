@@ -1,5 +1,6 @@
 import React from 'react';
-
+import Image from 'next/image';
+import filter from '../public/static/img/filter_filters_icon.svg';
 import { useGoodsContext } from '../context/contextGoods';
 export default function Toolbar(props) {
   const { dispatch } = useGoodsContext();
@@ -39,7 +40,7 @@ export default function Toolbar(props) {
   return (
     <div className="toolbar-sorter sorter">
       <label className="sorter-label" forhtml="sorter">
-        сортувати :
+        {/* <Image src={filter} width={20} height={20} alt="cart"></Image> фiльтр */}
       </label>{' '}
       <select id="sorter" data-role="sorter" onChange={handelSortGoods} className="sorter-options">
         <option value="position" defaultValue="">
@@ -55,26 +56,25 @@ export default function Toolbar(props) {
       <style jsx>{`
         .toolbar-sorter {
           display: flex;
+          flex-direction: column;
           justify-content: flex-end;
           align-items: center;
         }
         .sorter-label {
-          font-size: 1rem;
+          display: flex;
+          align-items: center;
+          font-size: 1.2rem;
           color: #6f6f6f;
           letter-spacing: 1px;
           text-transform: uppercase;
-          /* font-weight: 700;
-  text-transform: uppercase; */
-          /* font-size: 1.6rem; */
-          /* letter-spacing: 1.4px; */
         }
         .sorter-options {
           /* border-color: #ccc; */
           text-align: center;
-          width: 170px;
+
           border: none;
           outline: none;
-          font-size: 1.4rem;
+          font-size: 1rem;
           letter-spacing: 1px;
 
           text-transform: uppercase;

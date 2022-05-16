@@ -30,7 +30,7 @@ export default function Cart() {
       setMassage('');
     }
   };
-  console.log(state.cart);
+
   return (
     <MainLayout>
       <h1 className="title-product-block">Корзина</h1>
