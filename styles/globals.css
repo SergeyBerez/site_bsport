@@ -132,7 +132,7 @@ button {
   background: #000;
 }
 
-.category-catalog,
+.category-catalog.menu-for-page,
 .title-category {
   display: none;
 }
@@ -250,7 +250,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  /* align-items: center; */
+  align-items: center;
   /* margin-top: 30px; */
   text-align: left;
 }
@@ -267,10 +267,6 @@ button {
 }
 .label {
   margin-top: 10px;
-}
-.sorter-label {
-  display: flex;
-  flex-direction: column;
 }
 
 .cnt-goods {
@@ -301,9 +297,6 @@ button {
   }
 }
 @media (min-width: 480px) {
-  .toogle-icon {
-    display: none;
-  }
   .section-right {
     justify-content: space-between;
   }
@@ -323,7 +316,10 @@ button {
 }
 
 @media (min-width: 680px) {
-  .category-catalog,
+  .toogle-icon {
+    display: none;
+  }
+  .category-catalog.menu-for-page,
   .title-category {
     display: block;
   }
