@@ -19,7 +19,7 @@ import Doubleicon from '../../components/DoubleIcon';
 function Kostums({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
-  const label = [{ value: 'манжет' }, { value: 'прямi' }, { value: 'батал' }];
+  const labelFilter = [{ value: 'манжет' }, { value: 'прямi' }, { value: 'батал' }];
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
   const getGoods = async () => {
@@ -134,42 +134,16 @@ function Kostums({ goodList }) {
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
             <Doubleicon show={show} showTwoGood={showTwoGood} showOneGood={showOneGood} />
+            <div className="cnt-goods">Товарiв:&nbsp;{state.kostum.length}</div>
             <Toolbar state={state.kostum} type={'ADD KOSTUMS'}></Toolbar>
           </div>
 
           <div className="section-filter-products">
-            <div className="section-mobile accordion-filter-mobile">
-              <Accordion title={'фiльтр'}>
-                {label.map((item, i) => {
-                  return (
-                    <div className="label" key={i}>
-                      <label>
-                        &nbsp;
-                        <input
-                          type="checkbox"
-                          onChange={(e) => handleOnChange(e, i)}
-                          checked={checkedState[i]}
-                          value={item.value}
-                        />{' '}
-                        {item.value}
-                      </label>
-                    </div>
-                  );
-                })}
-
-                <p className="accordion-item" onClick={ClearFilter}>
-                  зняти фiльтр
-                </p>
-              </Accordion>
-
-              <div className="cnt-goods">{state.kostum.length}&nbsp;Результатiв</div>
-            </div>
-
             <div className="section-left">
-              <Category></Category>
+              <Category cls={'menu-for-page'}></Category>
               <div className="filter">
                 <h3 className="sorter-label">фiльтри</h3>
-                {label.map((item, i) => {
+                {labelFilter.map((item, i) => {
                   return (
                     <div div className="label" key={i}>
                       <label>

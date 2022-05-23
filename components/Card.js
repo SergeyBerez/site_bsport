@@ -53,7 +53,7 @@ export default function Card({ id, title, description, price, urlArr, color, act
       <div className={show ? style['productCard_block'] : style['productCard_block-two']}>
         <Link href={`${router.pathname}/${id}`}>
           <a className={style.a}>
-            <Image src={image} width={400} height={500} alt="product"></Image>
+            <Image src={image} width={300} height={400} alt="product"></Image>
           </a>
         </Link>
         <div className={style['bottom-subtitle']}>

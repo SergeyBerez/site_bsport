@@ -142,31 +142,6 @@ export default function Pants({ goodList }) {
             <Toolbar state={state.pants} type={'ADD PANTS'} />
           </div>
           <div className="section-filter-products">
-            {/* <div className="section-mobile accordion-filter-mobile">
-              <Accordion title={'фiльтр'} cnt={state.pants.length}>
-                {labelFilter.map((item, i) => {
-                  return (
-                    <div className="label" key={i}>
-                      <label>
-                        &nbsp;
-                        <input
-                          type="checkbox"
-                          onChange={(e) => handleOnChange(e, i)}
-                          checked={checkedState[i]}
-                          value={item.value}
-                        />{' '}
-                        {item.value}
-                      </label>
-                    </div>
-                  );
-                })}
-
-                <p className="accordion-item" onClick={ClearFilter}>
-                  зняти фiльтр
-                </p>
-              </Accordion>
-            </div> */}
-
             <div className="section-left">
               <Category cls={'menu-for-page'}></Category>
               <div className="filter">

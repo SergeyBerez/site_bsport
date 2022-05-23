@@ -46,20 +46,20 @@ export default function Category({ cls }) {
       })}
 
       <li className={router.pathname == '/sweatshirt' ? 'active' : ''}>
-        <Link href="/sweatshirt" shallow>
+        {/* <Link href="/sweatshirt" shallow>
           <a>світшоти</a>
-        </Link>
+        </Link> */}
       </li>
       <li className={router.pathname == '/shorts' ? 'active' : ''}>
         <Link href="/shorts" shallow>
           <a>шорти</a>
         </Link>
       </li>
-      <li className={router.pathname == '/t-shirt' ? 'active' : ''}>
+      {/* <li className={router.pathname == '/t-shirt' ? 'active' : ''}>
         <Link href="/t-shirt" shallow>
           <a>футболки</a>
         </Link>
-      </li>
+      </li> */}
 
       <style jsx>{`
         li {

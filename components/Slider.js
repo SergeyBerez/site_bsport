@@ -1,17 +1,12 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import Spinner from "./Spinner.js";
-import Link from "next/link";
-import { Navigation, Pagination, Autoplay } from "swiper";
-import Image from "next/image";
-import { useState, useEffect } from "react";
-const Slider = ({
-  urlArr,
-  grabCursor = false,
-  autoplay = false,
-  count = 4,
-}) => {
+import { Swiper, SwiperSlide } from 'swiper/react';
+import Spinner from './Spinner.js';
+import Link from 'next/link';
+import { Navigation, Pagination, Autoplay } from 'swiper';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+const Slider = ({ urlArr, grabCursor = false, autoplay = false, count = 4 }) => {
   const clearImg =
-    "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505";
+    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505';
   const [images, setImages] = useState([clearImg]);
 
   const [imgDetail, setImgDetail] = useState(clearImg);
@@ -71,11 +66,10 @@ const Slider = ({
             slidesPerView: 5,
             spaceBetween: 50,
           },
-        }}
-      >
+        }}>
         {images &&
         images.filter((i) => {
-          return i.constructor.name === "Object";
+          return i.constructor.name === 'Object';
         }).length > 0
           ? images.map((obj, i) => {
               return (
@@ -83,17 +77,10 @@ const Slider = ({
                   <Link href={obj.path}>
                     <a>
                       <div className="img-svg">
-                        <Image
-                          src={obj?.urlSvg}
-                          width={200}
-                          height={200}
-                          alt="photo"
-                        ></Image>
+                        <Image src={obj?.urlSvg} width={200} height={400} alt="photo"></Image>
                       </div>
                       <div className="bottom-subtitle">
-                        <button className="button button-default-white font">
-                          {obj.name}
-                        </button>
+                        <button className="button button-default-white font">{obj.name}</button>
                       </div>
                     </a>
                   </Link>
@@ -108,10 +95,9 @@ const Slider = ({
                     <Image
                       src={img}
                       width={300}
-                      height={405}
+                      height={400}
                       alt="photo"
-                      onClick={goToDitailSlide}
-                    ></Image>
+                      onClick={goToDitailSlide}></Image>
                   </div>
                 </SwiperSlide>
               );
@@ -120,10 +106,10 @@ const Slider = ({
 
       {images &&
       images.filter((i) => {
-        return i.constructor.name === "Object";
+        return i.constructor.name === 'Object';
       }).length > 0 ? null : (
         <div className="img-detail">
-          <Image src={imgDetail} width={350} height={450} alt="photo"></Image>
+          <Image src={imgDetail} width={350} height={500} alt="photo"></Image>
         </div>
       )}
 

@@ -45,8 +45,8 @@ function Hoodie({ goodList }) {
         price,
         urlArr,
         color,
-        sum: 0,
-        cnt: 1,
+        sum: price * 5,
+        cnt: 5,
         active: 'active',
       },
     });
@@ -96,18 +96,12 @@ function Hoodie({ goodList }) {
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
             <Doubleicon show={show} showTwoGood={showTwoGood} showOneGood={showOneGood} />
+            <div className="cnt-goods">Товарiв:&nbsp;{state.hoodie.length}</div>
             <Toolbar state={state.hoodie} type={'ADD HOODIE'} />
           </div>
           <div className="section-filter-products">
-            <div className="section-mobile accordion-filter-mobile">
-              <div className="cnt-goods">{state.pants.length}&nbsp;Результатiв</div>
-            </div>
-
             <div className="section-left">
-              <Category></Category>
-              <div className="filter">
-                <div className="cnt-goods">{state.pants.length}&nbsp;Результатiв</div>
-              </div>
+              <Category cls={'menu-for-page'}></Category>
             </div>
             <div className="section-right">
               {state.hoodie.map((good) => {

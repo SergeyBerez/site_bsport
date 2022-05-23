@@ -8,6 +8,7 @@ const initialState = {
   pants: [],
   kostum: [],
   hoodie: [],
+  shorts: [],
 };
 
 const GoodsContext = createContext(initialState);

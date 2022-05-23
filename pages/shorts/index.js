@@ -5,21 +5,45 @@ import { Spinner } from '../../components/Spinner';
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs } from 'firebase/firestore/lite';
 import { useGoodsContext } from '../../context/contextGoods';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import Image from 'next/image';
-
+import Toolbar from '../../components/Toolbar';
+import Category from '../../components/Category';
+import Doubleicon from '../../components/DoubleIcon';
 export default function Shorts({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
 
+  useEffect(() => {
+    if (state.shorts.length === 0) {
+      dispatch({ type: 'ADD SHORTS', payload: [...goodClient] });
+    }
+  }, []);
   const getGoods = async (params) => {
-    dispatch({ type: 'ADD SHORTS', payload: [...goodClient] });
+    // dispatch({ type: 'ADD SHORTS', payload: [...goodClient] });
   };
   const { data, isValidating } = useSWR('shorts', getGoods, {
     fallbackData: goodClient,
   });
+  const [show, setShow] = useState(false);
+  const showTwoGood = () => {
+    setShow(false);
+  };
+  const showOneGood = () => {
+    setShow(true);
+  };
+  const add = ({ id, title, price, urlArr, color, active }) => {
+    const copyGood = state.shorts.slice();
 
-  const add = ({ id, title, description, price, urlArr, color }) => {
+    copyGood.map((item) => {
+      if (item.id === id) {
+        item.active = 'active';
+      }
+    });
+
+    dispatch({ type: 'ADD SHORTS', payload: [...copyGood] });
+
     dispatch({
       type: 'ADD TO CART',
       payload: {
@@ -28,53 +52,11 @@ export default function Shorts({ goodList }) {
         price,
         urlArr,
         color,
-        sum: 0,
-        cnt: 1,
+        sum: price * 5,
+        cnt: 5,
         active: 'active',
       },
     });
-
-    const copyGood = state.shorts.slice();
-
-    copyGood.map((item) => {
-      if (item.id === id) {
-        item.active = 'active';
-      }
-    });
-    dispatch({ type: 'ADD SHORTS', payload: [...copyGood] });
-  };
-
-  const handlerFilterGoods = (e) => {
-    const value = e.target.value;
-
-    if (value === 'priceLow') {
-      const copyGood = state.shorts.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return a.price - b.price;
-      });
-      dispatch({ type: 'ADD SHORTS', payload: [...sortGood] });
-    }
-    if (value === 'priceHigh') {
-      const copyGood = state.shorts.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return b.price - a.price;
-      });
-      dispatch({ type: 'ADD SHORTS', payload: [...sortGood] });
-    }
-    if (value === 'dataNew') {
-      const copyGood = state.shorts.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return b.time.seconds - a.time.seconds;
-      });
-      dispatch({ type: 'ADD SHORTS', payload: [...sortGood] });
-    }
-    if (value === 'dataOld') {
-      const copyGood = state.shorts.slice();
-      let sortGood = copyGood.sort((a, b) => {
-        return a.time.seconds - b.time.seconds;
-      });
-      dispatch({ type: 'ADD SHORTS', payload: [...sortGood] });
-    }
   };
 
   return (
@@ -88,7 +70,7 @@ export default function Shorts({ goodList }) {
       {isValidating ? (
         <>
           <Spinner></Spinner>
-          {data.map((obj, i) => {
+          {state.shorts.map((obj, i) => {
             return (
               <div className="productCard_block-katalog" key={i}>
                 <div>
@@ -109,30 +91,42 @@ export default function Shorts({ goodList }) {
         </>
       ) : (
         <>
-          <h2 className="title-product-block">шорти</h2>
+          <h1 className="title-product-block">шорти</h1>
           <div className="toolbar toolbar-products">
-            <div className="toolbar-sorter sorter">
-              <label className="sorter-label" forhtml="sorter">
-                сортувати
-              </label>{' '}
-              <select
-                id="sorter"
-                data-role="sorter"
-                onChange={handlerFilterGoods}
-                className="sorter-options">
-                <option value="position" defaultValue="">
-                  не сортовано
-                </option>
-                <option value="nameHight">имя а-я</option>
-                <option value="nameLow">имя я-а</option>
-                <option value="priceHigh">цена више </option>
-                <option value="priceLow">цена ниже </option>
-                <option value="dataNew">по датi новi</option>
-                <option value="dataOld">по датi стaрi</option>
-              </select>
+            <h3 className="title-category">категорii</h3>
+            <Doubleicon show={show} showTwoGood={showTwoGood} showOneGood={showOneGood} />
+            <div className="cnt-goods">Товарiв:&nbsp;{state.shorts.length}</div>
+            <Toolbar state={state.pants} type={'ADD SHORTS'} />
+          </div>
+          <div className="section-filter-products">
+            <div className="section-left">
+              <Category cls={'menu-for-page'}></Category>
+              <div className="filter">
+                <h3 className="sorter-label">фiльтри</h3>
+
+                <div className="cnt-goods">{state.pants.length}&nbsp;Результатiв</div>
+              </div>
+            </div>
+            <div className="section-right">
+              {state.shorts.map((good) => {
+                return (
+                  <Card
+                    add={add}
+                    active={good.active}
+                    id={good.id}
+                    key={good.id}
+                    title={good.title}
+                    price={good.price}
+                    urlArr={good.urlArr}
+                    color={good.color}
+                    description={good.description}
+                    show={show}></Card>
+                );
+              })}
             </div>
           </div>
-          {state.shorts.map((good) => {
+
+          {/* {state.shorts.map((good) => {
             return (
               <Card
                 add={add}
@@ -144,7 +138,7 @@ export default function Shorts({ goodList }) {
                 price={good.price}
                 urlArr={good.urlArr}></Card>
             );
-          })}
+          })} */}
         </>
       )}
     </MainLayout>
