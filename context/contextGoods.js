@@ -18,6 +18,7 @@ export function useGoodsContext() {
 }
 
 export default function ContextGoods({ children }) {
+  console.log('contextGoods');
   const [state, dispatch] = useReducer(reducer, initialState);
   // const [url, setUrl] = useState("pants");
 
@@ -70,9 +71,10 @@ export default function ContextGoods({ children }) {
     });
   };
   const deleteFromCart = (action) => {
-    const newItem = action;
+    const newItem = { ...action };
+    newItem.active = '';
     let newCartGoods = [...state.cart];
-
+    console.log(newItem);
     const cart = newCartGoods.filter((item) => {
       return item.id !== newItem.id;
     });
@@ -87,6 +89,7 @@ export default function ContextGoods({ children }) {
         return { ...state, cart: action.payload };
       case 'MINUS':
         return { ...state, cart: action.payload };
+
       case 'ADD GOODS':
         return { ...state, goods: action.payload };
       case 'DELE FROM CARD':
