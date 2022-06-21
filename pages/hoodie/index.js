@@ -17,23 +17,23 @@ function Hoodie({ goodList }) {
   const { state, dispatch, deleteFromCart } = useGoodsContext();
 
   useEffect(() => {
-    if (state.hoodie.length === 0) {
-      dispatch({ type: 'ADD HOODIE', payload: [...goodClient] });
-    } else {
-      state.hoodie.map((obj) => {
-        if (
-          state.cart.find((i) => {
-            return i.id === obj.id;
-          })
-        ) {
-          return obj;
-        } else {
-          obj.active = '';
-          return obj;
-        }
-      });
-      dispatch({ type: 'ADD HOODIE', payload: state.hoodie });
-    }
+    // if (state.hoodie.length === 0) {
+    //   dispatch({ type: 'ADD HOODIE', payload: [...goodClient] });
+    // } else {
+    //   state.hoodie.map((obj) => {
+    //     if (
+    //       state.cart.find((i) => {
+    //         return i.id === obj.id;
+    //       })
+    //     ) {
+    //       return obj;
+    //     } else {
+    //       obj.active = '';
+    //       return obj;
+    //     }
+    //   });
+    //   dispatch({ type: 'ADD HOODIE', payload: state.hoodie });
+    // }
   }, []);
   // const getGoods = async () => {
   //   // dispatch({ type: 'ADD HOODIE', payload: [...goodClient] });
