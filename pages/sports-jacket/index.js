@@ -5,7 +5,7 @@ import Card from '../../components/Card';
 import { Spinner } from '../../components/Spinner';
 import { db } from '../../context/firebaseContext';
 import { collection, getDocs } from 'firebase/firestore/lite';
-export default function Pants({ goodList }) {
+export default function Jacket({ goodList }) {
   const goodClient = JSON.parse(goodList);
 
   const [loading, setLoading] = useState(true);
