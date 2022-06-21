@@ -22,23 +22,23 @@ export default function Pants({ goodList }) {
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
   useEffect(() => {
-    if (state.pants.length === 0) {
-      dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
-    } else {
-      state.pants.map((obj) => {
-        if (
-          state.cart.find((i) => {
-            return i.id === obj.id;
-          })
-        ) {
-          return obj;
-        } else {
-          obj.active = '';
-          return obj;
-        }
-      });
+    // if (state.pants.length === 0) {
+    //   dispatch({ type: 'ADD PANTS', payload: [...goodClient] });
+    // } else {
+    //   state.pants.map((obj) => {
+    //     if (
+    //       state.cart.find((i) => {
+    //         return i.id === obj.id;
+    //       })
+    //     ) {
+    //       return obj;
+    //     } else {
+    //       obj.active = '';
+    //       return obj;
+    //     }
+    //   });
 
-      dispatch({ type: 'ADD PANTS', payload: state.pants });
+    //   dispatch({ type: 'ADD PANTS', payload: state.pants });
     }
   }, []);
 

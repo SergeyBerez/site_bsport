@@ -68,7 +68,7 @@ export default function Catalog() {
   const renderGoods = DataSvgForSlider.map((obj, i) => {
     return (
       <div className="productCard_block-katalog" key={i}>
-        <Link href={`/${obj.path}`}>
+        <Link href={`/${obj.path}`} passHref>
           <div>
             {/* <Image alt={obj?.name} width={300} height={400} src={obj?.urlImg}></Image> */}
 

@@ -16,24 +16,23 @@ export default function Shorts({ goodList }) {
   const { state, dispatch, deleteFromCart } = useGoodsContext();
 
   useEffect(() => {
-    if (state.shorts.length === 0) {
-      dispatch({ type: 'ADD SHORTS', payload: [...goodClient] });
-    } else {
-      state.shorts.map((obj) => {
-        if (
-          state.cart.find((i) => {
-            return i.id === obj.id;
-          })
-        ) {
-          return obj;
-        } else {
-          obj.active = '';
-          return obj;
-        }
-      });
-
-      dispatch({ type: 'ADD SHORTS', payload: state.shorts });
-    }
+    // if (state.shorts.length === 0) {
+    //   dispatch({ type: 'ADD SHORTS', payload: [...goodClient] });
+    // } else {
+    //   state.shorts.map((obj) => {
+    //     if (
+    //       state.cart.find((i) => {
+    //         return i.id === obj.id;
+    //       })
+    //     ) {
+    //       return obj;
+    //     } else {
+    //       obj.active = '';
+    //       return obj;
+    //     }
+    //   });
+    //   dispatch({ type: 'ADD SHORTS', payload: state.shorts });
+    // }
   }, []);
   // const getGoods = async (params) => {
   //   // dispatch({ type: 'ADD SHORTS', payload: [...goodClient] });
