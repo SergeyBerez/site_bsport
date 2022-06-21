@@ -37,9 +37,8 @@ export default function Pants({ goodList }) {
     //       return obj;
     //     }
     //   });
-
     //   dispatch({ type: 'ADD PANTS', payload: state.pants });
-    }
+    // }
   }, []);
 
   const add = ({ id, title, price, urlArr, color, active }) => {
