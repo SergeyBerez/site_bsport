@@ -30,23 +30,23 @@ function Kostums({ goodList }) {
   // });
 
   useEffect(() => {
-    // if (state.kostum.length === 0) {
-    //   dispatch({ type: 'ADD KOSTUMS', payload: [...goodClient] });
-    // } else {
-    //   state.kostum.map((obj) => {
-    //     if (
-    //       state.cart.find((i) => {
-    //         return i.id === obj.id;
-    //       })
-    //     ) {
-    //       return obj;
-    //     } else {
-    //       obj.active = '';
-    //       return obj;
-    //     }
-    //   });
-    //   dispatch({ type: 'ADD KOSTUMS', payload: state.kostum });
-    // }
+    if (state.kostum.length === 0) {
+      dispatch({ type: 'ADD KOSTUMS', payload: [...goodClient] });
+    } else {
+      state.kostum.map((obj) => {
+        if (
+          state.cart.find((i) => {
+            return i.id === obj.id;
+          })
+        ) {
+          return obj;
+        } else {
+          obj.active = '';
+          return obj;
+        }
+      });
+      dispatch({ type: 'ADD KOSTUMS', payload: state.kostum });
+    }
   }, []);
 
   const add = ({ id, title, description, price, urlArr, color }) => {
