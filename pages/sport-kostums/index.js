@@ -1,25 +1,29 @@
-import MainLayout from '../../components/MainLayout';
-import { useEffect, useState } from 'react';
-import Head from 'next/head';
-import Card from '../../components/Card';
-import { Spinner } from '../../components/Spinner';
-import { db } from '../../context/firebaseContext';
-import { collection, getDocs } from 'firebase/firestore/lite';
-import { useGoodsContext } from '../../context/contextGoods';
-import useSWR from 'swr';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Accordion from '../../components/Accordion';
-import Toolbar from '../../components/Toolbar';
-import Category from '../../components/Category';
-import square from '../../public/static/img/351984_crop_square_icon.svg';
-import menu from '../../public/static/img/4243313_ux_basic_app_menu_icon.svg';
-import Doubleicon from '../../components/DoubleIcon';
+import MainLayout from "../../components/MainLayout";
+import { useEffect, useState } from "react";
+import Head from "next/head";
+import Card from "../../components/Card";
+import { Spinner } from "../../components/Spinner";
+import { db } from "../../context/firebaseContext";
+import { collection, getDocs } from "firebase/firestore/lite";
+import { useGoodsContext } from "../../context/contextGoods";
+import useSWR from "swr";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import Accordion from "../../components/Accordion";
+import Toolbar from "../../components/Toolbar";
+import Category from "../../components/Category";
+import square from "../../public/static/img/351984_crop_square_icon.svg";
+import menu from "../../public/static/img/4243313_ux_basic_app_menu_icon.svg";
+import Doubleicon from "../../components/DoubleIcon";
 function Kostums({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch, deleteFromCart } = useGoodsContext();
-  const labelFilter = [{ value: 'манжет' }, { value: 'прямi' }, { value: 'батал' }];
+  const labelFilter = [
+    { value: "манжет" },
+    { value: "прямi" },
+    { value: "батал" },
+  ];
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
   // const getGoods = async () => {
@@ -31,7 +35,7 @@ function Kostums({ goodList }) {
 
   useEffect(() => {
     if (state.kostum.length === 0) {
-      dispatch({ type: 'ADD KOSTUMS', payload: [...goodClient] });
+      dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
     } else {
       state.kostum.map((obj) => {
         if (
@@ -41,11 +45,11 @@ function Kostums({ goodList }) {
         ) {
           return obj;
         } else {
-          obj.active = '';
+          obj.active = "";
           return obj;
         }
       });
-      dispatch({ type: 'ADD KOSTUMS', payload: state.kostum });
+      dispatch({ type: "ADD KOSTUMS", payload: state.kostum });
     }
   }, []);
 
@@ -53,11 +57,11 @@ function Kostums({ goodList }) {
     const copyGood = state.kostum.slice();
     copyGood.map((item) => {
       if (item.id === id) {
-        item.active = 'active';
+        item.active = "active";
       }
     });
     dispatch({
-      type: 'ADD TO CART',
+      type: "ADD TO CART",
       payload: {
         id,
         title,
@@ -66,11 +70,11 @@ function Kostums({ goodList }) {
         color,
         sum: price * 5,
         cnt: 5,
-        active: 'active',
+        active: "active",
       },
     });
 
-    dispatch({ type: 'ADD KOSTUMS', payload: [...copyGood] });
+    dispatch({ type: "ADD KOSTUMS", payload: [...copyGood] });
   };
   const [show, setShow] = useState(false);
   const showTwoGood = () => {
@@ -82,14 +86,14 @@ function Kostums({ goodList }) {
   const ClearFilter = (e) => {
     const text = e.target.textContent.toLowerCase();
 
-    if (text === 'зняти фiльтр') {
+    if (text === "зняти фiльтр") {
       setCheckedState(new Array(3).fill(false));
-      dispatch({ type: 'ADD KOSTUMS', payload: [...goodClient] });
+      dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
     }
   };
   const handleOnChange = (e, position) => {
     const updatedCheckedState = checkedState.map((item, index) =>
-      index === position ? !item : item,
+      index === position ? !item : item
     );
     setCheckedState(updatedCheckedState);
     const copyGood = state.kostum.slice();
@@ -111,24 +115,27 @@ function Kostums({ goodList }) {
     }
 
     if (e.target.checked) {
-      dispatch({ type: 'ADD KOSTUMS', payload: [...filterGoods] });
+      dispatch({ type: "ADD KOSTUMS", payload: [...filterGoods] });
     } else {
       setCheckedState(new Array(3).fill(false));
 
-      dispatch({ type: 'ADD KOSTUMS', payload: [...goodClient] });
+      dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
     }
   };
   return (
     <MainLayout>
       <Head>
-        <title>Чоловічі спортивні спортивні костюми оптом купити інтернет магазин</title>
+        <title>
+          Чоловічі спортивні спортивні костюми оптом купити інтернет магазин
+        </title>
         <meta
           name="description"
           content="▷ Чоловічі спортивні костюми оптом від виробника купити в інтернет магазині. У нас: ✓ великий вибір чоловічих спортивних штанів оптом, ✔ високий рівень сервісу ₴ самі низькі ціни і ✈ доставка по всій Україні: Одеса, Київ."
         />
         <meta
           name="keywords"
-          content="спортивні костюми, спортивні костюми чоловічі, спортивні костюми оптом, чоловічі костюми, спортивні костюми адідас, спортивні костюми адідас, костюми, фітнес одяг, спортивні костюми україна, спортивні костюми оптом 7 км, спортивні костюми ціна, спортивні костюми магазин, спортивні костюми ціна,"></meta>
+          content="спортивні костюми, спортивні костюми чоловічі, спортивні костюми оптом, чоловічі костюми, спортивні костюми адідас, спортивні костюми адідас, костюми, фітнес одяг, спортивні костюми україна, спортивні костюми оптом 7 км, спортивні костюми ціна, спортивні костюми магазин, спортивні костюми ціна,"
+        ></meta>
       </Head>
 
       {false ? (
@@ -139,12 +146,14 @@ function Kostums({ goodList }) {
               <div className="productCard_block-katalog" key={i}>
                 <div>
                   <Image
-                    alt={'pant'}
+                    placeholder="blur"
+                    alt={"pant"}
                     width={300}
                     height={400}
                     src={
-                      'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505'
-                    }></Image>
+                      "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
+                    }
+                  ></Image>
                   <div className="bottom-subtitle">
                     <button className="button button-default-white">...</button>
                   </div>
@@ -158,14 +167,18 @@ function Kostums({ goodList }) {
           <h1 className="title-product-block">спортивнi костюми</h1>
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
-            <Doubleicon show={show} showTwoGood={showTwoGood} showOneGood={showOneGood} />
+            <Doubleicon
+              show={show}
+              showTwoGood={showTwoGood}
+              showOneGood={showOneGood}
+            />
             <div className="cnt-goods">Товарiв:&nbsp;{state.kostum.length}</div>
-            <Toolbar state={state.kostum} type={'ADD KOSTUMS'}></Toolbar>
+            <Toolbar state={state.kostum} type={"ADD KOSTUMS"}></Toolbar>
           </div>
 
           <div className="section-filter-products">
             <div className="section-left">
-              <Category cls={'menu-for-page'}></Category>
+              <Category cls={"menu-for-page"}></Category>
               <div className="filter">
                 <h3 className="sorter-label">фiльтри</h3>
                 {labelFilter.map((item, i) => {
@@ -178,7 +191,7 @@ function Kostums({ goodList }) {
                           onChange={(e) => handleOnChange(e, i)}
                           checked={checkedState[i]}
                           value={item.value}
-                        />{' '}
+                        />{" "}
                         {item.value}
                       </label>
                     </div>
@@ -188,7 +201,9 @@ function Kostums({ goodList }) {
                 <p className="accordion-item" onClick={ClearFilter}>
                   зняти фiльтр
                 </p>
-                <div className="cnt-goods">{state.kostum.length}&nbsp;Результатiв</div>
+                <div className="cnt-goods">
+                  {state.kostum.length}&nbsp;Результатiв
+                </div>
               </div>
             </div>
 
@@ -204,7 +219,8 @@ function Kostums({ goodList }) {
                     title={good.title}
                     price={good.price}
                     urlArr={good.urlArr}
-                    show={show}></Card>
+                    show={show}
+                  ></Card>
                 );
               })}
             </div>
@@ -215,7 +231,7 @@ function Kostums({ goodList }) {
   );
 }
 export async function getStaticProps() {
-  const docRef = collection(db, 'sport-kostums');
+  const docRef = collection(db, "sport-kostums");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
 

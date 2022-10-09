@@ -2,22 +2,32 @@
 I want to thank Paul Rudnitskiy for his idea.
 If you need full work version you can download it here  https://github.com/BlackStar1991/CardProduct
 */
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useGoodsContext } from '../context/contextGoods';
-import style from './card.module.css';
-import Image from 'next/image';
-import cart from '../public/static/img/cart.svg';
-import phone from '../public/static/img/local_phone_icon.svg';
-import { useEffect, useRef, useState } from 'react';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useGoodsContext } from "../context/contextGoods";
+import style from "./card.module.css";
+import Image from "next/image";
+import cart from "../public/static/img/cart.svg";
+import phone from "../public/static/img/local_phone_icon.svg";
+import { useEffect, useRef, useState } from "react";
 
-export default function Card({ id, title, description, price, urlArr, color, active, add, show }) {
+export default function Card({
+  id,
+  title,
+  description,
+  price,
+  urlArr,
+  color,
+  active,
+  add,
+  show,
+}) {
   const router = useRouter();
   const { state, dispatch } = useGoodsContext();
   const [image, setImage] = useState(
-    'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505',
+    "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
   );
-  const [mes, setMes] = useState('');
+  const [mes, setMes] = useState("");
   const goToCardDetail = (e) => {
     e.stopPropagation();
     router.push(`${router.pathname}/${id}`);
@@ -27,12 +37,12 @@ export default function Card({ id, title, description, price, urlArr, color, act
 
     state.cart.find((item) => {
       if (item.id === dataAtr) {
-        console.log('ssss');
-        setMes('show');
+        console.log("ssss");
+        setMes("show");
       }
     });
     if (dataAtr === id) {
-      setMes('');
+      setMes("");
     }
   };
   useEffect(() => {
@@ -50,37 +60,54 @@ export default function Card({ id, title, description, price, urlArr, color, act
 
   return (
     <>
-      <div className={show ? style['productCard_block'] : style['productCard_block-two']}>
+      <div
+        className={
+          show ? style["productCard_block"] : style["productCard_block-two"]
+        }
+      >
         <Link href={`${router.pathname}/${id}`}>
           <a className={style.a}>
-            <Image src={image} width={300} height={400} alt="product"></Image>
+            <Image
+              src={image}
+              width={300}
+              height={400}
+              alt="product"
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRm knyJckliyjqTzSlT54b6bk+h0R//2Q=="
+            ></Image>
           </a>
         </Link>
-        <div className={style['bottom-subtitle']}>
+        <div className={style["bottom-subtitle"]}>
           <button
             data-id={id}
             data-title="ви вже добавили цей товар у корзину"
-            className={`button button-default-white ${style['button-cart']} ${active} ${show}`}
+            className={`button button-default-white ${style["button-cart"]} ${active} ${show}`}
             onClick={(e) => {
               addToCart(e, id);
               add({ id, title, description, price, urlArr, color, active });
-            }}>
+            }}
+          >
             <Image src={cart} width={20} height={20} alt="cart"></Image>
           </button>
           <button
             onClick={goToCardDetail}
-            className={`button button-default-white ${style['button-buy']}`}>
+            className={`button button-default-white ${style["button-buy"]}`}
+          >
             детально
           </button>
-          <button className={`button button-default-white ${style['button-phone']}`}>
+          <button
+            className={`button button-default-white ${style["button-phone"]}`}
+          >
             <a href="tel:+380632483200" className="jsx-89893122e891ec04">
-              {' '}
+              {" "}
               <Image src={phone} width={20} height={20} alt="phone"></Image>
             </a>
           </button>
         </div>
-        <div className={style['product-card__title']}>{title}</div>
-        <span className={style['block_price']}>{price ? price + ' грн' : null} </span>
+        <div className={style["product-card__title"]}>{title}</div>
+        <span className={style["block_price"]}>
+          {price ? price + " грн" : null}{" "}
+        </span>
       </div>
 
       <style jsx>{`

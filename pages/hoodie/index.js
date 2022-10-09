@@ -1,16 +1,16 @@
-import MainLayout from '../../components/MainLayout';
-import Head from 'next/head';
-import Card from '../../components/Card';
-import { Spinner } from '../../components/Spinner';
-import { db } from '../../context/firebaseContext';
-import { collection, getDocs } from 'firebase/firestore/lite';
-import { useGoodsContext } from '../../context/contextGoods';
-import useSWR from 'swr';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import Toolbar from '../../components/Toolbar';
-import Category from '../../components/Category';
-import Doubleicon from '../../components/DoubleIcon';
+import MainLayout from "../../components/MainLayout";
+import Head from "next/head";
+import Card from "../../components/Card";
+import { Spinner } from "../../components/Spinner";
+import { db } from "../../context/firebaseContext";
+import { collection, getDocs } from "firebase/firestore/lite";
+import { useGoodsContext } from "../../context/contextGoods";
+import useSWR from "swr";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import Toolbar from "../../components/Toolbar";
+import Category from "../../components/Category";
+import Doubleicon from "../../components/DoubleIcon";
 function Hoodie({ goodList }) {
   const goodClient = JSON.parse(goodList);
 
@@ -18,7 +18,7 @@ function Hoodie({ goodList }) {
 
   useEffect(() => {
     if (state.hoodie.length === 0) {
-      dispatch({ type: 'ADD HOODIE', payload: [...goodClient] });
+      dispatch({ type: "ADD HOODIE", payload: [...goodClient] });
     } else {
       state.hoodie.map((obj) => {
         if (
@@ -28,11 +28,11 @@ function Hoodie({ goodList }) {
         ) {
           return obj;
         } else {
-          obj.active = '';
+          obj.active = "";
           return obj;
         }
       });
-      dispatch({ type: 'ADD HOODIE', payload: state.hoodie });
+      dispatch({ type: "ADD HOODIE", payload: state.hoodie });
     }
   }, []);
   // const getGoods = async () => {
@@ -43,13 +43,13 @@ function Hoodie({ goodList }) {
     const copyGood = JSON.parse(JSON.stringify(state.hoodie));
 
     copyGood.forEach((item) => {
-      if (item.id === id && item.active === 'active') {
-        item.active = '';
+      if (item.id === id && item.active === "active") {
+        item.active = "";
         deleteFromCart(item);
       } else if (item.id === id) {
-        item.active = 'active';
+        item.active = "active";
         dispatch({
-          type: 'ADD TO CART',
+          type: "ADD TO CART",
           payload: {
             id,
             title,
@@ -58,13 +58,13 @@ function Hoodie({ goodList }) {
             color,
             sum: price * 5,
             cnt: 5,
-            active: 'active',
+            active: "active",
           },
         });
       }
     });
 
-    dispatch({ type: 'ADD HOODIE', payload: copyGood });
+    dispatch({ type: "ADD HOODIE", payload: copyGood });
   };
 
   const [show, setShow] = useState(false);
@@ -85,7 +85,8 @@ function Hoodie({ goodList }) {
         />
         <meta
           name="keywords"
-          content="спортивні худі, спортивні худі чоловічі, спортивні худі оптом, чоловічі худі, худі адідас, спортивні худі адідас, спортивні худі, фітнес одяг, спортивні худі україна, спортивні худі оптом 7 км, худі ціна, худі магазин, худі ціна,"></meta>
+          content="спортивні худі, спортивні худі чоловічі, спортивні худі оптом, чоловічі худі, худі адідас, спортивні худі адідас, спортивні худі, фітнес одяг, спортивні худі україна, спортивні худі оптом 7 км, худі ціна, худі магазин, худі ціна,"
+        ></meta>
       </Head>
 
       {false ? (
@@ -96,12 +97,15 @@ function Hoodie({ goodList }) {
               <div className="productCard_block-katalog" key={i}>
                 <div>
                   <Image
-                    alt={'hoodie'}
+                    priority={true}
+                    placeholder="blur"
+                    alt={"hoodie"}
                     width={300}
                     height={400}
                     src={
-                      'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505'
-                    }></Image>
+                      "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
+                    }
+                  ></Image>
                   <div className="bottom-subtitle">
                     <button className="button button-default-white">...</button>
                   </div>
@@ -115,13 +119,17 @@ function Hoodie({ goodList }) {
           <h1 className="title-product-block">худi</h1>
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
-            <Doubleicon show={show} showTwoGood={showTwoGood} showOneGood={showOneGood} />
+            <Doubleicon
+              show={show}
+              showTwoGood={showTwoGood}
+              showOneGood={showOneGood}
+            />
             <div className="cnt-goods">Товарiв:&nbsp;{state.hoodie.length}</div>
-            <Toolbar state={state.hoodie} type={'ADD HOODIE'} />
+            <Toolbar state={state.hoodie} type={"ADD HOODIE"} />
           </div>
           <div className="section-filter-products">
             <div className="section-left">
-              <Category cls={'menu-for-page'}></Category>
+              <Category cls={"menu-for-page"}></Category>
             </div>
             <div className="section-right">
               {state.hoodie.map((good) => {
@@ -136,7 +144,8 @@ function Hoodie({ goodList }) {
                     urlArr={good.urlArr}
                     color={good.color}
                     description={good.description}
-                    show={show}></Card>
+                    show={show}
+                  ></Card>
                 );
               })}
             </div>
@@ -147,7 +156,7 @@ function Hoodie({ goodList }) {
   );
 }
 export async function getStaticProps() {
-  const docRef = collection(db, 'hoodie');
+  const docRef = collection(db, "hoodie");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
 
