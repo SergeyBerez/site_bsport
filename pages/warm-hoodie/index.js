@@ -1,27 +1,27 @@
-import MainLayout from '../../components/MainLayout';
-import Head from 'next/head';
-import Card from '../../components/Card';
-import { Spinner } from '../../components/Spinner';
-import { db } from '../../context/firebaseContext';
-import { collection, getDocs } from 'firebase/firestore/lite';
-import { useGoodsContext } from '../../context/contextGoods';
-import useSWR from 'swr';
-import Image from 'next/image';
+import MainLayout from "../../components/MainLayout";
+import Head from "next/head";
+import Card from "../../components/Card";
+import { Spinner } from "../../components/Spinner";
+import { db } from "../../context/firebaseAuthContext";
+import { collection, getDocs } from "firebase/firestore/lite";
+import { useGoodsContext } from "../../context/contextGoods";
+import useSWR from "swr";
+import Image from "next/image";
 
 function Kostums({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
 
   const getGoods = async () => {
-    dispatch({ type: 'ADD KOSTUMS', payload: [...goodClient] });
+    dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
   };
-  const { data, isValidating } = useSWR('shorts', getGoods, {
+  const { data, isValidating } = useSWR("shorts", getGoods, {
     fallbackData: goodClient,
   });
 
   const add = ({ id, title, description, price, urlArr, color }) => {
     dispatch({
-      type: 'ADD TO CART',
+      type: "ADD TO CART",
       payload: {
         id,
         title,
@@ -30,61 +30,64 @@ function Kostums({ goodList }) {
         color,
         sum: 0,
         cnt: 1,
-        active: 'active',
+        active: "active",
       },
     });
 
     const copyGood = state.kostum.slice();
     copyGood.map((item) => {
       if (item.id === id) {
-        item.active = 'active';
+        item.active = "active";
       }
     });
-    dispatch({ type: 'ADD KOSTUMS', payload: [...copyGood] });
+    dispatch({ type: "ADD KOSTUMS", payload: [...copyGood] });
   };
   const handlerFilterGoods = (e) => {
     const value = e.target.value;
 
-    if (value === 'priceLow') {
+    if (value === "priceLow") {
       const copyGood = state.kostum.slice();
       let sortGood = copyGood.sort((a, b) => {
         return a.price - b.price;
       });
-      dispatch({ type: 'ADD KOSTUMS', payload: [...sortGood] });
+      dispatch({ type: "ADD KOSTUMS", payload: [...sortGood] });
     }
-    if (value === 'priceHigh') {
+    if (value === "priceHigh") {
       const copyGood = state.kostum.slice();
       let sortGood = copyGood.sort((a, b) => {
         return b.price - a.price;
       });
-      dispatch({ type: 'ADD KOSTUMS', payload: [...sortGood] });
+      dispatch({ type: "ADD KOSTUMS", payload: [...sortGood] });
     }
-    if (value === 'dataNew') {
+    if (value === "dataNew") {
       const copyGood = state.kostum.slice();
       let sortGood = copyGood.sort((a, b) => {
         return b.time.seconds - a.time.seconds;
       });
-      dispatch({ type: 'ADD KOSTUMS', payload: [...sortGood] });
+      dispatch({ type: "ADD KOSTUMS", payload: [...sortGood] });
     }
-    if (value === 'dataOld') {
+    if (value === "dataOld") {
       const copyGood = state.kostum.slice();
       let sortGood = copyGood.sort((a, b) => {
         return a.time.seconds - b.time.seconds;
       });
-      dispatch({ type: 'ADD KOSTUMS', payload: [...sortGood] });
+      dispatch({ type: "ADD KOSTUMS", payload: [...sortGood] });
     }
   };
   return (
     <MainLayout>
       <Head>
-        <title>Чоловічі спортивні теплі худі оптом купити інтернет магазин</title>
+        <title>
+          Чоловічі спортивні теплі худі оптом купити інтернет магазин
+        </title>
         <meta
           name="description"
           content="▷ Чоловічі спортивні теплі худі оптом від виробника купити в інтернет магазині. У нас: ✓ великий вибір чоловічих спортивних штанів оптом, ✔ високий рівень сервісу ₴ самі низькі ціни і ✈ доставка по всій Україні: Одеса, Київ."
         />
         <meta
           name="keywords"
-          content="спортивні кофти, спортивні теплі худі чоловічі, спортивні теплі худі оптом, чоловічі кофти спортивні, теплі худі адідас, спортивні теплі худі адідас, спортивні кофти спортивні, фітнес одяг, спортивні теплі худі україна, спортивні теплі худі оптом 7 км, теплі худі ціна, теплі худі магазин, теплі худі ціна,"></meta>
+          content="спортивні кофти, спортивні теплі худі чоловічі, спортивні теплі худі оптом, чоловічі кофти спортивні, теплі худі адідас, спортивні теплі худі адідас, спортивні кофти спортивні, фітнес одяг, спортивні теплі худі україна, спортивні теплі худі оптом 7 км, теплі худі ціна, теплі худі магазин, теплі худі ціна,"
+        ></meta>
       </Head>
 
       {isValidating ? (
@@ -95,12 +98,13 @@ function Kostums({ goodList }) {
               <div className="productCard_block-katalog" key={i}>
                 <div>
                   <Image
-                    alt={'pant'}
+                    alt={"pant"}
                     width={300}
                     height={400}
                     src={
-                      'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505'
-                    }></Image>
+                      "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
+                    }
+                  ></Image>
                   <div className="bottom-subtitle">
                     <button className="button button-default-white">...</button>
                   </div>
@@ -116,12 +120,13 @@ function Kostums({ goodList }) {
             <div className="toolbar-sorter sorter">
               <label className="sorter-label" forhtml="sorter">
                 сортувати
-              </label>{' '}
+              </label>{" "}
               <select
                 id="sorter"
                 data-role="sorter"
                 onChange={handlerFilterGoods}
-                className="sorter-options">
+                className="sorter-options"
+              >
                 <option value="position" defaultValue="">
                   не сортовано
                 </option>
@@ -144,7 +149,8 @@ function Kostums({ goodList }) {
                 key={good.id}
                 title={good.title}
                 price={good.price}
-                urlArr={good.urlArr}></Card>
+                urlArr={good.urlArr}
+              ></Card>
             );
           })}
         </>
@@ -153,7 +159,7 @@ function Kostums({ goodList }) {
   );
 }
 export async function getStaticProps() {
-  const docRef = collection(db, 'hoodie');
+  const docRef = collection(db, "hoodie");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
 

@@ -3,7 +3,7 @@ import Head from "next/head";
 import Card from "../../components/Card";
 import Image from "next/image";
 import { Spinner } from "../../components/Spinner";
-import { db } from "../../context/firebaseContext";
+import { db } from "../../context/firebaseAuthContext";
 import { collection, getDocs } from "firebase/firestore/lite";
 import { useGoodsContext } from "../../context/contextGoods";
 import Accordion from "../../components/Accordion";

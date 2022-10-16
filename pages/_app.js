@@ -6,7 +6,7 @@ import '../styles/globals.css';
 
 //import '../styles/reset.css';
 
-import Context from '../context/firebaseContext';
+import Context from '../context/firebaseAuthContext';
 import ContextGoods from '../context/contextGoods';
 function MyApp({ Component, pageProps }) {
   return (

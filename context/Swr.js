@@ -1,6 +1,6 @@
-import useSWR from 'swr';
-import { db } from './firebaseContext';
-import { collection, getDocs } from 'firebase/firestore/lite';
+import useSWR from "swr";
+import { db } from "./firebaseAuthContext";
+import { collection, getDocs } from "firebase/firestore/lite";
 
 export default function getGoods() {
   const getGoods = async (params) => {
@@ -10,8 +10,8 @@ export default function getGoods() {
 
     return goodList;
   };
-  const { data, isValidating, error } = useSWR('pants', getGoods);
-  console.log(data);
+  const { data, isValidating, error } = useSWR("pants", getGoods);
+
   return {
     data,
     isValidating,

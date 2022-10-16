@@ -2,7 +2,7 @@ import MainLayout from "../../components/MainLayout";
 import Head from "next/head";
 import Card from "../../components/Card";
 import { Spinner } from "../../components/Spinner";
-import { db } from "../../context/firebaseContext";
+import { db } from "../../context/firebaseAuthContext";
 import { collection, getDocs } from "firebase/firestore/lite";
 import { useGoodsContext } from "../../context/contextGoods";
 import useSWR from "swr";

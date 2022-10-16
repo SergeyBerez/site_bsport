@@ -1,23 +1,23 @@
-import MainLayout from '../../components/MainLayout';
-import Head from 'next/head';
-import Card from '../../components/Card';
-import { Spinner } from '../../components/Spinner';
-import { db } from '../../context/firebaseContext';
-import { collection, getDocs } from 'firebase/firestore/lite';
-import { useGoodsContext } from '../../context/contextGoods';
-import { useEffect, useState } from 'react';
-import useSWR from 'swr';
-import Image from 'next/image';
-import Toolbar from '../../components/Toolbar';
-import Category from '../../components/Category';
-import Doubleicon from '../../components/DoubleIcon';
+import MainLayout from "../../components/MainLayout";
+import Head from "next/head";
+import Card from "../../components/Card";
+import { Spinner } from "../../components/Spinner";
+import { db } from "../../context/firebaseAuthContext";
+import { collection, getDocs } from "firebase/firestore/lite";
+import { useGoodsContext } from "../../context/contextGoods";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
+import Image from "next/image";
+import Toolbar from "../../components/Toolbar";
+import Category from "../../components/Category";
+import Doubleicon from "../../components/DoubleIcon";
 export default function Shorts({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch, deleteFromCart } = useGoodsContext();
 
   useEffect(() => {
     if (state.shorts.length === 0) {
-      dispatch({ type: 'ADD SHORTS', payload: [...goodClient] });
+      dispatch({ type: "ADD SHORTS", payload: [...goodClient] });
     } else {
       state.shorts.map((obj) => {
         if (
@@ -27,11 +27,11 @@ export default function Shorts({ goodList }) {
         ) {
           return obj;
         } else {
-          obj.active = '';
+          obj.active = "";
           return obj;
         }
       });
-      dispatch({ type: 'ADD SHORTS', payload: state.shorts });
+      dispatch({ type: "ADD SHORTS", payload: state.shorts });
     }
   }, []);
   // const getGoods = async (params) => {
@@ -51,13 +51,13 @@ export default function Shorts({ goodList }) {
     const copyGood = JSON.parse(JSON.stringify(state.shorts));
 
     copyGood.forEach((item) => {
-      if (item.id === id && item.active === 'active') {
-        item.active = '';
+      if (item.id === id && item.active === "active") {
+        item.active = "";
         deleteFromCart(item);
       } else if (item.id === id) {
-        item.active = 'active';
+        item.active = "active";
         dispatch({
-          type: 'ADD TO CART',
+          type: "ADD TO CART",
           payload: {
             id,
             title,
@@ -66,13 +66,13 @@ export default function Shorts({ goodList }) {
             color,
             sum: price * 5,
             cnt: 5,
-            active: 'active',
+            active: "active",
           },
         });
       }
     });
 
-    dispatch({ type: 'ADD SHORTS', payload: [...copyGood] });
+    dispatch({ type: "ADD SHORTS", payload: [...copyGood] });
   };
 
   return (
@@ -85,7 +85,8 @@ export default function Shorts({ goodList }) {
         />
         <meta
           name="keywords"
-          content="спортивні шорти, спортивні шорти чоловічі, спортивні шорти оптом, чоловічі шорти, шорти адідас, спортивні шорти адідас, спортивні шорти, фітнес одяг, спортивні шорти україна, спортивні шорти оптом 7 км, шорти ціна, шорти магазин, шорти ціна,"></meta>
+          content="спортивні шорти, спортивні шорти чоловічі, спортивні шорти оптом, чоловічі шорти, шорти адідас, спортивні шорти адідас, спортивні шорти, фітнес одяг, спортивні шорти україна, спортивні шорти оптом 7 км, шорти ціна, шорти магазин, шорти ціна,"
+        ></meta>
       </Head>
 
       {false ? (
@@ -96,12 +97,13 @@ export default function Shorts({ goodList }) {
               <div className="productCard_block-katalog" key={i}>
                 <div>
                   <Image
-                    alt={'pant'}
+                    alt={"pant"}
                     width={300}
                     height={400}
                     src={
-                      'https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505'
-                    }></Image>
+                      "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
+                    }
+                  ></Image>
                   <div className="bottom-subtitle">
                     <button className="button button-default-white">...</button>
                   </div>
@@ -115,17 +117,23 @@ export default function Shorts({ goodList }) {
           <h1 className="title-product-block">шорти</h1>
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
-            <Doubleicon show={show} showTwoGood={showTwoGood} showOneGood={showOneGood} />
+            <Doubleicon
+              show={show}
+              showTwoGood={showTwoGood}
+              showOneGood={showOneGood}
+            />
             <div className="cnt-goods">Товарiв:&nbsp;{state.shorts.length}</div>
-            <Toolbar state={state.pants} type={'ADD SHORTS'} />
+            <Toolbar state={state.pants} type={"ADD SHORTS"} />
           </div>
           <div className="section-filter-products">
             <div className="section-left">
-              <Category cls={'menu-for-page'}></Category>
+              <Category cls={"menu-for-page"}></Category>
               <div className="filter">
                 <h3 className="sorter-label">фiльтри</h3>
 
-                <div className="cnt-goods">{state.pants.length}&nbsp;Результатiв</div>
+                <div className="cnt-goods">
+                  {state.pants.length}&nbsp;Результатiв
+                </div>
               </div>
             </div>
             <div className="section-right">
@@ -141,7 +149,8 @@ export default function Shorts({ goodList }) {
                     urlArr={good.urlArr}
                     color={good.color}
                     description={good.description}
-                    show={show}></Card>
+                    show={show}
+                  ></Card>
                 );
               })}
             </div>
@@ -166,7 +175,7 @@ export default function Shorts({ goodList }) {
   );
 }
 export async function getStaticProps() {
-  const docRef = collection(db, 'shorts');
+  const docRef = collection(db, "shorts");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
 

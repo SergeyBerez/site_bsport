@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import MainLayout from '../../components/MainLayout';
-import Head from 'next/head';
-import Card from '../../components/Card';
-import { Spinner } from '../../components/Spinner';
-import { db } from '../../context/firebaseContext';
-import { collection, getDocs } from 'firebase/firestore/lite';
+import { useEffect, useState } from "react";
+import MainLayout from "../../components/MainLayout";
+import Head from "next/head";
+import Card from "../../components/Card";
+import { Spinner } from "../../components/Spinner";
+import { db } from "../../context/firebaseAuthContext";
+import { collection, getDocs } from "firebase/firestore/lite";
 export default function Jacket({ goodList }) {
   const goodClient = JSON.parse(goodList);
 
@@ -18,36 +18,36 @@ export default function Jacket({ goodList }) {
   const handlerFilterGoods = (e) => {
     const value = e.target.value;
 
-    if (value === 'priceLow') {
+    if (value === "priceLow") {
       const copyGood = goods.slice();
       let sortGood = copyGood.sort((a, b) => {
         return a.price - b.price;
       });
-      console.log(sortGood);
+
       setGood(sortGood);
     }
-    if (value === 'priceHigh') {
+    if (value === "priceHigh") {
       const copyGood = goods.slice();
       let sortGood = copyGood.sort((a, b) => {
         return b.price - a.price;
       });
-      console.log(sortGood);
+
       setGood(sortGood);
     }
-    if (value === 'dataNew') {
+    if (value === "dataNew") {
       const copyGood = goods.slice();
       let sortGood = copyGood.sort((a, b) => {
         return b.time.seconds - a.time.seconds;
       });
-      console.log(sortGood);
+
       setGood(sortGood);
     }
-    if (value === 'dataOld') {
+    if (value === "dataOld") {
       const copyGood = goods.slice();
       let sortGood = copyGood.sort((a, b) => {
         return a.time.seconds - b.time.seconds;
       });
-      console.log(sortGood);
+
       setGood(sortGood);
     }
   };
@@ -64,12 +64,13 @@ export default function Jacket({ goodList }) {
             <div className="toolbar-sorter sorter">
               <label className="sorter-label" forhtml="sorter">
                 сортувати
-              </label>{' '}
+              </label>{" "}
               <select
                 id="sorter"
                 data-role="sorter"
                 onChange={handlerFilterGoods}
-                className="sorter-options">
+                className="sorter-options"
+              >
                 <option value="position" defaultValue="">
                   не сортовано
                 </option>
@@ -90,7 +91,8 @@ export default function Jacket({ goodList }) {
                 key={good.id}
                 title={good.title}
                 price={good.price}
-                url={good.url}></Card>
+                url={good.url}
+              ></Card>
             );
           })}
         </>
@@ -102,7 +104,7 @@ export default function Jacket({ goodList }) {
 export async function getStaticProps(context) {
   const id = context.params;
 
-  const docRef = collection(db, 'pants');
+  const docRef = collection(db, "pants");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
 

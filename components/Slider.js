@@ -11,21 +11,14 @@ const Slider = ({ urlArr, grabCursor = false, autoplay = false, count = 4 }) => 
 
   const [imgDetail, setImgDetail] = useState(clearImg);
   useEffect(() => {
-    // console.log(urlArr.includes(""));
+    
     if (urlArr) {
       setImages(urlArr);
       setImgDetail(urlArr[0]);
     }
   }, []);
 
-  // const findimg = (i) => {
-  //   const index = Math.floor(i / 2 - 1);
-
-  //   if (index == -1) {
-  //     index = 0;
-  //     setImgDetail(urlArr[index]);
-  //   }
-  // };
+  
   const goToDitailSlide = (e) => {
     const src = e.currentTarget.src;
     setImgDetail(src);

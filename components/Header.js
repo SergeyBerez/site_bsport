@@ -1,66 +1,86 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
-import { useFirebaseContext } from '../context/firebaseContext';
-import { useGoodsContext } from '../context/contextGoods';
-import user from '../public/static/img/user2.svg';
-import cart from '../public/static/img/cart.svg';
-import Logo from '../public/static/img/logo.png';
-import arrowNext from '../public/static/img/arrow-next.svg';
-import Accordion from './Accordion';
-import Category from './Category';
-export default function Header({ openSideMenu, transformGamburger, toggleMenu }) {
+import { useFirebaseContext } from "../context/firebaseAuthContext";
+import { useGoodsContext } from "../context/contextGoods";
+import user from "../public/static/img/user2.svg";
+import cart from "../public/static/img/cart.svg";
+import Logo from "../public/static/img/logo.png";
+import arrowNext from "../public/static/img/arrow-next.svg";
+import Accordion from "./Accordion";
+import Category from "./Category";
+export default function Header({
+  openSideMenu,
+  transformGamburger,
+  toggleMenu,
+}) {
   const router = useRouter();
   const { CurrentUser } = useFirebaseContext();
   const { state } = useGoodsContext();
-  let arr = router.pathname.split('/');
+  let arr = router.pathname.split("/");
 
   const navParams = [
-    { href: '/', name: 'головна', className: router.pathname == '/' ? 'active' : '' },
-    { href: '/catalog', name: 'катaлог', className: router.pathname == '/catalog' ? 'active' : '' },
-    { href: '/about', name: 'опт', className: router.pathname == '/about' ? 'active' : '' },
     {
-      href: '/delivery',
-      name: 'доставка',
-      className: router.pathname == '/delivery' ? 'active' : '',
+      href: "/",
+      name: "головна",
+      className: router.pathname == "/" ? "active" : "",
     },
-    { href: '/about', name: 'контакти', className: router.pathname == '/about' ? 'active' : '' },
+    {
+      href: "/catalog",
+      name: "катaлог",
+      className: router.pathname == "/catalog" ? "active" : "",
+    },
+    {
+      href: "/about",
+      name: "опт",
+      className: router.pathname == "/about" ? "active" : "",
+    },
+    {
+      href: "/delivery",
+      name: "доставка",
+      className: router.pathname == "/delivery" ? "active" : "",
+    },
+    {
+      href: "/about",
+      name: "контакти",
+      className: router.pathname == "/about" ? "active" : "",
+    },
   ];
   const titleLink = [
-    router.pathname == '/shorts' ? 'шорти' : null,
-    router.pathname == '/pants' ? 'штани' : null,
-    router.pathname == '/hoodie' ? 'худі' : null,
-    router.pathname == '/sport-kostums' ? 'костюми' : null,
-    router.pathname == '/delivery' ? 'доставка' : null,
-    router.pathname == '/about' ? 'контакти' : null,
-    router.pathname == '/regist' ? 'авторизацiя' : null,
-    router.pathname == '/cart' ? 'корзина' : null,
-    router.query.id && arr[1] == 'shorts' ? 'шорти' : null,
-    router.query.id && arr[1] == 'hoodie' ? 'худi' : null,
-    router.query.id && arr[1] == 'pants' ? 'штани' : null,
-    router.query.id && arr[1] == 'sport-kostums' ? 'костюми' : null,
+    router.pathname == "/shorts" ? "шорти" : null,
+    router.pathname == "/pants" ? "штани" : null,
+    router.pathname == "/hoodie" ? "худі" : null,
+    router.pathname == "/sport-kostums" ? "костюми" : null,
+    router.pathname == "/delivery" ? "доставка" : null,
+    router.pathname == "/about" ? "контакти" : null,
+    router.pathname == "/regist" ? "авторизацiя" : null,
+    router.pathname == "/cart" ? "корзина" : null,
+    router.query.id && arr[1] == "shorts" ? "шорти" : null,
+    router.query.id && arr[1] == "hoodie" ? "худi" : null,
+    router.query.id && arr[1] == "pants" ? "штани" : null,
+    router.query.id && arr[1] == "sport-kostums" ? "костюми" : null,
   ];
   const classNameFunction = () => {
     switch (router.pathname) {
-      case '/pants':
-        return 'active';
-      case '/shorts':
-        return 'active';
-      case '/sport-kostums':
-        return 'active';
-      case '/delivery':
-        return 'active';
-      case '/about':
-        return 'active';
-      case '/regist':
-        return 'active';
-      case '/cart':
-        return 'active';
-      case '/hoodie':
-        return 'active';
+      case "/pants":
+        return "active";
+      case "/shorts":
+        return "active";
+      case "/sport-kostums":
+        return "active";
+      case "/delivery":
+        return "active";
+      case "/about":
+        return "active";
+      case "/regist":
+        return "active";
+      case "/cart":
+        return "active";
+      case "/hoodie":
+        return "active";
       default:
-        return '';
+        return "";
     }
   };
 
@@ -68,19 +88,19 @@ export default function Header({ openSideMenu, transformGamburger, toggleMenu })
     <>
       <header className="header" tabIndex="0">
         <button onClick={toggleMenu} className="button" tabIndex="0">
-          <span className={'icon-bar ' + transformGamburger}></span>
-          <span className={'icon-bar ' + transformGamburger}></span>
-          <span className={'icon-bar ' + transformGamburger}></span>
+          <span className={"icon-bar " + transformGamburger}></span>
+          <span className={"icon-bar " + transformGamburger}></span>
+          <span className={"icon-bar " + transformGamburger}></span>
           <span className="header-title">меню</span>
         </button>
         <div className="header-logo">
-          {' '}
+          {" "}
           <Link href="/" shallow>
             <a title="Go to Home Page">
               <Image width={70} height={70} src={Logo} alt="logo"></Image>
             </a>
           </Link>
-        </div>{' '}
+        </div>{" "}
         <nav className="nav-header">
           <ul>
             {navParams.map((item) => {
@@ -103,7 +123,8 @@ export default function Header({ openSideMenu, transformGamburger, toggleMenu })
                     src={CurrentUser?.photoURL ? CurrentUser?.photoURL : user}
                     width={30}
                     height={30}
-                    alt="logo"></Image>
+                    alt="logo"
+                  ></Image>
                 ) : (
                   <Image width={30} height={30} src={user} alt="logo"></Image>
                 )}
@@ -124,50 +145,70 @@ export default function Header({ openSideMenu, transformGamburger, toggleMenu })
       </header>
 
       <div className="breadcrumbs">
-        {router.pathname == '/' ? null : (
+        {router.pathname == "/" ? null : (
           <ul className="items">
-            <li className={router.pathname == '/' ? 'item category active' : 'item category'}>
+            <li
+              className={
+                router.pathname == "/"
+                  ? "item category active"
+                  : "item category"
+              }
+            >
               <Link href="/catalog" shallow>
-                <a title="Go to Home Page">{router.pathname !== '/' ? 'катaлог' : null}</a>
+                <a title="Go to Home Page">
+                  {router.pathname !== "/" ? "катaлог" : null}
+                </a>
               </Link>
             </li>
-            {router.pathname !== '/' ? (
+            {router.pathname !== "/" ? (
               <Image width={10} height={10} src={arrowNext} alt="arrow"></Image>
             ) : null}
             <li className={classNameFunction()}>
               <Link href={`/${arr[1]}`} shallow>
                 <a title={`/${arr[1]}`}>{titleLink}</a>
               </Link>
-            </li>{' '}
+            </li>{" "}
             {router.query.id ? (
               <Image width={10} height={10} src={arrowNext} alt="logo"></Image>
-            ) : null}{' '}
-            <li className={router.query.id ? 'active' : null}>
-              {router.query.id ? `детально` : null}{' '}
-            </li>{' '}
+            ) : null}{" "}
+            <li className={router.query.id ? "active" : null}>
+              {router.query.id ? `детально` : null}{" "}
+            </li>{" "}
           </ul>
         )}
       </div>
 
       {/* ------------------side mobile navigation menu ------------------------- */}
       <div className="side-nav-container">
-        <div className="nav-content" tabIndex="0" style={{ transform: openSideMenu }}>
+        <div
+          className="nav-content"
+          tabIndex="0"
+          style={{ transform: openSideMenu }}
+        >
           <ul>
-            <li className={router.pathname == '/' ? 'active' : ''} onClick={toggleMenu}>
+            <li
+              className={router.pathname == "/" ? "active" : ""}
+              onClick={toggleMenu}
+            >
               <Link href="/" shallow>
                 <a>головна</a>
               </Link>
             </li>
-            <Category toggleMenu={toggleMenu} cls={'mobile-side'}></Category>
+            <Category toggleMenu={toggleMenu} cls={"mobile-side"}></Category>
 
-            <li className={router.pathname == '/delivery' ? 'active' : ''} onClick={toggleMenu}>
+            <li
+              className={router.pathname == "/delivery" ? "active" : ""}
+              onClick={toggleMenu}
+            >
               <Link href="/delivery" shallow>
                 <a>доставка</a>
               </Link>
             </li>
             <li onClick={toggleMenu}>
               <Link href="/about" shallow>
-                <a className={router.pathname == '/about' ? 'active' : ''}>контакти</a>
+                <a className={router.pathname == "/about" ? "active" : ""}>
+                  контакти
+                </a>
               </Link>
             </li>
 

@@ -37,7 +37,7 @@ export default function Card({
 
     state.cart.find((item) => {
       if (item.id === dataAtr) {
-        console.log("ssss");
+        
         setMes("show");
       }
     });
@@ -46,13 +46,7 @@ export default function Card({
     }
   };
   useEffect(() => {
-    // console.log("sdsdsdss", state.goods);
-    // state.cart.map((item) => {
-    //   if (item.active === "active") {
-    //     console.log("true");
-    //     setActive("active");
-    //   }
-    // });
+   
     if (urlArr) {
       setImage(urlArr[0]);
     }

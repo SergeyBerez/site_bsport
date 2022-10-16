@@ -1,5 +1,5 @@
 import CardDetail from "../../components/CardDetail";
-import { db } from "../../context/firebaseContext";
+import { db } from "../../context/firebaseAuthContext";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore/lite";
 import MainLayout from "../../components/MainLayout";
 import { useGoodsContext } from "../../context/contextGoods";
