@@ -1,31 +1,34 @@
-import React from 'react';
-import Link from 'next/link';
-import Accordion from '../components/Accordion';
-import { useRouter } from 'next/router';
+import React from "react";
+import Link from "next/link";
+import Accordion from "../components/Accordion";
+import { useRouter } from "next/router";
 export default function Category({ cls }) {
   const router = useRouter();
   const navParams = [
     {
-      href: '/sport-kostums',
-      name: 'спортивні костюми',
-      name2: 'теплі костюми',
-      className: router.pathname == '/sport-kostums' ? 'active' : '',
+      href: "/sport-kostums",
+      href2: "/sport-kostums-warm",
+      name: "спортивні костюми",
+      name2: "теплі спортивні костюми",
+      className: router.pathname == "/sport-kostums" ? "active" : "",
     },
     {
-      href: '/pants',
-      name: 'спортивні штани',
-      name2: 'теплі штани',
-      className: router.pathname == '/pants' ? 'active' : '',
+      href: "/pants",
+      href2: "/pants-warm",
+      name: "спортивні штани",
+      name2: "теплі штани",
+      className: router.pathname == "/pants" ? "active" : "",
     },
     {
-      href: '/hoodie',
-      name: 'худі',
-      name2: 'теплі худі',
-      className: router.pathname == '/hoodie' ? 'active' : '',
+      href: "/hoodie",
+      href2: "/hoodie-warm",
+      name: "худі",
+      name2: "теплі худі",
+      className: router.pathname == "/hoodie" ? "active" : "",
     },
   ];
   return (
-    <div className={'category-catalog ' + cls}>
+    <div className={"category-catalog " + cls}>
       {navParams.map((item) => {
         return (
           <div key={item.name} className="accordion-block">
@@ -36,7 +39,7 @@ export default function Category({ cls }) {
                 </Link>
               </li>
               <li className={item.className}>
-                <Link href={item.href} shallow>
+                <Link href={item.href2} shallow>
                   <a>{item.name2}</a>
                 </Link>
               </li>
@@ -45,12 +48,12 @@ export default function Category({ cls }) {
         );
       })}
 
-      <li className={router.pathname == '/sweatshirt' ? 'active' : ''}>
+      <li className={router.pathname == "/sweatshirt" ? "active" : ""}>
         {/* <Link href="/sweatshirt" shallow>
           <a>світшоти</a>
         </Link> */}
       </li>
-      <li className={router.pathname == '/shorts' ? 'active' : ''}>
+      <li className={router.pathname == "/shorts" ? "active" : ""}>
         <Link href="/shorts" shallow>
           <a>шорти</a>
         </Link>

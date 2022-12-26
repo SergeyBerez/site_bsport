@@ -29,6 +29,12 @@ export default function Catalog() {
         "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-15_22-15-52.webp?alt=media&token=acc72733-fb20-407c-9d14-7b32dda573b2",
     },
     {
+      path: "sport-kostums-warm",
+      name: "теплі костюми",
+      urlImg:
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-15_22-15-52.webp?alt=media&token=acc72733-fb20-407c-9d14-7b32dda573b2",
+    },
+    {
       path: "sports-jacket",
       name: "кофти",
       urlImg:
