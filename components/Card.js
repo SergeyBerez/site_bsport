@@ -37,7 +37,6 @@ export default function Card({
 
     state.cart.find((item) => {
       if (item.id === dataAtr) {
-        
         setMes("show");
       }
     });
@@ -46,7 +45,6 @@ export default function Card({
     }
   };
   useEffect(() => {
-   
     if (urlArr) {
       setImage(urlArr[0]);
     }
@@ -77,7 +75,7 @@ export default function Card({
             data-title="ви вже добавили цей товар у корзину"
             className={`button button-default-white ${style["button-cart"]} ${active} ${show}`}
             onClick={(e) => {
-              addToCart(e, id);
+              // addToCart(e, id);
               add({ id, title, description, price, urlArr, color, active });
             }}
           >

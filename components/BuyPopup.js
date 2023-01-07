@@ -15,7 +15,6 @@ export default function BuyPopup({
   urlArr,
   id,
   orderGoods,
-
   orderOneGood,
 }) {
   const { CurrentUser } = useFirebaseContext();

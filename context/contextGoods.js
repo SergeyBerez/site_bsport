@@ -32,7 +32,7 @@ export default function ContextGoods({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   // const [url, setUrl] = useState("pants");
   useEffect(() => {
-    console.log(setToStorage());
+   
     // const localStorageCart = JSON.parse(localStorage.getItem("CART"));
     // console.log(localStorageCart);
     // dispatch({
@@ -148,7 +148,7 @@ export default function ContextGoods({ children }) {
         //     })
         //   );
         // });
-
+        console.log(cart);
         localStorage.setItem("CART", JSON.stringify(cart));
         return { ...state, cart };
       case "ADD PANTS":

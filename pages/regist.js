@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useGoodsContext } from "../context/contextGoods";
 import Image from "next/image";
 import MainLayout from "../components/MainLayout";
 import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore/lite";
@@ -22,7 +23,7 @@ export default function Registration() {
   const { setCurrentUser, CurrentUser } = useFirebaseContext();
   const [disabled, setDisbled] = useState("true");
   const [active, setActive] = useState("active");
-
+  const { state } = useGoodsContext();
   const [massage, setMassage] = useState("");
   const [valueInputsReg, setValueInputReg] = useState({
     email: "",
@@ -156,6 +157,8 @@ export default function Registration() {
     }
   };
   const LogOut = () => {
+    state.cart.length = 0;
+    localStorage.removeItem("CART");
     auth.signOut();
     setCurrentUser(null);
     setMassageForLogIn("");

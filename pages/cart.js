@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
 import { useGoodsContext } from "../context/contextGoods";
 import Link from "next/link";
 import BuyPopup from "../components/BuyPopup";

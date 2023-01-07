@@ -37,7 +37,7 @@ function Kostums({ goodList }) {
   const { data, isValidating } = useSWR("sport-kostums", getGoods, {
     fallbackData: goodClient,
   });
-  console.log("isValidating", data);
+
   useEffect(() => {
     console.log("222");
     if (state.kostum.length === 0) {
