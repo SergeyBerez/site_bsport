@@ -27,7 +27,6 @@ function Kostums({ goodList }) {
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
   const getGoods = async () => {
-    console.log("111111");
     //dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
     const docRef = collection(db, "sport-kostums");
     const querySnapshot = await getDocs(docRef);
@@ -39,7 +38,6 @@ function Kostums({ goodList }) {
   });
   console.log("isValidating", data);
   useEffect(() => {
-    console.log("222");
     if (state.kostum.length === 0) {
       dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
     } else {
@@ -175,7 +173,7 @@ function Kostums({ goodList }) {
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
             <Doubleicon
-              show={show}
+              // show={show}
               showTwoGood={showTwoGood}
               showOneGood={showOneGood}
             />

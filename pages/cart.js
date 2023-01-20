@@ -9,7 +9,7 @@ import arrowNext from "../public/static/img/4781840_+_add_circle_create_expand_i
 import remove from "../public/static/img/2931168_bin_delete_remove_trash_garbage_icon.svg";
 import arrowPrev from "../public/static/img/4781841_-_cancel_circle_collapse_min_icon.svg";
 
-import MainLayout from "../components/MainLayout";
+import MainLayout from "../components/MainLayoutWithoutFooter";
 export default function Cart() {
   const { state, countGoodsPlus, countGoodsMinus, deleteFromCart, dispatch } =
     useGoodsContext();

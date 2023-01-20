@@ -175,7 +175,7 @@ function Kostums({ goodList }) {
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
             <Doubleicon
-              show={show}
+              //show={show}
               showTwoGood={showTwoGood}
               showOneGood={showOneGood}
             />

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useGoodsContext } from "../context/contextGoods";
 import Image from "next/image";
-import MainLayout from "../components/MainLayout";
+import MainLayout from "../components/MainLayoutWithoutFooter";
 import { doc, getDoc, setDoc, Timestamp } from "firebase/firestore/lite";
 import {
   createUserWithEmailAndPassword,
