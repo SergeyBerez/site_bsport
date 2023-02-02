@@ -28,7 +28,7 @@
 .block_price__currency {
   text-align: left;
   line-height: 1;
-  font-family: 'LabGrotesque';
+  font-family: "LabGrotesque";
   font-weight: 400;
 }
 .block_descriptionInformation {
@@ -51,11 +51,7 @@
 .productCard_block {
   display: flex;
   flex-direction: column;
-  /* margin: 10px;
-  padding: 5px;
-  max-width: 230px; */
-}
-.productCard_block {
+  align-items: center;
   margin: 5px;
   flex-grow: 0;
   flex-basis: calc(100% / 1 - 10px);
@@ -66,6 +62,10 @@
   flex-grow: 0;
   flex-basis: calc(100% / 2 - 10px);
   min-width: 120px;
+}
+.productCard_block-two > .bottom-subtitle {
+  display: flex;
+  width: 100%;
 }
 
 .product-card__title {
@@ -92,12 +92,9 @@
 @media (min-width: 340px) {
   .bottom-subtitle {
     display: flex;
-    width: 100%;
+    width: 300px;
   }
   .productCard_block {
-    /* display: flex;
-    flex-direction: column; */
-
     text-align: center;
     margin: 5px;
     flex-grow: 1;
@@ -136,15 +133,20 @@
   }
 }
 @media (min-width: 480px) {
-  .productCard_block,
   .productCard_block-two {
     margin: 5px;
     flex-grow: 0;
     flex-basis: calc(100% / 3 - 10px);
   }
+  .productCard_block {
+    flex-basis: calc(100% / 1 - 10px);
+  }
 }
 
 @media (min-width: 680px) {
+  .bottom-subtitle {
+    width: 100%;
+  }
   .productCard_block,
   .productCard_block-two {
     flex-grow: 0;
