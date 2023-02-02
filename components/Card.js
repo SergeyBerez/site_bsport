@@ -23,6 +23,7 @@ export default function Card({
   show,
 }) {
   const router = useRouter();
+
   const { state, dispatch } = useGoodsContext();
   const [image, setImage] = useState(
     "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"

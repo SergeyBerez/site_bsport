@@ -7,6 +7,7 @@ import { useGoodsContext } from "../context/contextGoods";
 import user from "../public/static/img/user2.svg";
 import cart from "../public/static/img/cart.svg";
 import Logo from "../public/static/img/logo.png";
+import phone from "../public/static/img/2849835_phone_telephone_cell_call_communication_icon.svg";
 import arrowNext from "../public/static/img/arrow-next.svg";
 import Accordion from "./Accordion";
 import Category from "./Category";
@@ -26,11 +27,11 @@ export default function Header({
       name: "головна",
       className: router.pathname == "/" ? "active" : "",
     },
-    {
-      href: "/catalog",
-      name: "катaлог",
-      className: router.pathname == "/catalog" ? "active" : "",
-    },
+    // {
+    //   href: "/catalog",
+    //   name: "катaлог",
+    //   className: router.pathname == "/catalog" ? "active" : "",
+    // },
     {
       href: "/about",
       name: "опт",
@@ -49,9 +50,11 @@ export default function Header({
   ];
   const titleLink = [
     router.pathname == "/shorts" ? "шорти" : null,
+    router.pathname == "/" ? "головна" : null,
     router.pathname == "/pants" ? "штани" : null,
     router.pathname == "/hoodie" ? "худі" : null,
     router.pathname == "/sport-kostums" ? "костюми" : null,
+    router.pathname == "/warm-kostum" ? "костюми теплі" : null,
     router.pathname == "/delivery" ? "доставка" : null,
     router.pathname == "/about" ? "контакти" : null,
     router.pathname == "/regist" ? "авторизацiя" : null,
@@ -59,7 +62,7 @@ export default function Header({
     router.query.id && arr[1] == "shorts" ? "шорти" : null,
     router.query.id && arr[1] == "hoodie" ? "худi" : null,
     router.query.id && arr[1] == "pants" ? "штани" : null,
-    router.query.id && arr[1] == "sport-kostums" ? "костюми" : null,
+    router.query.id && arr[1] == "warm-kostum" ? "костюми" : null,
   ];
   const classNameFunction = () => {
     switch (router.pathname) {
@@ -68,6 +71,8 @@ export default function Header({
       case "/shorts":
         return "active";
       case "/sport-kostums":
+        return "active";
+      case "/warm-kostum":
         return "active";
       case "/delivery":
         return "active";
@@ -93,14 +98,15 @@ export default function Header({
           <span className={"icon-bar " + transformGamburger}></span>
           <span className="header-title">меню</span>
         </button>
-        <div className="header-logo">
+        {/* <div className="header-logo">
           {" "}
           <Link href="/" shallow>
             <a title="Go to Home Page">
               <Image width={70} height={70} src={Logo} alt="logo"></Image>
             </a>
           </Link>
-        </div>{" "}
+        </div> */}
+        {/*----- navigation for desctop version -----*/}
         <nav className="nav-header">
           <ul>
             {navParams.map((item) => {
@@ -114,7 +120,14 @@ export default function Header({
             })}
           </ul>
         </nav>
+
         <div className="block-user-cart">
+          <div className="user-header">
+            <a href="tel:+380632483200" className="jsx-89893122e891ec04">
+              {" "}
+              <Image src={phone} width={30} height={30} alt="phone"></Image>
+            </a>
+          </div>
           <div className="user-header">
             <Link href="/regist" shallow>
               <a>
@@ -154,9 +167,9 @@ export default function Header({
                   : "item category"
               }
             >
-              <Link href="/catalog" shallow>
+              <Link href="/" shallow>
                 <a title="Go to Home Page">
-                  {router.pathname !== "/" ? "катaлог" : null}
+                  {router.pathname !== "/" ? "головна" : null}
                 </a>
               </Link>
             </li>

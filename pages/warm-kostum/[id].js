@@ -23,7 +23,7 @@ export default function Kostum({ goods }) {
   );
 }
 export async function getStaticPaths() {
-  const querySnapshot = await getDocs(collection(db, "sport-kostums"));
+  const querySnapshot = await getDocs(collection(db, "warm-kostum"));
   const paths = querySnapshot.docs.map((doc) => {
     return { params: { id: doc.id.toString() } };
   });
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const id = context.params.id;
 
-  const docRef = doc(db, "sport-kostums", id);
+  const docRef = doc(db, "warm-kostum", id);
 
   const docSnap = await getDoc(docRef);
 

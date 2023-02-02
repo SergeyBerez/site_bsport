@@ -81,11 +81,19 @@ export default function Pants({ fallback }) {
     dispatch({ type: "ADD PANTS", payload: copyGood });
   };
   const [show, setShow] = useState(false);
-  const showTwoGood = () => {
-    setShow(false);
-  };
-  const showOneGood = () => {
-    setShow(true);
+  // const showTwoGood = (e) => {
+  //   console.log(e.target.alt);
+  //   setShow(false);
+  // };
+  const toogleGood = (e) => {
+    console.log(e.target.alt);
+    if (e.target.alt === "productOneGood") {
+      console.log("111");
+      setShow(true);
+    } else {
+      console.log("222");
+      setShow(false);
+    }
   };
   const ClearFilter = (e) => {
     const text = e.target.textContent.toLowerCase();
@@ -168,11 +176,7 @@ export default function Pants({ fallback }) {
           <h1 className="title-product-block">штани</h1>
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
-            <Doubleicon
-              show={show}
-              showTwoGood={showTwoGood}
-              showOneGood={showOneGood}
-            />
+            <Doubleicon show={show} toogleGood={toogleGood} />
             <div className="cnt-goods">
               Товарiв:&nbsp;{state?.pants?.length}
             </div>

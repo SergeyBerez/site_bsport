@@ -28,20 +28,20 @@ function Kostums({ goodList }) {
 
   const getGoods = async () => {
     //dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
-    const docRef = collection(db, "sport-kostums");
+    const docRef = collection(db, "warm-kostum");
     const querySnapshot = await getDocs(docRef);
     const goodList = querySnapshot.docs.map((doc) => doc.data());
     return goodList;
   };
-  const { data, isValidating } = useSWR("sport-kostums", getGoods, {
+  const { data, isValidating } = useSWR("warm-kostum", getGoods, {
     fallbackData: goodClient,
   });
-  console.log("isValidating", data);
+  console.log(isValidating);
   useEffect(() => {
-    if (state.kostum.length === 0) {
-      dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
+    if (state.kostumWarm.length === 0) {
+      dispatch({ type: "ADD KOSTUMSWARM", payload: [...goodClient] });
     } else {
-      state.kostum.map((obj) => {
+      state.kostumWarm.map((obj) => {
         if (
           state.cart.find((i) => {
             return i.id === obj.id;
@@ -53,12 +53,12 @@ function Kostums({ goodList }) {
           return obj;
         }
       });
-      dispatch({ type: "ADD KOSTUMS", payload: state.kostum });
+      dispatch({ type: "ADD KOSTUMSWARM", payload: state.kostumWarm });
     }
   }, []);
 
   const add = ({ id, title, description, price, urlArr, color }) => {
-    const copyGood = state.kostum.slice();
+    const copyGood = state.kostumWarm.slice();
     copyGood.map((item) => {
       if (item.id === id) {
         item.active = "active";
@@ -78,7 +78,7 @@ function Kostums({ goodList }) {
       },
     });
 
-    dispatch({ type: "ADD KOSTUMS", payload: [...copyGood] });
+    dispatch({ type: "ADD KOSTUMSWARM", payload: [...copyGood] });
   };
   const [show, setShow] = useState(false);
   const showTwoGood = () => {
@@ -92,7 +92,7 @@ function Kostums({ goodList }) {
 
     if (text === "зняти фiльтр") {
       setCheckedState(new Array(3).fill(false));
-      dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
+      dispatch({ type: "ADD KOSTUMSWARM", payload: [...goodClient] });
     }
   };
   const handleOnChange = (e, position) => {
@@ -100,7 +100,7 @@ function Kostums({ goodList }) {
       index === position ? !item : item
     );
     setCheckedState(updatedCheckedState);
-    const copyGood = state.kostum.slice();
+    const copyGood = state.kostumWarm.slice();
     const inputValue = e.target.value.toLowerCase();
 
     const filterGoods = copyGood.filter((item) => {
@@ -119,11 +119,11 @@ function Kostums({ goodList }) {
     }
 
     if (e.target.checked) {
-      dispatch({ type: "ADD KOSTUMS", payload: [...filterGoods] });
+      dispatch({ type: "ADD KOSTUMSWARM", payload: [...filterGoods] });
     } else {
       setCheckedState(new Array(3).fill(false));
 
-      dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
+      dispatch({ type: "ADD KOSTUMSWARM", payload: [...goodClient] });
     }
   };
   return (
@@ -145,7 +145,7 @@ function Kostums({ goodList }) {
       {isValidating ? (
         <>
           <Spinner></Spinner>
-          {state.kostum.map((obj, i) => {
+          {state.kostumWarm.map((obj, i) => {
             return (
               <div className="productCard_block-katalog" key={i}>
                 <div>
@@ -178,7 +178,10 @@ function Kostums({ goodList }) {
               showOneGood={showOneGood}
             />
             <div className="cnt-goods">Товарiв:&nbsp;{state.kostum.length}</div>
-            <Toolbar state={state.kostum} type={"ADD KOSTUMS"}></Toolbar>
+            <Toolbar
+              state={state.kostumWarm}
+              type={"ADD KOSTUMSWARM"}
+            ></Toolbar>
           </div>
 
           <div className="section-filter-products">
@@ -213,7 +216,7 @@ function Kostums({ goodList }) {
             </div>
 
             <div className="section-right">
-              {state.kostum.map((good) => {
+              {state.kostumWarm.map((good) => {
                 return (
                   <Card
                     add={add}
@@ -236,7 +239,7 @@ function Kostums({ goodList }) {
   );
 }
 export async function getStaticProps() {
-  const docRef = collection(db, "sport-kostums");
+  const docRef = collection(db, "warm-kostum");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
 

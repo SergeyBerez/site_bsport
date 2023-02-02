@@ -20,6 +20,7 @@ const initialState = {
   kostum: [],
   hoodie: [],
   shorts: [],
+  kostumWarm: [],
 };
 
 const GoodsContext = createContext(initialState);
@@ -32,7 +33,6 @@ export default function ContextGoods({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   // const [url, setUrl] = useState("pants");
   useEffect(() => {
-   
     // const localStorageCart = JSON.parse(localStorage.getItem("CART"));
     // console.log(localStorageCart);
     // dispatch({
@@ -157,6 +157,8 @@ export default function ContextGoods({ children }) {
         return { ...state, shorts: action.payload };
       case "ADD KOSTUMS":
         return { ...state, kostum: action.payload };
+      case "ADD KOSTUMSWARM":
+        return { ...state, kostumWarm: action.payload };
       case "ADD HOODIE":
         return { ...state, hoodie: action.payload };
       case "DELETE FROM CART":
@@ -205,6 +207,7 @@ export default function ContextGoods({ children }) {
       console.log("error", error);
     }
   }
+
   return (
     <GoodsContext.Provider
       value={{
