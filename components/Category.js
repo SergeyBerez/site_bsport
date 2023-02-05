@@ -7,7 +7,7 @@ export default function Category({ cls }) {
   const navParams = [
     {
       href: "/sport-kostums",
-      href2: "/sport-kostums-warm",
+      href2: "/warm-kostum",
       name: "спортивні костюми",
       name2: "теплі спортивні костюми",
       className: router.pathname == "/sport-kostums" ? "active" : "",

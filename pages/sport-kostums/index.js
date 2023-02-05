@@ -82,13 +82,7 @@ function Kostums({ goodList }) {
 
     dispatch({ type: "ADD KOSTUMS", payload: [...copyGood] });
   };
-  const [show, setShow] = useState(false);
-  const showTwoGood = () => {
-    setShow(false);
-  };
-  const showOneGood = () => {
-    setShow(true);
-  };
+
   const ClearFilter = (e) => {
     const text = e.target.textContent.toLowerCase();
 
@@ -126,6 +120,16 @@ function Kostums({ goodList }) {
       setCheckedState(new Array(3).fill(false));
 
       dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
+    }
+  };
+
+  const [show, setShow] = useState(false);
+  const toogleGood = (e) => {
+    console.log(e.target.alt);
+    if (e.target.alt === "productOneGood") {
+      setShow(true);
+    } else {
+      setShow(false);
     }
   };
   return (
@@ -174,11 +178,7 @@ function Kostums({ goodList }) {
           <h1 className="title-product-block">спортивнi костюми</h1>
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
-            <Doubleicon
-              //show={show}
-              showTwoGood={showTwoGood}
-              showOneGood={showOneGood}
-            />
+            <Doubleicon show={show} toogleGood={toogleGood} />
             <div className="cnt-goods">Товарiв:&nbsp;{state.kostum.length}</div>
             <Toolbar state={state.kostum} type={"ADD KOSTUMS"}></Toolbar>
           </div>

@@ -32,7 +32,7 @@ export default function Pants({ fallback }) {
     return goodList;
   }
 
-  const { data } = useSWR(goodClient, fetcher);
+  const { data, isValidating } = useSWR(goodClient, fetcher);
   useEffect(() => {
     if (state.pants.length === 0) {
       dispatch({ type: "ADD PANTS", payload: [...goodClient] });
@@ -81,10 +81,7 @@ export default function Pants({ fallback }) {
     dispatch({ type: "ADD PANTS", payload: copyGood });
   };
   const [show, setShow] = useState(false);
-  // const showTwoGood = (e) => {
-  //   console.log(e.target.alt);
-  //   setShow(false);
-  // };
+  
   const toogleGood = (e) => {
     console.log(e.target.alt);
     if (e.target.alt === "productOneGood") {
@@ -150,7 +147,7 @@ export default function Pants({ fallback }) {
         ></meta>
       </Head>
 
-      {false ? (
+      {isValidating ? (
         <>
           <Spinner></Spinner>
           {state.pants.map((good) => {

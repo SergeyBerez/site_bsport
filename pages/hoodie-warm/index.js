@@ -13,10 +13,18 @@ import Category from "../../components/Category";
 import Doubleicon from "../../components/DoubleIcon";
 function Hoodie({ goodList }) {
   const goodClient = JSON.parse(goodList);
-
   const { state, dispatch, deleteFromCart } = useGoodsContext();
+  const [show, setShow] = useState(false);
+  async function fetcher() {
+    const docRef = collection(db, "hoodie");
+    const querySnapshot = await getDocs(docRef);
+    const goodList = querySnapshot.docs.map((doc) => doc.data());
+    return goodList;
+  }
 
+  const { data, isValidating } = useSWR(goodClient, fetcher);
   useEffect(() => {
+    console.log("useEffect");
     if (state.hoodie.length === 0) {
       dispatch({ type: "ADD HOODIE", payload: [...goodClient] });
     } else {
@@ -67,12 +75,15 @@ function Hoodie({ goodList }) {
     dispatch({ type: "ADD HOODIE", payload: copyGood });
   };
 
-  const [show, setShow] = useState(false);
-  const showTwoGood = () => {
-    setShow(false);
-  };
-  const showOneGood = () => {
-    setShow(true);
+  const toogleGood = (e) => {
+    console.log(e.target.alt);
+    if (e.target.alt === "productOneGood") {
+      console.log("111");
+      setShow(true);
+    } else {
+      console.log("222");
+      setShow(false);
+    }
   };
 
   return (
@@ -89,7 +100,7 @@ function Hoodie({ goodList }) {
         ></meta>
       </Head>
 
-      {false ? (
+      {isValidating ? (
         <>
           <Spinner></Spinner>
           {state.hoodie.map((obj, i) => {
@@ -102,8 +113,9 @@ function Hoodie({ goodList }) {
                     alt={"hoodie"}
                     width={300}
                     height={400}
+                    blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRm knyJckliyjqTzSlT54b6bk+h0R//2Q=="
                     src={
-                      "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
+                      "data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRm knyJckliyjqTzSlT54b6bk+h0R//2Q=="
                     }
                   ></Image>
                   <div className="bottom-subtitle">
@@ -119,11 +131,7 @@ function Hoodie({ goodList }) {
           <h1 className="title-product-block">худi</h1>
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
-            <Doubleicon
-              show={show}
-              showTwoGood={showTwoGood}
-              showOneGood={showOneGood}
-            />
+            <Doubleicon show={show} toogleGood={toogleGood} />
             <div className="cnt-goods">Товарiв:&nbsp;{state.hoodie.length}</div>
             <Toolbar state={state.hoodie} type={"ADD HOODIE"} />
           </div>
