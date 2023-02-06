@@ -21,6 +21,7 @@ const initialState = {
   hoodie: [],
   shorts: [],
   kostumWarm: [],
+  futbolka: [],
 };
 
 const GoodsContext = createContext(initialState);

@@ -58,11 +58,13 @@ export default function Header({
     router.pathname == "/delivery" ? "доставка" : null,
     router.pathname == "/about" ? "контакти" : null,
     router.pathname == "/regist" ? "авторизацiя" : null,
+    router.pathname == "/t-shirt" ? "футболки" : null,
     router.pathname == "/cart" ? "корзина" : null,
     router.query.id && arr[1] == "shorts" ? "шорти" : null,
     router.query.id && arr[1] == "hoodie" ? "худi" : null,
     router.query.id && arr[1] == "pants" ? "штани" : null,
     router.query.id && arr[1] == "warm-kostum" ? "костюми" : null,
+    router.query.id && arr[1] == "t-shirt" ? "футболки" : null,
   ];
   const classNameFunction = () => {
     switch (router.pathname) {
@@ -79,6 +81,8 @@ export default function Header({
       case "/about":
         return "active";
       case "/regist":
+        return "active";
+      case "/t-shirt":
         return "active";
       case "/cart":
         return "active";

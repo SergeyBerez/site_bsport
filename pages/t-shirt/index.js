@@ -11,7 +11,7 @@ import Image from "next/image";
 function Tshirt({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch } = useGoodsContext();
-
+  console.log(goodClient);
   const getGoods = async () => {
     dispatch({ type: "ADD KOSTUMS", payload: [...goodClient] });
   };
@@ -158,7 +158,7 @@ function Tshirt({ goodList }) {
   );
 }
 export async function getStaticProps() {
-  const docRef = collection(db, "t-shirt");
+  const docRef = collection(db, "hoodie");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
 
