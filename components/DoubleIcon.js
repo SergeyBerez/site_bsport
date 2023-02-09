@@ -11,7 +11,7 @@ const Doubleicon = ({ toogleGood, show }) => {
           {" "}
           <Image
             onClick={toogleGood}
-            src={square}
+            src={menu}
             width={30}
             height={30}
             alt="productOneGood"
@@ -22,7 +22,7 @@ const Doubleicon = ({ toogleGood, show }) => {
         <div className="icon-show-two">
           <Image
             onClick={toogleGood}
-            src={menu}
+            src={square}
             width={30}
             height={30}
             alt="productTwoGood"

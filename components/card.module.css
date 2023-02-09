@@ -19,11 +19,10 @@
 .block_price {
   width: 100%;
 
-  font-size: 1.4rem;
   font-weight: bold;
   text-align: center;
   color: #1a1a1a;
-  padding: 0px 5px;
+  padding: 5px 0px;
 }
 .block_price__currency {
   text-align: left;
@@ -109,7 +108,6 @@
     min-width: 120px;
   }
   .product-card__title {
-    margin-bottom: 0;
     font-size: 1.4rem;
   }
   .button-cart {
@@ -136,7 +134,7 @@
   .productCard_block-two {
     margin: 5px;
     flex-grow: 0;
-    flex-basis: calc(100% / 3 - 10px);
+    flex-basis: calc(100% / 2 - 10px);
   }
   .productCard_block {
     flex-basis: calc(100% / 1 - 10px);
@@ -150,7 +148,7 @@
   .productCard_block,
   .productCard_block-two {
     flex-grow: 0;
-    flex-basis: calc(100% / 4 - 10px);
+    flex-basis: calc(100% / 3 - 10px);
     min-width: 150px;
   }
 }
@@ -159,7 +157,7 @@
   .productCard_block,
   .productCard_block-two {
     flex-grow: 0;
-    flex-basis: calc(100% / 5 - 10px);
+    flex-basis: calc(100% / 4 - 10px);
     min-width: 200px;
   }
 }

@@ -99,7 +99,7 @@ export default function Card({
         </div>
         <div className={style["product-card__title"]}>{title}</div>
         <span className={style["block_price"]}>
-          {price ? price + " грн" : null}{" "}
+          Ціна за ростовку {price}&nbsp;₴
         </span>
       </div>
 
