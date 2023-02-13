@@ -9,7 +9,7 @@ import cart from "../public/static/img/cart.svg";
 import Logo from "../public/static/img/logo.png";
 import phone from "../public/static/img/2849835_phone_telephone_cell_call_communication_icon.svg";
 import arrowNext from "../public/static/img/arrow-next.svg";
-import Accordion from "./Accordion";
+
 import Category from "./Category";
 export default function Header({
   openSideMenu,

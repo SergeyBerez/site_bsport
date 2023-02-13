@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import Footer from "./Footer";
 export default function MainLayout({ children, cls }) {
-  const router = useRouter();
+  
   const [openSideMenu, setOpenSideMenu] = useState("");
   const [gamburger, setGamburger] = useState("");
   const divBackgroundEl = useRef(null);

@@ -52,10 +52,10 @@ export default function Footer() {
           <li>Банківською карткою</li>
         </ul>{" "}
         <div>
-          <Image src={Monobank} width={120} height={100}></Image>
+          <Image src={Monobank} width={200} height={100}></Image>
         </div>
         <div>
-          <Image src={Privatbank} width={120} height={100}></Image>
+          <Image src={Privatbank} width={200} height={100}></Image>
         </div>
       </div>
       <div className="footer-col">
@@ -90,6 +90,28 @@ export default function Footer() {
           </div>
         </div>
       </div>
+      <div className="footer-col">
+        {" "}
+        <ul className="">
+          <li className="elementor">
+            <span className="list-content">Україна, м. Хмельницький </span>
+          </li>
+          <li className="elementor">
+            <span className="list-content">+380 (63) 248 32 00 </span>
+            <a
+              href="tel:%20(050)%20030-1030"
+              className="wd-fill"
+              aria-label="List item link"
+            ></a>
+          </li>
+          <li className="elementor-repeater-item-a511145">
+            <span className="list-icon"></span>
+            <span className="list-content">
+              Робочий час: Пн - Сб 09:00 - 19:00
+            </span>
+          </li>
+        </ul>
+      </div>
       <style jsx>{`
         .footer {
           display: flex;
@@ -111,6 +133,11 @@ export default function Footer() {
         }
         .footer-col:last-child {
           border-right: none;
+          flex-grow: 1;
+          text-align: center;
+        }
+        .list-content {
+          color: #777777;
         }
         .footer-col ul > li {
           padding: 10px 0;
@@ -151,6 +178,8 @@ export default function Footer() {
           .footer-col:last-child {
             border-right: none;
             border-bottom: none;
+            flex-grow: 1;
+            text-align: center;
           }
         }
       `}</style>
