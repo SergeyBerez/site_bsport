@@ -98,16 +98,14 @@ export default function Card({
           </button>
         </div>
         <div className={style["product-card__title"]}>{title}</div>
-        <span className={style["block_price"]}>
-          Ціна за ростовку {price}&nbsp;₴
-        </span>
+        <span className={style.block_price}>Ціна за шт {price}&nbsp;₴</span>
       </div>
 
       <style jsx>{`
-        .show {
-          display: inline-block; /* Строчно-блочный элемент */
-          position: relative; /* Относительное позиционирование */
-        }
+        // .show {
+        //   display: inline-block; /* Строчно-блочный элемент */
+        //   position: relative; /* Относительное позиционирование */
+        // }
         .show::after {
           color: black;
           content: attr(data-title); /* Выводим текст */
