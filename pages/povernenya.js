@@ -153,6 +153,21 @@ function Povernenya() {
           </p>
         </div>
       </div>
+
+      <style jsx>{`
+        .StaticPage__staticPageContent {
+          color: rgb(0, 0, 0);
+          padding: 0 10px;
+        }
+        .containe {
+          width: 100%;
+        }
+        p {
+          text-indent: 45px;
+          word-break: break-all;
+          margin: 0 0 15px;
+        }
+      `}</style>
     </MainLayout>
   );
 }
