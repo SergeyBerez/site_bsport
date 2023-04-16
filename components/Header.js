@@ -63,7 +63,9 @@ export default function Header({
     router.query.id && arr[1] == "shorts" ? "шорти" : null,
     router.query.id && arr[1] == "hoodie" ? "худi" : null,
     router.query.id && arr[1] == "pants" ? "штани" : null,
-    router.query.id && arr[1] == "warm-kostum" ? "костюми" : null,
+    router.query.id && arr[1] == "sport-kostums" ? "костюми" : null,
+    router.query.id && arr[1] == "warm-kostum" ? "костюми теплі" : null,
+    router.query.id && arr[1] == "cart" ? router.pathname : null,
     router.query.id && arr[1] == "t-shirt" ? "футболки" : null,
   ];
   const classNameFunction = () => {
