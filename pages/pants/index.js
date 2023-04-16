@@ -81,7 +81,7 @@ export default function Pants({ fallback }) {
     dispatch({ type: "ADD PANTS", payload: copyGood });
   };
   const [show, setShow] = useState(false);
-  
+
   const toogleGood = (e) => {
     console.log(e.target.alt);
     if (e.target.alt === "productOneGood") {
@@ -136,14 +136,14 @@ export default function Pants({ fallback }) {
     <MainLayout>
       <Head>
         {" "}
-        <title>Чоловічі спортивні штани оптом купити інтернет магазин</title>
+        <title>Чоловічі спортивні штани</title>
         <meta
           name="description"
-          content="Купити теплі чоловічі спортивні штани У нас:  великий вибір чоловічих спортивних штанів оптом,високий рівень сервісу самі низькі ціни і доставка по всій Україні: Одеса, Київ."
+          content="Купити теплі чоловічі спортивні штани"
         />
         <meta
           name="keywords"
-          content="спортивні штани, спортивні штани чоловічі, спортивні штани оптом, чоловічі штани, штани адідас, спортивні штани адідас, спортивні штани, фітнес одяг, спортивні штани україна, спортивні штани оптом 7 км, штани ціна, штани магазин, штани ціна,"
+          content="спортивні штани, спортивні штани чоловічі, спортивні штани оптом, чоловічі штани"
         ></meta>
       </Head>
 
