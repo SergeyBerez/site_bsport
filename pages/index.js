@@ -17,7 +17,7 @@ export default function Index() {
       path: "pants",
       name: "штани",
       urlImg:
-        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2023-02-20_17-38-24%20(4).webp?alt=media&token=24a9241d-a61a-4588-b15f-86e8ee980c22",
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2023-02-20_17-38-24%20(5).jpg?alt=media&token=b19b714a-3c0c-4eb2-a69b-653ad8487b75",
     },
     {
       path: "sport-kostums",
@@ -41,7 +41,7 @@ export default function Index() {
       path: "hoodie",
       name: "худi",
       urlImg:
-        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2022-03-28_10-21-40.jpg?alt=media&token=43650e4b-bd78-4493-90df-cc8d887f3915",
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2023-04-16_11-15-46.jpg?alt=media&token=916f19f1-0fdf-4f80-8f0b-a21c61c1e9c8",
     },
     {
       path: "t-shirt",
