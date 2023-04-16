@@ -16,7 +16,6 @@ export default function CardDetail({
   urlArr,
   color,
 }) {
- 
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
   const [massage, setMassage] = useState("");
@@ -121,7 +120,12 @@ export default function CardDetail({
         </div>
         <div className="block_descriptionInformation">
           <Accordion title={"Опис товару"}>
-            <p>-{detaileDescription}</p>
+            <p>
+              {/* {detaileDescription} */}
+              {detaileDescription
+                ? detaileDescription
+                : "тканина турецька двунитка пенi"}
+            </p>
 
             <p>-Ткань турецкая состав: 80 % хлопок 20 % полиэстер</p>
           </Accordion>
