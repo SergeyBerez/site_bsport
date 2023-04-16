@@ -4,7 +4,7 @@ import MainLayout from "../components/MainLayout";
 
 import Link from "next/link";
 import Image from "next/image";
-
+import arrowLink from "../public/static/img/arrow-link.svg";
 export default function Index() {
   const DataSvgForSlider = [
     {
@@ -17,7 +17,7 @@ export default function Index() {
       path: "pants",
       name: "штани",
       urlImg:
-        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-04-08_19-57-15.webp?alt=media&token=2548d1a0-1660-48b4-beb5-3256e65afcab",
+        "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2023-02-20_17-38-24%20(4).webp?alt=media&token=24a9241d-a61a-4588-b15f-86e8ee980c22",
     },
     {
       path: "sport-kostums",
@@ -50,48 +50,31 @@ export default function Index() {
         "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/photo_2021-07-12_20-32-00.webp?alt=media&token=e14ee5e9-d4cc-4a64-97b9-42c0bf779779",
     },
   ];
-  // const renserSkelton = DataSvgForSlider.map((obj, i) => {
-  //   return (
-  //     <div className="productCard_block-katalog" key={i}>
-  //       <div>
-  //         <Image
-  //           alt={"pant"}
-  //           width={300}
-  //           height={400}
-  //           src={
-  //             "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
-  //           }
-  //         ></Image>
-  //         <div className="bottom-subtitle">
-  //           <button className="button button-default-white">...</button>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // });
+
   const renderGoods = DataSvgForSlider.map((obj, i) => {
     return (
       <div className="productCard_block-katalog" key={i}>
+        <p className="title-product-block"> {obj?.name}</p>
         <Link href={`/${obj.path}`} passHref>
-          <div>
-            {/* <Image alt={obj?.name} width={300} height={400} src={obj?.urlImg}></Image> */}
-
-            {obj?.urlImg.length > 0 && (
-              <Image
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRm knyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                src={obj?.urlImg}
-                alt={obj?.name}
-                width={300}
-                height={400}
-              />
-            )}
+          <a>
+            <span className="category_item-image">
+              {obj?.urlImg.length > 0 && (
+                <Image
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRm knyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                  src={obj?.urlImg}
+                  alt={obj?.name}
+                  width={300}
+                  height={400}
+                />
+              )}
+            </span>
             <div className="bottom-subtitle">
               <button className="button button-default-white">
-                {obj?.name}
+                перейти <Image src={arrowLink} />
               </button>
             </div>
-          </div>
+          </a>
         </Link>{" "}
       </div>
     );

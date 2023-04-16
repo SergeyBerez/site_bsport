@@ -187,13 +187,17 @@ button {
   display: flex;
   flex-direction: column;
   margin: 10px;
-  padding: 5px;
+  padding: 2px;
   max-width: 250px;
+  box-shadow: 1px -3px 7px rgb(242 234 234 / 69%);
 }
 .button {
   cursor: pointer;
 }
 .button-default-white {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   background: 0 0;
   border: 1px solid black;
 
@@ -209,6 +213,9 @@ button {
 .button-default-white:hover {
   background-color: black;
   color: white;
+}
+.none {
+  border: none;
 }
 .button-default-black {
   color: white;

@@ -18,7 +18,7 @@
 
 .block_price {
   width: 100%;
-
+  margin: 5px 0px;
   font-weight: bold;
   text-align: center;
   color: #1a1a1a;
@@ -54,16 +54,21 @@
   margin: 5px;
   flex-grow: 0;
   flex-basis: calc(100% / 1 - 10px);
+  padding: 5px;
+  box-shadow: 6px 0px 8px 0px #d1c9c985;
 }
 
 .productCard_block-two {
+  padding: 5px;
   margin: 5px;
   flex-grow: 0;
   flex-basis: calc(100% / 2 - 10px);
   min-width: 120px;
+  box-shadow: 6px 0px 8px 0px #d1c9c985;
 }
 .productCard_block-two > .bottom-subtitle {
   display: flex;
+  justify-content: space-between;
   width: 100%;
 }
 

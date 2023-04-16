@@ -70,26 +70,16 @@ export default function Card({
             ></Image>
           </a>
         </Link>
+        <div className={style["product-card__title"]}>{title}</div>
         <div className={style["bottom-subtitle"]}>
           <button
-            data-id={id}
-            data-title="ви вже добавили цей товар у корзину"
-            className={`button button-default-white ${style["button-cart"]} ${active} ${show}`}
-            onClick={(e) => {
-              // addToCart(e, id);
-              add({ id, title, description, price, urlArr, color, active });
-            }}
-          >
-            <Image src={cart} width={20} height={20} alt="cart"></Image>
-          </button>
-          <button
             onClick={goToCardDetail}
-            className={`button button-default-white ${style["button-buy"]}`}
+            className={`button button-default-white none ${style["button-buy"]}`}
           >
             детально
           </button>
           <button
-            className={`button button-default-white ${style["button-phone"]}`}
+            className={`button button-default-white none ${style["button-phone"]}`}
           >
             <a href="tel:+380632483200" className="jsx-89893122e891ec04">
               {" "}
@@ -97,8 +87,26 @@ export default function Card({
             </a>
           </button>
         </div>
-        <div className={style["product-card__title"]}>{title}</div>
-        <span className={style.block_price}>Ціна за шт {price}&nbsp;₴</span>
+        <div className={style["bottom-subtitle"]}>
+          <p className={style.block_price}>Ціна за шт {price}&nbsp;₴</p>
+          <button
+            data-id={id}
+            data-title="ви вже добавили цей товар у корзину"
+            className={`button button-default-white none ${style["button-cart"]} ${active} ${show}`}
+            onClick={(e) => {
+              // addToCart(e, id);
+              add({ id, title, description, price, urlArr, color, active });
+            }}
+          >
+            <Image
+              className="cart"
+              src={cart}
+              width={20}
+              height={20}
+              alt="cart"
+            ></Image>
+          </button>
+        </div>
       </div>
 
       <style jsx>{`
@@ -122,6 +130,7 @@ export default function Card({
         .button-default-white.active {
           background-color: #18141429;
         }
+        
       `}</style>
     </>
   );
