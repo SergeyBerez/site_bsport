@@ -61,23 +61,27 @@ function Kostums({ goodList }) {
 
   const add = ({ id, title, description, price, urlArr, color }) => {
     const copyGood = state.kostum.slice();
-    copyGood.map((item) => {
-      if (item.id === id) {
+
+    copyGood.forEach((item) => {
+      if (item.id === id && item.active === "active") {
+        item.active = "";
+        deleteFromCart(item);
+      } else if (item.id === id) {
         item.active = "active";
+        dispatch({
+          type: "ADD TO CART",
+          payload: {
+            id,
+            title,
+            price,
+            urlArr,
+            color,
+            sum: price * 5,
+            cnt: 5,
+            active: "active",
+          },
+        });
       }
-    });
-    dispatch({
-      type: "ADD TO CART",
-      payload: {
-        id,
-        title,
-        price,
-        urlArr,
-        color,
-        sum: price * 5,
-        cnt: 5,
-        active: "active",
-      },
     });
 
     dispatch({ type: "ADD KOSTUMS", payload: [...copyGood] });
@@ -241,9 +245,11 @@ export async function getStaticProps() {
   const docRef = collection(db, "sport-kostums");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
-
+  let sortGood = goodList.sort((a, b) => {
+    return b.time.seconds - a.time.seconds;
+  });
   return {
-    props: { goodList: JSON.stringify(goodList) || null },
+    props: { goodList: JSON.stringify(sortGood) || null },
   };
 }
 

@@ -165,9 +165,11 @@ export async function getStaticProps() {
   const docRef = collection(db, "hoodie");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
-
+  let sortGood = goodList.sort((a, b) => {
+    return b.time.seconds - a.time.seconds;
+  });
   return {
-    props: { goodList: JSON.stringify(goodList) || null },
+    props: { goodList: JSON.stringify(sortGood) || null },
   };
 }
 

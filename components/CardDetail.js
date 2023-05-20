@@ -57,6 +57,7 @@ export default function CardDetail({
         urlArr={urlArr}
         id={id}
         showModal={showModal}
+        setShowModal={setShowModal}
         toogleShowModal={toogleShowModal}
         massage={massage}
         setMassage={setMassage}

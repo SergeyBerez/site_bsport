@@ -23,7 +23,7 @@ export default function Card({
   show,
 }) {
   const router = useRouter();
-
+  console.log(active);
   const { state, dispatch } = useGoodsContext();
   const [image, setImage] = useState(
     "https://firebasestorage.googleapis.com/v0/b/b-sportwear-shop.appspot.com/o/no_image.png?alt=media&token=47b4ea63-cf4a-4b67-9fa7-8e8004f97505"
@@ -36,14 +36,14 @@ export default function Card({
   const addToCart = (e, id) => {
     const dataAtr = e.target.dataset.id;
 
-    state.cart.find((item) => {
-      if (item.id === dataAtr) {
-        setMes("show");
-      }
-    });
-    if (dataAtr === id) {
-      setMes("");
-    }
+    // state.cart.find((item) => {
+    //   if (item.id === dataAtr) {
+    //     setMes("show");
+    //   }
+    // });
+    // if (dataAtr === id) {
+    //   setMes("");
+    // }
   };
   useEffect(() => {
     if (urlArr) {
@@ -130,7 +130,6 @@ export default function Card({
         .button-default-white.active {
           background-color: #18141429;
         }
-        
       `}</style>
     </>
   );

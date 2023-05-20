@@ -3,7 +3,7 @@ import Image from "next/image";
 import square from "../public/static/img/351984_crop_square_icon.svg";
 import menu from "../public/static/img/7787586_menu_navigation_direction_arrow_location_icon.svg";
 const Doubleicon = ({ toogleGood, show }) => {
-  console.log(show);
+ 
   return (
     <div className="toogle-icon">
       {!show ? (

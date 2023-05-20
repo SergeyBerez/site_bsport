@@ -16,13 +16,15 @@ import Category from "../../components/Category";
 import Doubleicon from "../../components/DoubleIcon";
 export default function Pants({ fallback }) {
   const goodClient = JSON.parse(fallback);
-
+  const [number, SetNumber] = useState(0);
+  const [numberPage, SetNumberPage] = useState([]);
   const { state, dispatch, deleteFromCart } = useGoodsContext();
   const labelFilter = [
     { value: "манжет" },
     { value: "прямi" },
     { value: "батал" },
   ];
+  console.log(number);
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
   async function fetcher() {
@@ -32,7 +34,7 @@ export default function Pants({ fallback }) {
     return goodList;
   }
 
-  const { data, isValidating } = useSWR(goodClient, fetcher);
+  // const { data, isValidating } = useSWR(goodClient, fetcher);
   useEffect(() => {
     if (state.pants.length === 0) {
       dispatch({ type: "ADD PANTS", payload: [...goodClient] });
@@ -50,10 +52,11 @@ export default function Pants({ fallback }) {
         }
       });
       dispatch({ type: "ADD PANTS", payload: state.pants });
+      SetNumber(state.pants.length);
     }
-  }, []);
+  }, [state.pants]);
 
-  const add = ({ id, title, price, urlArr, color, active }) => {
+  const add = ({ id, title, price, urlArr, color }) => {
     const copyGood = JSON.parse(JSON.stringify(state.pants));
 
     copyGood.forEach((item) => {
@@ -92,6 +95,19 @@ export default function Pants({ fallback }) {
       setShow(false);
     }
   };
+  const chooseNumber = (e) => {
+    console.log(number);
+    let a = Math.ceil(state.pants.length / number);
+    console.log(a);
+    SetNumber(e.target.textContent);
+    numberPage.length = 0;
+    for (let index = 0; index < a; index++) {
+      numberPage.push(index);
+    }
+    console.log(numberPage);
+    SetNumberPage(numberPage);
+  };
+
   const ClearFilter = (e) => {
     const text = e.target.textContent.toLowerCase();
 
@@ -122,8 +138,8 @@ export default function Pants({ fallback }) {
       });
       filterGoods.push(...copyGood);
     }
-    if (inputValue === "манжет") {
-    }
+    // if (inputValue === "манжет") {
+    // }
     if (e.target.checked) {
       dispatch({ type: "ADD PANTS", payload: [...filterGoods] });
     } else {
@@ -132,6 +148,7 @@ export default function Pants({ fallback }) {
       dispatch({ type: "ADD PANTS", payload: [...goodClient] });
     }
   };
+  console.log("перерисовуемо компонет");
   return (
     <MainLayout>
       <Head>
@@ -147,7 +164,7 @@ export default function Pants({ fallback }) {
         ></meta>
       </Head>
 
-      {isValidating ? (
+      {false ? (
         <>
           <Spinner></Spinner>
           {state.pants.map((good) => {
@@ -209,8 +226,17 @@ export default function Pants({ fallback }) {
                 </div>
               </div>
             </div>
+            <h3>
+              {" "}
+              <ul onClick={chooseNumber}>
+                {" "}
+                <li>5</li>
+                <li>10</li>
+                <li>20</li>
+              </ul>
+            </h3>
             <div className="section-right">
-              {state?.pants?.map((good) => {
+              {state?.pants?.slice(0, number).map((good, i) => {
                 return (
                   <Card
                     add={add}
@@ -228,7 +254,12 @@ export default function Pants({ fallback }) {
               })}
             </div>
           </div>
-          <h5>{state.pants.length}pagination</h5>
+          {}{" "}
+          <ul>
+            {numberPage.map((i, index) => {
+              return <li key={i}>{i + 1}</li>;
+            })}
+          </ul>
         </>
       )}
 
@@ -296,8 +327,10 @@ export async function getStaticProps(context) {
   const docRef = collection(db, "pants");
   const querySnapshot = await getDocs(docRef);
   const goodList = querySnapshot.docs.map((doc) => doc.data());
-
+  let sortGood = goodList.sort((a, b) => {
+    return b.time.seconds - a.time.seconds;
+  });
   return {
-    props: { fallback: JSON.stringify(goodList) || null },
+    props: { fallback: JSON.stringify(sortGood) || null },
   };
 }

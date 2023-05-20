@@ -14,13 +14,11 @@ export default function BuyPopup({
   setMassage,
   urlArr,
   id,
-  orderGoods,
+
   orderOneGood,
 }) {
   const { CurrentUser } = useFirebaseContext();
-  console.log(showModal);
-  const { state, countGoodsPlus, countGoodsMinus, deleteFromCart, dispatch } =
-    useGoodsContext();
+
   const [valueInputsReg, setValueInputReg] = useState({
     name: "",
     phone: "",
@@ -47,12 +45,11 @@ export default function BuyPopup({
         // doc.data() will be undefined in this case
         console.log("error not user order");
       }
-      localStorage.removeItem("CART");
+      // localStorage.removeItem("CART");
       setTimeout(() => {
         setShowModal(!showModal);
       }, 2000);
       setValueInputReg({ ...valueInputsReg, name: "", phone: "" });
-      orderGoods.length = 0;
     } catch (error) {
       console.log(error);
     }

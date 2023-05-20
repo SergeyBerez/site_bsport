@@ -149,7 +149,7 @@ export default function ContextGoods({ children }) {
         //     })
         //   );
         // });
-        console.log(cart);
+
         localStorage.setItem("CART", JSON.stringify(cart));
         return { ...state, cart };
       case "ADD PANTS":
