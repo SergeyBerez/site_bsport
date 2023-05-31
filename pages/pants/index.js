@@ -236,16 +236,14 @@ export default function Pants({ fallback }) {
                 </div>
               </div>
             </div>
-            <h3>
-              {" "}
+
+            <div className="section-right">
               <ul className="ul" onClick={chooseNumber}>
                 {" "}
                 <li>5</li>
                 <li>10</li>
                 <li>50</li>
               </ul>
-            </h3>
-            <div className="section-right">
               {state?.pants?.slice(firstNumber, lastNumber).map((good, i) => {
                 return (
                   <Card

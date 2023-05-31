@@ -47,7 +47,7 @@ function Hoodie({ goodList }) {
       SetShowGoodOnPage(state.hoodie.length);
       SetLastNumber(state.hoodie.length);
     }
-  }, []);
+  }, [state.hoodie]);
   // const getGoods = async () => {
   //   // dispatch({ type: 'ADD HOODIE', payload: [...goodClient] });
   // };
@@ -165,7 +165,8 @@ function Hoodie({ goodList }) {
             <div className="section-left">
               <Category cls={"menu-for-page"}></Category>
             </div>
-            <h3>
+
+            <div className="section-right">
               {" "}
               <ul className="ul" onClick={chooseNumber}>
                 {" "}
@@ -173,8 +174,6 @@ function Hoodie({ goodList }) {
                 <li>10</li>
                 <li>50</li>
               </ul>
-            </h3>
-            <div className="section-right">
               {state?.hoodie?.slice(firstNumber, lastNumber).map((good) => {
                 return (
                   <Card

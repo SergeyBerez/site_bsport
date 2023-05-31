@@ -64,7 +64,7 @@ function Kostums({ goodList }) {
       SetLastNumber(state.kostum.length);
       SetShowGoodOnPage(state.kostum.length);
     }
-  }, []);
+  }, [state.kostum]);
 
   const add = ({ id, title, description, price, urlArr, color }) => {
     const copyGood = state.kostum.slice();
@@ -245,16 +245,14 @@ function Kostums({ goodList }) {
                 </div>
               </div>
             </div>
-            <h3>
-              {" "}
+
+            <div className="section-right">
               <ul className="ul" onClick={chooseNumber}>
                 {" "}
                 <li>5</li>
                 <li>10</li>
                 <li>50</li>
               </ul>
-            </h3>
-            <div className="section-right">
               {state?.kostum?.slice(firstNumber, lastNumber).map((good) => {
                 return (
                   <Card

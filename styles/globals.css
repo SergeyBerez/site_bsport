@@ -26,10 +26,13 @@ body {
 }
 .ul {
   display: flex;
+  width: 100%;
+  justify-content: end;
 }
 .ul li {
-  margin-left: 10px;
+  margin-left: 15px;
   cursor: pointer;
+  font-weight: bold;
 }
 a {
   color: inherit;
