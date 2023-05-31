@@ -185,7 +185,7 @@ button {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 80%;
+  width: 100%;
 }
 .productCard_block {
   display: flex;
