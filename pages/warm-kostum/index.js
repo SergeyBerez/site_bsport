@@ -177,7 +177,9 @@ function Kostums({ goodList }) {
               showTwoGood={showTwoGood}
               showOneGood={showOneGood}
             />
-            <div className="cnt-goods">Товарiв:&nbsp;{state.kostum.length}</div>
+            <div className="cnt-goods">
+              Товарiв:&nbsp;{state.kostumWarm.length}
+            </div>
             <Toolbar
               state={state.kostumWarm}
               type={"ADD KOSTUMSWARM"}

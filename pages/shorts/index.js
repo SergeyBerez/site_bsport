@@ -14,7 +14,10 @@ import Doubleicon from "../../components/DoubleIcon";
 export default function Shorts({ goodList }) {
   const goodClient = JSON.parse(goodList);
   const { state, dispatch, deleteFromCart } = useGoodsContext();
-
+  const [showGoodOnPage, SetShowGoodOnPage] = useState(0);
+  const [firstNumber, SetFirstNumber] = useState(0);
+  const [lastNumber, SetLastNumber] = useState(0);
+  const [numberPage, SetNumberPage] = useState([]);
   useEffect(() => {
     if (state.shorts.length === 0) {
       dispatch({ type: "ADD SHORTS", payload: [...goodClient] });
@@ -32,8 +35,10 @@ export default function Shorts({ goodList }) {
         }
       });
       dispatch({ type: "ADD SHORTS", payload: state.shorts });
+      SetShowGoodOnPage(state.shorts.length);
+      SetLastNumber(state.shorts.length);
     }
-  }, []);
+  }, [state.shorts]);
   // const getGoods = async (params) => {
   //   // dispatch({ type: 'ADD SHORTS', payload: [...goodClient] });
   // };
@@ -73,6 +78,25 @@ export default function Shorts({ goodList }) {
     });
 
     dispatch({ type: "ADD SHORTS", payload: [...copyGood] });
+  };
+
+  const chooseNumber = (e) => {
+    let a = Math.ceil(state.shorts.length / +e.target.textContent);
+
+    SetShowGoodOnPage(+e.target.textContent);
+    numberPage.length = 0;
+    for (let index = 0; index < a; index++) {
+      numberPage.push(index);
+    }
+
+    SetNumberPage(numberPage);
+    SetLastNumber(+e.target.textContent);
+    SetFirstNumber(0);
+  };
+
+  const choosePage = (e) => {
+    SetLastNumber(+e.target.textContent * showGoodOnPage);
+    SetFirstNumber(+e.target.textContent * showGoodOnPage - showGoodOnPage);
   };
 
   return (
@@ -122,7 +146,10 @@ export default function Shorts({ goodList }) {
               showTwoGood={showTwoGood}
               showOneGood={showOneGood}
             />
-            <div className="cnt-goods">Товарiв:&nbsp;{state.shorts.length}</div>
+            <div className="cnt-goods">
+              Товарiв:&nbsp;
+              {state?.shorts?.slice(firstNumber, lastNumber).length}
+            </div>
             <Toolbar state={state.pants} type={"ADD SHORTS"} />
           </div>
           <div className="section-filter-products">
@@ -136,8 +163,17 @@ export default function Shorts({ goodList }) {
                 </div>
               </div>
             </div>
+            <h3>
+              {" "}
+              <ul className="ul" onClick={chooseNumber}>
+                {" "}
+                <li>5</li>
+                <li>10</li>
+                <li>50</li>
+              </ul>
+            </h3>
             <div className="section-right">
-              {state.shorts.map((good) => {
+              {state?.shorts?.slice(firstNumber, lastNumber).map((good) => {
                 return (
                   <Card
                     add={add}
@@ -155,20 +191,11 @@ export default function Shorts({ goodList }) {
               })}
             </div>
           </div>
-
-          {/* {state.shorts.map((good) => {
-            return (
-              <Card
-                add={add}
-                active={good.active}
-                description={good.description}
-                id={good.id}
-                key={good.id}
-                title={good.title}
-                price={good.price}
-                urlArr={good.urlArr}></Card>
-            );
-          })} */}
+          <ul className="ul" onClick={choosePage}>
+            {numberPage.map((i, index) => {
+              return <li key={i}>{i + 1}</li>;
+            })}
+          </ul>
         </>
       )}
     </MainLayout>

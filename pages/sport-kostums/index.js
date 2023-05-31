@@ -18,6 +18,10 @@ import menu from "../../public/static/img/4243313_ux_basic_app_menu_icon.svg";
 import Doubleicon from "../../components/DoubleIcon";
 function Kostums({ goodList }) {
   const goodClient = JSON.parse(goodList);
+  const [showGoodOnPage, SetShowGoodOnPage] = useState(0);
+  const [firstNumber, SetFirstNumber] = useState(0);
+  const [lastNumber, SetLastNumber] = useState(0);
+  const [numberPage, SetNumberPage] = useState([]);
   const { state, dispatch, deleteFromCart } = useGoodsContext();
   const labelFilter = [
     { value: "манжет" },
@@ -56,6 +60,9 @@ function Kostums({ goodList }) {
         }
       });
       dispatch({ type: "ADD KOSTUMS", payload: state.kostum });
+
+      SetLastNumber(state.kostum.length);
+      SetShowGoodOnPage(state.kostum.length);
     }
   }, []);
 
@@ -136,6 +143,24 @@ function Kostums({ goodList }) {
       setShow(false);
     }
   };
+  const chooseNumber = (e) => {
+    let a = Math.ceil(state.kostum.length / +e.target.textContent);
+
+    SetShowGoodOnPage(+e.target.textContent);
+    numberPage.length = 0;
+    for (let index = 0; index < a; index++) {
+      numberPage.push(index);
+    }
+
+    SetNumberPage(numberPage);
+    SetLastNumber(+e.target.textContent);
+    SetFirstNumber(0);
+  };
+
+  const choosePage = (e) => {
+    SetLastNumber(+e.target.textContent * showGoodOnPage);
+    SetFirstNumber(+e.target.textContent * showGoodOnPage - showGoodOnPage);
+  };
   return (
     <MainLayout>
       <Head>
@@ -183,7 +208,10 @@ function Kostums({ goodList }) {
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
             <Doubleicon show={show} toogleGood={toogleGood} />
-            <div className="cnt-goods">Товарiв:&nbsp;{state.kostum.length}</div>
+            <div className="cnt-goods">
+              Товарiв:&nbsp;
+              {state?.kostum?.slice(firstNumber, lastNumber).length}
+            </div>
             <Toolbar state={state.kostum} type={"ADD KOSTUMS"}></Toolbar>
           </div>
 
@@ -217,9 +245,17 @@ function Kostums({ goodList }) {
                 </div>
               </div>
             </div>
-
+            <h3>
+              {" "}
+              <ul className="ul" onClick={chooseNumber}>
+                {" "}
+                <li>5</li>
+                <li>10</li>
+                <li>50</li>
+              </ul>
+            </h3>
             <div className="section-right">
-              {state.kostum.map((good) => {
+              {state?.kostum?.slice(firstNumber, lastNumber).map((good) => {
                 return (
                   <Card
                     add={add}
@@ -236,6 +272,11 @@ function Kostums({ goodList }) {
               })}
             </div>
           </div>
+          <ul className="ul" onClick={choosePage}>
+            {numberPage.map((i, index) => {
+              return <li key={i}>{i + 1}</li>;
+            })}
+          </ul>
         </>
       )}
     </MainLayout>

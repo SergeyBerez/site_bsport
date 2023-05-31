@@ -13,6 +13,10 @@ import Category from "../../components/Category";
 import Doubleicon from "../../components/DoubleIcon";
 function Hoodie({ goodList }) {
   const goodClient = JSON.parse(goodList);
+  const [showGoodOnPage, SetShowGoodOnPage] = useState(0);
+  const [firstNumber, SetFirstNumber] = useState(0);
+  const [lastNumber, SetLastNumber] = useState(0);
+  const [numberPage, SetNumberPage] = useState([]);
 
   const { state, dispatch, deleteFromCart } = useGoodsContext();
   async function fetcher() {
@@ -40,6 +44,8 @@ function Hoodie({ goodList }) {
         }
       });
       dispatch({ type: "ADD HOODIE", payload: state.hoodie });
+      SetShowGoodOnPage(state.hoodie.length);
+      SetLastNumber(state.hoodie.length);
     }
   }, []);
   // const getGoods = async () => {
@@ -72,6 +78,25 @@ function Hoodie({ goodList }) {
     });
 
     dispatch({ type: "ADD HOODIE", payload: copyGood });
+  };
+
+  const chooseNumber = (e) => {
+    let a = Math.ceil(state.hoodie.length / +e.target.textContent);
+
+    SetShowGoodOnPage(+e.target.textContent);
+    numberPage.length = 0;
+    for (let index = 0; index < a; index++) {
+      numberPage.push(index);
+    }
+
+    SetNumberPage(numberPage);
+    SetLastNumber(+e.target.textContent);
+    SetFirstNumber(0);
+  };
+
+  const choosePage = (e) => {
+    SetLastNumber(+e.target.textContent * showGoodOnPage);
+    SetFirstNumber(+e.target.textContent * showGoodOnPage - showGoodOnPage);
   };
 
   const [show, setShow] = useState(false);
@@ -130,15 +155,27 @@ function Hoodie({ goodList }) {
           <div className="toolbar toolbar-products">
             <h3 className="title-category">категорii</h3>
             <Doubleicon show={show} toogleGood={toogleGood} />
-            <div className="cnt-goods">Товарiв:&nbsp;{state.hoodie.length}</div>
+            <div className="cnt-goods">
+              Товарiв:&nbsp;
+              {state?.hoodie?.slice(firstNumber, lastNumber).length}
+            </div>
             <Toolbar state={state.hoodie} type={"ADD HOODIE"} />
           </div>
           <div className="section-filter-products">
             <div className="section-left">
               <Category cls={"menu-for-page"}></Category>
             </div>
+            <h3>
+              {" "}
+              <ul className="ul" onClick={chooseNumber}>
+                {" "}
+                <li>5</li>
+                <li>10</li>
+                <li>50</li>
+              </ul>
+            </h3>
             <div className="section-right">
-              {state.hoodie.map((good) => {
+              {state?.hoodie?.slice(firstNumber, lastNumber).map((good) => {
                 return (
                   <Card
                     add={add}
@@ -156,6 +193,11 @@ function Hoodie({ goodList }) {
               })}
             </div>
           </div>
+          <ul className="ul" onClick={choosePage}>
+            {numberPage.map((i, index) => {
+              return <li key={i}>{i + 1}</li>;
+            })}
+          </ul>
         </>
       )}
     </MainLayout>

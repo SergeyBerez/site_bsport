@@ -16,7 +16,9 @@ import Category from "../../components/Category";
 import Doubleicon from "../../components/DoubleIcon";
 export default function Pants({ fallback }) {
   const goodClient = JSON.parse(fallback);
-  const [number, SetNumber] = useState(0);
+  const [showGoodOnPage, SetShowGoodOnPage] = useState(0);
+  const [firstNumber, SetFirstNumber] = useState(0);
+  const [lastNumber, SetLastNumber] = useState(0);
   const [numberPage, SetNumberPage] = useState([]);
   const { state, dispatch, deleteFromCart } = useGoodsContext();
   const labelFilter = [
@@ -24,7 +26,7 @@ export default function Pants({ fallback }) {
     { value: "прямi" },
     { value: "батал" },
   ];
-  console.log(number);
+
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
   async function fetcher() {
@@ -52,7 +54,8 @@ export default function Pants({ fallback }) {
         }
       });
       dispatch({ type: "ADD PANTS", payload: state.pants });
-      SetNumber(state.pants.length);
+      SetShowGoodOnPage(state.pants.length);
+      SetLastNumber(state.pants.length);
     }
   }, [state.pants]);
 
@@ -96,16 +99,22 @@ export default function Pants({ fallback }) {
     }
   };
   const chooseNumber = (e) => {
-    console.log(number);
-    let a = Math.ceil(state.pants.length / number);
-    console.log(a);
-    SetNumber(e.target.textContent);
+    let a = Math.ceil(state.pants.length / +e.target.textContent);
+
+    SetShowGoodOnPage(+e.target.textContent);
     numberPage.length = 0;
     for (let index = 0; index < a; index++) {
       numberPage.push(index);
     }
-    console.log(numberPage);
+
     SetNumberPage(numberPage);
+    SetLastNumber(+e.target.textContent);
+    SetFirstNumber(0);
+  };
+
+  const choosePage = (e) => {
+    SetLastNumber(+e.target.textContent * showGoodOnPage);
+    SetFirstNumber(+e.target.textContent * showGoodOnPage - showGoodOnPage);
   };
 
   const ClearFilter = (e) => {
@@ -192,7 +201,8 @@ export default function Pants({ fallback }) {
             <h3 className="title-category">категорii</h3>
             <Doubleicon show={show} toogleGood={toogleGood} />
             <div className="cnt-goods">
-              Товарiв:&nbsp;{state?.pants?.length}
+              Товарiв:&nbsp;
+              {state?.pants?.slice(firstNumber, lastNumber).length}
             </div>
             <Toolbar state={state?.pants} type={"ADD PANTS"} />
           </div>
@@ -228,15 +238,15 @@ export default function Pants({ fallback }) {
             </div>
             <h3>
               {" "}
-              <ul onClick={chooseNumber}>
+              <ul className="ul" onClick={chooseNumber}>
                 {" "}
                 <li>5</li>
                 <li>10</li>
-                <li>20</li>
+                <li>50</li>
               </ul>
             </h3>
             <div className="section-right">
-              {state?.pants?.slice(0, number).map((good, i) => {
+              {state?.pants?.slice(firstNumber, lastNumber).map((good, i) => {
                 return (
                   <Card
                     add={add}
@@ -254,71 +264,14 @@ export default function Pants({ fallback }) {
               })}
             </div>
           </div>
-          {}{" "}
-          <ul>
+
+          <ul className="ul" onClick={choosePage}>
             {numberPage.map((i, index) => {
               return <li key={i}>{i + 1}</li>;
             })}
           </ul>
         </>
       )}
-
-      <style jsx>{`
-        // .block_price {
-        //   width: 100%;
-        //   background-color: #c7c7c7;
-        //   color: #c7c7c7;
-        // }
-
-        // .productCard_block {
-        //   display: flex;
-        //   flex-direction: column;
-        //   margin: 10px;
-        //   padding: 5px;
-        //   max-width: 230px;
-        // }
-
-        // .product-card__title {
-        //   background-color: #c7c7c7;
-        //   color: #c7c7c7;
-        //   margin: 5px 0;
-        // }
-
-        // @media (min-width: 320px) {
-        //   .productCard_block {
-        //     margin: 5px;
-        //     flex-grow: 0;
-        //     flex-basis: calc(100% / 2 - 10px);
-        //     min-width: 140px;
-        //   }
-        // }
-        // @media (min-width: 480px) {
-        //   .toogle-icon {
-        //     display: none;
-        //   }
-        //   .productCard_block {
-        //     margin: 5px;
-        //     flex-grow: 0;
-        //     flex-basis: calc(100% / 3 - 10px);
-        //   }
-        // }
-
-        // @media (min-width: 680px) {
-        //   .productCard_block {
-        //     flex-grow: 0;
-        //     flex-basis: calc(100% / 4 - 10px);
-        //     min-width: 150px;
-        //   }
-        // }
-
-        // @media (min-width: 1140px) {
-        //   .productCard_block {
-        //     flex-grow: 0;
-        //     flex-basis: calc(100% / 5 - 10px);
-        //     min-width: 200px;
-        //   }
-        // }
-      `}</style>
     </MainLayout>
   );
 }

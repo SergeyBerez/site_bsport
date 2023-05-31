@@ -24,7 +24,13 @@ body {
 #__next {
   min-height: 100%;
 }
-
+.ul {
+  display: flex;
+}
+.ul li {
+  margin-left: 10px;
+  cursor: pointer;
+}
 a {
   color: inherit;
   text-decoration: none;
