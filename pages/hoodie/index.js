@@ -16,7 +16,7 @@ function Hoodie({ goodList }) {
   const [showGoodOnPage, SetShowGoodOnPage] = useState(0);
   const [firstNumber, SetFirstNumber] = useState(0);
   const [lastNumber, SetLastNumber] = useState(0);
-  const [numberPage, SetNumberPage] = useState([]);
+  const [numberPage, SetNumberPage] = useState([0]);
 
   const { state, dispatch, deleteFromCart } = useGoodsContext();
   async function fetcher() {

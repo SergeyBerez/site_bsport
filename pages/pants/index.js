@@ -19,7 +19,7 @@ export default function Pants({ fallback }) {
   const [showGoodOnPage, SetShowGoodOnPage] = useState(0);
   const [firstNumber, SetFirstNumber] = useState(0);
   const [lastNumber, SetLastNumber] = useState(0);
-  const [numberPage, SetNumberPage] = useState([]);
+  const [numberPage, SetNumberPage] = useState([0]);
   const { state, dispatch, deleteFromCart } = useGoodsContext();
   const labelFilter = [
     { value: "манжет" },
@@ -110,6 +110,7 @@ export default function Pants({ fallback }) {
     SetNumberPage(numberPage);
     SetLastNumber(+e.target.textContent);
     SetFirstNumber(0);
+    console.log(numberPage);
   };
 
   const choosePage = (e) => {
