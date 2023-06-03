@@ -8,7 +8,7 @@ import { collection, getDocs } from "firebase/firestore/lite";
 import { useGoodsContext } from "../../context/contextGoods";
 import Accordion from "../../components/Accordion";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
 import Toolbar from "../../components/Toolbar";
@@ -16,11 +16,12 @@ import Category from "../../components/Category";
 import Doubleicon from "../../components/DoubleIcon";
 export default function Pants({ fallback }) {
   const goodClient = JSON.parse(fallback);
+  const { state, dispatch, deleteFromCart } = useGoodsContext();
   const [showGoodOnPage, SetShowGoodOnPage] = useState(0);
   const [firstNumber, SetFirstNumber] = useState(0);
   const [lastNumber, SetLastNumber] = useState(0);
   const [numberPage, SetNumberPage] = useState([0]);
-  const { state, dispatch, deleteFromCart } = useGoodsContext();
+  const nameField = useRef(null);
   const labelFilter = [
     { value: "манжет" },
     { value: "прямi" },
@@ -100,17 +101,14 @@ export default function Pants({ fallback }) {
   };
   const chooseNumber = (e) => {
     let a = Math.ceil(state.pants.length / +e.target.textContent);
-
     SetShowGoodOnPage(+e.target.textContent);
     numberPage.length = 0;
     for (let index = 0; index < a; index++) {
       numberPage.push(index);
     }
-
     SetNumberPage(numberPage);
     SetLastNumber(+e.target.textContent);
     SetFirstNumber(0);
-    console.log(numberPage);
   };
 
   const choosePage = (e) => {
@@ -148,8 +146,7 @@ export default function Pants({ fallback }) {
       });
       filterGoods.push(...copyGood);
     }
-    // if (inputValue === "манжет") {
-    // }
+
     if (e.target.checked) {
       dispatch({ type: "ADD PANTS", payload: [...filterGoods] });
     } else {
@@ -158,7 +155,7 @@ export default function Pants({ fallback }) {
       dispatch({ type: "ADD PANTS", payload: [...goodClient] });
     }
   };
-  console.log("перерисовуемо компонет");
+
   return (
     <MainLayout>
       <Head>
@@ -264,9 +261,13 @@ export default function Pants({ fallback }) {
             </div>
           </div>
 
-          <ul className="ul" onClick={choosePage}>
+          <ul className="ul">
             {numberPage.map((i, index) => {
-              return <li key={i}>{i + 1}</li>;
+              return (
+                <li onClick={choosePage} key={i}>
+                  {i + 1}
+                </li>
+              );
             })}
           </ul>
         </>

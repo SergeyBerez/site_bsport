@@ -192,9 +192,13 @@ function Hoodie({ goodList }) {
               })}
             </div>
           </div>
-          <ul className="ul" onClick={choosePage}>
+          <ul className="ul">
             {numberPage.map((i, index) => {
-              return <li key={i}>{i + 1}</li>;
+              return (
+                <li onClick={choosePage} key={i}>
+                  {i + 1}
+                </li>
+              );
             })}
           </ul>
         </>
