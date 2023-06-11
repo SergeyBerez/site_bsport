@@ -32,7 +32,13 @@ body {
 .ul li {
   margin: 15px;
   cursor: pointer;
+  transition: 1s;
   font-weight: bold;
+  background: transparent;
+}
+li.active {
+  background: #000;
+  color: aliceblue;
 }
 a {
   color: inherit;

@@ -22,6 +22,7 @@ function Kostums({ goodList }) {
   const [firstNumber, SetFirstNumber] = useState(0);
   const [lastNumber, SetLastNumber] = useState(0);
   const [numberPage, SetNumberPage] = useState([0]);
+  const [id, SetId] = useState("");
   const { state, dispatch, deleteFromCart } = useGoodsContext();
   const labelFilter = [
     { value: "манжет" },
@@ -158,6 +159,7 @@ function Kostums({ goodList }) {
   };
 
   const choosePage = (e) => {
+    SetId(e.target.id);
     SetLastNumber(+e.target.textContent * showGoodOnPage);
     SetFirstNumber(+e.target.textContent * showGoodOnPage - showGoodOnPage);
   };
@@ -273,7 +275,12 @@ function Kostums({ goodList }) {
           <ul className="ul">
             {numberPage.map((i, index) => {
               return (
-                <li onClick={choosePage} key={i}>
+                <li
+                  id={i}
+                  className={id == i ? "active" : ""}
+                  onClick={choosePage}
+                  key={i}
+                >
                   {i + 1}
                 </li>
               );

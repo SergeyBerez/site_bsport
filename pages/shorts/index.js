@@ -18,6 +18,7 @@ export default function Shorts({ goodList }) {
   const [firstNumber, SetFirstNumber] = useState(0);
   const [lastNumber, SetLastNumber] = useState(0);
   const [numberPage, SetNumberPage] = useState([]);
+  const [id, SetId] = useState("");
   useEffect(() => {
     if (state.shorts.length === 0) {
       dispatch({ type: "ADD SHORTS", payload: [...goodClient] });
@@ -94,7 +95,7 @@ export default function Shorts({ goodList }) {
     SetFirstNumber(0);
   };
 
-  const choosePage = (e) => {
+  const choosePage = (e) => { SetId(e.target.id);
     SetLastNumber(+e.target.textContent * showGoodOnPage);
     SetFirstNumber(+e.target.textContent * showGoodOnPage - showGoodOnPage);
   };
@@ -194,7 +195,12 @@ export default function Shorts({ goodList }) {
           <ul className="ul">
             {numberPage.map((i, index) => {
               return (
-                <li onClick={choosePage} key={i}>
+                <li
+                  id={i}
+                  className={id == i ? "active" : ""}
+                  onClick={choosePage}
+                  key={i}
+                >
                   {i + 1}
                 </li>
               );

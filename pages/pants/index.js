@@ -8,7 +8,7 @@ import { collection, getDocs } from "firebase/firestore/lite";
 import { useGoodsContext } from "../../context/contextGoods";
 import Accordion from "../../components/Accordion";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import useSWR, { useSWRConfig } from "swr";
 
 import Toolbar from "../../components/Toolbar";
@@ -21,6 +21,7 @@ export default function Pants({ fallback }) {
   const [firstNumber, SetFirstNumber] = useState(0);
   const [lastNumber, SetLastNumber] = useState(0);
   const [numberPage, SetNumberPage] = useState([0]);
+  const [id, SetId] = useState("");
   const nameField = useRef(null);
   const labelFilter = [
     { value: "манжет" },
@@ -112,6 +113,7 @@ export default function Pants({ fallback }) {
   };
 
   const choosePage = (e) => {
+    SetId(e.target.id);
     SetLastNumber(+e.target.textContent * showGoodOnPage);
     SetFirstNumber(+e.target.textContent * showGoodOnPage - showGoodOnPage);
   };
@@ -264,7 +266,12 @@ export default function Pants({ fallback }) {
           <ul className="ul">
             {numberPage.map((i, index) => {
               return (
-                <li onClick={choosePage} key={i}>
+                <li
+                  id={i}
+                  className={id == i ? "active" : ""}
+                  onClick={choosePage}
+                  key={i}
+                >
                   {i + 1}
                 </li>
               );
