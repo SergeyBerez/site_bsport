@@ -17,6 +17,7 @@ function Hoodie({ goodList }) {
   const [firstNumber, SetFirstNumber] = useState(0);
   const [lastNumber, SetLastNumber] = useState(0);
   const [numberPage, SetNumberPage] = useState([0]);
+  const [active, SetActive] = useState("");
   const [id, SetId] = useState("");
   const { state, dispatch, deleteFromCart } = useGoodsContext();
   async function fetcher() {
@@ -81,6 +82,13 @@ function Hoodie({ goodList }) {
   };
 
   const chooseNumber = (e) => {
+    console.log(e.currentTarget);
+    if (e.target.className == "active") {
+      e.target.className = "";
+    } else {
+      e.target.className = "active";
+    }
+
     let a = Math.ceil(state.hoodie.length / +e.target.textContent);
 
     SetShowGoodOnPage(+e.target.textContent);
@@ -169,11 +177,11 @@ function Hoodie({ goodList }) {
 
             <div className="section-right">
               {" "}
-              <ul className="ul" onClick={chooseNumber}>
+              <ul onClick={chooseNumber} className="ul">
                 {" "}
-                <li>5</li>
-                <li>10</li>
-                <li>50</li>
+                <li className={active}>5</li>
+                <li className={active}>10</li>
+                <li className={active}>50</li>
               </ul>
               {state?.hoodie?.slice(firstNumber, lastNumber).map((good) => {
                 return (
@@ -193,12 +201,12 @@ function Hoodie({ goodList }) {
               })}
             </div>
           </div>
-          <ul className="ul">
+          <ul className="ul-pagination">
             {numberPage.map((i, index) => {
               return (
                 <li
                   id={i}
-                  className={id == i ? "active" : ""}
+                  className={id == i ? "active-pagination" : ""}
                   onClick={choosePage}
                   key={i}
                 >
