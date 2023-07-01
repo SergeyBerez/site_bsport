@@ -58,6 +58,16 @@ export default function Pants({ fallback }) {
       dispatch({ type: "ADD PANTS", payload: state.pants });
       SetShowGoodOnPage(state.pants.length);
       SetLastNumber(state.pants.length);
+
+      if (typeof window !== "undefined") {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "G-PPG2W13CTS");
+      }
     }
   }, [state.pants]);
 
