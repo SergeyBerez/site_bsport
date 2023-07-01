@@ -30,6 +30,10 @@ body {
   justify-content: end;
   align-items: center;
 }
+.box-pagination {
+  position: relative;
+  width: 100%;
+}
 .ul-pagination {
   position: absolute;
   bottom: -40px;

@@ -201,20 +201,23 @@ function Hoodie({ goodList }) {
               })}
             </div>
           </div>
-          <ul className="ul-pagination">
-            {numberPage.map((i, index) => {
-              return (
-                <li
-                  id={i}
-                  className={id == i ? "active-pagination" : ""}
-                  onClick={choosePage}
-                  key={i}
-                >
-                  {i + 1}
-                </li>
-              );
-            })}
-          </ul>
+
+          <div className="box-pagination">
+            <ul className="ul-pagination">
+              {numberPage.map((i, index) => {
+                return (
+                  <li
+                    id={i}
+                    className={id == i ? "active-pagination" : ""}
+                    onClick={choosePage}
+                    key={i}
+                  >
+                    {i + 1}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </>
       )}
     </MainLayout>

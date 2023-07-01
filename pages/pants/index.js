@@ -273,20 +273,22 @@ export default function Pants({ fallback }) {
             </div>
           </div>
 
-          <ul className="ul">
-            {numberPage.map((i, index) => {
-              return (
-                <li
-                  id={i}
-                  className={id == i ? "active" : ""}
-                  onClick={choosePage}
-                  key={i}
-                >
-                  {i + 1}
-                </li>
-              );
-            })}
-          </ul>
+          <div className="box-pagination">
+            <ul className="ul-pagination">
+              {numberPage.map((i, index) => {
+                return (
+                  <li
+                    id={i}
+                    className={id == i ? "active-pagination" : ""}
+                    onClick={choosePage}
+                    key={i}
+                  >
+                    {i + 1}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </>
       )}
     </MainLayout>

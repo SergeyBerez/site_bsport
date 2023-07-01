@@ -95,7 +95,8 @@ export default function Shorts({ goodList }) {
     SetFirstNumber(0);
   };
 
-  const choosePage = (e) => { SetId(e.target.id);
+  const choosePage = (e) => {
+    SetId(e.target.id);
     SetLastNumber(+e.target.textContent * showGoodOnPage);
     SetFirstNumber(+e.target.textContent * showGoodOnPage - showGoodOnPage);
   };
@@ -192,20 +193,22 @@ export default function Shorts({ goodList }) {
               })}
             </div>
           </div>
-          <ul className="ul">
-            {numberPage.map((i, index) => {
-              return (
-                <li
-                  id={i}
-                  className={id == i ? "active" : ""}
-                  onClick={choosePage}
-                  key={i}
-                >
-                  {i + 1}
-                </li>
-              );
-            })}
-          </ul>
+          <div className="box-pagination">
+            <ul className="ul-pagination">
+              {numberPage.map((i, index) => {
+                return (
+                  <li
+                    id={i}
+                    className={id == i ? "active-pagination" : ""}
+                    onClick={choosePage}
+                    key={i}
+                  >
+                    {i + 1}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </>
       )}
     </MainLayout>
