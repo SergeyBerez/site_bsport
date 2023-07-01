@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
+import Viber from "../public/static/img-cotial/6214500_handset_logo_telephone_viber_icon.svg";
 import { useFirebaseContext } from "../context/firebaseAuthContext";
 import { useGoodsContext } from "../context/contextGoods";
 import user from "../public/static/img/user2.svg";
@@ -128,6 +128,14 @@ export default function Header({
         </nav>
 
         <div className="block-user-cart">
+          <div className="user-header">
+            <Link href="https://invite.viber.com/?g2=AQBx8ARYrnYFoUvk5WLEBTkzCqy4J6yJL2aLk4b8g3OKoWWK8jQ2kzlKznNMtewz">
+              <a>
+                {" "}
+                <Image src={Viber} width={30} height={30}></Image>
+              </a>
+            </Link>
+          </div>
           <div className="user-header">
             <a href="tel:+380632483200" className="jsx-89893122e891ec04">
               {" "}

@@ -12,7 +12,10 @@ export default function about() {
         <div className="cotial-media">
           <Image src={Viber} width={30} height={30}></Image>
           <Link href="https://invite.viber.com/?g2=AQBx8ARYrnYFoUvk5WLEBTkzCqy4J6yJL2aLk4b8g3OKoWWK8jQ2kzlKznNMtewz">
-            <a>Переходьте у нашу оптову групу Viber</a>
+            <a className="link-viber">
+              {" "}
+              Натисніть та переходьте у нашу оптову групу Viber
+            </a>
           </Link>
         </div>
         <div className="ContactInfo">
@@ -35,6 +38,13 @@ export default function about() {
         </div>
       </div>
       <style jsx>{`
+        .link-viber:hover {
+          color: blue;
+        }
+        .link-viber {
+          font-size: 18px;
+          color: blue;
+        }
         .block-phone {
           display: flex;
           align-item: center;
